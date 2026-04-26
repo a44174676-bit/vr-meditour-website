@@ -112,7 +112,11 @@
 
     const languageMap = { en:"English", ko:"Korean", vi:"Vietnamese", ja:"Japanese", zh:"Chinese" };
 
-    function t(lang, key){ return (translations[lang] && translations[lang][key]) || baseEn[key] || ""; }
+    function t(lang, key){
+      if (lang === "en") return baseEn[key] || "";
+      const dict = translations[lang] || {};
+      return dict[key] || "";
+    }
     function applyLanguage(lang){
       document.documentElement.lang = lang;
       document.documentElement.dir = "ltr";
