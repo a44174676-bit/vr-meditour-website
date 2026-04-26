@@ -157,7 +157,7 @@ h2 { margin: 0 0 12px; font-size: clamp(1.25rem, 2.5vw, 2rem); }
 }
 .stage-grid li::before {
   counter-increment: stage;
-  content: "Stage " counter(stage) ". ";
+  content: "";
   color: #b8d8ff;
   font-weight: 700;
 }
