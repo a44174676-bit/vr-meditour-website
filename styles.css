@@ -85,6 +85,18 @@ section > * {
   border-color: transparent;
   background: linear-gradient(135deg, #73ffe7, var(--mint));
 }
+[dir="rtl"] .topbar,
+[dir="rtl"] .language-select,
+[dir="rtl"] .hero-actions,
+[dir="rtl"] .consult-form,
+[dir="rtl"] .advanced-grid {
+  direction: rtl;
+}
+[dir="rtl"] .section-title.left,
+[dir="rtl"] .notice,
+[dir="rtl"] .footer {
+  text-align: right;
+}
 
 .hero {
   min-height: 90vh;
@@ -287,6 +299,7 @@ section > * {
   min-height: inherit;
   max-height: 340px;
   object-fit: cover;
+  object-position: center;
   display: block;
   font-size: 0;
 }
