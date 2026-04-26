@@ -1,20 +1,16 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>VR MEDI TOUR | Korean Medical Travel Consultation</title>
-  <meta name="description" content="VR MEDI TOUR & HOME provides multilingual Korean medical travel consultation for international patients." />
+  <title>VR MEDI TOUR | Korean Medical Travel Coordination</title>
+  <meta name="description" content="VR MEDI TOUR & HOME Co., Ltd. supports multilingual Korean medical travel consultation preparation for international patients and hospital partners." />
   <meta name="theme-color" content="#071012" />
-
-  <meta property="og:title" content="VR MEDI TOUR | Korean Medical Travel Consultation" />
-  <meta property="og:description" content="Multilingual Korean medical travel consultation for international patients." />
+  <meta property="og:title" content="VR MEDI TOUR | Korean Medical Travel Coordination" />
+  <meta property="og:description" content="Korea–Vietnam medical travel coordination with AI-assisted, human-reviewed consultation preparation." />
   <meta property="og:type" content="website" />
-
   <link rel="stylesheet" href="styles.css" />
 </head>
-
 <body>
   <main class="page">
     <section class="hero" id="top">
@@ -26,638 +22,323 @@
             <span>&amp; HOME</span>
           </div>
         </a>
-
-        <label class="language-select">
-          <span data-i18n="languageLabel">언어 선택</span>
-          <select id="languageSelect" aria-label="Language selector">
-            <option value="ko">한국어</option>
-            <option value="en">English</option>
-            <option value="ja">日本語</option>
-            <option value="zh">中文</option>
-            <option value="vi">Tiếng Việt</option>
-            <option value="ru">Русский</option>
-          </select>
-        </label>
+        <div class="language-select">
+          <span data-i18n="languageLabel">Language</span>
+          <div class="language-buttons" id="languageButtons" aria-label="Language selector">
+            <button type="button" data-lang="en">EN</button>
+            <button type="button" data-lang="ko">KO</button>
+            <button type="button" data-lang="vi">VI</button>
+            <button type="button" data-lang="ja">JP</button>
+            <button type="button" data-lang="zh">CN</button>
+            <button type="button" data-lang="ru">RU</button>
+          </div>
+        </div>
       </header>
 
       <div class="hero-inner">
-        <p class="eyebrow" data-i18n="eyebrow">Registered Korean Medical Travel Support</p>
-
-        <h1 data-i18n="heroTitle">
-          한국 병원 상담을<br />
-          당신의 언어로<br />
-          신뢰 있게 연결합니다
-        </h1>
-
-        <p class="hero-desc" data-i18n="heroDesc">
-          외국인 환자를 위한 피부과, 성형외과, 치과, 건강검진, 의료관광 사전상담을 도와드립니다.
-        </p>
+        <p class="eyebrow" data-i18n="eyebrow">Korea–Vietnam Medical Travel Coordination</p>
+        <h1 data-i18n="heroTitle">Korean Medical Travel, Prepared in Your Language.</h1>
+        <p class="hero-desc" data-i18n="heroDesc">We help international patients prepare Korean hospital consultation, documents, schedule, interpreter, transport, stay, and recovery support before visiting Korea.</p>
 
         <div class="hero-actions">
-          <a href="#consult-form" class="primary-btn">
-            <span data-i18n="mainButton">의료상담 신청하기</span>
-            <small data-i18n="mainButtonSub">Request Medical Consultation</small>
-          </a>
+          <a href="#consult-form" class="primary-btn" data-i18n="heroCtaPatient">Request Medical Travel Consultation</a>
+          <a href="#hospital-partnership" class="secondary-btn" data-i18n="heroCtaPartner">For Hospital Partners</a>
+          <a href="#contact" class="ghost-btn" data-i18n="heroCtaChat">WhatsApp / Zalo / KakaoTalk (Contact)</a>
         </div>
 
-        <div class="trust-strip">
-          <div>
-            <b data-i18n="trustA">공식 등록정보 공개</b>
-            <span data-i18n="trustADesc">법인·관광·외국인환자 유치 등록정보 표시</span>
-          </div>
-          <div>
-            <b data-i18n="trustB">다국어 상담 접수</b>
-            <span data-i18n="trustBDesc">영어·일본어·중국어·베트남어·러시아어</span>
-          </div>
+        <div class="trust-grid">
+          <article><b data-i18n="trust1">Korea–Vietnam Network</b></article>
+          <article><b data-i18n="trust2">Busan HQ · Seoul Gangnam Branch · Hanoi Network</b></article>
+          <article><b data-i18n="trust3">AI-assisted, Human-reviewed</b></article>
+          <article><b data-i18n="trust4">Medical decisions by Korean medical institutions</b></article>
         </div>
+
+        <figure class="section-image hero-image">
+          <img src="assets/hero-medical-travel.jpg" alt="International patient consultation coordination for Korean medical travel" loading="eager" onerror="this.style.display='none';this.parentElement.classList.add('image-missing');" />
+        </figure>
       </div>
     </section>
 
-    <section class="verification" id="verification">
-      <div class="section-title">
-        <span data-i18n="verificationLabel">Company Verification</span>
-        <h2 data-i18n="verificationTitle">등록된 법인 정보</h2>
-        <p data-i18n="verificationDesc">
-          고객이 안심하고 상담을 신청할 수 있도록 주요 등록 정보를 공개합니다.
-        </p>
+    <section class="verified" id="verified">
+      <div class="section-title left">
+        <span data-i18n="verifiedLabel">Verified Operator</span>
+        <h2 data-i18n="verifiedTitle">Verified Operator</h2>
       </div>
-
-      <div class="company-card">
-        <div class="company-name">
-          <small>Official Operator</small>
-          <strong>(주) 브이알메디투어앤홈</strong>
-          <span>VR MEDI TOUR &amp; HOME Co., Ltd.</span>
-        </div>
-
-        <div class="license-list">
-          <div>
-            <span data-i18n="bizNo">사업자 등록번호</span>
-            <b>268-87-03040</b>
-          </div>
-          <div>
-            <span data-i18n="foreignPatientNo">외국인환자 유치업자 등록번호</span>
-            <b>A-2025-01-01-06189</b>
-          </div>
-          <div>
-            <span data-i18n="tourBizNo">관광사업자 등록번호</span>
-            <b>제 2025-000013</b>
-          </div>
-          <div>
-            <span data-i18n="commerceNo">통신판매업 신고번호</span>
-            <b>제 2025-부산진-1169호</b>
-          </div>
-        </div>
+      <div class="info-card two-col">
+        <ul>
+          <li><strong data-i18n="companyLabel">Company:</strong> VR MEDI TOUR &amp; HOME Co., Ltd.</li>
+          <li><strong data-i18n="brandLabel">Brand:</strong> VR MEDI TOUR</li>
+          <li><strong data-i18n="businessAreaLabel">Business Area:</strong> Medical Travel Coordination / K-Beauty / Wellness / Travel Support</li>
+          <li><strong data-i18n="networkLabel">Network:</strong> Korea · Vietnam</li>
+        </ul>
+        <ul id="contact">
+          <li><strong data-i18n="officeLabel">Office:</strong> Busan HQ / Seoul Gangnam Branch / Hanoi Network</li>
+          <li><strong data-i18n="phoneLabel">Phone:</strong> +82-10-4417-4676</li>
+          <li><strong data-i18n="emailLabel">Email:</strong> vrmeditour@naver.com</li>
+          <li data-i18n="regNote">Official registration information can be provided during consultation when required.</li>
+        </ul>
       </div>
     </section>
 
-    <section class="services" id="services">
-      <div class="section-title">
-        <span data-i18n="servicesLabel">Medical Consultation</span>
-        <h2 data-i18n="servicesTitle">상담 가능 분야</h2>
+    <section class="founder">
+      <div class="section-title left">
+        <span data-i18n="founderLabel">Founder Message</span>
+        <h2 data-i18n="founderTitle">Founder Message</h2>
       </div>
+      <div class="info-card">
+        <p data-i18n="founderText">VR MEDI TOUR &amp; HOME was created to help international patients prepare Korean hospital consultations with less fear, less confusion, and better communication.</p>
+        <p data-i18n="founderLimits">We do not replace doctors. We do not diagnose. We do not guarantee treatment results or fixed prices.</p>
+        <p data-i18n="founderRole">Our role is to organize your information, prepare communication, and help you connect safely with Korean medical institutions.</p>
+      </div>
+    </section>
 
+    <section class="principle">
+      <div class="section-title">
+        <span data-i18n="principleLabel">Our Principle</span>
+        <h2 data-i18n="principleTitle">Our Principle</h2>
+      </div>
+      <div class="card-grid four">
+        <article class="mini-card" data-i18n="principle1">Doctors decide medical matters.</article>
+        <article class="mini-card" data-i18n="principle2">Hospitals confirm treatment availability and cost.</article>
+        <article class="mini-card" data-i18n="principle3">VR MEDI TOUR &amp; HOME coordinates language, documents, schedule, travel, and communication.</article>
+        <article class="mini-card" data-i18n="principle4">AI organizes inquiries; humans review before hospital communication.</article>
+      </div>
+    </section>
+
+    <section class="fields" id="services">
+      <div class="section-title">
+        <span data-i18n="fieldsLabel">Partner Medical Fields</span>
+        <h2 data-i18n="fieldsTitle">Partner Medical Fields</h2>
+        <p data-i18n="fieldsDesc">All items are for consultation preparation and coordination support. Final treatment availability is confirmed by medical institutions.</p>
+      </div>
       <div class="service-grid">
-        <article class="service-card">
-          <span class="card-icon">01</span>
-          <h3 data-i18n="dermatology">피부과</h3>
-          <p data-i18n="dermatologyDesc">피부 트러블, 색소, 리프팅, 피부관리, 시술 상담</p>
-        </article>
-
-        <article class="service-card">
-          <span class="card-icon">02</span>
-          <h3 data-i18n="plastic">성형외과</h3>
-          <p data-i18n="plasticDesc">성형 상담, 미용 시술, 방문 전 사전 상담</p>
-        </article>
-
-        <article class="service-card">
-          <span class="card-icon">03</span>
-          <h3 data-i18n="dental">치과</h3>
-          <p data-i18n="dentalDesc">임플란트, 교정, 심미치료, 치과 상담</p>
-        </article>
-
-        <article class="service-card">
-          <span class="card-icon">04</span>
-          <h3 data-i18n="checkup">건강검진</h3>
-          <p data-i18n="checkupDesc">종합검진, 정밀검진, 한국 방문 검진 상담</p>
-        </article>
+        <article class="service-card"><figure class="section-image"><img src="assets/dermatology.jpg" alt="Dermatology consultation support for international patients" loading="lazy" onerror="this.style.display='none';this.parentElement.classList.add('image-missing');" /></figure><h3>Dermatology</h3><p>acne, pigmentation, lifting, scars, skin booster</p></article>
+        <article class="service-card"><figure class="section-image"><img src="assets/plastic-surgery.jpg" alt="Plastic surgery consultation preparation and coordination support" loading="lazy" onerror="this.style.display='none';this.parentElement.classList.add('image-missing');" /></figure><h3>Plastic Surgery</h3><p>eye, nose, lifting, facial contour, revision consultation</p></article>
+        <article class="service-card"><figure class="section-image"><img src="assets/dentistry.jpg" alt="Dentistry consultation preparation for treatment planning" loading="lazy" onerror="this.style.display='none';this.parentElement.classList.add('image-missing');" /></figure><h3>Dentistry</h3><p>implant, whitening, orthodontics, aesthetic dentistry</p></article>
+        <article class="service-card"><figure class="section-image"><img src="assets/health-checkup.jpg" alt="Health check-up consultation and schedule preparation" loading="lazy" onerror="this.style.display='none';this.parentElement.classList.add('image-missing');" /></figure><h3>Health Check-up</h3><p>basic check-up, cancer screening, premium check-up</p></article>
+        <article class="service-card"><figure class="section-image"><img src="assets/wellness-recovery.jpg" alt="Wellness and recovery coordination support after consultation" loading="lazy" onerror="this.style.display='none';this.parentElement.classList.add('image-missing');" /></figure><h3>Wellness &amp; Recovery</h3><p>interpreter, transport, stay, recovery support</p></article>
       </div>
     </section>
 
-    <section class="process" id="process">
+    <section class="ai-flow" id="ai-flow">
       <div class="section-title">
-        <span data-i18n="processLabel">Process</span>
-        <h2 data-i18n="processTitle">상담 진행 방식</h2>
+        <span>AI-assisted, Human-reviewed</span>
+        <h2>AI-assisted, Human-reviewed</h2>
       </div>
+      <ol class="flow-list">
+        <li>Inquiry received</li>
+        <li>AI detects language and country</li>
+        <li>AI classifies medical field and urgency</li>
+        <li>AI checks missing information</li>
+        <li>Human coordinator reviews the case</li>
+        <li>Hospital consultation is prepared</li>
+      </ol>
+      <p class="notice-inline">AI does not diagnose. AI only helps organize inquiries, detect missing information, and prepare human review.</p>
+      <figure class="section-image ai-image">
+        <img src="assets/ai-human-review.jpg" alt="AI-assisted and human-reviewed inquiry coordination workflow" loading="lazy" onerror="this.style.display='none';this.parentElement.classList.add('image-missing');" />
+      </figure>
+    </section>
 
-      <div class="timeline">
-        <div class="timeline-item">
-          <b>01</b>
-          <p data-i18n="step1">상담 신청서를 작성합니다.</p>
-        </div>
-        <div class="timeline-item">
-          <b>02</b>
-          <p data-i18n="step2">담당자가 내용을 확인합니다.</p>
-        </div>
-        <div class="timeline-item">
-          <b>03</b>
-          <p data-i18n="step3">필요한 경우 사진과 추가 정보를 요청합니다.</p>
-        </div>
-        <div class="timeline-item">
-          <b>04</b>
-          <p data-i18n="step4">병원 상담 및 예상 견적 확인을 도와드립니다.</p>
-        </div>
-        <div class="timeline-item">
-          <b>05</b>
-          <p data-i18n="step5">결과를 이메일, 전화 또는 메신저로 안내드립니다.</p>
-        </div>
+    <section class="stage-safe">
+      <div class="section-title">
+        <span>Stage-Safe Coordination</span>
+        <h2>Stage-Safe Coordination</h2>
+      </div>
+      <div class="card-grid six">
+        <article class="mini-card">Consultation stage</article>
+        <article class="mini-card">Reservation stage</article>
+        <article class="mini-card">Examination stage</article>
+        <article class="mini-card">Treatment stage</article>
+        <article class="mini-card">Recovery stage</article>
+        <article class="mini-card">Aftercare stage</article>
+      </div>
+      <p class="section-note">We separate medical cost, interpreter cost, transport, stay, and coordination items so patients can understand each stage clearly.</p>
+    </section>
+
+    <section class="cost-guidance">
+      <div class="section-title left">
+        <span>Cost Guidance Principle</span>
+        <h2>Cost Guidance Principle</h2>
+      </div>
+      <div class="info-card">
+        <p>We do not guarantee fixed prices before hospital consultation.</p>
+        <p>Estimated costs may vary depending on diagnosis, test results, treatment scope, stay duration, and hospital policy.</p>
+        <p>After the medical institution reviews your information, we help you understand the estimated cost range clearly.</p>
+      </div>
+    </section>
+
+    <section class="example-journey">
+      <div class="section-title left">
+        <span>Example Journey</span>
+        <h2>Example Journey</h2>
+      </div>
+      <div class="info-card">
+        <p><strong>Example (not a testimonial):</strong> A patient from Vietnam wants dermatology consultation. The patient submits symptoms, photos, preferred date, and budget. AI classifies language, country, category, and missing information. A coordinator reviews the case. The inquiry is prepared for Korean medical institution review. The patient receives next-step guidance. Interpreter, transport, and stay support can be arranged if needed.</p>
+      </div>
+    </section>
+
+    <section class="hospital-partnership" id="hospital-partnership">
+      <div class="section-title">
+        <span>Hospital Partnership</span>
+        <h2>Hospital Partnership</h2>
+        <p>We help hospitals organize foreign patient inquiries before consultation.</p>
+      </div>
+      <div class="info-card">
+        <figure class="section-image partnership-image">
+          <img src="assets/hospital-partnership.jpg" alt="Hospital partnership support for foreign patient inquiry preparation" loading="lazy" onerror="this.style.display='none';this.parentElement.classList.add('image-missing');" />
+        </figure>
+        <ul>
+          <li>Foreign patient inquiry organization</li>
+          <li>Multilingual pre-consultation preparation</li>
+          <li>Patient document checklist</li>
+          <li>Preferred language and visit schedule collection</li>
+          <li>Hospital contact point for consultation</li>
+          <li>Referral preparation without medical decision claims</li>
+        </ul>
+        <a href="#consult-form" class="primary-btn compact">Partner with VR MEDI TOUR &amp; HOME</a>
+      </div>
+    </section>
+
+    <section class="future-platform">
+      <div class="section-title left">
+        <span>Future Platform</span>
+        <h2>Future Platform</h2>
+      </div>
+      <div class="info-card">
+        <p>VR MEDI TOUR &amp; HOME is expanding toward:</p>
+        <ul>
+          <li>AI skin analysis</li>
+          <li>K-beauty recommendation</li>
+          <li>Multilingual avatar consultation</li>
+          <li>Wellness and recovery support</li>
+          <li>Korea–Vietnam medical travel data platform</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="before-consultation">
+      <div class="section-title left">
+        <span>Before You Request Consultation</span>
+        <h2>Before You Request Consultation</h2>
+      </div>
+      <ul class="checklist">
+        <li>Desired treatment or symptoms</li>
+        <li>Photos if relevant</li>
+        <li>Previous diagnosis or test results</li>
+        <li>Current medication</li>
+        <li>Preferred visit date to Korea</li>
+        <li>Expected stay duration</li>
+        <li>Estimated budget</li>
+        <li>Preferred messenger ID</li>
+        <li>Preferred language</li>
+        <li>Whether you need interpreter, transport, or hotel support</li>
+      </ul>
+    </section>
+
+    <section class="privacy-section">
+      <div class="section-title left">
+        <span>Privacy &amp; Medical Information Protection</span>
+        <h2>Privacy &amp; Medical Information Protection</h2>
+      </div>
+      <div class="info-card">
+        <p>Your photos, symptoms, documents, and contact details are used only for consultation preparation and hospital communication.</p>
+        <p>We do not share your information with third parties without your consent.</p>
+        <p>When hospital review is needed, we ask for your permission before forwarding documents.</p>
       </div>
     </section>
 
     <section class="form-section" id="consult-form">
       <div class="form-card">
-        <div class="section-title form-title">
-          <span data-i18n="formLabel">Consultation Request</span>
-          <h2 data-i18n="formTitle">의료상담 신청</h2>
-          <p data-i18n="formDesc">아래 정보를 남겨주시면 담당자가 확인 후 연락드립니다.</p>
+        <div class="section-title form-title left">
+          <span>Consultation Request</span>
+          <h2>Consultation Request</h2>
+          <p>Please submit your case details for multilingual consultation preparation.</p>
         </div>
 
-        <form name="medical-consult"
-              method="POST"
-              action="/thank-you.html"
-              data-netlify="true"
-              netlify-honeypot="bot-field"
-              enctype="multipart/form-data"
-              class="consult-form">
+        <p class="emergency-note">If this is an emergency, please contact local emergency medical services immediately. This website is not for emergency medical care.</p>
 
+        <form name="medical-consult" method="POST" action="/thank-you.html" data-netlify="true" netlify-honeypot="bot-field" enctype="multipart/form-data" class="consult-form">
           <input type="hidden" name="form-name" value="medical-consult" />
+          <p class="hidden"><label>Don’t fill this out: <input name="bot-field" /></label></p>
 
-          <p class="hidden">
-            <label>Don’t fill this out: <input name="bot-field" /></label>
-          </p>
+          <label><span>Inquiry type</span><select name="inquiry_type" required><option value="Patient">Patient Inquiry</option><option value="Guardian">Guardian Inquiry</option><option value="Hospital">Hospital Partnership Inquiry</option></select></label>
+          <label><span>Preferred language</span><select name="consult_language" id="consultLanguage" required><option value="English">English</option><option value="Korean">한국어</option><option value="Vietnamese">Tiếng Việt</option><option value="Japanese">日本語</option><option value="Chinese">中文</option><option value="Russian">Русский</option></select></label>
 
-          <label>
-            <span data-i18n="consultLanguage">상담 희망 언어</span>
-            <select name="consult_language" id="consultLanguage" required>
-              <option value="Korean">한국어</option>
-              <option value="English">English</option>
-              <option value="Japanese">日本語</option>
-              <option value="Chinese">中文</option>
-              <option value="Vietnamese">Tiếng Việt</option>
-              <option value="Russian">Русский</option>
-            </select>
-          </label>
+          <label><span>Are you the patient or guardian?</span><select name="patient_or_guardian" required><option value="Patient">Patient</option><option value="Guardian">Guardian</option><option value="Other">Other</option></select></label>
+          <label><span>Do you already have a diagnosis?</span><select name="existing_diagnosis" required><option value="No">No</option><option value="Yes">Yes</option><option value="Not sure">Not sure</option></select></label>
 
-          <label>
-            <span data-i18n="nameLabel">이름</span>
-            <input type="text" name="name" data-placeholder="namePlaceholder" placeholder="예: Nguyen Thi Ha" required />
-          </label>
+          <label><span>Name / hospital name</span><input type="text" name="name" placeholder="Example: Nguyen Thi Ha / ABC Clinic" required /></label>
+          <label><span>Country</span><input type="text" name="country" placeholder="Example: Vietnam" required /></label>
 
-          <label>
-            <span data-i18n="contactLabel">연락처 / 메신저 ID</span>
-            <input type="text" name="contact" data-placeholder="contactPlaceholder" placeholder="예: WhatsApp, Zalo, WeChat, 전화번호" required />
-          </label>
+          <label><span>Contact / messenger ID</span><input type="text" name="contact" placeholder="WhatsApp / Zalo / KakaoTalk / Phone" required /></label>
+          <label><span>Preferred messenger ID</span><input type="text" name="preferred_messenger" placeholder="ID or account name" /></label>
 
-          <label>
-            <span data-i18n="serviceLabel">원하는 진료</span>
-            <select name="service" required>
-              <option value="" data-i18n="serviceDefault">선택하세요</option>
-              <option value="Dermatology" data-i18n="dermatology">피부과</option>
-              <option value="Plastic Surgery" data-i18n="plastic">성형외과</option>
-              <option value="Dentistry" data-i18n="dental">치과</option>
-              <option value="Health Check-up" data-i18n="checkup">건강검진</option>
-              <option value="Other" data-i18n="other">기타</option>
-            </select>
-          </label>
+          <label><span>Interested field</span><select name="service" required><option value="">Please select</option><option value="Dermatology">Dermatology</option><option value="Plastic Surgery">Plastic Surgery</option><option value="Dentistry">Dentistry</option><option value="Health Check-up">Health Check-up</option><option value="Wellness & Recovery">Wellness & Recovery</option><option value="Other">Other</option></select></label>
+          <label><span>Urgency</span><select name="urgency" required><option value="General inquiry">General inquiry</option><option value="Planning within 1-3 months">Planning within 1–3 months</option><option value="Planning within 2-4 weeks">Planning within 2–4 weeks</option><option value="Need fast consultation">Need fast consultation</option></select></label>
 
-          <label>
-            <span data-i18n="messageLabel">상담 내용</span>
-            <textarea name="message" rows="5" data-placeholder="messagePlaceholder" placeholder="증상, 원하는 치료, 궁금한 점을 적어주세요." required></textarea>
-          </label>
+          <label><span>Do you need interpreter support?</span><select name="interpreter_support" required><option value="No">No</option><option value="Yes">Yes</option><option value="Not sure">Not sure</option></select></label>
+          <label><span>Do you need hotel or transport support?</span><select name="hotel_transport_support" required><option value="No">No</option><option value="Yes">Yes</option><option value="Not sure">Not sure</option></select></label>
 
-          <label>
-            <span data-i18n="photoLabel">사진 첨부</span>
-            <input type="file" name="photo" accept="image/*" />
-          </label>
+          <label><span>Preferred visit date</span><input type="date" name="visit_date" id="visitDate" required /></label>
+          <label><span>Budget</span><div class="money-input"><span>$</span><input type="number" name="budget_usd" min="0" step="50" placeholder="Example: 2000" /><em>USD</em></div></label>
 
-          <label>
-            <span data-i18n="dateLabel">한국 방문 희망일</span>
-            <input type="date" name="visit_date" id="visitDate" required />
-          </label>
+          <label class="full"><span>Photo or document link</span><input type="url" name="photo_or_document_link" placeholder="https://..." /></label>
+          <label class="full"><span>Message</span><textarea name="message" rows="5" placeholder="Symptoms, goals, preferred timing, and questions." required></textarea></label>
 
-          <label>
-            <span data-i18n="budgetLabel">예상 예산</span>
-            <div class="money-input">
-              <span>$</span>
-              <input type="number" name="budget_usd" min="0" step="50" data-placeholder="budgetPlaceholder" placeholder="예: 2000" />
-              <em>USD</em>
-            </div>
-          </label>
-
-          <label class="agree">
-            <input type="checkbox" name="privacy_agree" required />
-            <span data-i18n="privacyText">
-              개인정보 및 상담 내용은 의료상담 연결 목적으로만 수집·이용되는 것에 동의합니다.
-            </span>
-          </label>
-
-          <button type="submit" class="submit-btn">
-            <span data-i18n="submitButton">상담 신청 제출하기</span>
-            <small data-i18n="submitSub">Submit Request</small>
-          </button>
+          <label class="agree full"><input type="checkbox" name="privacy_agree" required /><span>I agree that my information is used for consultation preparation and hospital communication support.</span></label>
+          <button type="submit" class="submit-btn full">Submit Consultation Request</button>
         </form>
       </div>
     </section>
 
     <section class="notice">
-      <h2 data-i18n="noticeTitle">중요 안내</h2>
-      <p data-i18n="noticeText">
-        본 서비스는 한국 의료기관 상담 연결을 돕기 위한 사전 상담 서비스입니다.
-        최종 진단, 치료 가능 여부, 비용 확정 및 치료 결정은 반드시 의료기관과 전문 의료진의 상담을 통해 이루어집니다.
-      </p>
+      <h2>Medical Notice</h2>
+      <p>VR MEDI TOUR &amp; HOME does not provide medical diagnosis or treatment. Final diagnosis, treatment availability, confirmed cost, and medical decisions are made only by licensed Korean medical institutions.</p>
     </section>
 
     <footer class="footer">
-      <strong>(주) 브이알메디투어앤홈</strong>
-      <p>VR MEDI TOUR &amp; HOME Co., Ltd.</p>
-      <p>사업자 등록번호: 268-87-03040</p>
-      <p>외국인환자 유치업자 등록번호: A-2025-01-01-06189</p>
-      <p>관광사업자 등록번호: 제 2025-000013</p>
-      <p>통신판매업 신고번호: 제 2025-부산진-1169호</p>
-      <p>전화: +82-10-4417-4676</p>
-      <p class="mail">vrmeditour@naver.com</p>
+      <strong>VR MEDI TOUR &amp; HOME Co., Ltd.</strong>
+      <p>Busan HQ</p>
+      <p>Seoul Gangnam Branch</p>
+      <p>Hanoi Network</p>
+      <p>Phone: +82-10-4417-4676</p>
+      <p>Email: vrmeditour@naver.com</p>
+      <p class="medical">VR MEDI TOUR &amp; HOME does not provide medical diagnosis or treatment. Final medical decisions are made by licensed medical institutions.</p>
     </footer>
   </main>
 
   <script>
     const translations = {
-      ko: {
-        languageLabel: "언어 선택",
-        eyebrow: "Registered Korean Medical Travel Support",
-        heroTitle: "한국 병원 상담을<br />당신의 언어로<br />신뢰 있게 연결합니다",
-        heroDesc: "외국인 환자를 위한 피부과, 성형외과, 치과, 건강검진, 의료관광 사전상담을 도와드립니다.",
-        mainButton: "의료상담 신청하기",
-        mainButtonSub: "Request Medical Consultation",
-        trustA: "공식 등록정보 공개",
-        trustADesc: "법인·관광·외국인환자 유치 등록정보 표시",
-        trustB: "다국어 상담 접수",
-        trustBDesc: "영어·일본어·중국어·베트남어·러시아어",
-        verificationLabel: "Company Verification",
-        verificationTitle: "등록된 법인 정보",
-        verificationDesc: "고객이 안심하고 상담을 신청할 수 있도록 주요 등록 정보를 공개합니다.",
-        bizNo: "사업자 등록번호",
-        foreignPatientNo: "외국인환자 유치업자 등록번호",
-        tourBizNo: "관광사업자 등록번호",
-        commerceNo: "통신판매업 신고번호",
-        servicesLabel: "Medical Consultation",
-        servicesTitle: "상담 가능 분야",
-        dermatology: "피부과",
-        dermatologyDesc: "피부 트러블, 색소, 리프팅, 피부관리, 시술 상담",
-        plastic: "성형외과",
-        plasticDesc: "성형 상담, 미용 시술, 방문 전 사전 상담",
-        dental: "치과",
-        dentalDesc: "임플란트, 교정, 심미치료, 치과 상담",
-        checkup: "건강검진",
-        checkupDesc: "종합검진, 정밀검진, 한국 방문 검진 상담",
-        other: "기타",
-        processLabel: "Process",
-        processTitle: "상담 진행 방식",
-        step1: "상담 신청서를 작성합니다.",
-        step2: "담당자가 내용을 확인합니다.",
-        step3: "필요한 경우 사진과 추가 정보를 요청합니다.",
-        step4: "병원 상담 및 예상 견적 확인을 도와드립니다.",
-        step5: "결과를 이메일, 전화 또는 메신저로 안내드립니다.",
-        formLabel: "Consultation Request",
-        formTitle: "의료상담 신청",
-        formDesc: "아래 정보를 남겨주시면 담당자가 확인 후 연락드립니다.",
-        consultLanguage: "상담 희망 언어",
-        nameLabel: "이름",
-        contactLabel: "연락처 / 메신저 ID",
-        serviceLabel: "원하는 진료",
-        serviceDefault: "선택하세요",
-        messageLabel: "상담 내용",
-        photoLabel: "사진 첨부",
-        dateLabel: "한국 방문 희망일",
-        budgetLabel: "예상 예산",
-        privacyText: "개인정보 및 상담 내용은 의료상담 연결 목적으로만 수집·이용되는 것에 동의합니다.",
-        submitButton: "상담 신청 제출하기",
-        submitSub: "Submit Request",
-        noticeTitle: "중요 안내",
-        noticeText: "본 서비스는 한국 의료기관 상담 연결을 돕기 위한 사전 상담 서비스입니다. 최종 진단, 치료 가능 여부, 비용 확정 및 치료 결정은 반드시 의료기관과 전문 의료진의 상담을 통해 이루어집니다.",
-        namePlaceholder: "예: Nguyen Thi Ha",
-        contactPlaceholder: "예: WhatsApp, Zalo, WeChat, 전화번호",
-        messagePlaceholder: "증상, 원하는 치료, 궁금한 점을 적어주세요.",
-        budgetPlaceholder: "예: 2000"
-      },
-      en: {
-        languageLabel: "Language",
-        eyebrow: "Registered Korean Medical Travel Support",
-        heroTitle: "Connect with Korean hospitals<br />in your language<br />with trust and clarity",
-        heroDesc: "We support preliminary consultation for dermatology, plastic surgery, dentistry, health check-ups, and Korean medical travel.",
-        mainButton: "Request Medical Consultation",
-        mainButtonSub: "Start Consultation",
-        trustA: "Official registration disclosed",
-        trustADesc: "Company, tourism, and foreign patient attraction registration",
-        trustB: "Multilingual consultation",
-        trustBDesc: "English, Japanese, Chinese, Vietnamese, Russian",
-        verificationLabel: "Company Verification",
-        verificationTitle: "Registered Company Information",
-        verificationDesc: "We disclose key registration information so that clients can request consultation with confidence.",
-        bizNo: "Business Registration No.",
-        foreignPatientNo: "Foreign Patient Attraction Registration No.",
-        tourBizNo: "Tourism Business Registration No.",
-        commerceNo: "Mail-order Business Registration No.",
-        servicesLabel: "Medical Consultation",
-        servicesTitle: "Available Consultation Fields",
-        dermatology: "Dermatology",
-        dermatologyDesc: "Skin concerns, pigmentation, lifting, skincare, procedure consultation",
-        plastic: "Plastic Surgery",
-        plasticDesc: "Aesthetic consultation, cosmetic procedures, pre-visit consultation",
-        dental: "Dentistry",
-        dentalDesc: "Implants, orthodontics, aesthetic dentistry consultation",
-        checkup: "Health Check-up",
-        checkupDesc: "General check-up, precision examination, Korea visit consultation",
-        other: "Other",
-        processLabel: "Process",
-        processTitle: "Consultation Process",
-        step1: "Fill out the consultation request form.",
-        step2: "Our coordinator reviews your request.",
-        step3: "We may request photos and additional information if needed.",
-        step4: "We help request hospital consultation and estimated costs.",
-        step5: "You receive the result by email, phone, or messenger.",
-        formLabel: "Consultation Request",
-        formTitle: "Medical Consultation Request",
-        formDesc: "Please leave your information. Our coordinator will contact you after review.",
-        consultLanguage: "Preferred Consultation Language",
-        nameLabel: "Name",
-        contactLabel: "Contact / Messenger ID",
-        serviceLabel: "Desired Medical Service",
-        serviceDefault: "Please select",
-        messageLabel: "Consultation Details",
-        photoLabel: "Upload Photo",
-        dateLabel: "Preferred Visit Date to Korea",
-        budgetLabel: "Estimated Budget",
-        privacyText: "I agree that my personal and consultation information may be collected and used only for medical consultation connection purposes.",
-        submitButton: "Submit Consultation Request",
-        submitSub: "Submit Request",
-        noticeTitle: "Important Notice",
-        noticeText: "This service provides preliminary support for connecting clients with Korean medical institutions. Final diagnosis, treatment availability, confirmed cost, and treatment decisions must be made through consultation with medical institutions and qualified professionals.",
-        namePlaceholder: "Example: Nguyen Thi Ha",
-        contactPlaceholder: "Example: WhatsApp, Zalo, WeChat, phone number",
-        messagePlaceholder: "Please describe your symptoms, desired treatment, or questions.",
-        budgetPlaceholder: "Example: 2000"
-      },
-      ja: {
-        languageLabel: "言語を選択",
-        eyebrow: "登録済み韓国医療観光サポート",
-        heroTitle: "韓国の病院相談を<br />あなたの言語で<br />安心してつなぎます",
-        heroDesc: "外国人患者のために、皮膚科、美容整形、歯科、健康診断、韓国医療観光の事前相談をサポートします。",
-        mainButton: "医療相談を申し込む",
-        mainButtonSub: "相談を開始する",
-        trustA: "公式登録情報の公開",
-        trustADesc: "法人・観光事業・外国人患者誘致業の登録情報を表示",
-        trustB: "多言語相談受付",
-        trustBDesc: "英語・日本語・中国語・ベトナム語・ロシア語",
-        verificationLabel: "Company Verification",
-        verificationTitle: "登録済み法人情報",
-        verificationDesc: "お客様が安心して相談を申し込めるよう、主要な登録情報を公開しています。",
-        bizNo: "事業者登録番号",
-        foreignPatientNo: "外国人患者誘致業者登録番号",
-        tourBizNo: "観光事業者登録番号",
-        commerceNo: "通信販売業申告番号",
-        servicesLabel: "Medical Consultation",
-        servicesTitle: "相談可能な分野",
-        dermatology: "皮膚科",
-        dermatologyDesc: "肌トラブル、色素、リフティング、スキンケア、施術相談",
-        plastic: "美容整形",
-        plasticDesc: "美容整形相談、美容施術、訪問前の事前相談",
-        dental: "歯科",
-        dentalDesc: "インプラント、矯正、審美歯科相談",
-        checkup: "健康診断",
-        checkupDesc: "総合健診、精密検査、韓国訪問健診相談",
-        other: "その他",
-        processLabel: "Process",
-        processTitle: "相談の流れ",
-        step1: "相談申込フォームを作成します。",
-        step2: "担当者が内容を確認します。",
-        step3: "必要に応じて写真や追加情報を依頼します。",
-        step4: "病院相談および概算費用の確認をサポートします。",
-        step5: "結果をメール、電話、またはメッセンジャーでご案内します。",
-        formLabel: "Consultation Request",
-        formTitle: "医療相談申込",
-        formDesc: "下記の情報を残していただければ、担当者が確認後ご連絡いたします。",
-        consultLanguage: "希望する相談言語",
-        nameLabel: "お名前",
-        contactLabel: "連絡先 / メッセンジャーID",
-        serviceLabel: "希望する診療",
-        serviceDefault: "選択してください",
-        messageLabel: "相談内容",
-        photoLabel: "写真添付",
-        dateLabel: "韓国訪問希望日",
-        budgetLabel: "予想予算",
-        privacyText: "個人情報および相談内容が医療相談の連携目的に限り収集・利用されることに同意します。",
-        submitButton: "相談申込を送信する",
-        submitSub: "送信する",
-        noticeTitle: "重要なお知らせ",
-        noticeText: "本サービスは、韓国の医療機関との相談連携を支援するための事前相談サービスです。最終診断、治療可否、確定費用および治療の決定は、必ず医療機関および専門医療従事者との相談を通じて行われます。",
-        namePlaceholder: "例：Nguyen Thi Ha",
-        contactPlaceholder: "例：WhatsApp、Zalo、WeChat、電話番号",
-        messagePlaceholder: "症状、希望する治療、質問事項をご記入ください。",
-        budgetPlaceholder: "例：2000"
-      },
-      zh: {
-        languageLabel: "选择语言",
-        eyebrow: "已注册的韩国医疗旅游支持服务",
-        heroTitle: "用您的语言<br />连接韩国医院咨询<br />清晰且值得信赖",
-        heroDesc: "我们为外国患者提供皮肤科、整形外科、牙科、健康体检及韩国医疗旅游的前期咨询支持。",
-        mainButton: "申请医疗咨询",
-        mainButtonSub: "开始咨询",
-        trustA: "公开官方注册信息",
-        trustADesc: "显示法人、旅游业务及外国患者招揽业务注册信息",
-        trustB: "多语言咨询受理",
-        trustBDesc: "英语、日语、中文、越南语、俄语",
-        verificationLabel: "Company Verification",
-        verificationTitle: "已注册公司信息",
-        verificationDesc: "我们公开主要注册信息，帮助客户安心提交咨询申请。",
-        bizNo: "营业执照注册号",
-        foreignPatientNo: "外国患者招揽业注册号",
-        tourBizNo: "旅游业务注册号",
-        commerceNo: "通信销售业务申报号",
-        servicesLabel: "Medical Consultation",
-        servicesTitle: "可咨询领域",
-        dermatology: "皮肤科",
-        dermatologyDesc: "皮肤问题、色素、提升、皮肤护理、治疗咨询",
-        plastic: "整形外科",
-        plasticDesc: "整形咨询、美容治疗、访韩前咨询",
-        dental: "牙科",
-        dentalDesc: "种植牙、正畸、美学牙科咨询",
-        checkup: "健康体检",
-        checkupDesc: "综合体检、精密体检、赴韩体检咨询",
-        other: "其他",
-        processLabel: "Process",
-        processTitle: "咨询流程",
-        step1: "填写咨询申请表。",
-        step2: "负责人确认申请内容。",
-        step3: "如有需要，我们会要求提供照片和补充信息。",
-        step4: "我们协助进行医院咨询及预计费用确认。",
-        step5: "结果将通过电子邮件、电话或即时通讯工具告知。",
-        formLabel: "Consultation Request",
-        formTitle: "医疗咨询申请",
-        formDesc: "请留下以下信息，负责人确认后会与您联系。",
-        consultLanguage: "希望咨询语言",
-        nameLabel: "姓名",
-        contactLabel: "联系方式 / 聊天工具ID",
-        serviceLabel: "希望诊疗项目",
-        serviceDefault: "请选择",
-        messageLabel: "咨询内容",
-        photoLabel: "上传照片",
-        dateLabel: "希望访问韩国日期",
-        budgetLabel: "预计预算",
-        privacyText: "我同意个人信息及咨询内容仅为医疗咨询连接目的而被收集和使用。",
-        submitButton: "提交咨询申请",
-        submitSub: "提交申请",
-        noticeTitle: "重要提示",
-        noticeText: "本服务是为帮助客户连接韩国医疗机构而提供的前期咨询服务。最终诊断、治疗可行性、费用确认及治疗决定，必须通过医疗机构和专业医务人员的咨询后确定。",
-        namePlaceholder: "例如：Nguyen Thi Ha",
-        contactPlaceholder: "例如：WhatsApp、Zalo、WeChat、电话号码",
-        messagePlaceholder: "请填写症状、希望治疗项目或疑问。",
-        budgetPlaceholder: "例如：2000"
-      },
-      vi: {
-        languageLabel: "Chọn ngôn ngữ",
-        eyebrow: "Hỗ trợ du lịch y tế Hàn Quốc đã đăng ký",
-        heroTitle: "Kết nối tư vấn bệnh viện Hàn Quốc<br />bằng ngôn ngữ của bạn<br />một cách đáng tin cậy",
-        heroDesc: "Chúng tôi hỗ trợ tư vấn sơ bộ cho bệnh nhân nước ngoài về da liễu, thẩm mỹ, nha khoa, khám sức khỏe và du lịch y tế Hàn Quốc.",
-        mainButton: "Đăng ký tư vấn y tế",
-        mainButtonSub: "Bắt đầu tư vấn",
-        trustA: "Công khai thông tin đăng ký chính thức",
-        trustADesc: "Hiển thị thông tin đăng ký công ty, du lịch và thu hút bệnh nhân nước ngoài",
-        trustB: "Tiếp nhận tư vấn đa ngôn ngữ",
-        trustBDesc: "Tiếng Anh, Nhật, Trung, Việt, Nga",
-        verificationLabel: "Company Verification",
-        verificationTitle: "Thông tin công ty đã đăng ký",
-        verificationDesc: "Chúng tôi công khai các thông tin đăng ký chính để khách hàng yên tâm gửi yêu cầu tư vấn.",
-        bizNo: "Mã số đăng ký kinh doanh",
-        foreignPatientNo: "Số đăng ký thu hút bệnh nhân nước ngoài",
-        tourBizNo: "Số đăng ký kinh doanh du lịch",
-        commerceNo: "Số đăng ký bán hàng trực tuyến",
-        servicesLabel: "Medical Consultation",
-        servicesTitle: "Lĩnh vực có thể tư vấn",
-        dermatology: "Da liễu",
-        dermatologyDesc: "Vấn đề về da, sắc tố, nâng cơ, chăm sóc da, tư vấn thủ thuật",
-        plastic: "Thẩm mỹ",
-        plasticDesc: "Tư vấn thẩm mỹ, thủ thuật làm đẹp, tư vấn trước khi đến Hàn Quốc",
-        dental: "Nha khoa",
-        dentalDesc: "Implant, chỉnh nha, nha khoa thẩm mỹ",
-        checkup: "Khám sức khỏe",
-        checkupDesc: "Khám tổng quát, kiểm tra chuyên sâu, tư vấn khám tại Hàn Quốc",
-        other: "Khác",
-        processLabel: "Process",
-        processTitle: "Quy trình tư vấn",
-        step1: "Điền mẫu đăng ký tư vấn.",
-        step2: "Nhân viên phụ trách kiểm tra nội dung.",
-        step3: "Nếu cần, chúng tôi sẽ yêu cầu thêm hình ảnh và thông tin bổ sung.",
-        step4: "Chúng tôi hỗ trợ kết nối tư vấn bệnh viện và xác nhận chi phí dự kiến.",
-        step5: "Kết quả sẽ được thông báo qua email, điện thoại hoặc ứng dụng nhắn tin.",
-        formLabel: "Consultation Request",
-        formTitle: "Đăng ký tư vấn y tế",
-        formDesc: "Vui lòng để lại thông tin bên dưới. Nhân viên phụ trách sẽ liên hệ sau khi kiểm tra.",
-        consultLanguage: "Ngôn ngữ tư vấn mong muốn",
-        nameLabel: "Họ tên",
-        contactLabel: "Liên hệ / ID nhắn tin",
-        serviceLabel: "Dịch vụ mong muốn",
-        serviceDefault: "Vui lòng chọn",
-        messageLabel: "Nội dung tư vấn",
-        photoLabel: "Đính kèm ảnh",
-        dateLabel: "Ngày dự kiến đến Hàn Quốc",
-        budgetLabel: "Ngân sách dự kiến",
-        privacyText: "Tôi đồng ý cho phép thu thập và sử dụng thông tin cá nhân và nội dung tư vấn chỉ nhằm mục đích kết nối tư vấn y tế.",
-        submitButton: "Gửi yêu cầu tư vấn",
-        submitSub: "Gửi yêu cầu",
-        noticeTitle: "Lưu ý quan trọng",
-        noticeText: "Dịch vụ này là dịch vụ tư vấn sơ bộ nhằm hỗ trợ kết nối với các cơ sở y tế Hàn Quốc. Chẩn đoán cuối cùng, khả năng điều trị, chi phí xác nhận và quyết định điều trị phải được thực hiện thông qua tư vấn với cơ sở y tế và chuyên gia y tế.",
-        namePlaceholder: "Ví dụ: Nguyen Thi Ha",
-        contactPlaceholder: "Ví dụ: WhatsApp, Zalo, WeChat, số điện thoại",
-        messagePlaceholder: "Vui lòng nhập triệu chứng, phương pháp điều trị mong muốn hoặc câu hỏi.",
-        budgetPlaceholder: "Ví dụ: 2000"
-      },
-      ru: {
-        languageLabel: "Выбор языка",
-        eyebrow: "Зарегистрированная поддержка медицинского туризма в Корее",
-        heroTitle: "Мы соединяем вас<br />с корейскими клиниками<br />на вашем языке и с доверием",
-        heroDesc: "Мы помогаем иностранным пациентам с предварительными консультациями по дерматологии, пластической хирургии, стоматологии, медицинским обследованиям и медицинскому туризму в Корее.",
-        mainButton: "Запросить медицинскую консультацию",
-        mainButtonSub: "Начать консультацию",
-        trustA: "Официальная регистрационная информация",
-        trustADesc: "Информация о компании, туристической деятельности и регистрации по привлечению иностранных пациентов",
-        trustB: "Многоязычный прием заявок",
-        trustBDesc: "Английский, японский, китайский, вьетнамский, русский",
-        verificationLabel: "Company Verification",
-        verificationTitle: "Информация о зарегистрированной компании",
-        verificationDesc: "Мы раскрываем основную регистрационную информацию, чтобы клиенты могли уверенно отправить запрос на консультацию.",
-        bizNo: "Регистрационный номер бизнеса",
-        foreignPatientNo: "Регистрационный номер по привлечению иностранных пациентов",
-        tourBizNo: "Регистрационный номер туристического бизнеса",
-        commerceNo: "Регистрационный номер онлайн-торговли",
-        servicesLabel: "Medical Consultation",
-        servicesTitle: "Доступные направления консультации",
-        dermatology: "Дерматология",
-        dermatologyDesc: "Проблемы кожи, пигментация, лифтинг, уход за кожей, консультации по процедурам",
-        plastic: "Пластическая хирургия",
-        plasticDesc: "Эстетическая консультация, косметические процедуры, консультация до визита",
-        dental: "Стоматология",
-        dentalDesc: "Импланты, ортодонтия, эстетическая стоматология",
-        checkup: "Медицинское обследование",
-        checkupDesc: "Общее обследование, углубленная диагностика, консультация перед визитом в Корею",
-        other: "Другое",
-        processLabel: "Process",
-        processTitle: "Процесс консультации",
-        step1: "Заполните форму запроса на консультацию.",
-        step2: "Координатор проверит содержание заявки.",
-        step3: "При необходимости мы запросим фотографии и дополнительную информацию.",
-        step4: "Мы поможем связаться с клиникой и уточнить ориентировочную стоимость.",
-        step5: "Результат будет отправлен по электронной почте, телефону или через мессенджер.",
-        formLabel: "Consultation Request",
-        formTitle: "Заявка на медицинскую консультацию",
-        formDesc: "Оставьте информацию ниже. Наш координатор свяжется с вами после проверки.",
-        consultLanguage: "Предпочитаемый язык консультации",
-        nameLabel: "Имя",
-        contactLabel: "Контакт / ID мессенджера",
-        serviceLabel: "Желаемая медицинская услуга",
-        serviceDefault: "Пожалуйста, выберите",
-        messageLabel: "Содержание консультации",
-        photoLabel: "Прикрепить фото",
-        dateLabel: "Предпочитаемая дата визита в Корею",
-        budgetLabel: "Ориентировочный бюджет",
-        privacyText: "Я соглашаюсь на сбор и использование моих персональных данных и информации о консультации только в целях подключения к медицинской консультации.",
-        submitButton: "Отправить запрос на консультацию",
-        submitSub: "Отправить запрос",
-        noticeTitle: "Важное уведомление",
-        noticeText: "Данный сервис предоставляет предварительную поддержку для связи с медицинскими учреждениями Кореи. Окончательный диагноз, возможность лечения, окончательная стоимость и решение о лечении должны приниматься только после консультации с медицинским учреждением и квалифицированными специалистами.",
-        namePlaceholder: "Например: Nguyen Thi Ha",
-        contactPlaceholder: "Например: WhatsApp, Zalo, WeChat, номер телефона",
-        messagePlaceholder: "Опишите симптомы, желаемое лечение или вопросы.",
-        budgetPlaceholder: "Например: 2000"
-      }
+      en: { languageLabel: "Language", eyebrow: "Korea–Vietnam Medical Travel Coordination", heroTitle: "Korean Medical Travel, Prepared in Your Language.", heroDesc: "We help international patients prepare Korean hospital consultation, documents, schedule, interpreter, transport, stay, and recovery support before visiting Korea.", heroCtaPatient: "Request Medical Travel Consultation", heroCtaPartner: "For Hospital Partners", heroCtaChat: "WhatsApp / Zalo / KakaoTalk (Contact)", trust1: "Korea–Vietnam Network", trust2: "Busan HQ · Seoul Gangnam Branch · Hanoi Network", trust3: "AI-assisted, Human-reviewed", trust4: "Medical decisions by Korean medical institutions", verifiedLabel: "Verified Operator", verifiedTitle: "Verified Operator", companyLabel: "Company:", brandLabel: "Brand:", businessAreaLabel: "Business Area:", networkLabel: "Network:", officeLabel: "Office:", phoneLabel: "Phone:", emailLabel: "Email:", regNote: "Official registration information can be provided during consultation when required.", founderLabel: "Founder Message", founderTitle: "Founder Message", founderText: "VR MEDI TOUR & HOME was created to help international patients prepare Korean hospital consultations with less fear, less confusion, and better communication.", founderLimits: "We do not replace doctors. We do not diagnose. We do not guarantee treatment results or fixed prices.", founderRole: "Our role is to organize your information, prepare communication, and help you connect safely with Korean medical institutions.", principleLabel: "Our Principle", principleTitle: "Our Principle", principle1: "Doctors decide medical matters.", principle2: "Hospitals confirm treatment availability and cost.", principle3: "VR MEDI TOUR & HOME coordinates language, documents, schedule, travel, and communication.", principle4: "AI organizes inquiries; humans review before hospital communication.", fieldsLabel: "Partner Medical Fields", fieldsTitle: "Partner Medical Fields", fieldsDesc: "All items are for consultation preparation and coordination support. Final treatment availability is confirmed by medical institutions." },
+      ko: { languageLabel: "언어", eyebrow: "한국-베트남 의료관광 코디네이션", heroTitle: "당신의 언어로 준비하는 한국 의료관광", heroDesc: "방한 전 병원 상담, 서류, 일정, 통역, 이동, 숙박, 회복 지원 준비를 돕습니다.", heroCtaPatient: "의료관광 상담 신청", heroCtaPartner: "병원 파트너 전용", heroCtaChat: "WhatsApp / Zalo / KakaoTalk 문의", trust1: "한국-베트남 네트워크", trust2: "부산 본사 · 서울 강남 지점 · 하노이 네트워크", trust3: "AI 보조, 사람 검토", trust4: "의료 판단은 한국 의료기관이 수행", verifiedLabel: "검증된 운영사", verifiedTitle: "검증된 운영사", companyLabel: "회사:", brandLabel: "브랜드:", businessAreaLabel: "사업영역:", networkLabel: "네트워크:", officeLabel: "사무소:", phoneLabel: "전화:", emailLabel: "이메일:", regNote: "필요 시 공식 등록 정보는 상담 중 제공됩니다.", founderLabel: "창립자 메시지", founderTitle: "창립자 메시지", founderText: "VR MEDI TOUR & HOME은 해외 환자의 한국 병원 상담 준비를 더 안전하고 명확하게 돕기 위해 시작되었습니다.", founderLimits: "저희는 의사를 대체하지 않으며 진단하지 않습니다. 치료 결과나 고정 비용을 보장하지 않습니다.", founderRole: "저희 역할은 정보를 정리하고 소통을 준비하여 한국 의료기관과 안전하게 연결하는 것입니다.", principleLabel: "운영 원칙", principleTitle: "운영 원칙", principle1: "의료 판단은 의사가 결정합니다.", principle2: "치료 가능 여부와 비용은 병원이 확정합니다.", principle3: "VR MEDI TOUR & HOME은 언어·서류·일정·이동·소통을 조율합니다.", principle4: "AI가 문의를 정리하고 사람이 병원 전달 전 검토합니다.", fieldsLabel: "협력 의료 분야", fieldsTitle: "협력 의료 분야", fieldsDesc: "모든 항목은 상담 준비 및 코디네이션 지원이며 최종 가능 여부는 의료기관이 확인합니다." },
+      vi: { languageLabel: "Ngôn ngữ", eyebrow: "Điều phối du lịch y tế Hàn Quốc–Việt Nam", heroTitle: "Du lịch y tế Hàn Quốc, chuẩn bị bằng ngôn ngữ của bạn.", heroDesc: "Chúng tôi hỗ trợ chuẩn bị tư vấn bệnh viện Hàn Quốc, hồ sơ, lịch trình, phiên dịch, di chuyển, lưu trú và phục hồi trước khi bạn đến Hàn Quốc.", heroCtaPatient: "Yêu cầu tư vấn du lịch y tế", heroCtaPartner: "Dành cho đối tác bệnh viện", heroCtaChat: "WhatsApp / Zalo / KakaoTalk (Liên hệ)", trust1: "Mạng lưới Hàn Quốc–Việt Nam", trust2: "Trụ sở Busan · Chi nhánh Gangnam Seoul · Mạng lưới Hà Nội", trust3: "AI hỗ trợ, con người rà soát", trust4: "Quyết định y khoa do cơ sở y tế Hàn Quốc đưa ra", verifiedLabel: "Đơn vị vận hành đã xác minh", verifiedTitle: "Đơn vị vận hành đã xác minh", companyLabel: "Công ty:", brandLabel: "Thương hiệu:", businessAreaLabel: "Lĩnh vực:", networkLabel: "Mạng lưới:", officeLabel: "Văn phòng:", phoneLabel: "Điện thoại:", emailLabel: "Email:", regNote: "Thông tin đăng ký chính thức có thể được cung cấp khi tư vấn nếu cần.", founderLabel: "Thông điệp nhà sáng lập", founderTitle: "Thông điệp nhà sáng lập", founderText: "VR MEDI TOUR & HOME được tạo ra để giúp bệnh nhân quốc tế chuẩn bị tư vấn bệnh viện Hàn Quốc với ít lo lắng và ít nhầm lẫn hơn.", founderLimits: "Chúng tôi không thay thế bác sĩ, không chẩn đoán, và không đảm bảo kết quả điều trị hoặc giá cố định.", founderRole: "Vai trò của chúng tôi là tổ chức thông tin, chuẩn bị giao tiếp và kết nối an toàn với cơ sở y tế Hàn Quốc.", principleLabel: "Nguyên tắc của chúng tôi", principleTitle: "Nguyên tắc của chúng tôi", principle1: "Bác sĩ quyết định vấn đề y khoa.", principle2: "Bệnh viện xác nhận khả năng điều trị và chi phí.", principle3: "VR MEDI TOUR & HOME điều phối ngôn ngữ, hồ sơ, lịch trình, di chuyển và giao tiếp.", principle4: "AI sắp xếp yêu cầu; con người rà soát trước khi gửi bệnh viện.", fieldsLabel: "Lĩnh vực y tế đối tác", fieldsTitle: "Lĩnh vực y tế đối tác", fieldsDesc: "Các mục bên dưới là hỗ trợ chuẩn bị tư vấn; cơ sở y tế xác nhận khả năng cuối cùng." },
+      ja: { languageLabel: "言語", eyebrow: "韓国・ベトナム医療渡航コーディネーション", heroTitle: "あなたの言語で準備する韓国医療渡航。", heroDesc: "訪韓前に、病院相談、書類、日程、通訳、移動、滞在、回復サポートの準備をお手伝いします。" },
+      zh: { languageLabel: "语言", eyebrow: "韩越医疗旅行协调", heroTitle: "用您的语言准备韩国医疗旅行。", heroDesc: "我们协助国际患者在访韩前准备医院咨询、资料、行程、翻译、交通、住宿与恢复支持。" },
+      ru: { languageLabel: "Язык", eyebrow: "Координация медицинских поездок Корея–Вьетнам", heroTitle: "Медицинская поездка в Корею, подготовленная на вашем языке.", heroDesc: "Мы помогаем международным пациентам заранее подготовить консультацию в корейской клинике, документы, график, переводчика, транспорт, проживание и восстановление." }
     };
 
-    const languageSelect = document.getElementById("languageSelect");
+    const languageButtons = document.getElementById("languageButtons");
     const consultLanguage = document.getElementById("consultLanguage");
     const visitDate = document.getElementById("visitDate");
-
-    const languageMap = {
-      ko: "Korean",
-      en: "English",
-      ja: "Japanese",
-      zh: "Chinese",
-      vi: "Vietnamese",
-      ru: "Russian"
-    };
+    const languageMap = { en: "English", ko: "Korean", vi: "Vietnamese", ja: "Japanese", zh: "Chinese", ru: "Russian" };
 
     function getTranslation(lang, key) {
       const selected = translations[lang] || {};
-      const english = translations.en || {};
-      const korean = translations.ko || {};
-      return selected[key] || english[key] || korean[key] || "";
+      return selected[key] || translations.en[key] || "";
+    }
+
+    function applyLanguage(lang) {
+      document.documentElement.lang = lang;
+      document.querySelectorAll("[data-i18n]").forEach((el) => {
+        const key = el.getAttribute("data-i18n");
+        const value = getTranslation(lang, key);
+        if (value) el.innerHTML = value;
+      });
+      document.querySelectorAll(".language-buttons button").forEach((button) => {
+        button.classList.toggle("active", button.dataset.lang === lang);
+      });
+      if (consultLanguage) consultLanguage.value = languageMap[lang] || "English";
+      localStorage.setItem("vrMediTourLang", lang);
     }
 
     function setTodayAsMinDate() {
@@ -669,39 +350,16 @@
       visitDate.min = `${yyyy}-${mm}-${dd}`;
     }
 
-    function applyLanguage(lang) {
-      document.documentElement.lang = lang;
-
-      document.querySelectorAll("[data-i18n]").forEach((el) => {
-        const key = el.getAttribute("data-i18n");
-        const value = getTranslation(lang, key);
-        if (value) el.innerHTML = value;
-      });
-
-      document.querySelectorAll("[data-placeholder]").forEach((el) => {
-        const key = el.getAttribute("data-placeholder");
-        const value = getTranslation(lang, key);
-        if (value) el.placeholder = value;
-      });
-
-      if (consultLanguage) {
-        consultLanguage.value = languageMap[lang] || "English";
-      }
-
-      localStorage.setItem("vrMediTourLang", lang);
-    }
-
-    if (languageSelect) {
-      languageSelect.addEventListener("change", (event) => {
-        applyLanguage(event.target.value);
+    if (languageButtons) {
+      languageButtons.addEventListener("click", (event) => {
+        const button = event.target.closest("button[data-lang]");
+        if (!button) return;
+        applyLanguage(button.dataset.lang);
       });
     }
-
-    setTodayAsMinDate();
-
-    const savedLang = localStorage.getItem("vrMediTourLang") || "ko";
-    if (languageSelect) languageSelect.value = savedLang;
+    const savedLang = localStorage.getItem("vrMediTourLang") || "en";
     applyLanguage(savedLang);
+    setTodayAsMinDate();
   </script>
 </body>
 </html>
