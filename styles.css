@@ -111,7 +111,6 @@ h1 { margin: 12px 0; line-height: 1.25; font-size: clamp(1.8rem, 4vw, 3rem); }
   background: #02060f;
 }
 .inline-image { margin-top: 14px; width: 100%; max-height: 260px; }
-.founder-photo { max-width: 420px; }
 
 .hero-actions,
 .form-header {
@@ -190,6 +189,23 @@ h2 { margin: 0 0 12px; font-size: clamp(1.25rem, 2.5vw, 2rem); }
   background: rgba(55, 138, 148, 0.2);
   font-size: 0.85rem;
 }
+.founder-layout {
+  display: grid;
+  gap: 16px;
+}
+.founder-copy p {
+  margin: 0 0 10px;
+  color: var(--muted);
+}
+.founder-greeting {
+  color: var(--text) !important;
+  font-weight: 700;
+}
+.founder-photo {
+  max-width: 420px;
+  width: 100%;
+  justify-self: center;
+}
 
 .consult-form {
   display: grid;
@@ -236,6 +252,8 @@ h2 { margin: 0 0 12px; font-size: clamp(1.25rem, 2.5vw, 2rem); }
   .hero-grid { grid-template-columns: 1.1fr 0.9fr; align-items: center; }
   .field-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
   .stage-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .founder-layout { grid-template-columns: 1.2fr 0.8fr; align-items: start; }
+  .founder-photo { justify-self: end; position: sticky; top: 20px; }
 }
 
 @media (max-width: 640px) {
