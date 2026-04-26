@@ -251,8 +251,8 @@
         </label>
 
         <label>
-          <span data-i18n="fContact">Contact / messenger ID</span>
-          <input type="text" name="contact" data-i18n-placeholder="phContact" placeholder="WhatsApp / KakaoTalk / Zalo / WeChat" required />
+          <span data-i18n="fContact">E-mail</span>
+          <input type="email" name="email" autocomplete="email" data-i18n-placeholder="phContact" placeholder="you@example.com" required />
         </label>
 
         <label>
@@ -279,7 +279,7 @@
 
         <label>
           <span data-i18n="fVisitDate">Preferred visit date</span>
-          <input type="date" name="preferred_visit_date" />
+          <input type="date" name="preferred_visit_date" id="visitDate" />
         </label>
 
         <label>
@@ -419,7 +419,7 @@
       fLanguage: "Preferred language",
       fName: "Name",
       fCountry: "Country",
-      fContact: "Contact / messenger ID",
+      fContact: "E-mail",
       fField: "Interested field",
       fMessage: "Message",
       fDiagnosis: "Existing diagnosis",
@@ -435,7 +435,7 @@
       optNo: "No",
       phName: "Your full name",
       phCountry: "Country of residence",
-      phContact: "WhatsApp / KakaoTalk / Zalo / WeChat",
+      phContact: "you@example.com",
       phMessage: "Please share symptoms, goals, timeline, and key concerns",
       phDiagnosis: "Optional",
       phBudget: "Estimated budget range",
@@ -528,7 +528,7 @@
       fLanguage: "선호 언어",
       fName: "이름",
       fCountry: "국가",
-      fContact: "연락처 / 메신저 ID",
+      fContact: "이메일",
       fField: "관심 분야",
       fMessage: "문의 내용",
       fDiagnosis: "기존 진단 여부",
@@ -544,7 +544,7 @@
       optNo: "아니오",
       phName: "성함을 입력해 주세요",
       phCountry: "거주 국가",
-      phContact: "WhatsApp / KakaoTalk / Zalo / WeChat",
+      phContact: "you@example.com",
       phMessage: "증상, 목표, 일정, 궁금한 점을 작성해 주세요",
       phDiagnosis: "선택 입력",
       phBudget: "예상 예산 범위",
@@ -628,7 +628,8 @@
       fLanguage: "Ngôn ngữ ưu tiên",
       fName: "Họ tên",
       fCountry: "Quốc gia",
-      fContact: "Liên hệ / ID messenger",
+      fContact: "E-mail",
+      phContact: "you@example.com",
       fField: "Lĩnh vực quan tâm",
       fMessage: "Nội dung",
       fDiagnosis: "Chẩn đoán hiện có",
@@ -720,7 +721,8 @@
       fLanguage: "希望言語",
       fName: "お名前",
       fCountry: "国",
-      fContact: "連絡先 / メッセンジャーID",
+      fContact: "メール",
+      phContact: "you@example.com",
       fField: "関心分野",
       fMessage: "メッセージ",
       fDiagnosis: "既存診断",
@@ -812,7 +814,8 @@
       fLanguage: "偏好语言",
       fName: "姓名",
       fCountry: "国家",
-      fContact: "联系方式 / 聊天ID",
+      fContact: "电子邮箱",
+      phContact: "you@example.com",
       fField: "意向领域",
       fMessage: "留言内容",
       fDiagnosis: "既往诊断",
@@ -903,6 +906,17 @@
         applyLanguage(button.dataset.lang);
       }
     });
+
+    const visitDateInput = document.getElementById("visitDate");
+    if (visitDateInput) {
+      const openDatePicker = () => {
+        if (typeof visitDateInput.showPicker === "function") {
+          visitDateInput.showPicker();
+        }
+      };
+      visitDateInput.addEventListener("focus", openDatePicker);
+      visitDateInput.addEventListener("click", openDatePicker);
+    }
 
     applyLanguage(localStorage.getItem("vrMediTourLang") || "en");
   </script>
