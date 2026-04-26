@@ -385,3 +385,46 @@ section > * {
   .consult-form { grid-template-columns: 1fr; }
   .form-card { padding: 20px; }
 }
+
+/* Founder photo enhancement: uses the already-uploaded assets/Founder.jpg without changing HTML. */
+.founder .info-card {
+  display: grid;
+  grid-template-columns: 1.35fr 0.75fr;
+  gap: 28px;
+  align-items: center;
+  position: relative;
+}
+
+.founder .info-card::after {
+  content: "";
+  display: block;
+  width: 100%;
+  max-width: 340px;
+  aspect-ratio: 4 / 5;
+  justify-self: end;
+  border: 1px solid rgba(130, 255, 230, 0.18);
+  border-radius: 24px;
+  background:
+    linear-gradient(180deg, rgba(7, 16, 18, 0.08), rgba(7, 16, 18, 0.28)),
+    url("assets/Founder.jpg") center / cover no-repeat;
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.32);
+}
+
+@media (max-width: 980px) {
+  .founder .info-card {
+    grid-template-columns: 1fr;
+  }
+
+  .founder .info-card::after {
+    justify-self: center;
+    max-width: 320px;
+    width: min(100%, 320px);
+  }
+}
+
+@media (max-width: 760px) {
+  .founder .info-card::after {
+    max-width: 100%;
+    border-radius: 18px;
+  }
+}
