@@ -205,6 +205,9 @@ h2 { margin: 0 0 12px; font-size: clamp(1.25rem, 2.5vw, 2rem); }
   max-width: 420px;
   width: 100%;
   justify-self: center;
+  max-height: none;
+  object-fit: contain;
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .consult-form {
