@@ -231,7 +231,13 @@
 
     const languageMap = { en: "English", ko: "Korean", vi: "Vietnamese", ja: "Japanese", zh: "Chinese", "zh-TW": "Traditional Chinese", id: "Indonesian", ar: "Arabic", mn: "Mongolian", ru: "Russian" };
 
-    function t(lang, key) { return (translations[lang] && translations[lang][key]) || baseEn[key] || ""; }
+    function t(lang, key) {
+      const current = translations[lang] || {};
+      if (current[key]) return current[key];
+      if (lang !== "en" && translations.ko && translations.ko[key]) return translations.ko[key];
+      if (lang !== "en" && translations.vi && translations.vi[key]) return translations.vi[key];
+      return baseEn[key] || "";
+    }
     function applyLanguage(lang) {
       document.documentElement.lang = lang;
       document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
