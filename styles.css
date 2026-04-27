@@ -95,6 +95,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
   font-size: 0.86rem;
 }
 h1 { margin: 12px 0; line-height: 1.25; font-size: clamp(1.8rem, 4vw, 3rem); }
+.hero-title { white-space: pre-line; }
 .hero-desc { color: var(--muted); max-width: 62ch; }
 
 .hero-image-wrap,
