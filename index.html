@@ -986,6 +986,13 @@
 
     const visitDateInput = document.getElementById("visitDate");
     if (visitDateInput) {
+      const today = new Date();
+      const yyyy = today.getFullYear();
+      const mm = String(today.getMonth() + 1).padStart(2, "0");
+      const dd = String(today.getDate()).padStart(2, "0");
+      const minDate = `${yyyy}-${mm}-${dd}`;
+      visitDateInput.min = minDate;
+
       const openDatePicker = () => {
         if (typeof visitDateInput.showPicker === "function") {
           visitDateInput.showPicker();
@@ -993,6 +1000,24 @@
       };
       visitDateInput.addEventListener("focus", openDatePicker);
       visitDateInput.addEventListener("click", openDatePicker);
+      visitDateInput.addEventListener("change", () => {
+        if (visitDateInput.value && visitDateInput.value < minDate) {
+          visitDateInput.value = minDate;
+        }
+      });
+
+      const consultForm = document.querySelector('form[name="medical-consult"]');
+      if (consultForm) {
+        consultForm.addEventListener("submit", (event) => {
+          if (visitDateInput.value && visitDateInput.value < minDate) {
+            event.preventDefault();
+            visitDateInput.setCustomValidity("Please select today or a future date.");
+            visitDateInput.reportValidity();
+          } else {
+            visitDateInput.setCustomValidity("");
+          }
+        });
+      }
     }
 
     applyLanguage(localStorage.getItem("vrMediTourLang") || "en");
