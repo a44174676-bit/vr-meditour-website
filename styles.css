@@ -239,6 +239,43 @@ h2 { margin: 0 0 12px; font-size: clamp(1.25rem, 2.5vw, 2rem); }
 .agree input { margin-top: 4px; }
 .hidden { display: none; }
 
+
+.ip-section {
+  border-color: rgba(148, 179, 211, 0.34);
+}
+.ip-intro {
+  margin: 0 0 14px;
+  color: var(--muted);
+}
+.ip-grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr;
+}
+.ip-card {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: linear-gradient(160deg, rgba(14, 24, 39, 0.82), rgba(9, 16, 28, 0.76));
+  padding: 12px;
+}
+.ip-card h3 {
+  margin: 0 0 6px;
+  font-size: 1rem;
+  color: #d7ebff;
+}
+.ip-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.94rem;
+}
+.ip-legal {
+  margin: 14px 0 0;
+  padding-top: 12px;
+  border-top: 1px dashed rgba(176, 204, 228, 0.35);
+  color: #d3dfef;
+  font-size: 0.9rem;
+}
+
 .notice-card p,
 .footer p { color: var(--muted); }
 .footer { text-align: center; }
@@ -268,6 +305,7 @@ h2 { margin: 0 0 12px; font-size: clamp(1.25rem, 2.5vw, 2rem); }
   .field-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .consult-form { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .stage-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ip-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (min-width: 1024px) {
@@ -275,6 +313,7 @@ h2 { margin: 0 0 12px; font-size: clamp(1.25rem, 2.5vw, 2rem); }
   .field-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
   .stage-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .founder-layout { grid-template-columns: 1.2fr 0.8fr; align-items: start; }
+  .ip-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .founder-photo { justify-self: end; position: sticky; top: 20px; }
 }
 
