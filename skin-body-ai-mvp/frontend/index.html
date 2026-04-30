@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Skin & Body Balance Analyzer</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="hero">
+      <p class="brand">VR MEDI TOUR &amp; HOME</p>
+      <h1>AI Skin &amp; Body Balance Analyzer</h1>
+      <p class="subtitle">피부와 체성분 데이터를 통합하여 맞춤형 뷰티·웰니스 리포트를 제공합니다.</p>
+      <p class="notice">본 결과는 의료 진단이 아니며, 참고용입니다.</p>
+    </header>
+
+    <main>
+      <section class="input-grid">
+        <article class="card">
+          <h2>피부 상태 입력</h2>
+          <label>수분 부족 정도 (moisture)
+            <input type="number" id="moisture" min="0" max="100" value="50" />
+          </label>
+          <label>홍반/붉은기 (redness)
+            <input type="number" id="redness" min="0" max="100" value="50" />
+          </label>
+          <label>유분 (oiliness)
+            <input type="number" id="oiliness" min="0" max="100" value="50" />
+          </label>
+          <label>피부결/거칠기 (texture)
+            <input type="number" id="texture" min="0" max="100" value="50" />
+          </label>
+        </article>
+
+        <article class="card">
+          <h2>체성분 상태 입력</h2>
+          <label>체수분 (body_water)
+            <input type="number" id="body_water" min="0" max="100" value="50" />
+          </label>
+          <label>근육 상태 (muscle_level)
+            <input type="number" id="muscle_level" min="0" max="100" value="50" />
+          </label>
+          <label>체지방률 (body_fat_rate)
+            <input type="number" id="body_fat_rate" min="0" max="100" value="50" />
+          </label>
+          <label>스트레스 (stress_level)
+            <input type="number" id="stress_level" min="0" max="100" value="50" />
+          </label>
+          <label>수면 상태 (sleep_quality)
+            <input type="number" id="sleep_quality" min="0" max="100" value="50" />
+          </label>
+        </article>
+      </section>
+
+      <div class="action-wrap">
+        <button id="analyzeBtn">분석하기</button>
+      </div>
+
+      <section id="resultSection" class="result-section hidden"></section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
