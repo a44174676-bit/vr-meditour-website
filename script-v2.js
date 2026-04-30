@@ -28,7 +28,9 @@ function applyLanguage(lang) {
   document.documentElement.dir = "ltr";
   document.querySelectorAll("[data-i18n]").forEach((node) => {
     const key = node.dataset.i18n;
+    const ko = dictionary.ko[key];
     if (selected[key]) node.textContent = selected[key];
+    else if (ko) node.textContent = ko;
   });
 }
 
