@@ -3,12 +3,13 @@ FastAPI 백엔드 진입점입니다.
 초보자도 이해하기 쉽도록 최소한의 구조로 작성했습니다.
 """
 
-from fastapi import FastAPI
+from fastapi import FastAPI, File, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
 from analysis_engine import calculate_scores, evaluate_grade
 from recommendation_engine import generate_recommendations
+from image_analysis_engine import analyze_face_image
 
 
 # FastAPI 앱 생성
@@ -83,3 +84,35 @@ def analyze(payload: AnalyzeInput):
         "disclaimer": "본 결과는 의료 진단이 아니며, 참고용입니다.",
         "report_type": "beauty wellness reference report",
     }
+
+
+@app.post("/analyze-image")
+async def analyze_image(file: UploadFile = File(...)):
+    """얼굴 이미지 업로드/촬영 파일을 받아 기본 색상 분석 결과를 반환합니다."""
+    if not file:
+        raise HTTPException(status_code=400, detail="이미지 파일이 필요합니다.")
+
+    if not file.content_type or not file.content_type.startswith("image/"):
+        raise HTTPException(status_code=400, detail="이미지 파일만 업로드할 수 있습니다.")
+
+    try:
+        contents = await file.read()
+        if not contents:
+            raise HTTPException(status_code=400, detail="빈 파일은 분석할 수 없습니다.")
+
+        image_result = analyze_face_image(contents)
+
+        return {
+            "image_analysis": {
+                "average_brightness": image_result["average_brightness"],
+                "average_redness": image_result["average_redness"],
+                "skin_tone_reference": image_result["skin_tone_reference"],
+                "image_quality_message": image_result["image_quality_message"],
+            },
+            "report_type": "beauty wellness reference report",
+            "disclaimer": "본 결과는 의료 진단이 아니며, 뷰티·웰니스 참고용입니다.",
+        }
+    except HTTPException:
+        raise
+    except Exception:
+        raise HTTPException(status_code=400, detail="이미지 분석에 실패했습니다. 다른 이미지를 시도해 주세요.")
