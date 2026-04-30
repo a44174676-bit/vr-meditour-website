@@ -59,3 +59,7 @@ h1,h2,h3 { color: var(--title); }
   .container { padding: 0 16px; }
   h1 { font-size: 1.8rem; }
 }
+
+.preview-link-wrap { margin: 8px 0 0; }
+.preview-link { color: var(--gold); text-decoration: underline; }
+.preview-link:hover { color: #efd49f; }
