@@ -95,6 +95,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
   font-size: 0.86rem;
 }
 h1 { margin: 12px 0; line-height: 1.25; font-size: clamp(1.8rem, 4vw, 3rem); }
+.hero-title { white-space: pre-line; }
 .hero-desc { color: var(--muted); max-width: 62ch; }
 
 .hero-image-wrap,
@@ -239,6 +240,49 @@ h2 { margin: 0 0 12px; font-size: clamp(1.25rem, 2.5vw, 2rem); }
 .agree input { margin-top: 4px; }
 .hidden { display: none; }
 
+
+.ip-section {
+  border-color: rgba(148, 179, 211, 0.34);
+}
+.ip-intro {
+  margin: 0 0 14px;
+  color: var(--muted);
+}
+.ip-grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr;
+}
+.ip-card {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: linear-gradient(160deg, rgba(14, 24, 39, 0.82), rgba(9, 16, 28, 0.76));
+  padding: 12px;
+}
+.ip-card h3 {
+  margin: 0 0 6px;
+  font-size: 1rem;
+  color: #d7ebff;
+}
+.ip-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.94rem;
+}
+.ip-ref {
+  font-size: 0.92rem;
+  color: rgba(226, 232, 240, 0.78);
+  margin: 0.35rem 0 0.55rem;
+  word-break: break-word;
+}
+.ip-legal {
+  margin: 14px 0 0;
+  padding-top: 12px;
+  border-top: 1px dashed rgba(176, 204, 228, 0.35);
+  color: #d3dfef;
+  font-size: 0.9rem;
+}
+
 .notice-card p,
 .footer p { color: var(--muted); }
 .footer { text-align: center; }
@@ -268,6 +312,7 @@ h2 { margin: 0 0 12px; font-size: clamp(1.25rem, 2.5vw, 2rem); }
   .field-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .consult-form { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .stage-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ip-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (min-width: 1024px) {
@@ -275,6 +320,7 @@ h2 { margin: 0 0 12px; font-size: clamp(1.25rem, 2.5vw, 2rem); }
   .field-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
   .stage-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .founder-layout { grid-template-columns: 1.2fr 0.8fr; align-items: start; }
+  .ip-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .founder-photo { justify-self: end; position: sticky; top: 20px; }
 }
 
@@ -285,3 +331,34 @@ h2 { margin: 0 0 12px; font-size: clamp(1.25rem, 2.5vw, 2rem); }
   .form-header .btn,
   .consult-form .btn { width: 100%; }
 }
+
+.cinematic-hero {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(rgba(5,10,18,.55), rgba(5,10,18,.75)), url('assets/hero-medical-travel.jpg') center/cover no-repeat;
+}
+.cinematic-hero .hero-grid { position: relative; z-index: 1; }
+.quick-nav { display:flex; gap:18px; flex-wrap:wrap; }
+.quick-nav a { color:#e9edf7; opacity:.9; font-weight:600; }
+.feature-strip { display:grid; gap:10px; margin-top:16px; grid-template-columns:1fr; }
+.feature-strip article { border:1px solid rgba(209,174,99,.35); background:rgba(9,18,31,.45); border-radius:14px; padding:12px; }
+.feature-strip h3 { margin:0 0 4px; }
+.feature-strip p { margin:0; color:#d2ddec; }
+@media (min-width: 1024px) {
+  .feature-strip { grid-template-columns: repeat(4,minmax(0,1fr)); }
+}
+
+.cinematic-hero { min-height: 100vh; background-position:center; }
+.cinematic-hero::before { content:""; position:absolute; inset:0; background:linear-gradient(90deg, rgba(7,9,13,.82), rgba(7,9,13,.58)); }
+.cinematic-hero .topbar, .cinematic-hero .hero-grid, .cinematic-hero .feature-strip, .founder-quote { position:relative; z-index:1; }
+.quick-nav { margin-left:auto; }
+.quick-nav a { padding-bottom:4px; border-bottom:2px solid transparent; }
+.quick-nav a:hover { border-bottom-color:#d6b16a; }
+.founder-quote { max-width: 520px; margin: 12px 0 0 auto; text-align:right; color:#e4d8bf; font-style:italic; }
+.feature-strip { grid-template-columns:repeat(1,minmax(0,1fr)); }
+.feature-strip article { transition:transform .2s ease; border-color:rgba(214,177,106,.45); }
+.feature-strip article:hover { transform: translateY(-3px); }
+.floating-chat { position:fixed; right:16px; bottom:16px; z-index:1000; background:#1fb6b8; color:#041016; border-radius:999px; padding:10px 14px; font-weight:700; border:1px solid rgba(255,255,255,.4); }
+.floating-chat:focus-visible { outline:2px solid #fff; outline-offset:2px; }
+@media (max-width: 760px){ .quick-nav{width:100%; order:3;} .founder-quote{text-align:left; margin-right:0;} }
+@media (min-width: 1024px){ .feature-strip{grid-template-columns:repeat(5,minmax(0,1fr));} }
