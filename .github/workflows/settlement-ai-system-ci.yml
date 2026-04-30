@@ -1,0 +1,45 @@
+name: settlement-ai-system-ci
+
+on:
+  push:
+    paths:
+      - 'settlement-ai-system/**'
+      - '.github/workflows/settlement-ai-system-ci.yml'
+  pull_request:
+    paths:
+      - 'settlement-ai-system/**'
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: settlement-ai-system
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install backend deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r backend/requirements.txt
+      - name: Python compile check
+        run: |
+          cd backend
+          python -m py_compile main.py database.py models.py schemas.py services/*.py seed.py
+      - name: Run backend tests
+        run: |
+          cd backend
+          pytest -q
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install frontend deps
+        run: |
+          cd frontend
+          npm install
+      - name: Frontend build
+        run: |
+          cd frontend
+          npm run build
