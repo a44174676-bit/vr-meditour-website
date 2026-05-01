@@ -187,3 +187,10 @@ skin-body-ai-mvp/
 
 - `/analyze`(1단계 수치 분석)와 `/analyze-image`(2단계 이미지 분석) 기능을 모두 유지했습니다.
 - 기존 VR MEDI TOUR & HOME 홈페이지를 대체하지 않고, `/skin-analysis` 기능 페이지로 연결하는 방향을 유지합니다.
+
+
+## 11) 충돌 해결 확인 항목
+
+- `POST /analyze`와 `POST /analyze-image` API를 모두 유지합니다.
+- 프론트엔드는 `API_BASE_URL`(및 내부 endpoint 상수) 기준으로 중복 없이 호출합니다.
+- 기존 VR MEDI TOUR & HOME 홈페이지 대체 없이, 별도 기능 페이지로 운용합니다.

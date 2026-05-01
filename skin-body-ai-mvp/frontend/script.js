@@ -1,5 +1,9 @@
 // 배포 후 API_BASE_URL 상수 하나만 수정하면 모든 API 호출 경로가 함께 변경됩니다.
 const API_BASE_URL = "http://127.0.0.1:8000";
+const API_ENDPOINTS = {
+  analyze: `${API_BASE_URL}/analyze`,
+  analyzeImage: `${API_BASE_URL}/analyze-image`,
+};
 const fields = ["moisture", "redness", "oiliness", "texture", "body_water", "muscle_level", "body_fat_rate", "stress_level", "sleep_quality"];
 
 function getSafeNumber(id) {
@@ -29,7 +33,7 @@ async function analyzeNumbers() {
   const payload = {};
   fields.forEach((field) => (payload[field] = getSafeNumber(field)));
   try {
-    const response = await fetch(`${API_BASE_URL}/analyze`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+    const response = await fetch(API_ENDPOINTS.analyze, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
     if (!response.ok) throw new Error("API error");
     renderScoreResult(await response.json());
   } catch {
@@ -95,7 +99,7 @@ async function analyzeImage() {
   try {
     button.textContent = "분석 중...";
     button.disabled = true;
-    const response = await fetch(`${API_BASE_URL}/analyze-image`, { method: "POST", body: formData });
+    const response = await fetch(API_ENDPOINTS.analyzeImage, { method: "POST", body: formData });
     if (!response.ok) throw new Error("image analyze failed");
     renderImageResult(await response.json());
   } catch {
