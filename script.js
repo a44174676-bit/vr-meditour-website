@@ -72,7 +72,7 @@
 
   async function analyzeByServer(dataUrl) {
     try {
-      setStatus('AI 분석 요청 중입니다...', true);
+      setStatus('AI가 촬영 이미지를 분석 중입니다...', true);
       const res = await fetch('/.netlify/functions/analyze-skin', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -85,12 +85,12 @@
           ? 'AI 분석 서버 설정이 아직 완료되지 않았습니다. 관리자에게 OPENAI_API_KEY 설정을 요청해 주세요.'
           : (json.message || json.error || '분석 요청 중 오류가 발생했습니다.');
         setStatus(msg);
-        renderError(json);
+        renderError(msg, json);
         return;
       }
 
       renderAnalysis(json.analysis);
-      setStatus('분석 완료: 아래 결과를 확인하세요.');
+      setStatus('AI 분석이 완료되었습니다.');
     } catch (error) {
       console.error(error);
       setStatus('서버와 통신 중 오류가 발생했습니다.');
@@ -99,10 +99,10 @@
     }
   }
 
-  function renderError(payload) {
+  function renderError(message, payload) {
     analysisEl.innerHTML = `
       <h2 class="vrmt-card-title">AI 피부 분석 결과</h2>
-      <p class="vrmt-muted">요청 실패</p>
+      <p class="vrmt-muted">요청 실패</p>\n      <p><strong>${escapeHtml(message || '오류')}</strong></p>
       <div class="vrmt-json"><pre>${escapeHtml(JSON.stringify(payload, null, 2))}</pre></div>
       <p class="vrmt-disclaimer">※ 본 서비스는 의료 진단이 아닌 피부·뷰티 참고 분석입니다.</p>
     `;
