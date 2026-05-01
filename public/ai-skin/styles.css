@@ -13,3 +13,5 @@
 .report-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.report-item{background:rgba(255,255,255,.07);padding:10px;border-radius:12px}
 .safety{margin-top:10px;color:#fde68a;font-size:13px}details{margin-top:10px}
 @media(max-width:900px){.grid{grid-template-columns:1fr}.camera-card{order:-1}.report-grid{grid-template-columns:1fr}}
+
+.language-buttons{display:flex;gap:8px;justify-content:flex-end;margin-bottom:14px}.language-buttons button{border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.08);color:#dbeafe;border-radius:999px;padding:6px 10px;cursor:pointer}.language-buttons button.active{background:linear-gradient(90deg,#2a6ee8,#25cfb4);color:#fff;border-color:transparent}

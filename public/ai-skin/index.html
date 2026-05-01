@@ -10,25 +10,33 @@
   <main class="page">
     <section class="hero">
       <div class="container">
-        <h1>AI 피부 분석 & 케어 컨시어지</h1>
-        <p class="sub">프리미엄 K-뷰티 · 메디컬 트래블 케어를 위한 AI 참고 분석</p>
+        <div class="language-buttons" id="languageButtons" aria-label="Language selector">
+          <button type="button" data-lang="ko">KO</button>
+          <button type="button" data-lang="en">EN</button>
+          <button type="button" data-lang="vi">VI</button>
+          <button type="button" data-lang="ja">JP</button>
+          <button type="button" data-lang="zh">CN</button>
+        </div>
+
+        <h1 data-i18n="title">AI 피부 분석 & 케어 컨시어지</h1>
+        <p class="sub" data-i18n="subtitle">프리미엄 K-뷰티 · 메디컬 트래블 케어를 위한 AI 참고 분석</p>
 
         <div class="badge-row">
-          <span class="badge">AI 참고 분석</span>
-          <span class="badge">사진 저장 없음</span>
-          <span class="badge">의료 진단 아님</span>
-          <span class="badge">K-뷰티 케어 제안</span>
-          <span class="badge">전문 상담 연계 가능</span>
+          <span class="badge" data-i18n="badgeAi">AI 참고 분석</span>
+          <span class="badge" data-i18n="badgeNoStore">사진 저장 없음</span>
+          <span class="badge" data-i18n="badgeNotMedical">의료 진단 아님</span>
+          <span class="badge" data-i18n="badgeKBeauty">K-뷰티 케어 제안</span>
+          <span class="badge" data-i18n="badgeConsult">전문 상담 연계 가능</span>
         </div>
 
         <div class="grid">
           <section class="card">
-            <p class="guide">카메라를 시작한 뒤 얼굴을 가이드에 맞추고 AI 판별 촬영을 눌러 주세요.</p>
+            <p class="guide" data-i18n="guide">카메라를 시작한 뒤 얼굴을 가이드에 맞추고 AI 판별 촬영을 눌러 주세요.</p>
             <div class="actions">
-              <button id="vrmtStartCameraBtn" class="btn primary" type="button">카메라 시작</button>
-              <button id="vrmtCaptureBtn" class="btn" type="button">AI 판별 촬영</button>
+              <button id="vrmtStartCameraBtn" class="btn primary" type="button" data-i18n="startBtn">카메라 시작</button>
+              <button id="vrmtCaptureBtn" class="btn" type="button" data-i18n="captureBtn">AI 판별 촬영</button>
             </div>
-            <p id="vrmtStatus" class="status">카메라를 시작한 뒤 얼굴을 가이드에 맞추고 AI 판별 촬영을 눌러 주세요.</p>
+            <p id="vrmtStatus" class="status" data-i18n="statusInit">카메라를 시작한 뒤 얼굴을 가이드에 맞추고 AI 판별 촬영을 눌러 주세요.</p>
           </section>
 
           <section class="card camera-card">
@@ -45,8 +53,8 @@
         </div>
 
         <section id="vrmtAnalysis" class="card result">
-          <h2>AI 피부 분석 리포트</h2>
-          <p>촬영 후 분석 리포트가 카드 형식으로 표시됩니다.</p>
+          <h2 data-i18n="reportTitle">AI 피부 분석 리포트</h2>
+          <p data-i18n="reportDesc">촬영 후 분석 리포트가 카드 형식으로 표시됩니다.</p>
         </section>
       </div>
     </section>
