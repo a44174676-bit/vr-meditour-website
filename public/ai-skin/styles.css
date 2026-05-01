@@ -1,0 +1,15 @@
+:root{--bg:#0a1224;--bg2:#12233f;--mint:#71f0d3;--txt:#e8eef8;--muted:#aab8cf}
+*{box-sizing:border-box}body{margin:0;color:var(--txt);font-family:Inter,system-ui,sans-serif;background:radial-gradient(circle at 20% 20%,#16315d 0,#0a1224 45%,#060b18 100%)}
+.container{max-width:1120px;margin:0 auto;padding:28px 16px 40px}.sub{color:var(--muted)}
+.badge-row{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 18px}.badge{background:rgba(113,240,211,.14);border:1px solid rgba(113,240,211,.4);padding:6px 10px;border-radius:999px;font-size:12px}
+.grid{display:grid;grid-template-columns:1.1fr 1.4fr;gap:14px}.card{background:rgba(255,255,255,.08);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:16px;box-shadow:0 20px 45px rgba(0,0,0,.32)}
+.btn{border-radius:12px;padding:11px 14px;border:1px solid rgba(255,255,255,.4);background:#1b2e55;color:white;cursor:pointer}.btn.primary{background:linear-gradient(90deg,#2a6ee8,#25cfb4)}.btn:disabled{opacity:.55;cursor:not-allowed}
+.status{color:#d7e3f7}.status.loading{color:var(--mint);font-weight:700}
+.vrmt-camera-frame{position:relative;overflow:hidden;border-radius:16px;background:#04070e;aspect-ratio:4/3}
+#vrmtCameraVideo,.vrmt-snapshot{width:100%;height:100%;object-fit:cover}#vrmtCameraVideo{transform:scaleX(-1)}.vrmt-snapshot{display:none}
+.vrmt-face-guide{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}.vrmt-guide-circle{width:62%;height:78%;border:3px solid rgba(255,255,255,.85);border-radius:999px}
+.vrmt-guide-cross-h,.vrmt-guide-cross-v{position:absolute;background:rgba(255,255,255,.55)}.vrmt-guide-cross-h{width:50%;height:2px;left:25%;top:50%}.vrmt-guide-cross-v{width:2px;height:50%;left:50%;top:25%}
+.vrmt-face-guide.vrmt-aligned .vrmt-guide-circle{border-color:#2ee57e;box-shadow:0 0 16px rgba(46,229,126,.8)}
+.report-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.report-item{background:rgba(255,255,255,.07);padding:10px;border-radius:12px}
+.safety{margin-top:10px;color:#fde68a;font-size:13px}details{margin-top:10px}
+@media(max-width:900px){.grid{grid-template-columns:1fr}.camera-card{order:-1}.report-grid{grid-template-columns:1fr}}

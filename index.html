@@ -1,60 +1,1069 @@
-<!doctype html>
-<html lang="ko">
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
 <head>
-  <meta charset="utf-8" />
-  <title>AI 피부 분석 & 케어 컨시어지</title>
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VR MEDI TOUR &amp; HOME | Korean Medical Travel Coordination</title>
+  <meta name="description" content="VR MEDI TOUR & HOME Co., Ltd. provides human-reviewed medical travel coordination for international patients: consultation preparation, multilingual support, hospital communication support, and recovery travel assistance in Korea." />
+  <link rel="canonical" href="https://vrmeditour.com/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="VR MEDI TOUR & HOME | Korean Medical Travel Coordination" />
+  <meta property="og:description" content="Human-reviewed consultation preparation, multilingual coordination, and hospital communication support for international patients visiting Korea." />
+  <meta property="og:url" content="https://vrmeditour.com/" />
+  <meta property="og:image" content="https://vrmeditour.com/assets/hero-medical-travel.jpg" />
+  <meta property="og:site_name" content="VR MEDI TOUR & HOME" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="VR MEDI TOUR & HOME | Korean Medical Travel Coordination" />
+  <meta name="twitter:description" content="Not a hospital. Human-reviewed medical travel coordination and consultation preparation." />
+  <meta name="twitter:image" content="https://vrmeditour.com/assets/hero-medical-travel.jpg" />
   <link rel="stylesheet" href="styles.css" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "VR MEDI TOUR & HOME Co., Ltd.",
+      "brand": "VR MEDI TOUR",
+      "url": "https://vrmeditour.com/",
+      "logo": "https://vrmeditour.com/assets/logo.jpg",
+      "email": "vrmeditour@naver.com",
+      "telephone": "+82-10-4417-4676",
+      "areaServed": ["Korea", "Vietnam"],
+      "sameAs": [
+        "https://chatgpt.com/g/g-68f04d401e488191b5afaed323a7b714-vr-medi-tour-home-korean-medical-tourism-gpt"
+      ]
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MedicalBusiness",
+      "name": "VR MEDI TOUR & HOME Co., Ltd.",
+      "description": "Medical travel coordination and consultation preparation for international patients connecting with licensed Korean medical institutions.",
+      "url": "https://vrmeditour.com/",
+      "telephone": "+82-10-4417-4676",
+      "email": "vrmeditour@naver.com",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "KR",
+        "addressRegion": "Busan / Seoul / Hanoi Network"
+      },
+      "knowsLanguage": ["English", "Korean", "Vietnamese", "Japanese", "Chinese"],
+      "medicalSpecialty": ["Dermatology", "Plastic Surgery", "Dentistry", "Health Check-up", "Wellness & Recovery"]
+    }
+  </script>
 </head>
 <body>
-  <main class="vrmt-page">
-    <section class="vrmt-landing" id="vrmtLanding">
-      <div class="vrmt-container">
-        <h1 class="vrmt-title">AI 피부 분석 & 케어 컨시어지</h1>
-        <p class="vrmt-sub">카메라로 촬영한 얼굴 이미지를 AI가 분석해 피부 케어 방향을 제안합니다.</p>
-
-        <div class="vrmt-grid">
-          <div class="vrmt-col vrmt-col-text">
-            <ul class="vrmt-list">
-              <li>웹캠으로 얼굴 촬영</li>
-              <li>촬영 이미지는 분석 요청에만 사용 (서버 저장 없음)</li>
-              <li>AI 분석 결과를 JSON 구조로 표시</li>
-              <li>의료 진단이 아닌 뷰티 참고 분석 제공</li>
-            </ul>
-
-            <div class="vrmt-actions">
-              <button type="button" id="vrmtStartCameraBtn" class="vrmt-btn vrmt-btn-primary">카메라 시작하기</button>
-              <button type="button" id="vrmtCaptureBtn" class="vrmt-btn vrmt-btn-outline">AI 판별 촬영</button>
-            </div>
-
-            <p class="vrmt-status" id="vrmtStatus">카메라를 시작한 뒤 얼굴을 가이드에 맞추고 AI 판별 촬영을 눌러 주세요.</p>
+  <a class="skip-link" href="#consult-form">Skip to consultation form</a>
+  <main class="page" id="top">
+    <section class="hero section-card">
+      <header class="topbar">
+        <a href="#top" class="brand" aria-label="VR MEDI TOUR home">
+          <img src="assets/logo.jpg" alt="VR MEDI TOUR & HOME logo" class="brand-logo" />
+          <div class="brand-text">
+            <strong>VR MEDI TOUR</strong>
+            <span>&amp; HOME</span>
           </div>
+        </a>
 
-          <div class="vrmt-col vrmt-col-camera">
-            <div class="vrmt-card vrmt-camera-card">
-              <div class="vrmt-camera-frame">
-                <video id="vrmtCameraVideo" autoplay playsinline></video>
-                <div id="vrmtFaceGuide" class="vrmt-face-guide">
-                  <div class="vrmt-guide-circle"></div>
-                  <div class="vrmt-guide-cross-h"></div>
-                  <div class="vrmt-guide-cross-v"></div>
-                </div>
-                <canvas id="vrmtSnapshotCanvas" class="vrmt-snapshot" aria-hidden="true"></canvas>
-              </div>
-            </div>
+        <div class="language-select">
+          <span data-i18n="languageLabel">Language</span>
+          <div class="language-buttons" id="languageButtons" aria-label="Language selector">
+            <button type="button" data-lang="en" aria-label="Switch language to English">EN</button>
+            <button type="button" data-lang="ko" aria-label="Switch language to Korean">KO</button>
+            <button type="button" data-lang="vi" aria-label="Switch language to Vietnamese">VI</button>
+            <button type="button" data-lang="ja" aria-label="Switch language to Japanese">JP</button>
+            <button type="button" data-lang="zh" aria-label="Switch language to Chinese">CN</button>
           </div>
         </div>
+      </header>
 
-        <div class="vrmt-result-grid">
-          <div class="vrmt-card" id="vrmtAnalysis">
-            <h2 class="vrmt-card-title">AI 피부 분석 결과</h2>
-            <p class="vrmt-muted">촬영 후 분석 버튼을 누르면 실제 AI 분석 JSON 결과가 표시됩니다.</p>
+      <div class="hero-grid">
+        <article class="hero-copy">
+          <p class="eyebrow" data-i18n="heroEyebrow">Korea · Vietnam Medical Travel Coordination</p>
+          <h1 class="hero-title" data-i18n="heroTitle">Trusted Korean Medical Travel Coordination, Human-Reviewed.</h1>
+          <p class="hero-desc" data-i18n="heroDesc">We support consultation preparation, hospital communication, interpretation, travel logistics, stay support, and recovery coordination for international patients.</p>
+          <div class="hero-actions">
+            <a href="#consult-form" class="btn primary" data-i18n="heroCtaConsult" aria-label="Go to consultation form">Request Consultation</a>
+            <a href="#hospital-partnership" class="btn secondary" data-i18n="heroCtaPartner" aria-label="Go to hospital partnership">Hospital Partners</a>
+            <a href="/ai-skin/" class="btn secondary" aria-label="Try AI skin analysis">AI 피부 분석 체험하기 (의료 진단 아님 · K-뷰티 참고 분석)</a>
+            <a href="https://chatgpt.com/g/g-68f04d401e488191b5afaed323a7b714-vr-medi-tour-home-korean-medical-tourism-gpt" class="btn ai-chat" target="_blank" rel="noopener noreferrer" data-i18n="aiBtn" aria-label="Ask AI Medical Travel Assistant in new tab">Ask AI Medical Travel Assistant</a>
           </div>
-        </div>
+          <p class="ai-disclaimer" data-i18n="aiDisclaimer">AI assistant helps organize your inquiry. It does not diagnose, prescribe, or replace licensed medical professionals.</p>
+        </article>
+        <figure class="hero-image-wrap">
+          <iframe
+            class="hero-video"
+            src="https://www.youtube.com/embed/vztKesdxKTc?rel=0"
+            title="VR MEDI TOUR introduction video"
+            loading="lazy"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+        </figure>
       </div>
     </section>
+
+    <section class="section-card verified-operator">
+      <h2 data-i18n="verifiedTitle">Verified Operator</h2>
+      <ul class="detail-list">
+        <li><strong data-i18n="verifiedCompanyLabel">Company:</strong> <span data-i18n="verifiedCompany">VR MEDI TOUR &amp; HOME Co., Ltd.</span></li>
+        <li><strong data-i18n="verifiedBrandLabel">Brand:</strong> <span data-i18n="verifiedBrand">VR MEDI TOUR</span></li>
+        <li><strong data-i18n="verifiedAreaLabel">Business Area:</strong> <span data-i18n="verifiedArea">Medical Travel Coordination / K-Beauty / Wellness / Travel Support</span></li>
+        <li><strong data-i18n="verifiedNetworkLabel">Network:</strong> <span data-i18n="verifiedNetwork">Korea · Vietnam</span></li>
+        <li><strong data-i18n="verifiedOfficeLabel">Office:</strong> <span data-i18n="verifiedOffice">Busan HQ / Seoul Gangnam Branch / Hanoi Network</span></li>
+      </ul>
+    </section>
+
+    <section class="section-card">
+      <h2 data-i18n="fieldsTitle">Partner Medical Fields</h2>
+      <div class="field-grid">
+        <article class="card"><img src="assets/dermatology.jpg" alt="Dermatology consultation coordination" /><h3 data-i18n="fieldDerm">Dermatology</h3></article>
+        <article class="card"><img src="assets/plastic-surgery.jpg" alt="Plastic surgery consultation coordination" /><h3 data-i18n="fieldPlastic">Plastic Surgery</h3></article>
+        <article class="card"><img src="assets/dentistry.jpg" alt="Dentistry consultation coordination" /><h3 data-i18n="fieldDentistry">Dentistry</h3></article>
+        <article class="card"><img src="assets/health-checkup.jpg" alt="Health check-up coordination" /><h3 data-i18n="fieldCheckup">Health Check-up</h3></article>
+        <article class="card"><img src="assets/wellness-recovery.jpg" alt="Wellness and recovery support" /><h3 data-i18n="fieldWellness">Wellness &amp; Recovery</h3></article>
+      </div>
+    </section>
+
+    <section class="section-card">
+      <h2 data-i18n="aiSectionTitle">AI-assisted, Human-reviewed</h2>
+      <ul class="bullet-list">
+        <li data-i18n="aiPoint1">AI does not diagnose.</li>
+        <li data-i18n="aiPoint2">AI only helps organize inquiries.</li>
+        <li data-i18n="aiPoint3">AI detects language, country, medical field, urgency, and missing information.</li>
+        <li data-i18n="aiPoint4">Human coordinator reviews the case.</li>
+        <li data-i18n="aiPoint5">Final medical decisions are made only by licensed Korean medical institutions.</li>
+      </ul>
+      <img src="assets/ai-human-review.jpg" alt="AI assisted screening with human coordinator review" class="inline-image" />
+    </section>
+
+    <section class="section-card">
+      <h2 data-i18n="stageTitle">Stage-Safe Coordination</h2>
+      <ol class="stage-grid">
+        <li data-i18n="stage1">Consultation stage</li>
+        <li data-i18n="stage2">Reservation stage</li>
+        <li data-i18n="stage3">Examination stage</li>
+        <li data-i18n="stage4">Treatment stage</li>
+        <li data-i18n="stage5">Recovery stage</li>
+        <li data-i18n="stage6">Aftercare stage</li>
+      </ol>
+    </section>
+
+    <section class="section-card">
+      <h2 data-i18n="costTitle">Cost Guidance Principle</h2>
+      <ul class="bullet-list">
+        <li data-i18n="cost1">Fixed prices are not guaranteed before hospital consultation.</li>
+        <li data-i18n="cost2">Estimated costs may vary depending on diagnosis, test results, treatment scope, stay duration, and hospital policy.</li>
+        <li data-i18n="cost3">After medical institution review, estimated ranges can be explained clearly.</li>
+      </ul>
+    </section>
+
+    <section class="section-card" id="hospital-partnership">
+      <h2 data-i18n="partnerTitle">Hospital Partnership</h2>
+      <img src="assets/hospital-partnership.jpg" alt="Hospital partner communication and patient preparation" class="inline-image" />
+      <ul class="bullet-list">
+        <li data-i18n="partner1">Foreign patient inquiry organization</li>
+        <li data-i18n="partner2">Multilingual pre-consultation preparation</li>
+        <li data-i18n="partner3">Patient document checklist</li>
+        <li data-i18n="partner4">Preferred language and schedule collection</li>
+        <li data-i18n="partner5">Hospital contact point support</li>
+        <li data-i18n="partner6">Referral preparation without medical decision claims</li>
+      </ul>
+    </section>
+
+    <section class="section-card">
+      <h2 data-i18n="privacyTitle">Privacy &amp; Medical Information Protection</h2>
+      <ul class="bullet-list">
+        <li data-i18n="privacy1">Photos, symptoms, documents, and contact details are used only for consultation preparation and hospital communication.</li>
+        <li data-i18n="privacy2">Information is not shared with third parties without consent.</li>
+        <li data-i18n="privacy3">When hospital review is needed, permission must be requested before forwarding documents.</li>
+      </ul>
+    </section>
+
+    <section class="section-card founder-section">
+      <h2 data-i18n="founderTitle">Founder Message</h2>
+      <div class="founder-layout">
+        <div class="founder-copy">
+          <p class="founder-greeting" data-i18n="founderGreeting">Hello. I am Sung Young Jung, founder of VR MEDI TOUR &amp; HOME.</p>
+          <p data-i18n="founderPara1">VR MEDI TOUR &amp; HOME began to support international patients who need Korean medical services so they do not feel anxious because of language, distance, systems, and hospital selection barriers.</p>
+          <p data-i18n="founderPara2">We are not a hospital and do not diagnose, prescribe, or guarantee treatment outcomes. AI is used only to support consultation preparation such as language check, field classification, and missing information review. Final medical decisions are made only by licensed Korean medical institutions.</p>
+          <p data-i18n="founderPara3">We aim to build a trust-based platform connecting medical travel, K-beauty, wellness, and travel support centered on Korea and Vietnam. We help patients understand and choose in their own language, and deliver organized consultation information to hospitals with principles of privacy protection, patient consent, transparent cost guidance, and human-centered coordination.</p>
+          <div class="chips">
+            <span data-i18n="chip1">Human-reviewed</span>
+            <span data-i18n="chip2">Not a hospital</span>
+            <span data-i18n="chip3">Licensed medical institutions decide</span>
+          </div>
+          <p><strong data-i18n="founderRole">Founder / Coordinator</strong></p>
+          <p data-i18n="founderCompany">VR MEDI TOUR &amp; HOME Co., Ltd.</p>
+          <p data-i18n="founderNetwork">Korea · Vietnam Medical Travel Coordination</p>
+        </div>
+        <img src="assets/Founder.jpg" alt="Founder and coordinator of VR MEDI TOUR & HOME" class="inline-image founder-photo" />
+      </div>
+    </section>
+
+    <section class="section-card" id="consult-form">
+      <div class="form-header">
+        <h2 data-i18n="formTitle">Consultation Request Form</h2>
+        <a href="https://chatgpt.com/g/g-68f04d401e488191b5afaed323a7b714-vr-medi-tour-home-korean-medical-tourism-gpt" class="btn ai-chat" target="_blank" rel="noopener noreferrer" data-i18n="aiBtn" aria-label="Ask AI Medical Travel Assistant in new tab">Ask AI Medical Travel Assistant</a>
+      </div>
+      <p class="ai-disclaimer" data-i18n="aiDisclaimer">AI assistant helps organize your inquiry. It does not diagnose, prescribe, or replace licensed medical professionals.</p>
+
+      <form
+        name="medical-consult"
+        method="POST"
+        action="/thank-you.html"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+        enctype="multipart/form-data"
+        class="consult-form"
+      >
+        <input type="hidden" name="form-name" value="medical-consult" />
+        <p class="hidden"><label>Don’t fill this out: <input name="bot-field" /></label></p>
+
+        <label>
+          <span data-i18n="fInquiryType">Inquiry type</span>
+          <select name="inquiry_type" required>
+            <option value="" data-i18n-option="optSelect">Please select</option>
+            <option value="Patient Inquiry" data-i18n-option="optPatient">Patient Inquiry</option>
+            <option value="Hospital Partnership Inquiry" data-i18n-option="optHospital">Hospital Partnership Inquiry</option>
+          </select>
+        </label>
+
+        <label>
+          <span data-i18n="fLanguage">Preferred language</span>
+          <select name="preferred_language" id="preferredLanguage" required>
+            <option value="English">English</option>
+            <option value="한국어">한국어</option>
+            <option value="Tiếng Việt">Tiếng Việt</option>
+            <option value="日本語">日本語</option>
+            <option value="中文">中文</option>
+          </select>
+        </label>
+
+        <label>
+          <span data-i18n="fName">Name</span>
+          <input type="text" name="name" data-i18n-placeholder="phName" placeholder="Your full name" required />
+        </label>
+
+        <label>
+          <span data-i18n="fCountry">Country</span>
+          <input type="text" name="country" data-i18n-placeholder="phCountry" placeholder="Country of residence" required />
+        </label>
+
+        <label>
+          <span data-i18n="fContact">E-mail</span>
+          <input type="email" name="email" autocomplete="email" data-i18n-placeholder="phContact" placeholder="you@example.com" required />
+        </label>
+
+        <label>
+          <span data-i18n="fField">Interested field</span>
+          <select name="interested_field" required>
+            <option value="" data-i18n-option="optSelect">Please select</option>
+            <option value="Dermatology" data-i18n-option="fieldDerm">Dermatology</option>
+            <option value="Plastic Surgery" data-i18n-option="fieldPlastic">Plastic Surgery</option>
+            <option value="Dentistry" data-i18n-option="fieldDentistry">Dentistry</option>
+            <option value="Health Check-up" data-i18n-option="fieldCheckup">Health Check-up</option>
+            <option value="Wellness & Recovery" data-i18n-option="fieldWellness">Wellness & Recovery</option>
+          </select>
+        </label>
+
+        <label class="full">
+          <span data-i18n="fMessage">Message</span>
+          <textarea name="message" rows="5" data-i18n-placeholder="phMessage" placeholder="Please share symptoms, goals, timeline, and key concerns" required></textarea>
+        </label>
+
+        <label>
+          <span data-i18n="fDiagnosis">Existing diagnosis</span>
+          <input type="text" name="existing_diagnosis" data-i18n-placeholder="phDiagnosis" placeholder="Optional" />
+        </label>
+
+        <label>
+          <span data-i18n="fVisitDate">Preferred visit date</span>
+          <input type="date" name="preferred_visit_date" id="visitDate" />
+        </label>
+
+        <label>
+          <span data-i18n="fBudget">Budget</span>
+          <input type="text" name="budget" data-i18n-placeholder="phBudget" placeholder="Estimated budget range" />
+        </label>
+
+        <label>
+          <span data-i18n="fInterpreter">Interpreter support</span>
+          <select name="interpreter_support">
+            <option value="" data-i18n-option="optSelect">Please select</option>
+            <option value="Yes" data-i18n-option="optYes">Yes</option>
+            <option value="No" data-i18n-option="optNo">No</option>
+          </select>
+        </label>
+
+        <label>
+          <span data-i18n="fHotel">Hotel or transport support</span>
+          <select name="hotel_transport_support">
+            <option value="" data-i18n-option="optSelect">Please select</option>
+            <option value="Yes" data-i18n-option="optYes">Yes</option>
+            <option value="No" data-i18n-option="optNo">No</option>
+          </select>
+        </label>
+
+        <label>
+          <span data-i18n="fDoc">Photo or document link</span>
+          <input type="url" name="photo_document_link" data-i18n-placeholder="phDoc" placeholder="https://" />
+        </label>
+
+        <label class="agree full">
+          <input type="checkbox" name="privacy_agreement" required />
+          <span data-i18n="privacyAgree">I agree to consultation preparation use, patient consent process, and privacy protection policy.</span>
+        </label>
+
+        <button type="submit" class="btn primary full" data-i18n="submitBtn" aria-label="Submit consultation request">Submit Consultation Request</button>
+      </form>
+    </section>
+
+    <section class="section-card notice-card">
+      <h2 data-i18n="noticeTitle">Medical Notice</h2>
+      <p data-i18n="noticeBody">VR MEDI TOUR &amp; HOME is not a hospital. It does not diagnose, prescribe, guarantee treatment results, or guarantee fixed prices. Final diagnosis, treatment availability, confirmed cost, and medical decisions are made only by licensed Korean medical institutions.</p>
+    </section>
+
+
+    <section class="section-card ip-section" aria-labelledby="ip-title">
+      <h2 id="ip-title" data-i18n="ipTitle">Intellectual Property &amp; Trademark Applications</h2>
+      <p class="ip-intro" data-i18n="ipIntro">VR MEDI TOUR &amp; HOME is developing a trust-based medical travel coordination platform supported by pending patent, utility model, and trademark applications related to medical travel coordination, VR/AI consultation support, K-beauty wellness technology, multilingual patient assistance, and platform services.</p>
+      <div class="ip-grid">
+        <article class="ip-card">
+          <h3 data-i18n="ipCard1Title">VR MEDI TOUR Trademark</h3>
+          <p class="ip-ref" data-i18n="ipCard1No">Application No.: 40-2026-0076680</p>
+          <p data-i18n="ipCard1Desc">Trademark application pending for medical tourism, travel reservation, and platform services.</p>
+        </article>
+        <article class="ip-card">
+          <h3 data-i18n="ipCard2Title">AMIS TRAVEL LOUNGE Brand</h3>
+          <p class="ip-ref" data-i18n="ipCard2No">Application No.: 40-2026-0071858</p>
+          <p data-i18n="ipCard2Desc">Trademark application pending for travel lounge, travel reservation, and wellness-linked service expansion.</p>
+        </article>
+        <article class="ip-card">
+          <h3 data-i18n="ipCard3Title">VR Patient Consultation Booth</h3>
+          <p class="ip-ref" data-i18n="ipCard3No">Application No.: 20-2025-0000835</p>
+          <p data-i18n="ipCard3Desc">Utility model application pending for a VR-based patient consultation, AI interpretation, psychological stability, and physical therapy support booth.</p>
+        </article>
+        <article class="ip-card">
+          <h3 data-i18n="ipCard4Title">Treatment-Stage Settlement Technology</h3>
+          <p class="ip-ref" data-i18n="ipCard4No">Application No.: 10-2026-0068122</p>
+          <p data-i18n="ipCard4Desc">Patent application pending for medical travel settlement technology that separates and coordinates costs by consultation, treatment, interpretation, transport, accommodation, and recovery stages.</p>
+        </article>
+        <article class="ip-card">
+          <h3 data-i18n="ipCard5Title">AI Skin &amp; Body Analysis K-Beauty Device</h3>
+          <p class="ip-ref" data-i18n="ipCard5No">Application No.: 10-2026-0006731</p>
+          <p data-i18n="ipCard5Desc">Patent application pending for AI skin analysis, body composition analysis, multilingual avatar consultation, and K-beauty product recommendation technology.</p>
+        </article>
+        <article class="ip-card">
+          <h3 data-i18n="ipCard6Title">Multilingual Patient Assistance Technology</h3>
+          <p class="ip-ref" data-i18n="ipCard6No">Application No.: 20-2025-0001985</p>
+          <p data-i18n="ipCard6Desc">Utility model application pending for multilingual patient assistance technology related to medical interpretation and wayfinding kiosk functions.</p>
+        </article>
+      </div>
+      <p class="ip-legal" data-i18n="ipLegalNotice">This notice describes pending patent, utility model, and trademark applications. It does not imply granted patent rights, registered utility model rights, registered trademark rights, medical efficacy, treatment results, or exclusive legal rights until officially approved by the relevant authority.</p>
+    </section>
+
+    <footer class="section-card footer" id="contact">
+      <strong>VR MEDI TOUR &amp; HOME Co., Ltd.</strong>
+      <p data-i18n="footer1">Busan HQ</p>
+      <p data-i18n="footer2">Seoul Gangnam Branch</p>
+      <p data-i18n="footer3">Hanoi Network</p>
+      <p>Phone: +82-10-4417-4676</p>
+      <p>Email: vrmeditour@naver.com</p>
+      <div class="compliance-box" aria-label="Business registration and license information">
+        <h3 data-i18n="licenseTitle">Business Registration &amp; License</h3>
+        <ul>
+          <li><span data-i18n="licenseBusan">Korea Busan HQ:</span> 268-87-03040</li>
+          <li><span data-i18n="licenseSeoul">Seoul Gangnam Branch:</span> 331-85-03209</li>
+          <li><span data-i18n="licenseForeign">Foreign Patient Attraction:</span> A-2025-02-01-06189</li>
+          <li><span data-i18n="licenseTour">Tourism Business Registration:</span> 2025-000013</li>
+          <li><span data-i18n="licenseCommerce">E-commerce Registration:</span> 2025-부산진-1169</li>
+        </ul>
+      </div>
+      <a href="https://chatgpt.com/g/g-68f04d401e488191b5afaed323a7b714-vr-medi-tour-home-korean-medical-tourism-gpt" class="btn ai-chat footer-ai" target="_blank" rel="noopener noreferrer" data-i18n="aiBtn" aria-label="Ask AI Medical Travel Assistant in new tab">Ask AI Medical Travel Assistant</a>
+      <p class="ai-disclaimer" data-i18n="aiDisclaimer">AI assistant helps organize your inquiry. It does not diagnose, prescribe, or replace licensed medical professionals.</p>
+      <p class="medical-summary" data-i18n="footerNotice">Not a hospital · does not diagnose · human-reviewed coordination · licensed Korean medical institutions make final decisions.</p>
+    </footer>
   </main>
 
-  <script src="script.js"></script>
+  <script>
+    const baseEn = {
+      languageLabel: "Language",
+      heroEyebrow: "Korea · Vietnam Medical Travel Coordination",
+      heroTitle: "Trusted Korean Medical Travel Coordination, Human-Reviewed.",
+      heroDesc: "We support consultation preparation, hospital communication, interpretation, travel logistics, stay support, and recovery coordination for international patients.",
+      heroCtaConsult: "Request Consultation",
+      heroCtaPartner: "Hospital Partners",
+      aiBtn: "Ask AI Medical Travel Assistant",
+      aiDisclaimer: "AI assistant helps organize your inquiry. It does not diagnose, prescribe, or replace licensed medical professionals.",
+      verifiedTitle: "Verified Operator",
+      verifiedCompanyLabel: "Company:",
+      verifiedCompany: "VR MEDI TOUR & HOME Co., Ltd.",
+      verifiedBrandLabel: "Brand:",
+      verifiedBrand: "VR MEDI TOUR",
+      verifiedAreaLabel: "Business Area:",
+      verifiedArea: "Medical Travel Coordination / K-Beauty / Wellness / Travel Support",
+      verifiedNetworkLabel: "Network:",
+      verifiedNetwork: "Korea · Vietnam",
+      verifiedOfficeLabel: "Office:",
+      verifiedOffice: "Busan HQ / Seoul Gangnam Branch / Hanoi Network",
+      fieldsTitle: "Partner Medical Fields",
+      fieldDerm: "Dermatology",
+      fieldPlastic: "Plastic Surgery",
+      fieldDentistry: "Dentistry",
+      fieldCheckup: "Health Check-up",
+      fieldWellness: "Wellness & Recovery",
+      aiSectionTitle: "AI-assisted, Human-reviewed",
+      aiPoint1: "AI does not diagnose.",
+      aiPoint2: "AI only helps organize inquiries.",
+      aiPoint3: "AI detects language, country, medical field, urgency, and missing information.",
+      aiPoint4: "Human coordinator reviews the case.",
+      aiPoint5: "Final medical decisions are made only by licensed Korean medical institutions.",
+      stageTitle: "Stage-Safe Coordination",
+      stage1: "Consultation stage",
+      stage2: "Reservation stage",
+      stage3: "Examination stage",
+      stage4: "Treatment stage",
+      stage5: "Recovery stage",
+      stage6: "Aftercare stage",
+      costTitle: "Cost Guidance Principle",
+      cost1: "Fixed prices are not guaranteed before hospital consultation.",
+      cost2: "Estimated costs may vary depending on diagnosis, test results, treatment scope, stay duration, and hospital policy.",
+      cost3: "After medical institution review, estimated ranges can be explained clearly.",
+      partnerTitle: "Hospital Partnership",
+      partner1: "Foreign patient inquiry organization",
+      partner2: "Multilingual pre-consultation preparation",
+      partner3: "Patient document checklist",
+      partner4: "Preferred language and schedule collection",
+      partner5: "Hospital contact point support",
+      partner6: "Referral preparation without medical decision claims",
+      privacyTitle: "Privacy & Medical Information Protection",
+      privacy1: "Photos, symptoms, documents, and contact details are used only for consultation preparation and hospital communication.",
+      privacy2: "Information is not shared with third parties without consent.",
+      privacy3: "When hospital review is needed, permission must be requested before forwarding documents.",
+      founderTitle: "Founder Message",
+      founderGreeting: "Hello. I am Sung Young Jung, founder of VR MEDI TOUR & HOME.",
+      founderPara1: "VR MEDI TOUR & HOME began to support international patients who need Korean medical services so they do not feel anxious because of language, distance, systems, and hospital selection barriers.",
+      founderPara2: "We are not a hospital and do not diagnose, prescribe, or guarantee treatment outcomes. AI is used only to support consultation preparation such as language check, field classification, and missing information review. Final medical decisions are made only by licensed Korean medical institutions.",
+      founderPara3: "We aim to build a trust-based platform connecting medical travel, K-beauty, wellness, and travel support centered on Korea and Vietnam. We help patients understand and choose in their own language, and deliver organized consultation information to hospitals with principles of privacy protection, patient consent, transparent cost guidance, and human-centered coordination.",
+      founderBody: "Human-reviewed medical travel coordination. We are not a hospital, and licensed Korean medical institutions make final medical decisions.",
+      chip1: "Human-reviewed",
+      chip2: "Not a hospital",
+      chip3: "Licensed medical institutions decide",
+      founderRole: "Founder / Coordinator",
+      founderCompany: "VR MEDI TOUR & HOME Co., Ltd.",
+      founderNetwork: "Korea · Vietnam Medical Travel Coordination",
+      formTitle: "Consultation Request Form",
+      fInquiryType: "Inquiry type",
+      fLanguage: "Preferred language",
+      fName: "Name",
+      fCountry: "Country",
+      fContact: "E-mail",
+      fField: "Interested field",
+      fMessage: "Message",
+      fDiagnosis: "Existing diagnosis",
+      fVisitDate: "Preferred visit date",
+      fBudget: "Budget",
+      fInterpreter: "Interpreter support",
+      fHotel: "Hotel or transport support",
+      fDoc: "Photo or document link",
+      optSelect: "Please select",
+      optPatient: "Patient Inquiry",
+      optHospital: "Hospital Partnership Inquiry",
+      optYes: "Yes",
+      optNo: "No",
+      phName: "Your full name",
+      phCountry: "Country of residence",
+      phContact: "you@example.com",
+      phMessage: "Please share symptoms, goals, timeline, and key concerns",
+      phDiagnosis: "Optional",
+      phBudget: "Estimated budget range",
+      phDoc: "https://",
+      privacyAgree: "I agree to consultation preparation use, patient consent process, and privacy protection policy.",
+      submitBtn: "Submit Consultation Request",
+      noticeTitle: "Medical Notice",
+      noticeBody: "VR MEDI TOUR & HOME is not a hospital. It does not diagnose, prescribe, guarantee treatment results, or guarantee fixed prices. Final diagnosis, treatment availability, confirmed cost, and medical decisions are made only by licensed Korean medical institutions.",
+      footer1: "Busan HQ",
+      footer2: "Seoul Gangnam Branch",
+      footer3: "Hanoi Network",
+      footerNotice: "Not a hospital · does not diagnose · human-reviewed coordination · licensed Korean medical institutions make final decisions.",
+      licenseTitle: "Business Registration & License",
+      licenseBusan: "Korea Busan HQ:",
+      licenseSeoul: "Seoul Gangnam Branch:",
+      licenseForeign: "Foreign Patient Attraction:",
+      licenseTour: "Tourism Business Registration:",
+      licenseCommerce: "E-commerce Registration:",
+      ipTitle: "Intellectual Property & Trademark Applications",
+      ipIntro: "VR MEDI TOUR & HOME is developing a trust-based medical travel coordination platform supported by pending patent, utility model, and trademark applications related to medical travel coordination, VR/AI consultation support, K-beauty wellness technology, multilingual patient assistance, and platform services.",
+      ipCard1Title: "VR MEDI TOUR Trademark",
+      ipCard1No: "Application No.: 40-2026-0076680",
+      ipCard1Desc: "Trademark application pending for medical tourism, travel reservation, and platform services.",
+      ipCard2Title: "AMIS TRAVEL LOUNGE Brand",
+      ipCard2No: "Application No.: 40-2026-0071858",
+      ipCard2Desc: "Trademark application pending for travel lounge, travel reservation, and wellness-linked service expansion.",
+      ipCard3Title: "VR Patient Consultation Booth",
+      ipCard3No: "Application No.: 20-2025-0000835",
+      ipCard3Desc: "Utility model application pending for a VR-based patient consultation, AI interpretation, psychological stability, and physical therapy support booth.",
+      ipCard4Title: "Treatment-Stage Settlement Technology",
+      ipCard4No: "Application No.: 10-2026-0068122",
+      ipCard4Desc: "Patent application pending for medical travel settlement technology that separates and coordinates costs by consultation, treatment, interpretation, transport, accommodation, and recovery stages.",
+      ipCard5Title: "AI Skin & Body Analysis K-Beauty Device",
+      ipCard5No: "Application No.: 10-2026-0006731",
+      ipCard5Desc: "Patent application pending for AI skin analysis, body composition analysis, multilingual avatar consultation, and K-beauty product recommendation technology.",
+      ipCard6Title: "Multilingual Patient Assistance Technology",
+      ipCard6No: "Application No.: 20-2025-0001985",
+      ipCard6Desc: "Utility model application pending for multilingual patient assistance technology related to medical interpretation and wayfinding kiosk functions.",
+      ipLegalNotice: "This notice describes pending patent, utility model, and trademark applications. It does not imply granted patent rights, registered utility model rights, registered trademark rights, medical efficacy, treatment results, or exclusive legal rights until officially approved by the relevant authority."
+    };
+
+    const koDict = {
+      ...baseEn,
+      languageLabel: "언어",
+      heroEyebrow: "한국 · 베트남 의료관광 코디네이션",
+      heroTitle: "한국 의료관광,\n전문 코디네이터가 함께합니다",
+      heroDesc: "외국인 환자의 상담 준비, 병원 소통, 통역, 이동·숙박, 회복 지원을 차분하고 체계적으로 돕습니다.",
+      heroCtaConsult: "상담 신청하기",
+      heroCtaPartner: "병원 파트너 문의",
+      aiBtn: "AI 의료관광 상담 도우미에게 질문하기",
+      aiDisclaimer: "AI 상담 도우미는 문의 내용을 정리하는 역할을 하며, 진단·처방·의료인의 판단을 대신하지 않습니다.",
+      verifiedTitle: "운영 정보",
+      verifiedCompanyLabel: "회사:",
+      verifiedCompany: "VR MEDI TOUR & HOME Co., Ltd.",
+      verifiedBrandLabel: "브랜드:",
+      verifiedBrand: "VR MEDI TOUR",
+      verifiedAreaLabel: "사업 영역:",
+      verifiedArea: "의료관광 코디네이션 / K-뷰티 / 웰니스 / 여행 지원",
+      verifiedNetworkLabel: "네트워크:",
+      verifiedNetwork: "한국 · 베트남",
+      verifiedOfficeLabel: "오피스:",
+      verifiedOffice: "부산 본사 / 서울 강남 지점 / 하노이 네트워크",
+      fieldsTitle: "협력 의료 분야",
+      fieldDerm: "피부과",
+      fieldPlastic: "성형외과",
+      fieldDentistry: "치과",
+      fieldCheckup: "건강검진",
+      fieldWellness: "웰니스 & 회복",
+      aiSectionTitle: "AI 보조 · 사람 검토",
+      aiPoint1: "AI는 진단하지 않습니다.",
+      aiPoint2: "AI는 문의 내용을 정리하는 데에만 사용됩니다.",
+      aiPoint3: "AI는 언어, 국가, 진료 분야, 긴급도, 누락 정보를 감지합니다.",
+      aiPoint4: "코디네이터가 사례를 사람 중심으로 최종 검토합니다.",
+      aiPoint5: "최종 의료 판단은 한국의 면허 의료기관에서만 이루어집니다.",
+      stageTitle: "단계별 안전 코디네이션",
+      stage1: "상담 단계",
+      stage2: "예약 단계",
+      stage3: "검사 단계",
+      stage4: "치료 단계",
+      stage5: "회복 단계",
+      stage6: "사후관리 단계",
+      costTitle: "비용 안내 원칙",
+      cost1: "병원 상담 전 고정 가격은 보장되지 않습니다.",
+      cost2: "예상 비용은 진단, 검사 결과, 치료 범위, 체류 기간, 병원 정책에 따라 달라질 수 있습니다.",
+      cost3: "의료기관 검토 후 예상 비용 범위를 명확히 안내해 드립니다.",
+      partnerTitle: "병원 파트너십",
+      partner1: "외국인 환자 문의 정리",
+      partner2: "다국어 사전 상담 준비",
+      partner3: "환자 서류 체크리스트 지원",
+      partner4: "선호 언어 및 일정 수집",
+      partner5: "병원 커뮤니케이션 접점 지원",
+      partner6: "의료 판단을 주장하지 않는 의뢰 준비",
+      privacyTitle: "개인정보 및 의료정보 보호",
+      privacy1: "사진, 증상, 문서, 연락처 정보는 상담 준비 및 병원 소통 목적에만 사용됩니다.",
+      privacy2: "동의 없이 제3자에게 정보를 제공하지 않습니다.",
+      privacy3: "병원 검토가 필요한 경우 문서 전달 전 환자 동의를 먼저 요청합니다.",
+      founderTitle: "창립자 메시지",
+      founderGreeting: "안녕하십니까. VR MEDI TOUR & HOME 창업자 정성영입니다.",
+      founderPara1: "VR MEDI TOUR & HOME은 한국 의료서비스를 필요로 하는 외국인 환자들이 언어, 거리, 제도, 병원 선택의 어려움으로 불안해하지 않도록 돕기 위해 시작되었습니다.",
+      founderPara2: "저희는 병원이 아니며 진단, 처방, 치료 결과를 보장하지 않습니다. AI는 문의 언어 확인, 진료 분야 분류, 누락 정보 점검 등 상담 준비를 돕는 역할로만 활용되며, 최종 의료 판단은 한국의 면허 의료기관이 결정합니다.",
+      founderPara3: "저희는 한국과 베트남을 중심으로 의료관광, K-뷰티, 웰니스, 여행 지원을 연결하는 신뢰 기반 플랫폼을 지향합니다. 환자가 자신의 언어로 충분히 이해하고 스스로 선택할 수 있도록 돕고, 병원에는 정리된 상담 정보를 전달하겠습니다. 개인정보 보호, 환자 동의, 정직한 비용 안내, 사람 중심의 코디네이션을 원칙으로 삼아 한 사람의 문의도 부끄럽지 않게 응대하겠습니다.",
+      founderBody: "사람이 검토하는 의료관광 코디네이션입니다. 저희는 병원이 아니며 최종 의료 판단은 한국 면허 의료기관이 수행합니다.",
+      chip1: "사람 중심 검토",
+      chip2: "병원이 아닙니다",
+      chip3: "면허 의료기관이 결정",
+      founderRole: "창립자 / 코디네이터",
+      founderCompany: "VR MEDI TOUR & HOME Co., Ltd.",
+      founderNetwork: "한국 · 베트남 의료관광 코디네이션",
+      formTitle: "상담 신청서",
+      fInquiryType: "문의 유형",
+      fLanguage: "선호 언어",
+      fName: "이름",
+      fCountry: "국가",
+      fContact: "이메일",
+      fField: "관심 분야",
+      fMessage: "문의 내용",
+      fDiagnosis: "기존 진단 여부",
+      fVisitDate: "희망 방문일",
+      fBudget: "예산",
+      fInterpreter: "통역 지원",
+      fHotel: "숙박 또는 이동 지원",
+      fDoc: "사진 또는 문서 링크",
+      optSelect: "선택해 주세요",
+      optPatient: "환자 문의",
+      optHospital: "병원 파트너 문의",
+      optYes: "예",
+      optNo: "아니오",
+      phName: "성함을 입력해 주세요",
+      phCountry: "거주 국가",
+      phContact: "you@example.com",
+      phMessage: "증상, 목표, 일정, 궁금한 점을 작성해 주세요",
+      phDiagnosis: "선택 입력",
+      phBudget: "예상 예산 범위",
+      privacyAgree: "상담 준비, 환자 동의 절차, 개인정보 보호 정책에 동의합니다.",
+      submitBtn: "상담 신청 제출",
+      noticeTitle: "의료 고지",
+      noticeBody: "VR MEDI TOUR & HOME은 병원이 아닙니다. 진단·처방·치료 결과 보장·고정 가격 보장을 하지 않습니다. 최종 진단, 치료 가능 여부, 확정 비용, 의료적 결정은 한국의 면허 의료기관에서만 이루어집니다.",
+      footer1: "부산 본사",
+      footer2: "서울 강남 지점",
+      footer3: "하노이 네트워크",
+      footerNotice: "병원이 아닙니다 · 진단하지 않습니다 · 사람 검토 기반 코디네이션 · 최종 의료 결정은 한국 면허 의료기관이 수행합니다.",
+      licenseTitle: "사업자 및 등록 정보",
+      licenseBusan: "한국 부산 본사:",
+      licenseSeoul: "서울 강남 지점:",
+      licenseForeign: "외국인 환자 유치:",
+      licenseTour: "관광 사업 등록:",
+      licenseCommerce: "통신 판매 등록:",
+      ipTitle: "지식재산권 및 상표 출원 안내",
+      ipIntro: "VR MEDI TOUR & HOME은 의료관광 코디네이션, VR/AI 상담 지원, K-뷰티 웰니스 기술, 다국어 환자 안내, 플랫폼 서비스와 관련된 특허·실용신안·상표 출원을 기반으로 신뢰형 의료관광 플랫폼을 준비하고 있습니다.",
+      ipCard1Title: "VR MEDI TOUR 상표",
+      ipCard1No: "출원번호: 40-2026-0076680",
+      ipCard1Desc: "의료관광, 여행예약, 플랫폼 서비스 관련 상표 출원 중입니다.",
+      ipCard2Title: "AMIS TRAVEL LOUNGE 브랜드",
+      ipCard2No: "출원번호: 40-2026-0071858",
+      ipCard2Desc: "여행 라운지, 여행예약, 웰니스 연계 서비스 확장을 위한 상표 출원 중입니다.",
+      ipCard3Title: "VR 환자 의료상담 부스",
+      ipCard3No: "출원번호: 20-2025-0000835",
+      ipCard3Desc: "VR 기반 환자 의료상담, AI 통역, 심리안정, 물리치료 지원 부스 관련 실용신안 출원 중입니다.",
+      ipCard4Title: "치료단계 연동 정산 기술",
+      ipCard4No: "출원번호: 10-2026-0068122",
+      ipCard4Desc: "상담, 치료, 통역, 이동, 숙박, 회복 단계별 비용을 분리·조율하기 위한 의료관광 정산 기술 관련 특허 출원 중입니다.",
+      ipCard5Title: "AI 피부·체성분 K-뷰티 장치",
+      ipCard5No: "출원번호: 10-2026-0006731",
+      ipCard5Desc: "AI 피부 분석, 체성분 분석, 다국어 아바타 상담, K-뷰티 제품 추천 기술 관련 특허 출원 중입니다.",
+      ipCard6Title: "다국어 환자 안내 기술",
+      ipCard6No: "출원번호: 20-2025-0001985",
+      ipCard6Desc: "의료 통역 및 길안내 기능을 갖춘 키오스크 장치와 연계되는 외국인 환자 안내 기술 관련 실용신안 출원 중입니다.",
+      ipLegalNotice: "본 안내는 특허·실용신안·상표 출원 중인 지식재산권에 관한 설명입니다. 관련 권리가 최종 등록되기 전까지 등록 특허, 등록 실용신안, 등록 상표, 의료적 효능, 치료 결과 또는 독점적 권리를 의미하지 않습니다."
+    };
+
+    const viDict = {
+      ...baseEn,
+      languageLabel: "Ngôn ngữ",
+      heroEyebrow: "Điều phối du lịch y tế Hàn Quốc · Việt Nam",
+      heroTitle: "Điều phối du lịch y tế Hàn Quốc đáng tin cậy, có con người rà soát.",
+      heroDesc: "Chúng tôi hỗ trợ chuẩn bị tư vấn, liên hệ bệnh viện, thông dịch, đi lại, lưu trú và phục hồi cho bệnh nhân quốc tế.",
+      heroCtaConsult: "Gửi yêu cầu tư vấn",
+      heroCtaPartner: "Đối tác bệnh viện",
+      aiBtn: "Hỏi trợ lý AI du lịch y tế",
+      aiDisclaimer: "Trợ lý AI giúp sắp xếp nội dung yêu cầu. AI không chẩn đoán, không kê đơn và không thay thế chuyên gia y tế có giấy phép.",
+      verifiedTitle: "Đơn vị vận hành đã xác minh",
+      verifiedArea: "Điều phối du lịch y tế / K-Beauty / Wellness / Hỗ trợ di chuyển",
+      verifiedNetwork: "Hàn Quốc · Việt Nam",
+      verifiedOffice: "Trụ sở Busan / Chi nhánh Gangnam Seoul / Mạng lưới Hà Nội",
+      fieldsTitle: "Lĩnh vực y tế đối tác",
+      fieldDerm: "Da liễu",
+      fieldPlastic: "Phẫu thuật thẩm mỹ",
+      fieldDentistry: "Nha khoa",
+      fieldCheckup: "Khám sức khỏe tổng quát",
+      fieldWellness: "Wellness & Phục hồi",
+      aiSectionTitle: "AI hỗ trợ, con người rà soát",
+      aiPoint1: "AI không chẩn đoán.",
+      aiPoint2: "AI chỉ hỗ trợ sắp xếp thông tin yêu cầu.",
+      aiPoint3: "AI nhận diện ngôn ngữ, quốc gia, chuyên khoa, mức độ khẩn cấp và thông tin còn thiếu.",
+      aiPoint4: "Điều phối viên con người sẽ rà soát hồ sơ.",
+      aiPoint5: "Quyết định y khoa cuối cùng chỉ do cơ sở y tế Hàn Quốc có giấy phép thực hiện.",
+      stageTitle: "Điều phối an toàn theo giai đoạn",
+      stage1: "Giai đoạn tư vấn",
+      stage2: "Giai đoạn đặt lịch",
+      stage3: "Giai đoạn thăm khám",
+      stage4: "Giai đoạn điều trị",
+      stage5: "Giai đoạn phục hồi",
+      stage6: "Giai đoạn chăm sóc sau điều trị",
+      costTitle: "Nguyên tắc hướng dẫn chi phí",
+      cost1: "Không bảo đảm giá cố định trước khi tư vấn với bệnh viện.",
+      cost2: "Chi phí ước tính có thể thay đổi theo chẩn đoán, kết quả xét nghiệm, phạm vi điều trị, thời gian lưu trú và chính sách bệnh viện.",
+      cost3: "Sau khi cơ sở y tế xem xét, chúng tôi sẽ giải thích rõ khoảng chi phí ước tính.",
+      partnerTitle: "Hợp tác bệnh viện",
+      partner1: "Sắp xếp yêu cầu từ bệnh nhân quốc tế",
+      partner2: "Chuẩn bị tiền tư vấn đa ngôn ngữ",
+      partner3: "Danh mục hồ sơ bệnh nhân",
+      partner4: "Thu thập ngôn ngữ ưu tiên và lịch trình",
+      partner5: "Hỗ trợ đầu mối liên hệ với bệnh viện",
+      partner6: "Chuẩn bị giới thiệu không đưa ra khẳng định quyết định y khoa",
+      privacyTitle: "Bảo vệ quyền riêng tư & thông tin y tế",
+      privacy1: "Ảnh, triệu chứng, tài liệu và thông tin liên hệ chỉ được dùng cho chuẩn bị tư vấn và liên hệ bệnh viện.",
+      privacy2: "Thông tin không chia sẻ cho bên thứ ba nếu chưa có đồng ý.",
+      privacy3: "Khi cần bệnh viện xem xét hồ sơ, chúng tôi sẽ xin phép trước khi chuyển tiếp tài liệu.",
+      founderTitle: "Thông điệp từ nhà sáng lập",
+      founderGreeting: "Xin chào. Tôi là Jung Sung Young, nhà sáng lập VR MEDI TOUR & HOME.",
+      founderPara1: "VR MEDI TOUR & HOME được bắt đầu để hỗ trợ bệnh nhân quốc tế cần dịch vụ y tế Hàn Quốc, giúp họ không còn lo lắng vì rào cản ngôn ngữ, khoảng cách, hệ thống và việc lựa chọn bệnh viện.",
+      founderPara2: "Chúng tôi không phải bệnh viện và không chẩn đoán, kê đơn hay bảo đảm kết quả điều trị. AI chỉ được dùng để hỗ trợ chuẩn bị tư vấn như xác nhận ngôn ngữ, phân loại lĩnh vực điều trị và kiểm tra thông tin còn thiếu. Quyết định y khoa cuối cùng do cơ sở y tế Hàn Quốc có giấy phép đưa ra.",
+      founderPara3: "Chúng tôi hướng tới nền tảng kết nối dựa trên niềm tin giữa du lịch y tế, K-beauty, wellness và hỗ trợ du lịch, trọng tâm tại Hàn Quốc và Việt Nam. Chúng tôi giúp bệnh nhân hiểu đầy đủ và tự đưa ra lựa chọn bằng ngôn ngữ của mình, đồng thời chuyển thông tin tư vấn đã được sắp xếp đến bệnh viện. Bảo vệ dữ liệu cá nhân, đồng ý của bệnh nhân, hướng dẫn chi phí minh bạch và điều phối lấy con người làm trung tâm là nguyên tắc cốt lõi của chúng tôi.",
+      founderBody: "Điều phối du lịch y tế có rà soát bởi con người. Chúng tôi không phải bệnh viện và quyết định y khoa cuối cùng do cơ sở y tế Hàn Quốc có giấy phép đưa ra.",
+      chip1: "Rà soát bởi con người",
+      chip2: "Không phải bệnh viện",
+      chip3: "Cơ sở y tế có giấy phép quyết định",
+      founderRole: "Nhà sáng lập / Điều phối viên",
+      founderNetwork: "Điều phối du lịch y tế Hàn Quốc · Việt Nam",
+      formTitle: "Mẫu yêu cầu tư vấn",
+      fInquiryType: "Loại yêu cầu",
+      fLanguage: "Ngôn ngữ ưu tiên",
+      fName: "Họ tên",
+      fCountry: "Quốc gia",
+      fContact: "E-mail",
+      phContact: "you@example.com",
+      fField: "Lĩnh vực quan tâm",
+      fMessage: "Nội dung",
+      fDiagnosis: "Chẩn đoán hiện có",
+      fVisitDate: "Ngày dự kiến đến",
+      fBudget: "Ngân sách",
+      fInterpreter: "Hỗ trợ phiên dịch",
+      fHotel: "Hỗ trợ khách sạn hoặc di chuyển",
+      fDoc: "Link ảnh hoặc tài liệu",
+      optSelect: "Vui lòng chọn",
+      optPatient: "Yêu cầu từ bệnh nhân",
+      optHospital: "Yêu cầu hợp tác bệnh viện",
+      optYes: "Có",
+      optNo: "Không",
+      phName: "Họ tên của bạn",
+      phCountry: "Quốc gia cư trú",
+      phMessage: "Vui lòng mô tả triệu chứng, mục tiêu, thời gian và câu hỏi",
+      phDiagnosis: "Không bắt buộc",
+      phBudget: "Khoảng ngân sách dự kiến",
+      privacyAgree: "Tôi đồng ý với việc sử dụng dữ liệu cho chuẩn bị tư vấn, quy trình đồng ý bệnh nhân và chính sách bảo mật.",
+      submitBtn: "Gửi yêu cầu tư vấn",
+      noticeTitle: "Thông báo y tế",
+      footer1: "Trụ sở Busan",
+      footer2: "Chi nhánh Gangnam Seoul",
+      footer3: "Mạng lưới Hà Nội",
+      footerNotice: "Không phải bệnh viện · không chẩn đoán · điều phối có rà soát bởi con người · quyết định cuối cùng do cơ sở y tế Hàn Quốc có giấy phép.",
+      ipTitle: "Thông tin đơn sở hữu trí tuệ và thương hiệu",
+      ipIntro: "VR MEDI TOUR & HOME đang xây dựng nền tảng điều phối du lịch y tế dựa trên sự tin cậy, được hỗ trợ bởi các đơn đăng ký sáng chế, giải pháp hữu ích và nhãn hiệu đang chờ xử lý liên quan đến điều phối du lịch y tế, hỗ trợ tư vấn VR/AI, công nghệ wellness K-beauty, hỗ trợ bệnh nhân đa ngôn ngữ và dịch vụ nền tảng.",
+      ipCard1Title: "Nhãn hiệu VR MEDI TOUR",
+      ipCard1No: "Số đơn: 40-2026-0076680",
+      ipCard1Desc: "Đơn đăng ký nhãn hiệu đang chờ xử lý cho du lịch y tế, đặt chỗ du lịch và dịch vụ nền tảng.",
+      ipCard2Title: "Thương hiệu AMIS TRAVEL LOUNGE",
+      ipCard2No: "Số đơn: 40-2026-0071858",
+      ipCard2Desc: "Đơn đăng ký nhãn hiệu đang chờ xử lý cho lounge du lịch, đặt chỗ du lịch và mở rộng dịch vụ liên kết wellness.",
+      ipCard3Title: "Buồng tư vấn bệnh nhân VR",
+      ipCard3No: "Số đơn: 20-2025-0000835",
+      ipCard3Desc: "Đơn giải pháp hữu ích đang chờ xử lý cho buồng hỗ trợ tư vấn bệnh nhân dựa trên VR, phiên dịch AI, ổn định tâm lý và hỗ trợ vật lý trị liệu.",
+      ipCard4Title: "Công nghệ thanh toán theo giai đoạn điều trị",
+      ipCard4No: "Số đơn: 10-2026-0068122",
+      ipCard4Desc: "Đơn sáng chế đang chờ xử lý cho công nghệ thanh toán du lịch y tế tách và điều phối chi phí theo các giai đoạn tư vấn, điều trị, phiên dịch, di chuyển, lưu trú và phục hồi.",
+      ipCard5Title: "Thiết bị K-Beauty phân tích da & thể thành phần AI",
+      ipCard5No: "Số đơn: 10-2026-0006731",
+      ipCard5Desc: "Đơn sáng chế đang chờ xử lý cho công nghệ phân tích da bằng AI, phân tích thành phần cơ thể, tư vấn avatar đa ngôn ngữ và gợi ý sản phẩm K-beauty.",
+      ipCard6Title: "Công nghệ hỗ trợ bệnh nhân đa ngôn ngữ",
+      ipCard6No: "Số đơn: 20-2025-0001985",
+      ipCard6Desc: "Đơn giải pháp hữu ích đang chờ xử lý cho công nghệ hỗ trợ bệnh nhân đa ngôn ngữ liên quan đến chức năng phiên dịch y tế và kiosk chỉ đường.",
+      ipLegalNotice: "Thông báo này mô tả các đơn sáng chế, giải pháp hữu ích và nhãn hiệu đang chờ xử lý. Thông báo này không hàm ý quyền sáng chế đã được cấp, quyền giải pháp hữu ích đã đăng ký, quyền nhãn hiệu đã đăng ký, hiệu quả y khoa, kết quả điều trị hoặc quyền pháp lý độc quyền cho đến khi được cơ quan có thẩm quyền phê duyệt chính thức."
+    };
+
+    const jaDict = {
+      ...baseEn,
+      languageLabel: "言語",
+      heroEyebrow: "韓国・ベトナム 医療渡航コーディネーション",
+      heroTitle: "信頼できる韓国医療渡航コーディネーション（人による確認）。",
+      heroDesc: "海外患者向けに、相談準備、病院連携、通訳、移動・宿泊、回復支援を行います。",
+      heroCtaConsult: "相談を申し込む",
+      heroCtaPartner: "病院パートナー",
+      aiBtn: "AI医療観光アシスタントに相談する",
+      aiDisclaimer: "AIアシスタントは問い合わせ内容の整理を補助します。診断・処方は行わず、医療専門職の判断を代替しません。",
+      verifiedTitle: "運営情報",
+      verifiedArea: "医療渡航コーディネーション / K-Beauty / ウェルネス / 渡航サポート",
+      verifiedNetwork: "韓国・ベトナム",
+      verifiedOffice: "釜山本社 / ソウル江南支店 / ハノイネットワーク",
+      fieldsTitle: "提携医療分野",
+      fieldDerm: "皮膚科",
+      fieldPlastic: "美容外科",
+      fieldDentistry: "歯科",
+      fieldCheckup: "健康診断",
+      fieldWellness: "ウェルネス & 回復",
+      aiSectionTitle: "AI支援・人による確認",
+      aiPoint1: "AIは診断を行いません。",
+      aiPoint2: "AIは問い合わせ情報の整理のみを補助します。",
+      aiPoint3: "AIは言語・国・診療分野・緊急度・不足情報を検出します。",
+      aiPoint4: "人のコーディネーターが最終確認します。",
+      aiPoint5: "最終的な医療判断は韓国の有資格医療機関のみが行います。",
+      stageTitle: "段階別セーフコーディネーション",
+      stage1: "相談段階",
+      stage2: "予約段階",
+      stage3: "検査段階",
+      stage4: "治療段階",
+      stage5: "回復段階",
+      stage6: "アフターケア段階",
+      costTitle: "費用案内の原則",
+      cost1: "病院相談前に固定価格は保証されません。",
+      cost2: "費用目安は診断、検査結果、治療範囲、滞在期間、病院方針により変動します。",
+      cost3: "医療機関の確認後、想定費用レンジを明確にご案内します。",
+      partnerTitle: "病院パートナーシップ",
+      partner1: "海外患者問い合わせの整理",
+      partner2: "多言語の事前相談準備",
+      partner3: "患者書類チェックリスト",
+      partner4: "希望言語と日程の収集",
+      partner5: "病院連絡窓口の支援",
+      partner6: "医療判断を主張しない紹介準備",
+      privacyTitle: "プライバシー・医療情報保護",
+      privacy1: "写真、症状、書類、連絡先は相談準備と病院連携の目的にのみ使用されます。",
+      privacy2: "同意なく第三者へ共有しません。",
+      privacy3: "病院審査が必要な場合、書類転送前に必ず許可を確認します。",
+      founderTitle: "創業者メッセージ",
+      founderGreeting: "こんにちは。VR MEDI TOUR & HOME創業者のチョン・ソンヨンです。",
+      founderPara1: "VR MEDI TOUR & HOME は、韓国の医療サービスを必要とする海外患者が、言語・距離・制度・病院選択の難しさによって不安を感じないよう支援するために始まりました。",
+      founderPara2: "当社は病院ではなく、診断・処方・治療結果の保証は行いません。AIは問い合わせ言語の確認、診療分野の分類、不足情報の点検など、相談準備の補助目的でのみ活用されます。最終的な医療判断は韓国の有資格医療機関が行います。",
+      founderPara3: "私たちは韓国とベトナムを中心に、医療観光、K-Beauty、ウェルネス、旅行支援をつなぐ信頼ベースのプラットフォームを目指しています。患者が自分の言語で十分に理解し、自ら選択できるよう支援し、病院には整理された相談情報を丁寧に共有します。個人情報保護、患者同意、誠実な費用案内、人間中心のコーディネーションを原則として、ひとつひとつの問い合わせに誠実に対応します。",
+      founderBody: "人による確認を行う医療渡航コーディネーションです。当社は病院ではなく、最終医療判断は韓国の有資格医療機関が行います。",
+      chip1: "人による確認",
+      chip2: "病院ではありません",
+      chip3: "有資格医療機関が判断",
+      founderRole: "創業者 / コーディネーター",
+      founderNetwork: "韓国・ベトナム 医療渡航コーディネーション",
+      formTitle: "相談申請フォーム",
+      fInquiryType: "問い合わせ区分",
+      fLanguage: "希望言語",
+      fName: "お名前",
+      fCountry: "国",
+      fContact: "メール",
+      phContact: "you@example.com",
+      fField: "関心分野",
+      fMessage: "メッセージ",
+      fDiagnosis: "既存診断",
+      fVisitDate: "希望訪問日",
+      fBudget: "予算",
+      fInterpreter: "通訳サポート",
+      fHotel: "ホテルまたは移動サポート",
+      fDoc: "写真または書類リンク",
+      optSelect: "選択してください",
+      optPatient: "患者問い合わせ",
+      optHospital: "病院パートナー問い合わせ",
+      optYes: "はい",
+      optNo: "いいえ",
+      phName: "お名前を入力してください",
+      phCountry: "居住国",
+      phMessage: "症状、目的、時期、ご質問をご記入ください",
+      phDiagnosis: "任意入力",
+      phBudget: "想定予算レンジ",
+      privacyAgree: "相談準備での情報利用、患者同意プロセス、プライバシー保護方針に同意します。",
+      submitBtn: "相談申請を送信",
+      noticeTitle: "医療に関するご案内",
+      footer1: "釜山本社",
+      footer2: "ソウル江南支店",
+      footer3: "ハノイネットワーク",
+      footerNotice: "病院ではありません · 診断は行いません · 人による確認を伴うコーディネーション · 最終医療判断は韓国の有資格医療機関が行います。",
+      ipTitle: "知的財産権・商標出願のご案内",
+      ipIntro: "VR MEDI TOUR & HOME は、医療観光コーディネーション、VR/AI相談支援、K-Beautyウェルネス技術、多言語患者支援、プラットフォームサービスに関連する特許・実用新案・商標の出願（審査中）を基盤に、信頼型医療観光プラットフォームを準備しています。",
+      ipCard1Title: "VR MEDI TOUR 商標",
+      ipCard1No: "出願番号: 40-2026-0076680",
+      ipCard1Desc: "医療観光、旅行予約、プラットフォームサービスに関する商標出願中です。",
+      ipCard2Title: "AMIS TRAVEL LOUNGE ブランド",
+      ipCard2No: "出願番号: 40-2026-0071858",
+      ipCard2Desc: "トラベルラウンジ、旅行予約、ウェルネス連携サービス拡張に関する商標出願中です。",
+      ipCard3Title: "VR患者医療相談ブース",
+      ipCard3No: "出願番号: 20-2025-0000835",
+      ipCard3Desc: "VRベースの患者相談、AI通訳、心理安定、物理療法支援ブースに関する実用新案出願中です。",
+      ipCard4Title: "治療段階連動精算技術",
+      ipCard4No: "出願番号: 10-2026-0068122",
+      ipCard4Desc: "相談、治療、通訳、移動、宿泊、回復の段階別に費用を分離・調整する医療観光精算技術に関する特許出願中です。",
+      ipCard5Title: "AI肌・体成分K-Beauty装置",
+      ipCard5No: "出願番号: 10-2026-0006731",
+      ipCard5Desc: "AI肌分析、体成分分析、多言語アバター相談、K-Beauty製品推薦技術に関する特許出願中です。",
+      ipCard6Title: "多言語患者案内技術",
+      ipCard6No: "出願番号: 20-2025-0001985",
+      ipCard6Desc: "医療通訳および道案内機能を備えたキオスク連携の外国人患者案内技術に関する実用新案出願中です。",
+      ipLegalNotice: "本案内は、特許・実用新案・商標の出願中知的財産に関する説明です。関係当局の正式承認前は、付与済み特許権、登録実用新案権、登録商標権、医療的効能、治療結果、または独占的法的権利を意味しません。"
+    };
+
+    const zhDict = {
+      ...baseEn,
+      languageLabel: "语言",
+      heroEyebrow: "韩国·越南 医疗旅游协调",
+      heroTitle: "可信赖的韩国医疗旅游协调，人工复核。",
+      heroDesc: "我们为国际患者提供咨询准备、医院沟通、翻译、出行住宿与康复支持。",
+      heroCtaConsult: "提交咨询申请",
+      heroCtaPartner: "医院合作咨询",
+      aiBtn: "咨询AI医疗旅游助手",
+      aiDisclaimer: "AI助手用于整理咨询内容，不进行诊断或处方，也不替代持牌医疗专业人员判断。",
+      verifiedTitle: "运营信息",
+      verifiedArea: "医疗旅游协调 / K-Beauty / 康养 / 出行支持",
+      verifiedNetwork: "韩国 · 越南",
+      verifiedOffice: "釜山总部 / 首尔江南分部 / 河内网络",
+      fieldsTitle: "合作医疗领域",
+      fieldDerm: "皮肤科",
+      fieldPlastic: "整形外科",
+      fieldDentistry: "牙科",
+      fieldCheckup: "健康体检",
+      fieldWellness: "康养与恢复",
+      aiSectionTitle: "AI辅助，人工复核",
+      aiPoint1: "AI不进行诊断。",
+      aiPoint2: "AI仅用于整理咨询信息。",
+      aiPoint3: "AI可识别语言、国家、医疗领域、紧急程度及缺失信息。",
+      aiPoint4: "由人工协调员进行复核。",
+      aiPoint5: "最终医疗决定仅由韩国持牌医疗机构作出。",
+      stageTitle: "分阶段安全协调",
+      stage1: "咨询阶段",
+      stage2: "预约阶段",
+      stage3: "检查阶段",
+      stage4: "治疗阶段",
+      stage5: "恢复阶段",
+      stage6: "术后管理阶段",
+      costTitle: "费用说明原则",
+      cost1: "医院咨询前不保证固定价格。",
+      cost2: "预估费用会因诊断、检查结果、治疗范围、停留时间及医院政策而变化。",
+      cost3: "经医疗机构审核后，可清晰说明预估费用区间。",
+      partnerTitle: "医院合作",
+      partner1: "国际患者咨询整理",
+      partner2: "多语言咨询前准备",
+      partner3: "患者资料清单支持",
+      partner4: "收集偏好语言与时间安排",
+      partner5: "医院联络窗口支持",
+      partner6: "不主张医疗决定的转介准备",
+      privacyTitle: "隐私与医疗信息保护",
+      privacy1: "照片、症状、文件和联系方式仅用于咨询准备与医院沟通。",
+      privacy2: "未经同意不会向第三方共享信息。",
+      privacy3: "如需医院审核，将在转发资料前先取得患者许可。",
+      founderTitle: "创始人寄语",
+      founderGreeting: "您好，我是 VR MEDI TOUR & HOME 创始人郑成荣。",
+      founderPara1: "VR MEDI TOUR & HOME 的起点，是为了帮助需要韩国医疗服务的外国患者，不因语言、距离、制度和医院选择困难而感到不安。",
+      founderPara2: "我们不是医院，不进行诊断、处方，也不保证治疗结果。AI仅用于咨询准备，例如确认咨询语言、分类医疗领域、检查缺失信息。最终医疗判断由韩国持牌医疗机构作出。",
+      founderPara3: "我们致力于打造以信任为基础的平台，以韩国和越南为中心，连接医疗旅游、K-Beauty、康养和出行支持。我们帮助患者用自己的语言充分理解并自主选择，同时向医院提供整理后的咨询信息。我们坚持隐私保护、患者同意、诚实透明的费用说明，以及以人为本的协调原则，认真对待每一条咨询。",
+      founderBody: "我们提供人工复核的医疗旅游协调服务。我们不是医院，最终医疗决定由韩国持牌医疗机构作出。",
+      chip1: "人工复核",
+      chip2: "非医院",
+      chip3: "由持牌医疗机构决定",
+      founderRole: "创始人 / 协调员",
+      founderNetwork: "韩国·越南 医疗旅游协调",
+      formTitle: "咨询申请表",
+      fInquiryType: "咨询类型",
+      fLanguage: "偏好语言",
+      fName: "姓名",
+      fCountry: "国家",
+      fContact: "电子邮箱",
+      phContact: "you@example.com",
+      fField: "意向领域",
+      fMessage: "留言内容",
+      fDiagnosis: "既往诊断",
+      fVisitDate: "期望来访日期",
+      fBudget: "预算",
+      fInterpreter: "翻译支持",
+      fHotel: "酒店或交通支持",
+      fDoc: "照片或文件链接",
+      optSelect: "请选择",
+      optPatient: "患者咨询",
+      optHospital: "医院合作咨询",
+      optYes: "是",
+      optNo: "否",
+      phName: "请输入您的姓名",
+      phCountry: "居住国家",
+      phMessage: "请填写症状、目标、时间安排和主要问题",
+      phDiagnosis: "选填",
+      phBudget: "预计预算范围",
+      privacyAgree: "我同意将信息用于咨询准备、患者同意流程和隐私保护政策。",
+      submitBtn: "提交咨询申请",
+      noticeTitle: "医疗声明",
+      footer1: "釜山总部",
+      footer2: "首尔江南分部",
+      footer3: "河内网络",
+      footerNotice: "非医院 · 不进行诊断 · 人工复核协调服务 · 最终医疗决定由韩国持牌医疗机构作出。",
+      ipTitle: "知识产权与商标申请说明",
+      ipIntro: "VR MEDI TOUR & HOME 正在打造以信任为基础的医疗旅游协调平台，相关领域包括医疗旅游协调、VR/AI 咨询支持、K-beauty 康养技术、多语言患者协助及平台服务，并由正在申请中的专利、实用新型和商标提供支持。",
+      ipCard1Title: "VR MEDI TOUR 商标",
+      ipCard1No: "申请号：40-2026-0076680",
+      ipCard1Desc: "与医疗旅游、旅行预约和平台服务相关的商标申请中。",
+      ipCard2Title: "AMIS TRAVEL LOUNGE 品牌",
+      ipCard2No: "申请号：40-2026-0071858",
+      ipCard2Desc: "与旅行休息室、旅行预约和康养联动服务扩展相关的商标申请中。",
+      ipCard3Title: "VR 患者医疗咨询舱",
+      ipCard3No: "申请号：20-2025-0000835",
+      ipCard3Desc: "与 VR 患者咨询、AI 口译、心理稳定和物理治疗支持舱相关的实用新型申请中。",
+      ipCard4Title: "治疗阶段联动结算技术",
+      ipCard4No: "申请号：10-2026-0068122",
+      ipCard4Desc: "与按咨询、治疗、口译、交通、住宿和恢复阶段分离并协调费用的医疗旅游结算技术相关的专利申请中。",
+      ipCard5Title: "AI 皮肤与体成分 K-Beauty 装置",
+      ipCard5No: "申请号：10-2026-0006731",
+      ipCard5Desc: "与 AI 皮肤分析、体成分分析、多语言虚拟形象咨询和 K-beauty 产品推荐技术相关的专利申请中。",
+      ipCard6Title: "多语言患者协助技术",
+      ipCard6No: "申请号：20-2025-0001985",
+      ipCard6Desc: "与医疗口译和导览功能联动的多语言患者协助技术相关的实用新型申请中。",
+      ipLegalNotice: "本说明用于介绍正在申请中的专利、实用新型和商标。未经主管机关正式批准前，不代表已获授权的专利权、已注册的实用新型权、已注册的商标权、医疗效能、治疗结果或排他性法律权利。"
+    };
+
+    const translations = {
+      en: baseEn,
+      ko: koDict,
+      vi: viDict,
+      ja: jaDict,
+      zh: zhDict
+    };
+
+    const languageMap = {
+      en: "English",
+      ko: "Korean",
+      vi: "Vietnamese",
+      ja: "Japanese",
+      zh: "Chinese"
+    };
+
+    const preferredLanguageLabels = {
+      en: "English",
+      ko: "한국어",
+      vi: "Tiếng Việt",
+      ja: "日本語",
+      zh: "中文"
+    };
+
+    function t(lang, key) {
+      return translations[lang]?.[key] || baseEn[key] || "";
+    }
+
+    function applyLanguage(lang) {
+      const active = translations[lang] ? lang : "en";
+      document.documentElement.lang = active;
+      document.documentElement.dir = "ltr";
+
+      document.querySelectorAll("[data-i18n]").forEach((el) => {
+        el.textContent = t(active, el.dataset.i18n);
+      });
+
+      document.querySelectorAll("[data-i18n-option]").forEach((el) => {
+        el.textContent = t(active, el.dataset.i18nOption);
+      });
+
+      document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
+        el.setAttribute("placeholder", t(active, el.dataset.i18nPlaceholder));
+      });
+
+      document.querySelectorAll(".language-buttons button").forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.lang === active);
+      });
+
+      const languageSelect = document.getElementById("preferredLanguage");
+      if (languageSelect) {
+        languageSelect.value = preferredLanguageLabels[active];
+      }
+
+      localStorage.setItem("vrMediTourLang", active);
+    }
+
+    document.getElementById("languageButtons").addEventListener("click", (event) => {
+      const button = event.target.closest("button[data-lang]");
+      if (button) {
+        applyLanguage(button.dataset.lang);
+      }
+    });
+
+    const visitDateInput = document.getElementById("visitDate");
+    if (visitDateInput) {
+      const openDatePicker = () => {
+        if (typeof visitDateInput.showPicker === "function") {
+          visitDateInput.showPicker();
+        }
+      };
+      visitDateInput.addEventListener("focus", openDatePicker);
+      visitDateInput.addEventListener("click", openDatePicker);
+    }
+
+    applyLanguage(localStorage.getItem("vrMediTourLang") || "en");
+  </script>
 </body>
 </html>
