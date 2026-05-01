@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <title>AI 피부 분석 & 케어 컨시어지</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="container">
+        <div class="language-buttons" id="languageButtons" aria-label="Language selector">
+          <button type="button" data-lang="ko">KO</button>
+          <button type="button" data-lang="en">EN</button>
+          <button type="button" data-lang="vi">VI</button>
+          <button type="button" data-lang="ja">JP</button>
+          <button type="button" data-lang="zh">CN</button>
+        </div>
+
+        <h1 data-i18n="title">AI 피부 분석 & 케어 컨시어지</h1>
+        <p class="sub" data-i18n="subtitle">프리미엄 K-뷰티 · 메디컬 트래블 케어를 위한 AI 참고 분석</p>
+
+        <div class="badge-row">
+          <span class="badge" data-i18n="badgeAi">AI 참고 분석</span>
+          <span class="badge" data-i18n="badgeNoStore">사진 저장 없음</span>
+          <span class="badge" data-i18n="badgeNotMedical">의료 진단 아님</span>
+          <span class="badge" data-i18n="badgeKBeauty">K-뷰티 케어 제안</span>
+          <span class="badge" data-i18n="badgeConsult">전문 상담 연계 가능</span>
+        </div>
+
+        <div class="grid">
+          <section class="card">
+            <p class="guide" data-i18n="guide">카메라를 시작한 뒤 얼굴을 가이드에 맞추고 AI 판별 촬영을 눌러 주세요.</p>
+            <div class="actions">
+              <button id="vrmtStartCameraBtn" class="btn primary" type="button" data-i18n="startBtn">카메라 시작</button>
+              <button id="vrmtCaptureBtn" class="btn" type="button" data-i18n="captureBtn">AI 판별 촬영</button>
+            </div>
+            <p id="vrmtStatus" class="status" data-i18n="statusInit">카메라를 시작한 뒤 얼굴을 가이드에 맞추고 AI 판별 촬영을 눌러 주세요.</p>
+          </section>
+
+          <section class="card camera-card">
+            <div class="vrmt-camera-frame">
+              <video id="vrmtCameraVideo" autoplay playsinline></video>
+              <div id="vrmtFaceGuide" class="vrmt-face-guide">
+                <div class="vrmt-guide-circle"></div>
+                <div class="vrmt-guide-cross-h"></div>
+                <div class="vrmt-guide-cross-v"></div>
+              </div>
+              <canvas id="vrmtSnapshotCanvas" class="vrmt-snapshot" aria-hidden="true"></canvas>
+            </div>
+          </section>
+        </div>
+
+        <section id="vrmtAnalysis" class="card result">
+          <h2 data-i18n="reportTitle">AI 피부 분석 리포트</h2>
+          <p data-i18n="reportDesc">촬영 후 분석 리포트가 카드 형식으로 표시됩니다.</p>
+        </section>
+      </div>
+    </section>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
