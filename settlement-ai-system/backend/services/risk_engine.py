@@ -1,0 +1,25 @@
+from datetime import date
+
+RISK_KEYWORDS = ["불안", "외로움", "갈등", "아프다", "무섭다", "집이 없다", "돈이 없다", "계약을 이해하지 못했다", "병원에 못 갔다", "연락이 안 된다"]
+
+
+def grade(score: int):
+    if score >= 70:
+        return "이관 필요"
+    if score >= 40:
+        return "주의"
+    return "낮음"
+
+
+def compute_risk(user, tasks):
+    total = len(tasks) or 1
+    incomplete = sum(1 for t in tasks if t.status not in ["최종 완료"])
+    overdue = sum(1 for t in tasks if t.deadline < date.today() and t.status != "최종 완료")
+    language_gap = 20 if user.korean_level in ["없음", "초급"] else 5
+
+    settlement = min(100, int(incomplete / total * 35 + overdue * 8 + user.schedule_miss_count * 5 + user.doc_risk_count * 6 + language_gap))
+
+    kw_hits = sum(1 for k in RISK_KEYWORDS if k in (user.counseling_note or ""))
+    isolation = min(100, int((20 if user.community_status == "없음" else 5) + 10 + kw_hits * 8 + (20 if user.housing_status == "미정" else 5) + (20 if not user.mentor_connected else 0)))
+
+    return settlement, isolation, grade(max(settlement, isolation))
