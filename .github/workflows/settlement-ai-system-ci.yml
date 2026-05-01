@@ -1,0 +1,59 @@
+name: settlement-ai-system-ci
+
+on:
+  push:
+    paths:
+      - 'settlement-ai-system/**'
+      - '.github/workflows/settlement-ai-system-ci.yml'
+  pull_request:
+    paths:
+      - 'settlement-ai-system/**'
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install backend dependencies
+        working-directory: settlement-ai-system/backend
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip freeze
+
+      - name: Debug backend path
+        working-directory: settlement-ai-system/backend
+        run: |
+          pwd
+          ls -la
+          ls -la tests
+          python -c "import sys, pathlib; print('cwd main exists:', pathlib.Path('main.py').exists()); print(sys.path)"
+
+      - name: Compile backend
+        working-directory: settlement-ai-system/backend
+        run: |
+          python -m py_compile main.py database.py models.py schemas.py services/*.py seed.py
+
+      - name: Run backend tests
+        working-directory: settlement-ai-system/backend
+        env:
+          PYTHONPATH: ${{ github.workspace }}/settlement-ai-system/backend
+        run: |
+          python -m pytest -q tests
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install frontend deps
+        working-directory: settlement-ai-system/frontend
+        run: npm install
+
+      - name: Frontend build
+        working-directory: settlement-ai-system/frontend
+        run: npm run build

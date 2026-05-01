@@ -1,0 +1,1 @@
+export default function SettlementRoadmap({ tasks, onOpen }) { return <div>{tasks.map(t=><div key={t.id} className='card' onClick={()=>onOpen(t)}><b>{t.title}</b><p>{t.category} | {t.status} | {t.priority}</p></div>)}</div>; }
