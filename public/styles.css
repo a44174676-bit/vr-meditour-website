@@ -1,0 +1,26 @@
+:root { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+body { margin: 0; background: #f6f8fb; color: #1f2937; }
+.vrmt-page { padding: 32px 16px; }
+.vrmt-container { max-width: 1080px; margin: 0 auto; }
+.vrmt-title { margin: 0 0 8px; }
+.vrmt-sub { margin: 0 0 20px; color: #4b5563; }
+.vrmt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.vrmt-card { background: #fff; border-radius: 14px; padding: 16px; box-shadow: 0 4px 16px rgba(0,0,0,.06); }
+.vrmt-camera-frame { position: relative; width: 100%; aspect-ratio: 4/3; overflow: hidden; border-radius: 12px; background: #111827; }
+#vrmtCameraVideo, .vrmt-snapshot { width: 100%; height: 100%; object-fit: cover; }
+#vrmtCameraVideo { transform: scaleX(-1); }
+.vrmt-snapshot { display: none; }
+.vrmt-btn { border: 1px solid #4f46e5; border-radius: 10px; padding: 10px 14px; cursor: pointer; margin-right: 8px; }
+.vrmt-btn-primary { background: #4f46e5; color: #fff; }
+.vrmt-btn-outline { background: #fff; color: #4f46e5; }
+.vrmt-btn:disabled { background: #c7d2fe; border-color: #c7d2fe; color: #eef2ff; cursor: not-allowed; }
+.vrmt-status { margin-top: 12px; color: #374151; }
+.vrmt-status-loading { color: #4338ca; font-weight: 600; }
+.vrmt-list { padding-left: 18px; }
+.vrmt-result-grid { margin-top: 16px; }
+.vrmt-json pre { white-space: pre-wrap; background:#f3f4f6; padding:12px; border-radius:8px; }
+.vrmt-disclaimer { margin-top: 12px; color: #b45309; font-size: 14px; }
+@media (max-width: 900px) {
+  .vrmt-grid { grid-template-columns: 1fr; }
+  .vrmt-col-camera { order: -1; }
+}
