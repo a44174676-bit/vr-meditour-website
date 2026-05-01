@@ -16,7 +16,7 @@ from services.task_generator import determine_stage, generate_tasks_for_user
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Integrated AI System for Foreign Resident Settlement Management")
-origins = os.getenv("CORS_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173").split(",")
+origins = os.getenv("CORS_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173,https://settlement-ai-system.netlify.app").split(",")
 app.add_middleware(CORSMiddleware, allow_origins=origins, allow_methods=["*"], allow_headers=["*"])
 
 
@@ -67,14 +67,18 @@ def generate_roadmap(user_id: int, db: Session = Depends(get_db)):
         db.add(Task(user_id=user.id, **td))
     db.commit()
     db.refresh(user)
-    settlement, isolation, _ = compute_risk(user, user.tasks)
+    settlement, isolation, _, _, _ = compute_risk(user, user.tasks)
     logs = run_agent_orchestration(user, max(settlement, isolation))
     return {"stage": user.current_stage, "generated_tasks": user.tasks, "agent_logs": logs}
 
 
 @app.get("/users/{user_id}/tasks", response_model=list[TaskOut])
 def list_tasks(user_id: int, db: Session = Depends(get_db)):
-    return db.query(Task).filter(Task.user_id == user_id).all()
+    user = db.get(User, user_id)
+    if not user:
+        raise HTTPException(404, "User not found")
+    tasks = db.query(Task).filter(Task.user_id == user_id).all()
+    return tasks
 
 
 @app.patch("/tasks/{task_id}/status", response_model=TaskOut)
@@ -93,7 +97,7 @@ def get_passport(user_id: int, db: Session = Depends(get_db)):
     user = db.get(User, user_id)
     if not user:
         raise HTTPException(404, "User not found")
-    settlement, isolation, risk_level = compute_risk(user, user.tasks)
+    settlement, isolation, risk_level, reasons, actions = compute_risk(user, user.tasks)
     user.handoff_status = should_handoff(risk_level)
     db.commit()
     progress = calculate_progress(user.tasks)
@@ -101,6 +105,8 @@ def get_passport(user_id: int, db: Session = Depends(get_db)):
     delayed = sum(1 for t in user.tasks if t.status == "지연")
     return {
         "user_name": user.name,
+        "nationality": user.nationality,
+        "language": user.language,
         "stay_purpose": user.stay_purpose,
         "current_stage": user.current_stage,
         "progress": progress,
@@ -115,6 +121,9 @@ def get_passport(user_id: int, db: Session = Depends(get_db)):
         "handoff_status": user.handoff_status,
         "post_care_date": None,
         "risk_level": risk_level,
+        "handoff_task_count": sum(1 for t in user.tasks if t.status == "이관 필요"),
+        "risk_reasons": reasons,
+        "recommended_actions": actions,
     }
 
 
@@ -123,10 +132,10 @@ def recalc_risk(user_id: int, db: Session = Depends(get_db)):
     user = db.get(User, user_id)
     if not user:
         raise HTTPException(404, "User not found")
-    settlement, isolation, risk_level = compute_risk(user, user.tasks)
+    settlement, isolation, risk_level, reasons, actions = compute_risk(user, user.tasks)
     user.handoff_status = should_handoff(risk_level)
     db.commit()
-    return {"settlement_risk_score": settlement, "social_isolation_score": isolation, "risk_level": risk_level, "handoff_status": user.handoff_status}
+    return {"settlement_risk_score": settlement, "social_isolation_score": isolation, "risk_level": risk_level, "handoff_status": user.handoff_status, "risk_reasons": reasons, "recommended_actions": actions}
 
 
 @app.get("/handoffs")

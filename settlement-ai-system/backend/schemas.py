@@ -55,6 +55,8 @@ class TaskStatusUpdate(BaseModel):
 
 class PassportOut(BaseModel):
     user_name: str
+    nationality: str
+    language: str
     stay_purpose: str
     current_stage: str
     progress: float
@@ -69,12 +71,18 @@ class PassportOut(BaseModel):
     handoff_status: str
     post_care_date: Optional[date]
     risk_level: str
+    handoff_task_count: int = 0
+    risk_reasons: List[str] = []
+    recommended_actions: List[str] = []
 
 
 class RiskOut(BaseModel):
     settlement_risk_score: int
     social_isolation_score: int
     risk_level: str
+    handoff_task_count: int = 0
+    risk_reasons: List[str] = []
+    recommended_actions: List[str] = []
     handoff_status: str
 
 
