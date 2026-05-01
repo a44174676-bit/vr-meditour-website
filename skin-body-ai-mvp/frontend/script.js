@@ -1,4 +1,4 @@
-// 배포 후 이 값만 Render/Railway 백엔드 URL로 바꾸면 됩니다.
+// 배포 후 API_BASE_URL 상수 하나만 수정하면 모든 API 호출 경로가 함께 변경됩니다.
 const API_BASE_URL = "http://127.0.0.1:8000";
 const fields = ["moisture", "redness", "oiliness", "texture", "body_water", "muscle_level", "body_fat_rate", "stress_level", "sleep_quality"];
 

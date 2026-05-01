@@ -181,3 +181,9 @@ skin-body-ai-mvp/
 │  └─ script.js
 └─ README.md
 ```
+
+
+## 10) 머지 충돌 정리 메모
+
+- `/analyze`(1단계 수치 분석)와 `/analyze-image`(2단계 이미지 분석) 기능을 모두 유지했습니다.
+- 기존 VR MEDI TOUR & HOME 홈페이지를 대체하지 않고, `/skin-analysis` 기능 페이지로 연결하는 방향을 유지합니다.

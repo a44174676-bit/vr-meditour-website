@@ -59,6 +59,7 @@ def health_check():
     }
 
 
+# 수치 분석(1단계) API는 유지
 @app.post("/analyze")
 def analyze(payload: AnalyzeInput):
     """
@@ -92,6 +93,7 @@ def analyze(payload: AnalyzeInput):
     }
 
 
+# 이미지 분석(2단계) API는 유지
 @app.post("/analyze-image")
 async def analyze_image(file: UploadFile = File(...)):
     """얼굴 이미지 업로드/촬영 파일을 받아 기본 색상 분석 결과를 반환합니다."""
