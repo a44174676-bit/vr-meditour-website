@@ -17,15 +17,6 @@
 .language-buttons{display:flex;gap:8px;justify-content:flex-end;margin-bottom:14px}.language-buttons button{border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.08);color:#dbeafe;border-radius:999px;padding:6px 10px;cursor:pointer}.language-buttons button.active{background:linear-gradient(90deg,#2a6ee8,#25cfb4);color:#fff;border-color:transparent}
 
 
-html[dir="rtl"] body {
-  direction: rtl;
-  text-align: right;
-}
-
-html[dir="rtl"] .container,
-html[dir="rtl"] section {
-  direction: rtl;
-}
 
 .language-switcher,
 .language-buttons {
