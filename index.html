@@ -73,6 +73,7 @@
             <button type="button" data-lang="vi" aria-label="Switch language to Vietnamese">VI</button>
             <button type="button" data-lang="ja" aria-label="Switch language to Japanese">JP</button>
             <button type="button" data-lang="zh" aria-label="Switch language to Chinese">CN</button>
+            <button type="button" data-lang="ar" aria-label="Switch language to Arabic">AR</button>
           </div>
         </div>
       </header>
@@ -999,12 +1000,33 @@
       ipLegalNotice: "本说明用于介绍正在申请中的专利、实用新型和商标。未经主管机关正式批准前，不代表已获授权的专利权、已注册的实用新型权、已注册的商标权、医疗效能、治疗结果或排他性法律权利。"
     };
 
+    const arDict = {
+      ...baseEn,
+      languageLabel: "اللغة",
+      heroEyebrow: "تنسيق السياحة الطبية بين كوريا وفيتنام",
+      heroTitle: "تنسيق موثوق للسياحة الطبية في كوريا مع مراجعة بشرية.",
+      heroDesc: "ندعم التحضير للاستشارة، والتواصل مع المستشفى، والترجمة، وترتيبات السفر والإقامة، ودعم التعافي للمرضى الدوليين.",
+      heroCtaConsult: "طلب استشارة",
+      heroCtaPartner: "شركاء المستشفيات",
+      ctaAiSkin: "تجربة تحليل البشرة بالذكاء الاصطناعي",
+      ctaAiSkinNote: "تحليل مرجعي للعناية الكورية بالبشرة وليس تشخيصًا طبيًا.",
+      aiBtn: "اسأل مساعد السياحة الطبية بالذكاء الاصطناعي",
+      aiDisclaimer: "يساعد المساعد الذكي في تنظيم استفسارك فقط، ولا يشخّص أو يصف علاجًا ولا يستبدل المختصين المرخصين.",
+      fieldsTitle: "مجالات طبية شريكة",
+      partnerTitle: "شراكة المستشفيات",
+      formTitle: "نموذج طلب الاستشارة",
+      submitBtn: "إرسال طلب الاستشارة",
+      noticeTitle: "تنبيه طبي",
+      footerNotice: "لسنا مستشفى · لا نقدم تشخيصًا · تنسيق بمراجعة بشرية · القرار الطبي النهائي للمؤسسات الطبية الكورية المرخصة."
+    };
+
     const translations = {
       en: baseEn,
       ko: koDict,
       vi: viDict,
       ja: jaDict,
-      zh: zhDict
+      zh: zhDict,
+      ar: arDict
     };
 
     const languageMap = {
@@ -1012,7 +1034,8 @@
       ko: "Korean",
       vi: "Vietnamese",
       ja: "Japanese",
-      zh: "Chinese"
+      zh: "Chinese",
+      ar: "Arabic"
     };
 
     const preferredLanguageLabels = {
@@ -1020,7 +1043,8 @@
       ko: "한국어",
       vi: "Tiếng Việt",
       ja: "日本語",
-      zh: "中文"
+      zh: "中文",
+      ar: "العربية"
     };
 
     function t(lang, key) {
@@ -1030,7 +1054,7 @@
     function applyLanguage(lang) {
       const active = translations[lang] ? lang : "en";
       document.documentElement.lang = active;
-      document.documentElement.dir = "ltr";
+      document.documentElement.dir = active === "ar" ? "rtl" : "ltr";
 
       document.querySelectorAll("[data-i18n]").forEach((el) => {
         el.textContent = t(active, el.dataset.i18n);
