@@ -8,7 +8,7 @@ exports.handler = async function (event) {
 
   let body = {};
   try { body = JSON.parse(event.body || '{}'); } catch (_) {}
-  const lang = ['ko','en','vi','ja','zh','ar'].includes(body.language) ? body.language : 'ko';
+  const lang = ['ko','en','vi','ja','zh'].includes(body.language) ? body.language : 'ko';
 
   const apiKey = process.env.OPENAI_API_KEY;
   const model = process.env.OPENAI_MODEL || 'gpt-4.1-mini';
@@ -21,8 +21,8 @@ exports.handler = async function (event) {
   if (imageBase64.length > 6000000) return response(413, { ok: false, error: t(lang, 'errImageSize') });
 
   try {
-    const langName = { ko:'Korean', en:'English', vi:'Vietnamese', ja:'Japanese', zh:'Chinese', ar:'Arabic' }[lang];
-    const prompt = `You are a skin/beauty reference AI, not a medical diagnostician. Do not diagnose diseases or prescribe treatment/drugs. Write values in ${langName}. If language is Arabic, respond in Arabic with a careful, non-diagnostic, beauty-care advisory tone. Keep JSON keys in English exactly matching schema.`;
+    const langName = { ko:'Korean', en:'English', vi:'Vietnamese', ja:'Japanese', zh:'Chinese' }[lang];
+    const prompt = `You are a skin/beauty reference AI, not a medical diagnostician. Do not diagnose diseases or prescribe treatment/drugs. Write values in ${langName}. Keep JSON keys in English exactly matching schema.`;
 
     const openaiRes = await fetch('https://api.openai.com/v1/responses', {
       method: 'POST',
@@ -63,7 +63,6 @@ const messages = {
   vi: { errApiKey:'Thiết lập máy chủ AI chưa hoàn tất. Vui lòng liên hệ quản trị viên.', errQuota:'Hạn mức máy chủ AI tạm thời bị giới hạn. Vui lòng thử lại sau khi quản trị viên kiểm tra.', errImageFormat:'Định dạng ảnh không hợp lệ. Vui lòng chụp lại.', errImageSize:'Ảnh quá lớn. Hãy khởi động lại camera và thử lại.', errAnalyze:'Yêu cầu phân tích thất bại. Vui lòng thử lại sau.' },
   ja: { errApiKey:'AI分析サーバー設定が未完了です。管理者へお問い合わせください。', errQuota:'AI分析サーバー利用上限が一時的に制限されています。管理者確認後に再度ご利用ください。', errImageFormat:'画像形式が正しくありません。再撮影してください。', errImageSize:'画像サイズが大きすぎます。カメラを再起動して再試行してください。', errAnalyze:'分析リクエストに失敗しました。後でもう一度お試しください。' },
   zh: { errApiKey:'AI分析服务器设置尚未完成，请联系管理员。', errQuota:'AI分析服务器使用额度暂时受限，请管理员确认后再试。', errImageFormat:'图像格式无效，请重新拍摄。', errImageSize:'图像过大，请重启相机后重试。', errAnalyze:'分析请求失败，请稍后重试。' },
-  ar: { errApiKey:'لم يكتمل إعداد خادم التحليل بعد. يرجى التواصل مع المسؤول.', errQuota:'استخدام خادم التحليل محدود مؤقتًا. يرجى المحاولة لاحقًا.', errImageFormat:'صيغة الصورة غير صحيحة. يرجى الالتقاط مرة أخرى.', errImageSize:'حجم الصورة كبير جدًا. أعد تشغيل الكاميرا ثم حاول مجددًا.', errAnalyze:'فشل طلب التحليل. يرجى المحاولة لاحقًا.' }
 };
 
 function response(statusCode, body) { return { statusCode, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }; }
