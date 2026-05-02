@@ -333,3 +333,8 @@ h2 { margin: 0 0 12px; font-size: clamp(1.25rem, 2.5vw, 2rem); }
 }
 
 .ai-skin-note { display:block; margin-top:8px; font-size:12px; color: var(--muted); }
+
+
+html[dir="rtl"] body {
+  text-align: right;
+}
