@@ -18,5 +18,20 @@
 
 
 html[dir="rtl"] body {
+  direction: rtl;
   text-align: right;
 }
+
+html[dir="rtl"] .container,
+html[dir="rtl"] section {
+  direction: rtl;
+}
+
+.language-switcher,
+.language-buttons {
+  display:flex;
+  flex-wrap:wrap;
+  gap:.5rem;
+}
+
+@media(max-width:900px){.language-buttons{justify-content:flex-start}}

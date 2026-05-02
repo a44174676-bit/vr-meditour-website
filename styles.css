@@ -336,5 +336,33 @@ h2 { margin: 0 0 12px; font-size: clamp(1.25rem, 2.5vw, 2rem); }
 
 
 html[dir="rtl"] body {
+  direction: rtl;
   text-align: right;
+}
+
+html[dir="rtl"] .container,
+html[dir="rtl"] .hero,
+html[dir="rtl"] section {
+  direction: rtl;
+}
+
+.language-switcher,
+.language-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+@media (max-width: 640px) {
+  .language-buttons {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .field-grid,
+  .hero-grid,
+  .stage-grid,
+  .ip-grid {
+    min-width: 0;
+  }
 }
