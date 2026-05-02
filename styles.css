@@ -335,6 +335,35 @@ h2 { margin: 0 0 12px; font-size: clamp(1.25rem, 2.5vw, 2rem); }
 .ai-skin-note { display:block; margin-top:8px; font-size:12px; color: var(--muted); }
 
 
-html[dir="rtl"] body {
+
+.language-switcher,
+.language-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+@media (max-width: 640px) {
+  .language-buttons {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .field-grid,
+  .hero-grid,
+  .stage-grid,
+  .ip-grid {
+    min-width: 0;
+  }
+}
+
+body.lang-ar [data-i18n],
+body.lang-ar [data-i18n-placeholder],
+body.lang-ar h1,
+body.lang-ar h2,
+body.lang-ar h3,
+body.lang-ar p,
+body.lang-ar li,
+body.lang-ar label {
   text-align: right;
 }

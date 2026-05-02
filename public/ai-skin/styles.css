@@ -17,6 +17,23 @@
 .language-buttons{display:flex;gap:8px;justify-content:flex-end;margin-bottom:14px}.language-buttons button{border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.08);color:#dbeafe;border-radius:999px;padding:6px 10px;cursor:pointer}.language-buttons button.active{background:linear-gradient(90deg,#2a6ee8,#25cfb4);color:#fff;border-color:transparent}
 
 
-html[dir="rtl"] body {
+
+.language-switcher,
+.language-buttons {
+  display:flex;
+  flex-wrap:wrap;
+  gap:.5rem;
+}
+
+@media(max-width:900px){.language-buttons{justify-content:flex-start}}
+
+body.lang-ar [data-i18n],
+body.lang-ar [data-i18n-placeholder],
+body.lang-ar h1,
+body.lang-ar h2,
+body.lang-ar h3,
+body.lang-ar p,
+body.lang-ar li,
+body.lang-ar label {
   text-align: right;
 }
