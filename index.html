@@ -1048,7 +1048,7 @@
     };
 
     function t(lang, key) {
-      return translations[lang]?.[key] || baseEn[key] || "";
+      return translations[lang]?.[key] ?? baseEn[key] ?? null;
     }
 
     function applyLanguage(lang) {
@@ -1057,15 +1057,18 @@
       document.documentElement.dir = active === "ar" ? "rtl" : "ltr";
 
       document.querySelectorAll("[data-i18n]").forEach((el) => {
-        el.textContent = t(active, el.dataset.i18n);
+        const translated = t(active, el.dataset.i18n);
+        if (translated) el.textContent = translated;
       });
 
       document.querySelectorAll("[data-i18n-option]").forEach((el) => {
-        el.textContent = t(active, el.dataset.i18nOption);
+        const translated = t(active, el.dataset.i18nOption);
+        if (translated) el.textContent = translated;
       });
 
       document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
-        el.setAttribute("placeholder", t(active, el.dataset.i18nPlaceholder));
+        const translated = t(active, el.dataset.i18nPlaceholder);
+        if (translated) el.setAttribute("placeholder", translated);
       });
 
       document.querySelectorAll(".language-buttons button").forEach((btn) => {
