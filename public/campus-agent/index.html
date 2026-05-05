@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI안내에이젼트로봇시스템 MVP</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div><strong>AI안내에이젼트로봇시스템</strong><span>출원번호 10-2026-0080691</span></div>
+    <nav><button data-lang="ko">KO</button><button data-lang="en">EN</button><button data-lang="vi">VI</button><button data-lang="jp">JP</button><button data-lang="cn">CN</button></nav>
+  </header>
+  <main>
+    <section class="hero">
+      <div>
+        <p class="eyebrow">VR MEDI CARE LAB | 부산외국어대학교</p>
+        <h1>AI안내에이젼트로봇시스템</h1>
+        <p class="lead" data-i18n="subtitle">캠퍼스 생활안전·다국어 안내·환경정비를 통합한 AI 에이젼트 플랫폼</p>
+        <p>학생, 외국인 유학생, 장애 학생, 기숙사생, 방문객의 질문을 AI가 분류하고 안내·긴급호출·화재방재·환경정비 임무를 시뮬레이션합니다.</p>
+        <div class="actions"><button data-run="campus" class="primary" data-i18n="start">AI 안내 시작하기</button><button data-run="emergency" class="danger" data-i18n="emergency">긴급호출</button><button data-run="library" data-i18n="library">도서관 안내</button><button data-run="dormitory" data-i18n="dormitory">기숙사 안내</button><button data-run="cleaning" data-i18n="cleaning">환경정비 모드</button></div>
+      </div>
+      <div class="robot"><div class="eyes"><i></i><i></i></div><div class="screen">AI AGENT<br><small>Guide · Safety · Cleaning</small></div><b>SOS</b><span>Cleaning Module</span></div>
+    </section>
+    <section class="layout">
+      <div class="card">
+        <h2>질문 입력</h2>
+        <label class="hidden" for="q">질문</label>
+        <textarea id="q" placeholder="예: 도서관 프린터 어디 있어요? / 기숙사 외박 신청은 어떻게 해요? / 도와주세요 / 연기가 나요 / 바닥에 쓰레기가 있어요"></textarea>
+        <button id="ask" class="primary" data-i18n="ask">질문하기</button>
+        <div class="chips" id="samples"></div>
+      </div>
+      <aside class="card status" id="statusBox">
+        <h2 data-i18n="robotStatus">현재 로봇 상태</h2>
+        <p><span>상태</span><strong id="s1">대기 중</strong></p>
+        <p><span>에이젼트</span><strong id="s2">없음</strong></p>
+        <p><span>임무</span><strong id="s3">질문 대기</strong></p>
+        <p><span>우선순위</span><strong id="s4">일반</strong></p>
+      </aside>
+      <div class="card result" id="resultBox">
+        <h2 data-i18n="result">분류 결과</h2>
+        <div class="resultGrid">
+          <p><span data-i18n="result">분류 결과</span><strong id="r1">질문을 입력해 주세요.</strong></p>
+          <p><span data-i18n="selectedAgent">선택된 에이젼트</span><strong id="r2">대기 중</strong></p>
+          <p><span data-i18n="action">추천 행동</span><strong id="r3">대기 중</strong></p>
+          <p><span data-i18n="department">담당 연결</span><strong id="r4">대기</strong></p>
+        </div>
+        <div class="robotAction" id="r5">로봇 행동 시뮬레이션: 대기 중</div>
+      </div>
+    </section>
+    <section class="section"><h2>에이젼트 실행 카드</h2><div class="agents" id="agents"></div></section>
+    <section class="triple">
+      <div class="card"><h2>긴급신호 호출</h2><p>비상버튼·도움 요청·낙상·장시간 무응답을 시뮬레이션합니다.</p><button id="emergencyBtn" class="danger">긴급호출</button><p id="emergencyResult">상태: 대기 중</p></div>
+      <div class="card"><h2>초기화재방재</h2><p>연기·온도·열화상·불꽃·이상 음향을 조합해 위험도를 판단합니다.</p><div class="actions"><button data-fire="주의">주의</button><button data-fire="경고">경고</button><button data-fire="긴급" class="danger">긴급</button></div><p id="fireResult">위험도: 대기</p><div id="evac" class="evac" hidden><b>비상대피 안내</b><br>현재 위치: 기숙사 1층 로비<br>가까운 비상구: 동측 출입구 / 예상 거리 20m<br>엘리베이터를 이용하지 말고 비상구 방향으로 이동하십시오.</div></div>
+      <div class="card"><h2>환경정비·청소</h2><p>먼지·쓰레기·바닥 오염을 감지하고 비혼잡 시간대에 청소합니다.</p><div class="actions"><button data-clean="대기">청소 대기</button><button data-clean="시작">청소 시작</button><button data-clean="완료">청소 완료</button><button data-clean="긴급" class="danger">긴급상황 발생</button></div><p id="cleanResult">현재 상태: 대기 중</p></div>
+    </section>
+    <section class="section card"><h2>관리자 대시보드</h2><div class="dash"><p>최근 문의 <strong id="inq">0</strong></p><p>긴급호출 <strong id="emg">0</strong></p><p>화재방재 <strong id="fireDash">대기</strong></p><p>환경정비 <strong id="cleanDash">대기</strong></p></div><ul id="logs"></ul></section>
+    <section class="section info"><h2>특허·사업 정보</h2><p>본 MVP는 AI안내에이젼트로봇시스템의 웹·태블릿형 프로토타입입니다.</p><ul><li>특허 출원번호: 10-2026-0080691</li><li>개발 주체: VR MEDI CARE LAB</li><li>제안자: 정성영 / 부산외국어대학교</li><li>적용 분야: 캠퍼스 생활안전, 다국어 안내, 도서관·기숙사 지원, 긴급호출, 초기화재방재, 환경정비</li></ul><p class="notice">긴급호출, 화재방재, 청소 기능은 시연용 시뮬레이션입니다. 실제 운영 시에는 학교 관리자 시스템, 센서, 로봇 하드웨어 및 관계 기관 연동이 필요합니다.</p></section>
+  </main>
+  <script src="./data.js"></script><script src="./script.js"></script>
+</body>
+</html>
