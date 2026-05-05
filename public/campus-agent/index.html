@@ -1,90 +1,63 @@
 <!doctype html>
 <html lang="ko">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>AI안내에이젼트로봇시스템 MVP</title>
-  <link rel="stylesheet" href="./styles.css" />
-</head>
-<body>
-  <header class="topbar">
-    <div><strong data-i18n="brand">AI안내에이젼트로봇시스템</strong><span data-i18n="patent">출원번호 10-2026-0080691</span></div>
-    <nav><button data-lang="ko">KO</button><button data-lang="en">EN</button><button data-lang="vi">VI</button><button data-lang="jp">JP</button><button data-lang="cn">CN</button></nav>
-  </header>
-  <main>
-    <section class="hero">
-      <div>
-        <p class="eyebrow" data-i18n="heroEyebrow">VR MEDI CARE LAB | 부산외국어대학교</p>
-        <h1 data-i18n="brand">AI안내에이젼트로봇시스템</h1>
-        <p class="lead" data-i18n="subtitle">캠퍼스 생활안전·다국어 안내·환경정비를 통합한 AI 에이젼트 플랫폼</p>
-        <p data-i18n="heroDesc">학생, 외국인 유학생, 장애 학생, 기숙사생, 방문객의 질문을 AI가 분류하고 안내·긴급호출·화재방재·환경정비 임무를 시뮬레이션합니다.</p>
-        <div class="actions"><button data-run="campus" class="primary" data-i18n="start">AI 안내 시작하기</button><button data-run="emergency" class="danger" data-i18n="emergency">긴급호출</button><button data-run="library" data-i18n="library">도서관 안내</button><button data-run="dormitory" data-i18n="dormitory">기숙사 안내</button><button data-run="cleaning" data-i18n="cleaning">환경정비 모드</button></div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BUFS Campus AI·AR Guide</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <p class="eyebrow">Busan University of Foreign Studies</p>
+      <h1>공식 캠퍼스맵 기반 AI·AR 안내</h1>
+      <p class="hero-desc">
+        공식 캠퍼스맵을 대체하지 않고, 방문자의 이해를 돕는 안내형 MVP입니다.
+        정확한 위치·시설 정보는 공식 자료 확인이 필요합니다.
+      </p>
+      <div class="hero-actions">
+        <button type="button" id="scrollToBuildings" class="btn btn-primary">건물 찾기</button>
+        <a class="btn btn-outline" href="https://www.bufs.ac.kr" target="_blank" rel="noopener noreferrer">공식 캠퍼스맵 보기</a>
+        <a class="btn btn-outline" href="https://www.bufs.ac.kr" target="_blank" rel="noopener noreferrer">캠퍼스 VR투어 보기</a>
       </div>
-      <div class="robot"><div class="eyes"><i></i><i></i></div><div class="screen">AI AGENT<br><small data-i18n="robotSmall">안내 · 안전 · 청소</small></div><b>SOS</b><span data-i18n="cleaningModule">청소 모듈</span></div>
-    </section>
-    <section class="layout">
-      <div class="card">
-        <h2 data-i18n="questionTitle">질문 입력</h2>
-        <label class="hidden" for="q" data-i18n="questionLabel">질문</label>
-        <textarea id="q" data-i18n-placeholder="questionPlaceholder" placeholder="예: 도서관 프린터 어디 있어요? / 기숙사 외박 신청은 어떻게 해요? / 도와주세요 / 연기가 나요 / 바닥에 쓰레기가 있어요"></textarea>
-        <button id="ask" class="primary" data-i18n="ask">질문하기</button>
-        <div class="chips" id="samples"></div>
-      </div>
-      <aside class="card status" id="statusBox">
-        <h2 data-i18n="robotStatus">현재 로봇 상태</h2>
-        <p><span data-i18n="status">상태</span><strong id="s1" data-i18n="ready">대기 중</strong></p>
-        <p><span data-i18n="agent">에이젼트</span><strong id="s2" data-i18n="none">없음</strong></p>
-        <p><span data-i18n="task">임무</span><strong id="s3" data-i18n="waitingTask">질문 대기</strong></p>
-        <p><span data-i18n="priority">우선순위</span><strong id="s4" data-i18n="normal">일반</strong></p>
-      </aside>
-      <div class="card result" id="resultBox">
-        <h2 data-i18n="result">분류 결과</h2>
-        <div class="resultGrid">
-          <p><span data-i18n="result">분류 결과</span><strong id="r1" data-i18n="enterQuestion">질문을 입력해 주세요.</strong></p>
-          <p><span data-i18n="selectedAgent">선택된 에이젼트</span><strong id="r2" data-i18n="standby">대기 중</strong></p>
-          <p><span data-i18n="action">추천 행동</span><strong id="r3" data-i18n="standby">대기 중</strong></p>
-          <p><span data-i18n="department">담당 연결</span><strong id="r4" data-i18n="standby">대기</strong></p>
-        </div>
-        <div class="robotAction" id="r5" data-i18n="robotActionWaiting">로봇 행동 시뮬레이션: 대기 중</div>
-      </div>
-    </section>
+    </header>
 
-    <section class="section card campus-guide" id="campusGuide">
-      <div class="guide-head">
-        <div>
-          <p class="eyebrow">AR Campus Guide</p>
-          <h2>부산외국어대학교 AR글라스 캠퍼스 안내</h2>
-          <p>질문 내용에 따라 목적지 건물, 층, 이동 방향을 표시합니다. AR글라스 사용 시 실제 시야 위에 건물 마커와 이동 방향을 겹쳐 보여주는 구조로 확장합니다.</p>
+    <main>
+      <section class="search-panel" aria-label="캠퍼스 안내 검색">
+        <label for="searchInput">질문 입력</label>
+        <div class="search-row">
+          <input id="searchInput" type="text" placeholder="예: 평생교육원 어디야? A302호 어디야?" />
+          <button type="button" id="searchButton" class="btn btn-primary">검색</button>
         </div>
-        <a class="vr-link" href="https://cit.bufs.ac.kr/tour/tour.html" target="_blank" rel="noopener">AR 안내 원본 공간 열기</a>
-      </div>
-      <p class="notice">현재 링크는 부산외대 캠퍼스 공간 확인용 원본 투어입니다. 본 MVP에서는 이를 AR글라스용 안내 데이터로 전환해, 실제 운영 시 AR 마커·화살표·층별 목적지 안내로 확장하는 구조입니다.</p>
-      <div class="destination-card" id="destinationCard" aria-live="polite">
-        <div class="dest-badge" id="destCode">A</div>
-        <div>
-          <p class="eyebrow">현재 목적지</p>
-          <h3 id="destName">글로벌 센터</h3>
-          <p id="destMain">지도에서 A 글로벌 센터가 선택되어 있습니다.</p>
-          <p id="destRoute">국제교류처는 A 글로벌 센터 2층입니다.</p>
-        </div>
-      </div>
-      <div class="campus-map-wrap">
-        <img src="https://cit.bufs.ac.kr/user_assets/img/sub/map_img_1.png" alt="부산외국어대학교 캠퍼스 지도" loading="lazy" />
-        <div class="campus-map-buttons" id="campusMapButtons"></div>
-      </div>
-      <div class="campus-quick" id="campusQuickQuestions"></div>
-      <div class="building-detail" id="buildingDetail"></div>
-    </section>
+        <div id="searchResult" class="search-result" aria-live="polite"></div>
+      </section>
 
-    <section class="section"><h2 data-i18n="agentCards">에이젼트 실행 카드</h2><div class="agents" id="agents"></div></section>
-    <section class="triple">
-      <div class="card"><h2 data-i18n="emergencyTitle">긴급신호 호출</h2><p data-i18n="emergencyDesc">비상버튼·도움 요청·낙상·장시간 무응답을 시뮬레이션합니다.</p><button id="emergencyBtn" class="danger" data-i18n="emergency">긴급호출</button><p id="emergencyResult" data-i18n="emergencyWait">상태: 대기 중</p></div>
-      <div class="card"><h2 data-i18n="fireTitle">초기화재방재</h2><p data-i18n="fireDesc">연기·온도·열화상·불꽃·이상 음향을 조합해 위험도를 판단합니다.</p><div class="actions"><button data-fire="주의" data-i18n="caution">주의</button><button data-fire="경고" data-i18n="warning">경고</button><button data-fire="긴급" class="danger" data-i18n="urgent">긴급</button></div><p id="fireResult" data-i18n="fireWait">위험도: 대기</p><div id="evac" class="evac" hidden><b data-i18n="evacTitle">비상대피 안내</b><br><span data-i18n="evacNow">현재 위치: 기숙사 1층 로비</span><br><span data-i18n="evacExit">가까운 비상구: 동측 출입구 / 예상 거리 20m</span><br><span data-i18n="evacGuide">엘리베이터를 이용하지 말고 비상구 방향으로 이동하십시오.</span></div></div>
-      <div class="card"><h2 data-i18n="cleanTitle">환경정비·청소</h2><p data-i18n="cleanDesc">먼지·쓰레기·바닥 오염을 감지하고 비혼잡 시간대에 청소합니다.</p><div class="actions"><button data-clean="대기" data-i18n="cleanStandby">청소 대기</button><button data-clean="시작" data-i18n="cleanStart">청소 시작</button><button data-clean="완료" data-i18n="cleanDone">청소 완료</button><button data-clean="긴급" class="danger" data-i18n="cleanEmergency">긴급상황 발생</button></div><p id="cleanResult" data-i18n="cleanWait">현재 상태: 대기 중</p></div>
-    </section>
-    <section class="section card"><h2 data-i18n="dashboard">관리자 대시보드</h2><div class="dash"><p><span data-i18n="recentInquiry">최근 문의</span> <strong id="inq">0</strong></p><p><span data-i18n="emergencyCalls">긴급호출</span> <strong id="emg">0</strong></p><p><span data-i18n="fireStatus">화재방재</span> <strong id="fireDash" data-i18n="standby">대기</strong></p><p><span data-i18n="cleanStatus">환경정비</span> <strong id="cleanDash" data-i18n="standby">대기</strong></p></div><ul id="logs"></ul></section>
-    <section class="section info"><h2 data-i18n="infoTitle">특허·사업 정보</h2><p data-i18n="infoDesc">본 MVP는 AI안내에이젼트로봇시스템의 웹·태블릿형 프로토타입입니다.</p><ul><li data-i18n="infoPatent">특허 출원번호: 10-2026-0080691</li><li data-i18n="infoDeveloper">개발 주체: VR MEDI CARE LAB</li><li data-i18n="infoProposer">제안자: 정성영 / 부산외국어대학교</li><li data-i18n="infoFields">적용 분야: 캠퍼스 생활안전, 다국어 안내, 도서관·기숙사 지원, 긴급호출, 초기화재방재, 환경정비</li></ul><p class="notice" data-i18n="notice">긴급호출, 화재방재, 청소 기능은 시연용 시뮬레이션입니다. 실제 운영 시에는 학교 관리자 시스템, 센서, 로봇 하드웨어 및 관계 기관 연동이 필요합니다.</p></section>
-  </main>
-  <script src="./data.js"></script><script src="./campus-map-data.js"></script><script src="./script.js"></script>
-</body>
+      <section class="map-section" aria-label="캠퍼스 지도 및 마커">
+        <div class="map-placeholder" id="mapArea">
+          <p>공식 캠퍼스맵 이미지 연동 전입니다.<br />현재는 안내용 대체 지도 박스입니다.</p>
+          <div class="markers" id="markerContainer"></div>
+        </div>
+      </section>
+
+      <section id="buildings" class="buildings-section" aria-label="건물 목록">
+        <h2>A~J 건물 안내</h2>
+        <div id="buildingCards" class="building-cards"></div>
+      </section>
+
+      <section class="ar-section" aria-label="AR 미리보기">
+        <h2>AR 안내 미리보기</h2>
+        <div class="ar-preview" id="arPreview">
+          <div class="ar-overlay">
+            <p class="ar-selected" id="arBuildingName">선택된 건물 없음</p>
+            <p class="ar-guidance" id="arGuidance">건물을 선택하면 방향 안내가 표시됩니다.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      본 MVP는 공식 캠퍼스맵 확인을 보조하는 안내 화면입니다.
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
 </html>
