@@ -1,2 +1,123 @@
-const rules=[{intent:"fire",keywords:["불","화재","연기","타는 냄새","온도","뜨거워요","경보","대피"]},{intent:"emergency",keywords:["도와주세요","응급","비상","쓰러짐","아파요","도움","위험","구조","긴급"]},{intent:"accessibility",keywords:["장애","휠체어","엘리베이터","경사로","계단","이동약자","다리","걷기 힘들다","가까운 출입구"]},{intent:"library",keywords:["도서관","책","자료실","프린터","복사","스터디룸","열람실","반납","도움 데스크"]},{intent:"dormitory",keywords:["기숙사","세탁실","택배","외박","사감실","방","룸","생활수칙","점호","고장","소음"]},{intent:"international",keywords:["유학생","외국인","영어","베트남어","중국어","일본어","통역","international","vietnam","english"]},{intent:"cleaning",keywords:["청소","쓰레기","먼지","오염","바닥","이물질","더러워요","음료 쏟았어요"]},{intent:"admin",keywords:["장학금","휴학","복학","등록금","행정","담당부서","서류","신청","학사","창업지원"]},{intent:"campus",keywords:["강의실","건물","위치","어디","길","가는 길","보건실","상담센터","창업지원센터"]}];
-let logs=[...sampleLogs],inq=0,emg=0,currentLang="ko",selectedBuilding="A";const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);function t(k){return (translations[currentLang]&&translations[currentLang][k])||translations.ko[k]||k}function classifyIntent(q){q=q.trim().toLowerCase();if(!q)return"unknown";const b=findBuilding(q);if(b){if(b.code==="H")return"library";if(b.code==="C")return"dormitory";if(["A","F"].includes(b.code))return"admin";return"campus"}for(const r of rules){if(r.keywords.some(k=>q.includes(k.toLowerCase())))return r.intent}return"unknown"}function findBuilding(q){if(!window.campusMap)return null;const n=q.toLowerCase();return campusMap.buildings.find(b=>[b.code,b.name,b.en,...b.keywords].some(k=>n.includes(String(k).toLowerCase())))}function time(){return new Date().toLocaleTimeString("ko-KR",{hour:"2-digit",minute:"2-digit"})}function addLog(m){logs.unshift(m);logs=logs.slice(0,8);renderLogs()}function renderLogs(){$("#logs").innerHTML=logs.map(l=>`<li>${l}</li>`).join("")}function dash(){$("#inq").textContent=inq;$("#emg").textContent=emg}function update(intent,q=""){let d=campusData[intent]||campusData.unknown;const building=q?findBuilding(q):null;if(building){d={...d,category:`${building.code} ${building.name} 실제 위치 안내`,title:`${building.name} 안내 에이젼트`,response:makeBuildingAnswer(building,q),department:building.name,action:`${building.code} ${building.name} 위치 표시 + 층별 시설 안내 + 이동 경로 안내`,priority:"일반"};selectedBuilding=building.code;renderBuildingDetail(building.code);document.querySelector("#campusGuide")?.scrollIntoView({behavior:"smooth",block:"start"})}$("#r1").textContent=d.category;$("#r2").textContent=d.title;$("#r3").textContent=d.response;$("#r4").textContent=d.department;$("#r5").textContent=`로봇 행동 시뮬레이션: ${d.action}`;$("#s1").textContent=d.priority==="긴급"?"긴급 모드":intent==="cleaning"?"환경정비 모드":"안내 모드";$("#s2").textContent=d.title;$("#s3").textContent=d.action;$("#s4").textContent=d.priority;$("#statusBox").classList.toggle("danger",d.priority==="긴급");$("#resultBox").classList.toggle("danger",d.priority==="긴급");$("#statusBox").classList.toggle("cleaning",intent==="cleaning");if(q){inq++;addLog(`[${time()}] ${q} → ${d.title}`)}if(["emergency","fire","evacuation"].includes(intent)){emg++}dash()}function makeBuildingAnswer(b,q=""){const n=q.toLowerCase();let matched=b.floors.find(f=>n.includes(f.floor.toLowerCase())||f.text.toLowerCase().split(/[\/·, ]/).some(word=>word&&n.includes(word.toLowerCase())));const floorText=matched?`${matched.floor}: ${matched.text}`:b.floors.map(f=>`${f.floor} ${f.text}`).join(" / ");return `${b.code} ${b.name}(${b.en})입니다. ${b.route} 주요 층별 정보: ${floorText}`;}function ask(){const q=$("#q").value.trim();if(!q){update("unknown");$("#r1").textContent="입력 필요";$("#r3").textContent="질문을 입력하거나 예시 질문을 선택해 주세요.";return}update(classifyIntent(q),q)}function renderAgents(){const keys=["campus","library","dormitory","international","accessibility","emergency","fire","evacuation","cleaning","admin"];$("#agents").innerHTML=keys.map(k=>{const d=campusData[k];return`<article class="card agent"><div><div class="icon">${d.icon}</div><h3>${d.title}</h3><p>${d.response}</p></div><button data-run="${k}" data-i18n="run">${t("run")}</button></article>`}).join("")}function samples(){const base=["도서관 프린터 어디 있어요?","기숙사 세탁실은 어디인가요?","외박 신청은 어떻게 하나요?","장학금은 어디에 문의하나요?","엘리베이터로 가는 길 알려주세요.","도와주세요.","연기가 나요.","바닥에 쓰레기가 있어요."];const arr=[...campusSampleQuestions,...base];$("#samples").innerHTML=arr.map(x=>`<button data-question="${x}">${x}</button>`).join("")}function renderCampusGuide(){if(!window.campusMap||!$("#campusMapButtons"))return;$("#campusMapButtons").innerHTML=campusMap.buildings.map((b,i)=>`<button class="campus-pin pin-${b.code} ${i===0?"active":""}" data-building="${b.code}" aria-label="${b.name} 안내">${b.code}</button>`).join("");$("#campusQuickQuestions").innerHTML=campusSampleQuestions.map(q=>`<button data-question="${q}">${q}</button>`).join("");renderBuildingDetail(selectedBuilding)}function renderBuildingDetail(code){if(!window.campusMap||!$("#buildingDetail"))return;selectedBuilding=code;const b=campusMap.buildings.find(x=>x.code===code)||campusMap.buildings[0];$$("[data-building]").forEach(btn=>btn.classList.toggle("active",btn.dataset.building===b.code));$("#buildingDetail").innerHTML=`<div class="building-title"><span>${b.code}</span><div><h3>${b.name}</h3><p>${b.en} · ${b.type}</p></div></div><p class="route-text">${b.route}</p><div class="floor-list">${b.floors.map(f=>`<p><strong>${f.floor}</strong><span>${f.text}</span></p>`).join("")}</div>`}function runEmergency(){$("#emergencyResult").textContent="긴급신호 호출 모드 / 전송 대상: 사감실·보안실·보건실 / 위치: 도서관 1층";addLog(`[긴급호출] 도서관 1층 / 관리자 알림 준비 완료`);update("emergency")}function runFire(l){const msg={주의:"위험도: 주의 / 권장 행동: 현장 확인 및 관리자 주의 알림",경고:"위험도: 경고 / 권장 행동: 접근 제한 안내 및 보안실 알림",긴급:"위험도: 긴급 / 권장 행동: 즉시 대피 안내 및 관제센터 알림 준비"};$("#fireResult").textContent=msg[l];$("#evac").hidden=l!=="긴급";$("#fireDash").textContent=l;addLog(`[${time()}] 초기화재방재 위험도 ${l}`);update("fire")}function runClean(s){const msg={대기:"현재 상태: 대기 중 / 청소 가능 조건: 비혼잡 시간대·관리자 요청·청소 스케줄",시작:"현재 상태: 청소 중 / 감지 대상: 먼지·소형 쓰레기·바닥 오염·이물질",완료:"현재 상태: 청소 완료 / 관리자 대시보드에 청소 로그가 기록되었습니다.",긴급:"현재 상태: 청소 일시 중지 / 사유: 긴급신호 또는 화재위험 발생 / 안전 대응 우선"};$("#cleanResult").textContent=msg[s];$("#cleanDash").textContent=s==="시작"?"청소 중":s;addLog(`[${time()}] 환경정비 모드 → ${msg[s]}`);update(s==="긴급"?"emergency":"cleaning")}function lang(l){currentLang=l;const d=translations[l]||translations.ko;document.documentElement.lang=l==="ko"?"ko":l;$$("[data-i18n]").forEach(e=>{const k=e.dataset.i18n;if(d[k])e.textContent=d[k]});$$("[data-i18n-placeholder]").forEach(e=>{const k=e.dataset.i18nPlaceholder;if(d[k])e.setAttribute("placeholder",d[k])});$$("[data-lang]").forEach(b=>b.classList.toggle("active",b.dataset.lang===l));renderAgents();}document.addEventListener("DOMContentLoaded",()=>{renderAgents();samples();renderCampusGuide();renderLogs();dash();$("#ask").addEventListener("click",ask);$("#q").addEventListener("keydown",e=>{if(e.key==="Enter"&&(e.ctrlKey||e.metaKey))ask()});$("#emergencyBtn").addEventListener("click",runEmergency);document.body.addEventListener("click",e=>{const b=e.target.closest("[data-building]");if(b){renderBuildingDetail(b.dataset.building);addLog(`[${time()}] 캠퍼스 지도 ${b.dataset.building} 건물 선택`)}const q=e.target.closest("[data-question]");if(q){$("#q").value=q.dataset.question;ask()}const r=e.target.closest("[data-run]");if(r){update(r.dataset.run);$("#resultBox").scrollIntoView({behavior:"smooth",block:"center"})}const f=e.target.closest("[data-fire]");if(f)runFire(f.dataset.fire);const c=e.target.closest("[data-clean]");if(c)runClean(c.dataset.clean);const lg=e.target.closest("[data-lang]");if(lg)lang(lg.dataset.lang)});lang("ko")});
+document.addEventListener('DOMContentLoaded', () => {
+  const buildingCards = [
+    {
+      id: 'A',
+      name: '글로벌센터',
+      detail: '평생교육원 A302호 / 방문자 안내 핵심 건물',
+      guide: '정문 기준 우측 동선 이동 후 A동 입구 표지 확인',
+      tags: ['평생교육원', 'A302', '글로벌센터', 'A동'],
+      x: 18,
+      y: 37,
+    },
+    ...'BCDEFGHIJ'.split('').map((id, i) => ({
+      id,
+      name: '건물명 확인 필요',
+      detail: '세부 시설 정보 확인 필요',
+      guide: '공식 자료 확인 필요',
+      tags: [`${id}동`, id],
+      x: 34 + (i % 3) * 21,
+      y: 22 + Math.floor(i / 3) * 20,
+    })),
+  ];
+
+  let selectedBuildingId = 'A';
+
+  const markerLayer = document.getElementById('markerLayer');
+  const cardsBox = document.getElementById('buildingCards');
+  const arBuilding = document.getElementById('arBuilding');
+  const arGuide = document.getElementById('arGuide');
+  const searchInput = document.getElementById('searchInput');
+  const searchButton = document.getElementById('searchButton');
+  const searchResult = document.getElementById('searchResult');
+  const goBuildings = document.getElementById('goBuildings');
+
+  function renderBuildingCards() {
+    cardsBox.innerHTML = '';
+
+    buildingCards.forEach((building) => {
+      const card = document.createElement('button');
+      card.type = 'button';
+      card.className = `building-card${building.id === selectedBuildingId ? ' active' : ''}`;
+      card.innerHTML = `
+        <h3>${building.id}동 · ${building.name}</h3>
+        <p>${building.detail}</p>
+        <p>안내: ${building.guide}</p>
+      `;
+      card.addEventListener('click', () => selectBuilding(building.id));
+      cardsBox.appendChild(card);
+    });
+  }
+
+  function renderMarkers() {
+    markerLayer.innerHTML = '';
+
+    buildingCards.forEach((building) => {
+      const marker = document.createElement('button');
+      marker.type = 'button';
+      marker.className = `marker${building.id === selectedBuildingId ? ' active' : ''}`;
+      marker.style.left = `${building.x}%`;
+      marker.style.top = `${building.y}%`;
+      marker.textContent = building.id;
+      marker.setAttribute('aria-label', `${building.id}동 선택`);
+      marker.addEventListener('click', () => selectBuilding(building.id));
+      markerLayer.appendChild(marker);
+    });
+  }
+
+  function updateArPreview(building) {
+    arBuilding.textContent = `선택 건물: ${building.id}동 · ${building.name}`;
+    arGuide.textContent = `AR 방향 안내: ${building.guide}`;
+  }
+
+  function selectBuilding(buildingId) {
+    const selected = buildingCards.find((b) => b.id === buildingId);
+    if (!selected) return;
+
+    selectedBuildingId = selected.id;
+    renderMarkers();
+    renderBuildingCards();
+    updateArPreview(selected);
+
+    searchResult.textContent = `${selected.id}동 선택됨: ${selected.detail} (필요 시 공식 자료 확인)`;
+  }
+
+  function handleSearch() {
+    const query = searchInput.value.trim();
+
+    if (!query) {
+      searchResult.textContent = '질문을 입력하면 건물 또는 교통 안내 결과가 표시됩니다.';
+      return;
+    }
+
+    if (/(버스|지하철|주차|오시는 길)/i.test(query)) {
+      searchResult.textContent = '교통 안내는 공식 캠퍼스맵 및 공식 홈페이지의 오시는 길 자료 확인이 필요합니다.';
+      return;
+    }
+
+    if (/(평생교육원|A302|글로벌센터|A동)/i.test(query)) {
+      selectBuilding('A');
+      searchResult.textContent = '검색 결과: A동(글로벌센터)으로 안내합니다. 평생교육원/A302호는 공식 표지 및 자료를 함께 확인해 주세요.';
+      return;
+    }
+
+    const matched = buildingCards.find((building) => building.tags.some((tag) => query.includes(tag)));
+    if (matched) {
+      selectBuilding(matched.id);
+      return;
+    }
+
+    searchResult.textContent = '해당 키워드는 공식 자료 확인 필요. 아래 A~J 건물 목록에서 직접 선택해 주세요.';
+  }
+
+  searchButton.addEventListener('click', handleSearch);
+  searchInput.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') handleSearch();
+  });
+  goBuildings.addEventListener('click', () => {
+    document.getElementById('buildings').scrollIntoView({ behavior: 'smooth' });
+  });
+
+  renderMarkers();
+  renderBuildingCards();
+  selectBuilding('A');
+});

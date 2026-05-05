@@ -1,90 +1,143 @@
 <!doctype html>
 <html lang="ko">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>AI안내에이젼트로봇시스템 MVP</title>
-  <link rel="stylesheet" href="./styles.css" />
-</head>
-<body>
-  <header class="topbar">
-    <div><strong data-i18n="brand">AI안내에이젼트로봇시스템</strong><span data-i18n="patent">출원번호 10-2026-0080691</span></div>
-    <nav><button data-lang="ko">KO</button><button data-lang="en">EN</button><button data-lang="vi">VI</button><button data-lang="jp">JP</button><button data-lang="cn">CN</button></nav>
-  </header>
-  <main>
-    <section class="hero">
-      <div>
-        <p class="eyebrow" data-i18n="heroEyebrow">VR MEDI CARE LAB | 부산외국어대학교</p>
-        <h1 data-i18n="brand">AI안내에이젼트로봇시스템</h1>
-        <p class="lead" data-i18n="subtitle">캠퍼스 생활안전·다국어 안내·환경정비를 통합한 AI 에이젼트 플랫폼</p>
-        <p data-i18n="heroDesc">학생, 외국인 유학생, 장애 학생, 기숙사생, 방문객의 질문을 AI가 분류하고 안내·긴급호출·화재방재·환경정비 임무를 시뮬레이션합니다.</p>
-        <div class="actions"><button data-run="campus" class="primary" data-i18n="start">AI 안내 시작하기</button><button data-run="emergency" class="danger" data-i18n="emergency">긴급호출</button><button data-run="library" data-i18n="library">도서관 안내</button><button data-run="dormitory" data-i18n="dormitory">기숙사 안내</button><button data-run="cleaning" data-i18n="cleaning">환경정비 모드</button></div>
-      </div>
-      <div class="robot"><div class="eyes"><i></i><i></i></div><div class="screen">AI AGENT<br><small data-i18n="robotSmall">안내 · 안전 · 청소</small></div><b>SOS</b><span data-i18n="cleaningModule">청소 모듈</span></div>
-    </section>
-    <section class="layout">
-      <div class="card">
-        <h2 data-i18n="questionTitle">질문 입력</h2>
-        <label class="hidden" for="q" data-i18n="questionLabel">질문</label>
-        <textarea id="q" data-i18n-placeholder="questionPlaceholder" placeholder="예: 도서관 프린터 어디 있어요? / 기숙사 외박 신청은 어떻게 해요? / 도와주세요 / 연기가 나요 / 바닥에 쓰레기가 있어요"></textarea>
-        <button id="ask" class="primary" data-i18n="ask">질문하기</button>
-        <div class="chips" id="samples"></div>
-      </div>
-      <aside class="card status" id="statusBox">
-        <h2 data-i18n="robotStatus">현재 로봇 상태</h2>
-        <p><span data-i18n="status">상태</span><strong id="s1" data-i18n="ready">대기 중</strong></p>
-        <p><span data-i18n="agent">에이젼트</span><strong id="s2" data-i18n="none">없음</strong></p>
-        <p><span data-i18n="task">임무</span><strong id="s3" data-i18n="waitingTask">질문 대기</strong></p>
-        <p><span data-i18n="priority">우선순위</span><strong id="s4" data-i18n="normal">일반</strong></p>
-      </aside>
-      <div class="card result" id="resultBox">
-        <h2 data-i18n="result">분류 결과</h2>
-        <div class="resultGrid">
-          <p><span data-i18n="result">분류 결과</span><strong id="r1" data-i18n="enterQuestion">질문을 입력해 주세요.</strong></p>
-          <p><span data-i18n="selectedAgent">선택된 에이젼트</span><strong id="r2" data-i18n="standby">대기 중</strong></p>
-          <p><span data-i18n="action">추천 행동</span><strong id="r3" data-i18n="standby">대기 중</strong></p>
-          <p><span data-i18n="department">담당 연결</span><strong id="r4" data-i18n="standby">대기</strong></p>
-        </div>
-        <div class="robotAction" id="r5" data-i18n="robotActionWaiting">로봇 행동 시뮬레이션: 대기 중</div>
-      </div>
-    </section>
-
-    <section class="section card campus-guide" id="campusGuide">
-      <div class="guide-head">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>부산외대 오시는 길 · 캠퍼스맵</title>
+    <meta
+      name="description"
+      content="부산외국어대학교 평생교육원 오시는 길과 캠퍼스맵을 공식 자료 기반으로 확인하는 안내 페이지입니다."
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="inner header-inner">
         <div>
-          <p class="eyebrow">AR Campus Guide</p>
-          <h2>부산외국어대학교 AR글라스 캠퍼스 안내</h2>
-          <p>질문 내용에 따라 목적지 건물, 층, 이동 방향을 표시합니다. AR글라스 사용 시 실제 시야 위에 건물 마커와 이동 방향을 겹쳐 보여주는 구조로 확장합니다.</p>
+          <p class="eyebrow">BUFS OFFICIAL MAP REFERENCE</p>
+          <h1>부산외국어대학교 오시는 길 · 캠퍼스맵</h1>
+          <p class="lead">
+            이 페이지는 부산외대 평생교육원 공식 “오시는 길 / 캠퍼스 맵” 자료를
+            우리 홈페이지의 <strong>/public/campus-agent/</strong> 경로에서 바로 확인할 수 있도록 정리한 화면입니다.
+          </p>
         </div>
-        <a class="vr-link" href="https://cit.bufs.ac.kr/tour/tour.html" target="_blank" rel="noopener">AR 안내 원본 공간 열기</a>
-      </div>
-      <p class="notice">현재 링크는 부산외대 캠퍼스 공간 확인용 원본 투어입니다. 본 MVP에서는 이를 AR글라스용 안내 데이터로 전환해, 실제 운영 시 AR 마커·화살표·층별 목적지 안내로 확장하는 구조입니다.</p>
-      <div class="destination-card" id="destinationCard" aria-live="polite">
-        <div class="dest-badge" id="destCode">A</div>
-        <div>
-          <p class="eyebrow">현재 목적지</p>
-          <h3 id="destName">글로벌 센터</h3>
-          <p id="destMain">지도에서 A 글로벌 센터가 선택되어 있습니다.</p>
-          <p id="destRoute">국제교류처는 A 글로벌 센터 2층입니다.</p>
+        <div class="header-actions">
+          <a class="btn primary" href="https://cit.bufs.ac.kr/about_contact?tapmap" target="_blank" rel="noopener noreferrer">
+            공식 원본 보기
+          </a>
+          <a class="btn" href="https://cit.bufs.ac.kr/tour/tour.html" target="_blank" rel="noopener noreferrer">
+            캠퍼스 VR투어
+          </a>
         </div>
       </div>
-      <div class="campus-map-wrap">
-        <img src="https://cit.bufs.ac.kr/user_assets/img/sub/map_img_1.png" alt="부산외국어대학교 캠퍼스 지도" loading="lazy" />
-        <div class="campus-map-buttons" id="campusMapButtons"></div>
-      </div>
-      <div class="campus-quick" id="campusQuickQuestions"></div>
-      <div class="building-detail" id="buildingDetail"></div>
-    </section>
+    </header>
 
-    <section class="section"><h2 data-i18n="agentCards">에이젼트 실행 카드</h2><div class="agents" id="agents"></div></section>
-    <section class="triple">
-      <div class="card"><h2 data-i18n="emergencyTitle">긴급신호 호출</h2><p data-i18n="emergencyDesc">비상버튼·도움 요청·낙상·장시간 무응답을 시뮬레이션합니다.</p><button id="emergencyBtn" class="danger" data-i18n="emergency">긴급호출</button><p id="emergencyResult" data-i18n="emergencyWait">상태: 대기 중</p></div>
-      <div class="card"><h2 data-i18n="fireTitle">초기화재방재</h2><p data-i18n="fireDesc">연기·온도·열화상·불꽃·이상 음향을 조합해 위험도를 판단합니다.</p><div class="actions"><button data-fire="주의" data-i18n="caution">주의</button><button data-fire="경고" data-i18n="warning">경고</button><button data-fire="긴급" class="danger" data-i18n="urgent">긴급</button></div><p id="fireResult" data-i18n="fireWait">위험도: 대기</p><div id="evac" class="evac" hidden><b data-i18n="evacTitle">비상대피 안내</b><br><span data-i18n="evacNow">현재 위치: 기숙사 1층 로비</span><br><span data-i18n="evacExit">가까운 비상구: 동측 출입구 / 예상 거리 20m</span><br><span data-i18n="evacGuide">엘리베이터를 이용하지 말고 비상구 방향으로 이동하십시오.</span></div></div>
-      <div class="card"><h2 data-i18n="cleanTitle">환경정비·청소</h2><p data-i18n="cleanDesc">먼지·쓰레기·바닥 오염을 감지하고 비혼잡 시간대에 청소합니다.</p><div class="actions"><button data-clean="대기" data-i18n="cleanStandby">청소 대기</button><button data-clean="시작" data-i18n="cleanStart">청소 시작</button><button data-clean="완료" data-i18n="cleanDone">청소 완료</button><button data-clean="긴급" class="danger" data-i18n="cleanEmergency">긴급상황 발생</button></div><p id="cleanResult" data-i18n="cleanWait">현재 상태: 대기 중</p></div>
-    </section>
-    <section class="section card"><h2 data-i18n="dashboard">관리자 대시보드</h2><div class="dash"><p><span data-i18n="recentInquiry">최근 문의</span> <strong id="inq">0</strong></p><p><span data-i18n="emergencyCalls">긴급호출</span> <strong id="emg">0</strong></p><p><span data-i18n="fireStatus">화재방재</span> <strong id="fireDash" data-i18n="standby">대기</strong></p><p><span data-i18n="cleanStatus">환경정비</span> <strong id="cleanDash" data-i18n="standby">대기</strong></p></div><ul id="logs"></ul></section>
-    <section class="section info"><h2 data-i18n="infoTitle">특허·사업 정보</h2><p data-i18n="infoDesc">본 MVP는 AI안내에이젼트로봇시스템의 웹·태블릿형 프로토타입입니다.</p><ul><li data-i18n="infoPatent">특허 출원번호: 10-2026-0080691</li><li data-i18n="infoDeveloper">개발 주체: VR MEDI CARE LAB</li><li data-i18n="infoProposer">제안자: 정성영 / 부산외국어대학교</li><li data-i18n="infoFields">적용 분야: 캠퍼스 생활안전, 다국어 안내, 도서관·기숙사 지원, 긴급호출, 초기화재방재, 환경정비</li></ul><p class="notice" data-i18n="notice">긴급호출, 화재방재, 청소 기능은 시연용 시뮬레이션입니다. 실제 운영 시에는 학교 관리자 시스템, 센서, 로봇 하드웨어 및 관계 기관 연동이 필요합니다.</p></section>
-  </main>
-  <script src="./data.js"></script><script src="./campus-map-data.js"></script><script src="./script.js"></script>
-</body>
+    <main class="inner page-grid">
+      <section class="card info-card" aria-labelledby="info-title">
+        <p class="section-kicker">Location</p>
+        <h2 id="info-title">평생교육원 위치</h2>
+        <p class="address">부산광역시 금샘로 485번길 65 부산외국어대학교 글로벌센터 A302호 평생교육원</p>
+        <div class="contact-list">
+          <p><span>위탁교육문의</span> 051-509-6391</p>
+          <p><span>정규강좌문의</span> 051-509-6393~4</p>
+        </div>
+        <a class="text-link" href="http://dmaps.kr/487wb" target="_blank" rel="noopener noreferrer">큰 지도로 보기</a>
+      </section>
+
+      <section class="card route-card" aria-labelledby="route-title">
+        <p class="section-kicker">Transport</p>
+        <h2 id="route-title">교통 안내</h2>
+        <div class="route-list">
+          <article>
+            <h3>버스</h3>
+            <p>29번, 51번, 80번 이용 후 부산외국어대학교에서 하차</p>
+          </article>
+          <article>
+            <h3>지하철</h3>
+            <p>남산역 1호선 하차 후 셔틀버스 이용 또는 구서역 1호선 2번 출구 앞 마을버스 3번 이용</p>
+          </article>
+          <article>
+            <h3>승용차</h3>
+            <p>부산광역시 금샘로 485번길 65 부산외국어대학교</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="card full map-section" aria-labelledby="map-title">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">Campus Map</p>
+            <h2 id="map-title">캠퍼스 맵</h2>
+          </div>
+          <div class="tab-actions" role="tablist" aria-label="지도 탭">
+            <button class="tab-button active" type="button" data-tab="map" role="tab" aria-selected="true">캠퍼스 맵</button>
+            <button class="tab-button" type="button" data-tab="route" role="tab" aria-selected="false">오시는 길 이미지</button>
+          </div>
+        </div>
+
+        <div class="tab-panel active" id="tab-map" role="tabpanel">
+          <div class="map-wrap">
+            <img
+              class="campus-map"
+              src="https://cit.bufs.ac.kr/user_assets/img/sub/map_img_1.png"
+              alt="부산외국어대학교 캠퍼스맵 공식 이미지"
+            />
+            <div class="marker-layer" aria-label="캠퍼스 마커">
+              <button class="marker active" type="button" data-building="A" style="left: 28%; top: 52%;">A</button>
+              <button class="marker" type="button" data-building="B" style="left: 38%; top: 42%;">B</button>
+              <button class="marker" type="button" data-building="C" style="left: 22%; top: 34%;">C</button>
+              <button class="marker" type="button" data-building="D" style="left: 49%; top: 23%;">D</button>
+              <button class="marker" type="button" data-building="E" style="left: 58%; top: 37%;">E</button>
+              <button class="marker" type="button" data-building="F" style="left: 67%; top: 34%;">F</button>
+              <button class="marker" type="button" data-building="G" style="left: 64%; top: 25%;">G</button>
+              <button class="marker" type="button" data-building="H" style="left: 62%; top: 17%;">H</button>
+              <button class="marker" type="button" data-building="I" style="left: 73%; top: 19%;">I</button>
+              <button class="marker" type="button" data-building="J" style="left: 51%; top: 67%;">J</button>
+            </div>
+          </div>
+          <aside class="selected-box" aria-live="polite">
+            <p class="selected-label">선택 건물</p>
+            <h3 id="selectedBuilding">A · 글로벌센터</h3>
+            <p id="selectedDescription">평생교육원 A302호가 위치한 방문자 안내 핵심 건물입니다.</p>
+          </aside>
+        </div>
+
+        <div class="tab-panel" id="tab-route" role="tabpanel" hidden>
+          <div class="route-images">
+            <figure>
+              <img src="https://cit.bufs.ac.kr/user_assets/img/sub/contact_con01_1.png" alt="부산외대 오시는 길 안내 이미지" />
+              <figcaption>오시는 길 안내</figcaption>
+            </figure>
+            <figure>
+              <img src="https://cit.bufs.ac.kr/user_assets/img/sub/contact_con01_2.png" alt="부산외대 STAGE 1 진입 안내" />
+              <figcaption>① 부산외국어대학교 STAGE 1 진입</figcaption>
+            </figure>
+            <figure>
+              <img src="https://cit.bufs.ac.kr/user_assets/img/sub/contact_con01_3.png" alt="부산외대 지하주차장 안내" />
+              <figcaption>② 부산외국어대학교 지하주차장</figcaption>
+            </figure>
+            <figure>
+              <img src="https://cit.bufs.ac.kr/user_assets/img/sub/contact_con01_5.png" alt="부산외대 글로벌센터 건물 입구" />
+              <figcaption>③ 글로벌센터 건물 입구</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="card full notice-card" aria-labelledby="notice-title">
+        <p class="section-kicker">Notice</p>
+        <h2 id="notice-title">사용 안내</h2>
+        <p>
+          본 화면은 부산외대 공식 자료 확인을 돕기 위한 보조 안내 페이지입니다.
+          최종 위치, 시설, 운영시간, 세부 동선은 반드시 부산외국어대학교 공식 홈페이지에서 확인해 주세요.
+        </p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>VR MEDI TOUR &amp; HOME · Campus guide reference page</p>
+    </footer>
+
+    <script src="./script.js"></script>
+  </body>
 </html>
