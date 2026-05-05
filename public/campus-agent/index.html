@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>AI안내에이젼트로봇시스템 MVP</title>
+  <title>AR글라스 캠퍼스 안내 MVP</title>
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
@@ -53,10 +53,10 @@
       <div class="guide-head">
         <div>
           <p class="eyebrow">Real Campus Guide</p>
-          <h2>부산외국어대학교 실제 캠퍼스 안내</h2>
-          <p>질문 내용에 따라 목적지 건물, 층, 이동 방향을 바로 표시합니다. 지도에서 노란색으로 강조된 마커가 목적지입니다.</p>
+          <h2>부산외국어대학교 AR글라스 캠퍼스 안내</h2>
+          <p>사용자가 “기숙사 세탁실 어디인가요?”, “국제교류처 어디에 있어요?”처럼 질문하면 AI 에이젼트가 목적지를 분류하고, AR글라스 화면에 건물 마커, 이동 방향, 도착 후 층별 안내를 표시합니다.</p>
         </div>
-        <a class="vr-link" href="https://cit.bufs.ac.kr/tour/tour.html" target="_blank" rel="noopener">캠퍼스 VR투어 열기</a>
+        <a class="vr-link" href="https://cit.bufs.ac.kr/tour/tour.html" target="_blank" rel="noopener">AR 안내 원본 공간 열기</a><p class="vr-note">현재 링크는 부산외국어대학교 캠퍼스 공간 확인용 원본 투어입니다. 본 MVP에서는 해당 공간 정보를 AR글라스용 안내 데이터로 변환하여 건물 마커, 이동 화살표, 층별 목적지 안내로 확장합니다.</p>
       </div>
       <div class="destination-card" id="destinationCard" aria-live="polite">
         <div class="dest-badge" id="destCode">A</div>
@@ -73,6 +73,25 @@
       </div>
       <div class="campus-quick" id="campusQuickQuestions"></div>
       <div class="building-detail" id="buildingDetail"></div>
+      <section class="ar-preview" aria-live="polite">
+        <h3>AR글라스 시야 미리보기</h3>
+        <div class="ar-preview-grid">
+          <div class="ar-lens">
+            <div class="ar-hud">
+              <span class="ar-marker" id="arMarker">A</span>
+              <span class="ar-arrow">⬆ 정문 기준 이동</span>
+            </div>
+            <p class="ar-info" id="arRoute">정문에서 중앙 보행로로 들어오면 가장 먼저 보이는 왼쪽 전면 건물입니다.</p>
+          </div>
+          <div>
+            <p><strong>현재 위치:</strong> <span id="arCurrent">정문</span></p>
+            <p><strong>목적지:</strong> <span id="arDestination">A 글로벌 센터</span></p>
+            <p><strong>AR 마커:</strong> 노란색 <span id="arMarkerLabel">A</span></p>
+            <p><strong>이동 안내:</strong> <span id="arRouteText">정문에서 중앙 보행로로 들어오면 가장 먼저 보이는 왼쪽 전면 건물입니다.</span></p>
+            <p><strong>도착 후 안내:</strong> <span id="arArrival">2F 글로벌라운지 / 국제교류처</span></p>
+          </div>
+        </div>
+      </section>
     </section>
 
     <section class="section"><h2 data-i18n="agentCards">에이젼트 실행 카드</h2><div class="agents" id="agents"></div></section>

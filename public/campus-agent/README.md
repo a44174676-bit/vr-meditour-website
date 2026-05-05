@@ -35,3 +35,16 @@ index.html을 브라우저에서 열면 실행됩니다.
 - 이동형 로봇 연동
 - 센서 데이터 연동
 - 청소 모듈 연동
+
+## AR글라스 확장 개념
+본 MVP는 실제 AR글라스를 직접 제어하지 않는 웹 기반 시연 버전입니다. 다만 부산외국어대학교 캠퍼스 건물 데이터와 층별 시설 정보를 기반으로, 향후 AR글라스에서 건물 마커, 이동 방향, 도착 후 층별 안내를 표시할 수 있도록 설계되었습니다.
+
+## 접속 경로
+운영 도메인:
+https://vr-meditour.com/campus-agent/
+
+PR 미리보기:
+Netlify Deploy Preview 주소 뒤에 /campus-agent/를 붙여 확인합니다.
+
+예:
+https://deploy-preview-번호--사이트명.netlify.app/campus-agent/
