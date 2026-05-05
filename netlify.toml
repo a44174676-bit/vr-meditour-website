@@ -11,3 +11,13 @@
   from = "/ai-skin/*"
   to = "/public/ai-skin/:splat"
   status = 200
+
+[[redirects]]
+  from = "/campus-agent"
+  to = "/public/campus-agent/"
+  status = 301
+
+[[redirects]]
+  from = "/campus-agent/*"
+  to = "/public/campus-agent/:splat"
+  status = 200
