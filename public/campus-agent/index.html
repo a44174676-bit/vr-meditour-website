@@ -48,6 +48,24 @@
         <div class="robotAction" id="r5" data-i18n="robotActionWaiting">로봇 행동 시뮬레이션: 대기 중</div>
       </div>
     </section>
+
+    <section class="section card campus-guide" id="campusGuide">
+      <div class="guide-head">
+        <div>
+          <p class="eyebrow">Real Campus Guide</p>
+          <h2>부산외국어대학교 실제 캠퍼스 안내</h2>
+          <p>질문 내용에 따라 A~J 건물과 층별 위치를 찾아 안내합니다. 아래 마커를 누르면 건물별 시설을 바로 확인할 수 있습니다.</p>
+        </div>
+        <a class="vr-link" href="https://cit.bufs.ac.kr/tour/tour.html" target="_blank" rel="noopener">캠퍼스 VR투어 열기</a>
+      </div>
+      <div class="campus-map-wrap">
+        <img src="https://cit.bufs.ac.kr/user_assets/img/sub/map_img_1.png" alt="부산외국어대학교 캠퍼스 지도" loading="lazy" />
+        <div class="campus-map-buttons" id="campusMapButtons"></div>
+      </div>
+      <div class="campus-quick" id="campusQuickQuestions"></div>
+      <div class="building-detail" id="buildingDetail"></div>
+    </section>
+
     <section class="section"><h2 data-i18n="agentCards">에이젼트 실행 카드</h2><div class="agents" id="agents"></div></section>
     <section class="triple">
       <div class="card"><h2 data-i18n="emergencyTitle">긴급신호 호출</h2><p data-i18n="emergencyDesc">비상버튼·도움 요청·낙상·장시간 무응답을 시뮬레이션합니다.</p><button id="emergencyBtn" class="danger" data-i18n="emergency">긴급호출</button><p id="emergencyResult" data-i18n="emergencyWait">상태: 대기 중</p></div>
@@ -57,6 +75,6 @@
     <section class="section card"><h2 data-i18n="dashboard">관리자 대시보드</h2><div class="dash"><p><span data-i18n="recentInquiry">최근 문의</span> <strong id="inq">0</strong></p><p><span data-i18n="emergencyCalls">긴급호출</span> <strong id="emg">0</strong></p><p><span data-i18n="fireStatus">화재방재</span> <strong id="fireDash" data-i18n="standby">대기</strong></p><p><span data-i18n="cleanStatus">환경정비</span> <strong id="cleanDash" data-i18n="standby">대기</strong></p></div><ul id="logs"></ul></section>
     <section class="section info"><h2 data-i18n="infoTitle">특허·사업 정보</h2><p data-i18n="infoDesc">본 MVP는 AI안내에이젼트로봇시스템의 웹·태블릿형 프로토타입입니다.</p><ul><li data-i18n="infoPatent">특허 출원번호: 10-2026-0080691</li><li data-i18n="infoDeveloper">개발 주체: VR MEDI CARE LAB</li><li data-i18n="infoProposer">제안자: 정성영 / 부산외국어대학교</li><li data-i18n="infoFields">적용 분야: 캠퍼스 생활안전, 다국어 안내, 도서관·기숙사 지원, 긴급호출, 초기화재방재, 환경정비</li></ul><p class="notice" data-i18n="notice">긴급호출, 화재방재, 청소 기능은 시연용 시뮬레이션입니다. 실제 운영 시에는 학교 관리자 시스템, 센서, 로봇 하드웨어 및 관계 기관 연동이 필요합니다.</p></section>
   </main>
-  <script src="./data.js"></script><script src="./script.js"></script>
+  <script src="./data.js"></script><script src="./campus-map-data.js"></script><script src="./script.js"></script>
 </body>
 </html>
