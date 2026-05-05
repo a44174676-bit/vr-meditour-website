@@ -2,7 +2,7 @@
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>BUFS Campus AI·AR Guide</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
@@ -12,24 +12,12 @@
       <h1>공식 캠퍼스맵 기반 AI·AR 안내</h1>
       <p class="hero-desc">
         공식 캠퍼스맵을 대체하지 않고, 방문자의 이해를 돕는 안내형 MVP입니다.
-        실제 위치·시설 세부 정보는 공식 자료 확인이 필요합니다.
+        위치·시설 세부 정보는 공식 자료 확인이 필요합니다.
       </p>
       <div class="hero-actions">
         <a href="#building-list" class="btn btn-primary">건물 찾기</a>
-        <a
-          href="https://cit.bufs.ac.kr/about_contact?tapmap"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="btn btn-secondary"
-          >공식 캠퍼스맵 보기</a
-        >
-        <a
-          href="https://www.bufs.ac.kr/bbs/board.php?bo_table=visit_guide"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="btn btn-secondary"
-          >캠퍼스 VR투어 보기</a
-        >
+        <a href="https://cit.bufs.ac.kr/about_contact?tapmap" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">공식 캠퍼스맵 보기</a>
+        <a href="https://www.bufs.ac.kr/bbs/board.php?bo_table=visit_guide" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">캠퍼스 VR투어 보기</a>
       </div>
     </header>
 
@@ -37,12 +25,7 @@
       <section class="search-panel" aria-labelledby="search-title">
         <h2 id="search-title">질문으로 찾기</h2>
         <div class="search-row">
-          <input
-            id="searchInput"
-            type="text"
-            placeholder="예: 평생교육원 어디야? A302호 어디야?"
-            aria-label="캠퍼스 안내 질문"
-          />
+          <input id="searchInput" type="text" placeholder="예: 평생교육원 어디야? A302호 어디야?" aria-label="캠퍼스 안내 질문" />
           <button id="searchBtn" class="btn btn-primary" type="button">검색</button>
         </div>
         <div id="searchResult" class="search-result" aria-live="polite"></div>
@@ -51,7 +34,8 @@
       <section class="map-panel" aria-labelledby="map-title">
         <h2 id="map-title">캠퍼스 맵 (안내 레이어)</h2>
         <div class="map-shell">
-          <div class="map-placeholder" role="img" aria-label="캠퍼스맵 대체 화면">
+          <img id="campusMapImage" class="map-image" src="" alt="공식 캠퍼스맵 레이어 이미지" hidden />
+          <div id="mapFallback" class="map-placeholder" role="img" aria-label="캠퍼스맵 대체 화면">
             <p>지도 이미지 준비 중</p>
             <small>이미지가 없어도 마커·카드 안내는 정상 작동합니다.</small>
           </div>
@@ -66,7 +50,7 @@
 
       <section class="ar-panel" aria-labelledby="ar-title">
         <h2 id="ar-title">AR 미리보기 (MVP)</h2>
-        <div class="ar-preview" id="arPreview">
+        <div class="ar-preview">
           <div class="ar-overlay">
             <p class="ar-building" id="arBuilding">건물을 선택해 주세요</p>
             <p class="ar-guide" id="arGuide">마커, 카드, 검색으로 안내를 시작할 수 있습니다.</p>
@@ -76,7 +60,6 @@
     </main>
 
     <footer class="footer-note">본 MVP는 공식 캠퍼스맵 확인을 보조하는 안내 화면입니다.</footer>
-
     <script src="script.js"></script>
   </body>
 </html>
