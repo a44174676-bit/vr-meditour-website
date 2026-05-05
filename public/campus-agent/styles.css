@@ -1,156 +1,162 @@
 :root {
-  --navy: #0d2b5a;
-  --blue: #1f5ea8;
-  --soft-blue: #e9f1fb;
-  --white: #ffffff;
-  --line: #c8d8ef;
-  --text: #1a2740;
-  --muted: #4f607c;
-  --accent: #0f6ad8;
+  --navy: #102c57;
+  --blue: #1e5ea9;
+  --blue-soft: #ebf2fc;
+  --line: #c9d9ef;
+  --text: #1c2b45;
+  --muted: #4c5f7e;
+  --white: #fff;
+  --focus: #ffcc33;
 }
 
 * { box-sizing: border-box; }
 body {
   margin: 0;
-  font-family: "Pretendard", "Noto Sans KR", Arial, sans-serif;
-  color: var(--text);
+  font-family: "Noto Sans KR", "Pretendard", Arial, sans-serif;
   background: #f4f8fd;
-  line-height: 1.5;
+  color: var(--text);
 }
 
-.hero, main, footer {
+.hero,
+main,
+footer {
   width: min(1100px, 92%);
   margin: 0 auto;
 }
+
 .hero {
-  margin-top: 1.2rem;
+  margin-top: 1rem;
   background: var(--white);
   border: 1px solid var(--line);
   border-radius: 14px;
-  padding: 1.3rem;
+  padding: 1.2rem;
 }
-.eyebrow { color: var(--blue); margin: 0; font-weight: 700; }
-h1 { margin: 0.35rem 0 0.6rem; font-size: clamp(1.45rem, 3.7vw, 2rem); color: var(--navy); }
-.hero-desc { margin: 0; color: var(--muted); }
-.hero-actions { margin-top: 1rem; display: grid; gap: 0.6rem; }
+.hero-eyebrow { margin: 0; color: var(--blue); font-weight: 700; }
+.hero h1 { margin: 0.4rem 0 0.6rem; color: var(--navy); font-size: clamp(1.4rem, 4vw, 2rem); }
+.hero-description { margin: 0; color: var(--muted); }
+.hero-actions { margin-top: 1rem; display: grid; gap: 0.55rem; }
 
 .btn {
-  border: 1px solid var(--blue);
   border-radius: 10px;
-  text-decoration: none;
+  border: 1px solid var(--blue);
   padding: 0.65rem 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-weight: 700;
-  cursor: pointer;
 }
 .btn-primary { background: var(--blue); color: var(--white); }
 .btn-outline { background: var(--white); color: var(--blue); }
 
-main { display: grid; gap: 1rem; margin-top: 1rem; margin-bottom: 2rem; }
-section {
+main { margin-top: 1rem; margin-bottom: 2rem; display: grid; gap: 1rem; }
+.panel {
   background: var(--white);
   border: 1px solid var(--line);
   border-radius: 14px;
   padding: 1rem;
 }
-.search-row { display: grid; grid-template-columns: 1fr auto; gap: 0.5rem; margin-top: 0.4rem; }
+.panel h2 { margin: 0 0 0.7rem; color: var(--navy); }
+
+.search-line { display: grid; grid-template-columns: 1fr auto; gap: 0.5rem; }
 input {
-  border: 1px solid #b6cae8;
-  border-radius: 10px;
   padding: 0.7rem;
-  font-size: 0.95rem;
+  border-radius: 10px;
+  border: 1px solid #b4c9e8;
 }
 .search-result {
-  margin-top: 0.7rem;
-  background: var(--soft-blue);
-  border-radius: 10px;
-  padding: 0.75rem;
+  margin-top: 0.65rem;
   min-height: 3rem;
-  color: var(--text);
+  border-radius: 10px;
+  background: var(--blue-soft);
+  padding: 0.75rem;
 }
 
 .map-placeholder {
   position: relative;
-  background: linear-gradient(145deg, #eef4ff, #dce9fb);
-  border: 1px dashed #94afd6;
-  border-radius: 12px;
   min-height: 300px;
-  padding: 1rem;
+  border: 1px dashed #95afd4;
+  border-radius: 12px;
+  background: linear-gradient(140deg, #eff5ff, #deebfb);
+  padding: 0.9rem;
 }
-.map-placeholder > p { margin: 0; color: var(--muted); }
-.markers { position: absolute; inset: 0; }
+.map-placeholder p { margin: 0; color: var(--muted); }
+.marker-layer { position: absolute; inset: 0; }
 .marker {
   position: absolute;
   width: 34px;
   height: 34px;
   border-radius: 50%;
-  border: 2px solid var(--white);
+  border: 2px solid #fff;
   background: var(--blue);
-  color: var(--white);
+  color: #fff;
   font-weight: 800;
 }
-.marker.active { background: #f2b705; color: #1d1d1d; transform: scale(1.08); }
+.marker.active { background: #f4be19; color: #1f1f1f; transform: scale(1.08); }
 
-.buildings-section h2, .ar-section h2 { margin-top: 0; color: var(--navy); }
 .building-cards { display: grid; gap: 0.65rem; }
 .building-card {
+  width: 100%;
+  text-align: left;
   border: 1px solid var(--line);
   border-radius: 12px;
-  padding: 0.9rem;
+  padding: 0.85rem;
   background: #fbfdff;
   cursor: pointer;
 }
-.building-card h3 { margin: 0 0 0.35rem; }
+.building-card h3 { margin: 0 0 0.3rem; }
 .building-card p { margin: 0.2rem 0; color: var(--muted); }
 .building-card.active {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px #d7e7ff;
-  background: #f2f8ff;
+  border-color: #0f6ad8;
+  box-shadow: 0 0 0 3px #d9e9ff;
+  background: #f3f9ff;
 }
 
 .ar-preview {
-  background: linear-gradient(160deg, #151f2f, #0d1522);
-  border-radius: 12px;
   min-height: 180px;
+  border-radius: 12px;
+  background: linear-gradient(155deg, #101b2d, #0b1320);
   display: flex;
   align-items: flex-end;
   padding: 0.8rem;
 }
-.ar-overlay {
+.ar-label {
   width: 100%;
-  background: rgba(7, 15, 28, 0.65);
-  border: 1px solid rgba(133, 171, 237, 0.5);
+  border: 1px solid rgba(136, 171, 235, 0.52);
   border-radius: 10px;
+  background: rgba(9, 18, 32, 0.7);
+  color: #eaf1ff;
   padding: 0.8rem;
-  color: #eaf2ff;
 }
-.ar-selected { margin: 0; font-weight: 700; }
-.ar-guidance { margin: 0.35rem 0 0; color: #cddcf6; }
+.ar-title { margin: 0; font-weight: 700; }
+.ar-text { margin: 0.35rem 0 0; color: #d0def6; }
 
-button:focus-visible, a:focus-visible, input:focus-visible, .building-card:focus-visible {
-  outline: 3px solid #f2b705;
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 3px solid var(--focus);
   outline-offset: 2px;
 }
+
 footer {
   margin-bottom: 1.5rem;
   text-align: center;
   color: var(--muted);
 }
 
-@media (min-width: 900px) {
+@media (min-width: 920px) {
   .hero-actions { grid-template-columns: repeat(3, auto); justify-content: start; }
   main {
-    grid-template-columns: 1.1fr 1fr;
+    grid-template-columns: 1.05fr 1fr;
     grid-template-areas:
       "search search"
       "map cards"
       "ar ar";
   }
-  .search-panel { grid-area: search; }
-  .map-section { grid-area: map; }
-  .buildings-section { grid-area: cards; }
-  .ar-section { grid-area: ar; }
+  main .panel:nth-child(1) { grid-area: search; }
+  main .panel:nth-child(2) { grid-area: map; }
+  main .panel:nth-child(3) { grid-area: cards; }
+  main .panel:nth-child(4) { grid-area: ar; }
   .map-placeholder { min-height: 380px; }
 }

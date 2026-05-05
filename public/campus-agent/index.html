@@ -4,60 +4,59 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BUFS Campus AI·AR Guide</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
     <header class="hero">
-      <p class="eyebrow">Busan University of Foreign Studies</p>
+      <p class="hero-eyebrow">Busan University of Foreign Studies</p>
       <h1>공식 캠퍼스맵 기반 AI·AR 안내</h1>
-      <p class="hero-desc">
+      <p class="hero-description">
         공식 캠퍼스맵을 대체하지 않고, 방문자의 이해를 돕는 안내형 MVP입니다.
-        정확한 위치·시설 정보는 공식 자료 확인이 필요합니다.
+        본 화면의 세부 위치·시설 정보는 공식 자료 확인이 필요합니다.
       </p>
       <div class="hero-actions">
-        <button type="button" id="scrollToBuildings" class="btn btn-primary">건물 찾기</button>
-        <a class="btn btn-outline" href="https://www.bufs.ac.kr" target="_blank" rel="noopener noreferrer">공식 캠퍼스맵 보기</a>
-        <a class="btn btn-outline" href="https://www.bufs.ac.kr" target="_blank" rel="noopener noreferrer">캠퍼스 VR투어 보기</a>
+        <button type="button" id="goBuildings" class="btn btn-primary">건물 찾기</button>
+        <a class="btn btn-outline" href="https://www.bufs.ac.kr/bbs/bufs/2230/artclView.do" target="_blank" rel="noopener noreferrer">공식 캠퍼스맵 보기</a>
+        <a class="btn btn-outline" href="https://www.bufs.ac.kr/bufs/262/subview.do" target="_blank" rel="noopener noreferrer">캠퍼스 VR투어 보기</a>
       </div>
     </header>
 
     <main>
-      <section class="search-panel" aria-label="캠퍼스 안내 검색">
-        <label for="searchInput">질문 입력</label>
-        <div class="search-row">
+      <section class="panel" aria-label="검색 안내">
+        <h2>AI 안내 검색</h2>
+        <div class="search-line">
           <input id="searchInput" type="text" placeholder="예: 평생교육원 어디야? A302호 어디야?" />
           <button type="button" id="searchButton" class="btn btn-primary">검색</button>
         </div>
         <div id="searchResult" class="search-result" aria-live="polite"></div>
       </section>
 
-      <section class="map-section" aria-label="캠퍼스 지도 및 마커">
-        <div class="map-placeholder" id="mapArea">
-          <p>공식 캠퍼스맵 이미지 연동 전입니다.<br />현재는 안내용 대체 지도 박스입니다.</p>
-          <div class="markers" id="markerContainer"></div>
+      <section class="panel" aria-label="캠퍼스 지도">
+        <h2>캠퍼스맵 레이어</h2>
+        <div class="map-placeholder" id="mapBox">
+          <p>공식 캠퍼스맵 이미지 연동 전 상태입니다. (대체 지도 박스)</p>
+          <div id="markerLayer" class="marker-layer"></div>
         </div>
       </section>
 
-      <section id="buildings" class="buildings-section" aria-label="건물 목록">
-        <h2>A~J 건물 안내</h2>
+      <section class="panel" id="buildings" aria-label="건물 목록">
+        <h2>A~J 건물 목록</h2>
         <div id="buildingCards" class="building-cards"></div>
       </section>
 
-      <section class="ar-section" aria-label="AR 미리보기">
-        <h2>AR 안내 미리보기</h2>
-        <div class="ar-preview" id="arPreview">
-          <div class="ar-overlay">
-            <p class="ar-selected" id="arBuildingName">선택된 건물 없음</p>
-            <p class="ar-guidance" id="arGuidance">건물을 선택하면 방향 안내가 표시됩니다.</p>
+      <section class="panel" aria-label="AR 미리보기">
+        <h2>AR 미리보기</h2>
+        <div class="ar-preview">
+          <div class="ar-label">
+            <p id="arBuilding" class="ar-title">선택 건물 없음</p>
+            <p id="arGuide" class="ar-text">건물을 선택하면 방향 안내 라벨이 표시됩니다.</p>
           </div>
         </div>
       </section>
     </main>
 
-    <footer>
-      본 MVP는 공식 캠퍼스맵 확인을 보조하는 안내 화면입니다.
-    </footer>
+    <footer>본 MVP는 공식 캠퍼스맵 확인을 보조하는 안내 화면입니다.</footer>
 
-    <script src="script.js"></script>
+    <script src="./script.js"></script>
   </body>
 </html>
