@@ -1,6 +1,7 @@
 :root{--bg:#0a1224;--bg2:#12233f;--mint:#71f0d3;--txt:#e8eef8;--muted:#aab8cf}
 *{box-sizing:border-box}body{margin:0;color:var(--txt);font-family:Inter,system-ui,sans-serif;background:radial-gradient(circle at 20% 20%,#16315d 0,#0a1224 45%,#060b18 100%)}
-.container{max-width:1120px;margin:0 auto;padding:28px 16px 40px}.sub{color:var(--muted)}
+.container{max-width:1120px;margin:0 auto;padding:28px 16px 40px}.home-link{display:inline-flex;align-items:center;gap:.35rem;margin:.75rem 0 1rem;color:var(--txt);font-size:.9rem;text-decoration:none;opacity:.9}.home-link:hover{opacity:1}
+.sub{color:var(--muted)}
 .badge-row{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 18px}.badge{background:rgba(113,240,211,.14);border:1px solid rgba(113,240,211,.4);padding:6px 10px;border-radius:999px;font-size:12px}
 .grid{display:grid;grid-template-columns:1.1fr 1.4fr;gap:14px}.card{background:rgba(255,255,255,.08);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:16px;box-shadow:0 20px 45px rgba(0,0,0,.32)}
 .btn{border-radius:12px;padding:11px 14px;border:1px solid rgba(255,255,255,.4);background:#1b2e55;color:white;cursor:pointer}.btn.primary{background:linear-gradient(90deg,#2a6ee8,#25cfb4)}.btn:disabled{opacity:.55;cursor:not-allowed}
