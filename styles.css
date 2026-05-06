@@ -139,6 +139,7 @@ h1 { margin: 12px 0; line-height: 1.25; font-size: clamp(1.8rem, 4vw, 3rem); }
 .btn.ai-chat { border-color: rgba(104, 189, 197, 0.7); background: rgba(70, 164, 173, 0.16); color: #d8f8ff; }
 
 .ai-disclaimer { color: #cdd8e8; margin-top: 10px; font-size: 0.92rem; }
+.form-note { color: var(--muted); margin: 8px 0 0; font-size: 0.92rem; }
 
 h2 { margin: 0 0 12px; font-size: clamp(1.25rem, 2.5vw, 2rem); }
 .detail-list,
@@ -355,4 +356,76 @@ h2 { margin: 0 0 12px; font-size: clamp(1.25rem, 2.5vw, 2rem); }
   .ip-grid {
     min-width: 0;
   }
+}
+
+/* Arabic limited RTL support: the site shell remains LTR; only Arabic copy and free-text fields flip. */
+body.lang-ar,
+body.lang-ar .page,
+body.lang-ar .section-card,
+body.lang-ar .topbar,
+body.lang-ar .language-select,
+body.lang-ar .language-buttons,
+body.lang-ar .hero,
+body.lang-ar .hero-grid,
+body.lang-ar .hero-actions,
+body.lang-ar .field-grid,
+body.lang-ar .stage-grid,
+body.lang-ar .ip-grid,
+body.lang-ar .consult-form,
+body.lang-ar .footer,
+body.lang-ar .hero-image-wrap,
+body.lang-ar .mobile-menu,
+body.lang-ar .mobile-nav,
+body.lang-ar .menu-panel {
+  direction: ltr;
+}
+
+body.lang-ar [data-i18n],
+body.lang-ar [data-i18n-option],
+body.lang-ar [data-i18n-placeholder]::placeholder,
+body.lang-ar .founder-copy p,
+body.lang-ar .notice-card p,
+body.lang-ar .ip-card p,
+body.lang-ar .ip-intro,
+body.lang-ar .ip-legal,
+body.lang-ar .medical-summary,
+body.lang-ar .form-note,
+body.lang-ar .mobile-menu a,
+body.lang-ar .mobile-nav a,
+body.lang-ar .menu-panel a {
+  direction: rtl;
+  unicode-bidi: plaintext;
+  text-align: right;
+}
+
+body.lang-ar input,
+body.lang-ar textarea,
+body.lang-ar select {
+  direction: rtl;
+  text-align: right;
+}
+
+body.lang-ar input[type="email"],
+body.lang-ar input[type="tel"],
+body.lang-ar input[type="url"],
+body.lang-ar input[type="number"],
+body.lang-ar input[name*="email" i],
+body.lang-ar input[name*="phone" i],
+body.lang-ar input[name*="tel" i],
+body.lang-ar input[name*="url" i],
+body.lang-ar input[name*="zalo" i],
+body.lang-ar input[name*="whatsapp" i],
+body.lang-ar input[name*="kakao" i],
+body.lang-ar input[name*="messenger" i],
+body.lang-ar input[autocomplete="email"],
+body.lang-ar input[autocomplete="tel"] {
+  direction: ltr;
+  text-align: left;
+}
+
+body.lang-ar button,
+body.lang-ar .btn,
+body.lang-ar .cta-button {
+  direction: ltr;
+  text-align: center;
 }

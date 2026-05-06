@@ -10,18 +10,134 @@
 <body>
   <main class="page">
     <section class="section-card" style="text-align:center;">
-      <img src="assets/logo.jpg" alt="VR MEDI TOUR & HOME logo" style="width:80px;height:80px;border-radius:14px;margin:0 auto 12px;" />
-      <h1 style="margin-bottom:10px;">Thank you. Your consultation request has been received.</h1>
-      <p style="color:var(--muted);">A coordinator will review your inquiry and contact you.</p>
-      <p style="color:var(--muted);">상담 신청이 접수되었습니다. 코디네이터가 문의 내용을 검토한 후 연락드리겠습니다.</p>
-      <p style="color:var(--muted);">VR MEDI TOUR &amp; HOME is <strong>not a hospital</strong>, <strong>does not diagnose</strong>, and provides <strong>human-reviewed</strong> consultation preparation and medical travel coordination. Final decisions are made by <strong>licensed Korean medical institutions</strong>.</p>
-      <p style="color:var(--muted);">Patient consent, privacy protection, and estimated cost range guidance are applied during consultation preparation.</p>
-      <div class="hero-actions" style="justify-content:center; margin-top:12px;">
-        <a href="/" class="btn secondary" aria-label="Back to Home">Back to Home</a>
-        <a href="https://chatgpt.com/g/g-68f04d401e488191b5afaed323a7b714-vr-medi-tour-home-korean-medical-tourism-gpt" class="btn ai-chat" target="_blank" rel="noopener noreferrer" aria-label="Ask AI Medical Travel Assistant in new tab">Ask AI Medical Travel Assistant</a>
+      <div class="language-select" style="justify-content:center; margin-bottom:12px;">
+        <span data-i18n="languageLabel">Language</span>
+        <div class="language-buttons" id="languageButtons" aria-label="Language selector">
+          <button type="button" data-lang="en" aria-label="Switch language to English">EN</button>
+          <button type="button" data-lang="ko" aria-label="Switch language to Korean">KO</button>
+          <button type="button" data-lang="vi" aria-label="Switch language to Vietnamese">VI</button>
+          <button type="button" data-lang="ja" aria-label="Switch language to Japanese">JP</button>
+          <button type="button" data-lang="zh" aria-label="Switch language to Chinese">CN</button>
+          <button type="button" data-lang="ar" aria-label="Switch language to Arabic">AR</button>
+        </div>
       </div>
-      <p class="ai-disclaimer" style="max-width:680px;margin:10px auto 0;">AI assistant helps organize your inquiry. It does not diagnose, prescribe, or replace licensed medical professionals.</p>
+      <img src="assets/logo.jpg" alt="VR MEDI TOUR & HOME logo" style="width:80px;height:80px;border-radius:14px;margin:0 auto 12px;" />
+      <h1 style="margin-bottom:10px;" data-i18n="thankyouTitle">Thank you. Your consultation request has been received.</h1>
+      <p style="color:var(--muted);" data-i18n="thankyouMessage">A coordinator will review your inquiry carefully and contact you.</p>
+      <p style="color:var(--muted);" data-i18n="thankyouNotice">Please make sure your email address and contact information are correct so we can reply to you.</p>
+      <p style="color:var(--muted);" data-i18n="thankyouMedical">VR MEDI TOUR is not a hospital and does not provide medical diagnosis or guarantee treatment results. The accurate diagnosis and treatment plan are determined by the medical institution after examination.</p>
+      <p style="color:var(--muted);" data-i18n="thankyouPrivacy">Patient consent, privacy protection, and estimated cost range guidance are applied during consultation preparation.</p>
+      <div class="hero-actions" style="justify-content:center; margin-top:12px;">
+        <a href="/" class="btn secondary" aria-label="Back to Home" data-i18n="thankyouBack">Back to Home</a>
+        <a href="https://chatgpt.com/g/g-68f04d401e488191b5afaed323a7b714-vr-medi-tour-home-korean-medical-tourism-gpt" class="btn ai-chat" target="_blank" rel="noopener noreferrer" aria-label="Ask AI Medical Travel Assistant in new tab" data-i18n="aiBtn">Ask AI Medical Travel Assistant</a>
+      </div>
+      <p class="ai-disclaimer" style="max-width:680px;margin:10px auto 0;" data-i18n="aiDisclaimer">AI assistant helps organize your inquiry. It does not diagnose, prescribe, or replace licensed medical professionals.</p>
     </section>
   </main>
+
+  <script>
+    const baseEn = {
+      languageLabel: "Language",
+      thankyouTitle: "Thank you. Your consultation request has been received.",
+      thankyouMessage: "A coordinator will review your inquiry carefully and contact you.",
+      thankyouNotice: "Please make sure your email address and contact information are correct so we can reply to you.",
+      thankyouMedical: "VR MEDI TOUR is not a hospital and does not provide medical diagnosis or guarantee treatment results. The accurate diagnosis and treatment plan are determined by the medical institution after examination.",
+      thankyouPrivacy: "Patient consent, privacy protection, and estimated cost range guidance are applied during consultation preparation.",
+      thankyouBack: "Back to Home",
+      aiBtn: "Ask AI Medical Travel Assistant",
+      aiDisclaimer: "AI assistant helps organize your inquiry. It does not diagnose, prescribe, or replace licensed medical professionals."
+    };
+
+    const koDict = {
+      languageLabel: "언어",
+      thankyouTitle: "상담 신청이 접수되었습니다",
+      thankyouMessage: "감사합니다. 상담 신청을 접수했으며 내용을 신중히 검토하겠습니다.",
+      thankyouNotice: "정확한 회신을 위해 이메일 주소와 연락 가능한 정보를 다시 확인해 주세요.",
+      thankyouMedical: "VR MEDI TOUR는 병원이 아니며, 의료 진단이나 치료 결과를 보장하지 않습니다. 정확한 진단과 치료 계획은 의료기관 진료 후 결정됩니다.",
+      thankyouPrivacy: "상담 준비 과정에서 환자 동의, 개인정보 보호, 예상 비용 범위 안내 원칙을 적용합니다.",
+      thankyouBack: "홈으로 돌아가기",
+      aiBtn: "AI 의료관광 도우미에게 질문하기",
+      aiDisclaimer: "AI 도우미는 문의 내용을 정리하는 데 도움을 줄 뿐, 진단·처방을 하거나 면허 의료진을 대체하지 않습니다."
+    };
+
+    const viDict = {
+      languageLabel: "Ngôn ngữ",
+      thankyouTitle: "Yêu cầu tư vấn đã được tiếp nhận",
+      thankyouMessage: "Cảm ơn bạn. Chúng tôi đã nhận yêu cầu tư vấn và sẽ xem xét cẩn thận.",
+      thankyouNotice: "Vui lòng đảm bảo email và thông tin liên hệ chính xác để chúng tôi có thể phản hồi.",
+      thankyouMedical: "VR MEDI TOUR không phải là bệnh viện và không đưa ra chẩn đoán y khoa hoặc bảo đảm kết quả điều trị. Chẩn đoán chính xác và kế hoạch điều trị được cơ sở y tế quyết định sau khi thăm khám.",
+      thankyouPrivacy: "Sự đồng ý của bệnh nhân, bảo vệ quyền riêng tư và hướng dẫn khoảng chi phí dự kiến được áp dụng trong quá trình chuẩn bị tư vấn.",
+      thankyouBack: "Quay lại trang chủ",
+      aiBtn: "Hỏi trợ lý AI du lịch y tế",
+      aiDisclaimer: "Trợ lý AI giúp sắp xếp nội dung yêu cầu. AI không chẩn đoán, không kê đơn và không thay thế chuyên gia y tế có giấy phép."
+    };
+
+    const jaDict = {
+      languageLabel: "言語",
+      thankyouTitle: "相談申請を受け付けました",
+      thankyouMessage: "ありがとうございます。相談申請を受け付け、内容を慎重に確認します。",
+      thankyouNotice: "返信できるよう、メールアドレスと連絡先情報が正しいことをご確認ください。",
+      thankyouMedical: "VR MEDI TOURは病院ではなく、医療診断や治療結果を保証しません。正確な診断と治療計画は、医療機関での診療後に決定されます。",
+      thankyouPrivacy: "相談準備では、患者同意、プライバシー保護、概算費用範囲の案内を適用します。",
+      thankyouBack: "ホームへ戻る",
+      aiBtn: "AI医療観光アシスタントに質問",
+      aiDisclaimer: "AIアシスタントはお問い合わせ内容の整理を支援します。診断、処方、または有資格医療専門家の代替は行いません。"
+    };
+
+    const zhDict = {
+      languageLabel: "语言",
+      thankyouTitle: "咨询申请已收到",
+      thankyouMessage: "谢谢。我们已收到您的咨询申请，并会认真审核。",
+      thankyouNotice: "请确认电子邮箱和联系方式准确，以便我们回复您。",
+      thankyouMedical: "VR MEDI TOUR 不是医院，不提供医疗诊断，也不保证治疗结果。准确诊断和治疗方案由医疗机构检查后决定。",
+      thankyouPrivacy: "咨询准备过程中会适用患者同意、隐私保护和预估费用范围说明原则。",
+      thankyouBack: "返回首页",
+      aiBtn: "咨询 AI 医疗旅游助手",
+      aiDisclaimer: "AI助手仅帮助整理咨询内容，不进行诊断、处方，也不能替代持证医疗专业人员。"
+    };
+
+    const arDict = {
+      languageLabel: "اللغة",
+      thankyouTitle: "تم استلام طلب الاستشارة",
+      thankyouMessage: "شكرًا لك. لقد استلمنا طلب الاستشارة وسنراجعه بعناية.",
+      thankyouNotice: "يرجى التأكد من صحة البريد الإلكتروني ومعلومات التواصل، حتى نتمكن من الرد عليك.",
+      thankyouMedical: "VR MEDI TOUR ليست مستشفى ولا تقدم تشخيصًا طبيًا أو ضمانًا لنتائج العلاج. يتم تحديد التشخيص وخطة العلاج الدقيقة من قبل المؤسسة الطبية بعد الفحص.",
+      thankyouPrivacy: "يتم تطبيق موافقة المريض وحماية الخصوصية وإرشادات نطاق التكلفة التقديرية أثناء التحضير للاستشارة.",
+      thankyouBack: "العودة إلى الصفحة الرئيسية",
+      aiBtn: "اسأل مساعد السفر الطبي بالذكاء الاصطناعي",
+      aiDisclaimer: "يساعد المساعد الذكي في تنظيم طلبك. لا يشخّص ولا يصف علاجًا ولا يحل محل الأطباء المرخصين."
+    };
+
+    const translations = { en: baseEn, ko: koDict, vi: viDict, ja: jaDict, zh: zhDict, ar: arDict };
+
+    function t(lang, key) {
+      return translations[lang]?.[key] ?? baseEn[key] ?? null;
+    }
+
+    function applyLanguage(lang) {
+      const active = translations[lang] ? lang : "en";
+      document.documentElement.lang = active;
+      document.documentElement.dir = "ltr";
+      document.body.classList.toggle("lang-ar", active === "ar");
+
+      document.querySelectorAll("[data-i18n]").forEach((el) => {
+        const translated = t(active, el.dataset.i18n);
+        if (translated) el.textContent = translated;
+      });
+
+      document.querySelectorAll(".language-buttons button").forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.lang === active);
+      });
+
+      localStorage.setItem("vrMediTourLang", active);
+    }
+
+    document.getElementById("languageButtons").addEventListener("click", (event) => {
+      const button = event.target.closest("button[data-lang]");
+      if (button) applyLanguage(button.dataset.lang);
+    });
+
+    applyLanguage(localStorage.getItem("vrMediTourLang") || "en");
+  </script>
 </body>
 </html>
