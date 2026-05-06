@@ -10,9 +10,9 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "/public/ai-skin/icons/icon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
+      "src": "/assets/logo.jpg",
+      "sizes": "1254x1254",
+      "type": "image/jpeg",
       "purpose": "any maskable"
     }
   ]
