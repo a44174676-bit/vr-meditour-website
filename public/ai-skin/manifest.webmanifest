@@ -1,0 +1,19 @@
+{
+  "name": "VR MEDI AI Skin",
+  "short_name": "AI Skin",
+  "description": "AI skin analysis experience for VR MEDI TOUR & HOME.",
+  "start_url": "/public/ai-skin/",
+  "scope": "/public/ai-skin/",
+  "display": "standalone",
+  "background_color": "#0b1220",
+  "theme_color": "#0f766e",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/public/ai-skin/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
