@@ -47,7 +47,7 @@
         "addressCountry": "KR",
         "addressRegion": "Busan / Seoul / Hanoi Network"
       },
-      "knowsLanguage": ["English", "Korean", "Vietnamese", "Japanese", "Chinese"],
+      "knowsLanguage": ["English", "Korean", "Vietnamese", "Japanese", "Chinese", "Arabic"],
       "medicalSpecialty": ["Dermatology", "Plastic Surgery", "Dentistry", "Health Check-up", "Wellness & Recovery"]
     }
   </script>
@@ -73,7 +73,8 @@
             <button type="button" data-lang="vi" aria-label="Switch language to Vietnamese">VI</button>
             <button type="button" data-lang="ja" aria-label="Switch language to Japanese">JP</button>
             <button type="button" data-lang="zh" aria-label="Switch language to Chinese">CN</button>
-                      </div>
+            <button type="button" data-lang="ar" aria-label="Switch language to Arabic">AR</button>
+          </div>
         </div>
       </header>
 
@@ -209,6 +210,7 @@
         <a href="https://chatgpt.com/g/g-68f04d401e488191b5afaed323a7b714-vr-medi-tour-home-korean-medical-tourism-gpt" class="btn ai-chat" target="_blank" rel="noopener noreferrer" data-i18n="aiBtn" aria-label="Ask AI Medical Travel Assistant in new tab">Ask AI Medical Travel Assistant</a>
       </div>
       <p class="ai-disclaimer" data-i18n="aiDisclaimer">AI assistant helps organize your inquiry. It does not diagnose, prescribe, or replace licensed medical professionals.</p>
+      <p class="form-note" data-i18n="contactNotice">Please check your email address and reachable messenger information carefully. If your email address is entered incorrectly, you may not receive our consultation reply.</p>
 
       <form
         name="medical-consult"
@@ -239,6 +241,7 @@
             <option value="Tiếng Việt">Tiếng Việt</option>
             <option value="日本語">日本語</option>
             <option value="中文">中文</option>
+            <option value="العربية">العربية</option>
           </select>
         </label>
 
@@ -254,7 +257,27 @@
 
         <label>
           <span data-i18n="fContact">E-mail</span>
-          <input type="email" name="email" autocomplete="email" data-i18n-placeholder="phContact" placeholder="you@example.com" required />
+          <input type="email" name="email" autocomplete="email" dir="ltr" data-i18n-placeholder="phContact" placeholder="you@example.com" required />
+        </label>
+
+        <label>
+          <span data-i18n="fEmailConfirm">Confirm E-mail</span>
+          <input type="email" name="emailConfirm" autocomplete="email" dir="ltr" data-i18n-placeholder="phEmailConfirm" placeholder="Re-enter your email address" required />
+        </label>
+
+        <label>
+          <span data-i18n="fPhone">Phone Number</span>
+          <input type="tel" name="phone" autocomplete="tel" dir="ltr" data-i18n-placeholder="phPhone" placeholder="Phone or contact number" />
+        </label>
+
+        <label>
+          <span data-i18n="fMessenger">Zalo / WhatsApp / KakaoTalk</span>
+          <input type="text" name="messenger" dir="ltr" data-i18n-placeholder="phMessenger" placeholder="Preferred messenger ID or number" />
+        </label>
+
+        <label>
+          <span data-i18n="fCurrentLocation">Current Location</span>
+          <input type="text" name="currentLocation" data-i18n-placeholder="phCurrentLocation" placeholder="Example: Seoul, Busan, Hanoi" />
         </label>
 
         <label>
@@ -309,7 +332,7 @@
 
         <label>
           <span data-i18n="fDoc">Photo or document link</span>
-          <input type="url" name="photo_document_link" data-i18n-placeholder="phDoc" placeholder="https://" />
+          <input type="url" name="photo_document_link" dir="ltr" data-i18n-placeholder="phDoc" placeholder="https://" />
         </label>
 
         <label class="agree full">
@@ -323,7 +346,7 @@
 
     <section class="section-card notice-card">
       <h2 data-i18n="noticeTitle">Medical Notice</h2>
-      <p data-i18n="noticeBody">VR MEDI TOUR &amp; HOME is not a hospital. It does not diagnose, prescribe, guarantee treatment results, or guarantee fixed prices. Final diagnosis, treatment availability, confirmed cost, and medical decisions are made only by licensed Korean medical institutions.</p>
+      <p data-i18n="noticeBody">VR MEDI TOUR is not a hospital and does not provide medical diagnosis or guarantee treatment results. This consultation is for preliminary guidance, hospital or clinic coordination, interpretation, and medical tourism scheduling. The accurate diagnosis and treatment plan are determined by the medical institution after examination.</p>
     </section>
 
 
@@ -463,6 +486,10 @@
       fName: "Name",
       fCountry: "Country",
       fContact: "E-mail",
+      fEmailConfirm: "Confirm E-mail",
+      fPhone: "Phone Number",
+      fMessenger: "Zalo / WhatsApp / KakaoTalk",
+      fCurrentLocation: "Current Location",
       fField: "Interested field",
       fMessage: "Message",
       fDiagnosis: "Existing diagnosis",
@@ -479,14 +506,20 @@
       phName: "Your full name",
       phCountry: "Country of residence",
       phContact: "you@example.com",
+      phEmailConfirm: "Re-enter your email address",
+      phPhone: "Enter a phone or contact number",
+      phMessenger: "Enter your preferred messenger contact",
+      phCurrentLocation: "Example: Seoul, Busan, Hanoi",
       phMessage: "Please share symptoms, goals, timeline, and key concerns",
       phDiagnosis: "Optional",
       phBudget: "Estimated budget range",
       phDoc: "https://",
+      contactNotice: "Please check your email address and reachable messenger information carefully. If your email address is entered incorrectly, you may not receive our consultation reply.",
       privacyAgree: "I agree to consultation preparation use, patient consent process, and privacy protection policy.",
       submitBtn: "Submit Consultation Request",
+      emailMismatchAlert: "Please check your email address. The two email fields do not match.",
       noticeTitle: "Medical Notice",
-      noticeBody: "VR MEDI TOUR & HOME is not a hospital. It does not diagnose, prescribe, guarantee treatment results, or guarantee fixed prices. Final diagnosis, treatment availability, confirmed cost, and medical decisions are made only by licensed Korean medical institutions.",
+      noticeBody: "VR MEDI TOUR is not a hospital and does not provide medical diagnosis or guarantee treatment results. This consultation is for preliminary guidance, hospital or clinic coordination, interpretation, and medical tourism scheduling. The accurate diagnosis and treatment plan are determined by the medical institution after examination.",
       footer1: "Busan HQ",
       footer2: "Seoul Gangnam Branch",
       footer3: "Hanoi Network",
@@ -595,6 +628,10 @@
       fName: "이름",
       fCountry: "국가",
       fContact: "이메일",
+      fEmailConfirm: "이메일 확인",
+      fPhone: "전화번호",
+      fMessenger: "Zalo / WhatsApp / KakaoTalk",
+      fCurrentLocation: "현재 위치",
       fField: "관심 분야",
       fMessage: "문의 내용",
       fDiagnosis: "기존 진단 여부",
@@ -611,13 +648,19 @@
       phName: "성함을 입력해 주세요",
       phCountry: "거주 국가",
       phContact: "you@example.com",
+      phEmailConfirm: "이메일 주소를 다시 입력해 주세요",
+      phPhone: "전화번호 또는 연락 가능한 번호를 입력해 주세요",
+      phMessenger: "선호하는 메신저 연락처를 입력해 주세요",
+      phCurrentLocation: "예: 서울, 부산, 하노이",
       phMessage: "증상, 목표, 일정, 궁금한 점을 작성해 주세요",
       phDiagnosis: "선택 입력",
       phBudget: "예상 예산 범위",
+      contactNotice: "정확한 회신을 위해 이메일 주소와 연락 가능한 메신저 정보를 다시 확인해 주세요. 이메일 주소가 잘못 입력되면 상담 답변을 받지 못할 수 있습니다.",
       privacyAgree: "상담 준비, 환자 동의 절차, 개인정보 보호 정책에 동의합니다.",
       submitBtn: "상담 신청 제출",
+      emailMismatchAlert: "이메일 주소를 확인해 주세요. 두 이메일 입력값이 일치하지 않습니다.",
       noticeTitle: "의료 고지",
-      noticeBody: "VR MEDI TOUR & HOME은 병원이 아닙니다. 진단·처방·치료 결과 보장·고정 가격 보장을 하지 않습니다. 최종 진단, 치료 가능 여부, 확정 비용, 의료적 결정은 한국의 면허 의료기관에서만 이루어집니다.",
+      noticeBody: "VR MEDI TOUR는 병원이 아니며, 의료 진단이나 치료 결과를 보장하지 않습니다. 상담 내용은 병원 연결, 통역, 일정 조율 및 의료관광 절차 안내를 위한 사전 상담입니다. 정확한 진단과 치료 계획은 의료기관 진료 후 결정됩니다.",
       footer1: "부산 본사",
       footer2: "서울 강남 지점",
       footer3: "하노이 네트워크",
@@ -718,7 +761,15 @@
       fName: "Họ tên",
       fCountry: "Quốc gia",
       fContact: "E-mail",
+      fEmailConfirm: "Xác nhận E-mail",
+      fPhone: "Số điện thoại",
+      fMessenger: "Zalo / WhatsApp / KakaoTalk",
+      fCurrentLocation: "Vị trí hiện tại",
       phContact: "you@example.com",
+      phEmailConfirm: "Nhập lại địa chỉ email",
+      phPhone: "Nhập số điện thoại hoặc số liên hệ",
+      phMessenger: "Nhập kênh liên hệ ưu tiên",
+      phCurrentLocation: "Ví dụ: Seoul, Busan, Hà Nội",
       fField: "Lĩnh vực quan tâm",
       fMessage: "Nội dung",
       fDiagnosis: "Chẩn đoán hiện có",
@@ -737,9 +788,12 @@
       phMessage: "Vui lòng mô tả triệu chứng, mục tiêu, thời gian và câu hỏi",
       phDiagnosis: "Không bắt buộc",
       phBudget: "Khoảng ngân sách dự kiến",
+      contactNotice: "Vui lòng kiểm tra kỹ địa chỉ email và thông tin liên hệ qua messenger. Nếu email nhập sai, bạn có thể không nhận được phản hồi tư vấn.",
       privacyAgree: "Tôi đồng ý với việc sử dụng dữ liệu cho chuẩn bị tư vấn, quy trình đồng ý bệnh nhân và chính sách bảo mật.",
       submitBtn: "Gửi yêu cầu tư vấn",
+      emailMismatchAlert: "Vui lòng kiểm tra địa chỉ email. Hai ô email không khớp.",
       noticeTitle: "Thông báo y tế",
+      noticeBody: "VR MEDI TOUR không phải là bệnh viện và không đưa ra chẩn đoán y khoa hoặc bảo đảm kết quả điều trị. Nội dung tư vấn chỉ nhằm hướng dẫn ban đầu, điều phối bệnh viện hoặc phòng khám, thông dịch và sắp xếp lịch trình du lịch y tế. Chẩn đoán chính xác và kế hoạch điều trị được cơ sở y tế quyết định sau khi thăm khám.",
       footer1: "Trụ sở Busan",
       footer2: "Chi nhánh Gangnam Seoul",
       footer3: "Mạng lưới Hà Nội",
@@ -834,7 +888,15 @@
       fName: "お名前",
       fCountry: "国",
       fContact: "メール",
+      fEmailConfirm: "メール確認",
+      fPhone: "電話番号",
+      fMessenger: "Zalo / WhatsApp / KakaoTalk",
+      fCurrentLocation: "現在地",
       phContact: "you@example.com",
+      phEmailConfirm: "メールアドレスを再入力してください",
+      phPhone: "電話番号または連絡可能な番号を入力してください",
+      phMessenger: "希望するメッセンジャー連絡先を入力してください",
+      phCurrentLocation: "例：ソウル、釜山、ハノイ",
       fField: "関心分野",
       fMessage: "メッセージ",
       fDiagnosis: "既存診断",
@@ -853,9 +915,12 @@
       phMessage: "症状、目的、時期、ご質問をご記入ください",
       phDiagnosis: "任意入力",
       phBudget: "想定予算レンジ",
+      contactNotice: "正確な返信のため、メールアドレスと連絡可能なメッセンジャー情報をもう一度確認してください。メールアドレスが誤っていると、相談回答を受け取れない場合があります。",
       privacyAgree: "相談準備での情報利用、患者同意プロセス、プライバシー保護方針に同意します。",
       submitBtn: "相談申請を送信",
+      emailMismatchAlert: "メールアドレスを確認してください。2つのメール入力欄が一致していません。",
       noticeTitle: "医療に関するご案内",
+      noticeBody: "VR MEDI TOURは病院ではなく、医療診断や治療結果を保証しません。相談内容は、病院・クリニック連携、通訳、日程調整、医療観光手続き案内のための事前相談です。正確な診断と治療計画は、医療機関での診療後に決定されます。",
       footer1: "釜山本社",
       footer2: "ソウル江南支店",
       footer3: "ハノイネットワーク",
@@ -950,7 +1015,15 @@
       fName: "姓名",
       fCountry: "国家",
       fContact: "电子邮箱",
+      fEmailConfirm: "确认电子邮箱",
+      fPhone: "电话号码",
+      fMessenger: "Zalo / WhatsApp / KakaoTalk",
+      fCurrentLocation: "当前位置",
       phContact: "you@example.com",
+      phEmailConfirm: "请再次输入电子邮箱",
+      phPhone: "请输入电话号码或可联系号码",
+      phMessenger: "请输入偏好的联系方式",
+      phCurrentLocation: "例如：首尔、釜山、河内",
       fField: "意向领域",
       fMessage: "留言内容",
       fDiagnosis: "既往诊断",
@@ -969,9 +1042,12 @@
       phMessage: "请填写症状、目标、时间安排和主要问题",
       phDiagnosis: "选填",
       phBudget: "预计预算范围",
+      contactNotice: "为确保准确回复，请再次确认电子邮箱和可联系的即时通讯信息。如果电子邮箱填写错误，您可能无法收到咨询回复。",
       privacyAgree: "我同意将信息用于咨询准备、患者同意流程和隐私保护政策。",
       submitBtn: "提交咨询申请",
+      emailMismatchAlert: "请检查电子邮箱地址。两个电子邮箱输入不一致。",
       noticeTitle: "医疗声明",
+      noticeBody: "VR MEDI TOUR 不是医院，不提供医疗诊断，也不保证治疗结果。咨询内容仅用于初步说明、医院或诊所协调、翻译以及医疗旅游流程日程安排。准确诊断和治疗方案由医疗机构检查后决定。",
       footer1: "釜山总部",
       footer2: "首尔江南分部",
       footer3: "河内网络",
@@ -999,12 +1075,155 @@
       ipLegalNotice: "本说明用于介绍正在申请中的专利、实用新型和商标。未经主管机关正式批准前，不代表已获授权的专利权、已注册的实用新型权、已注册的商标权、医疗效能、治疗结果或排他性法律权利。"
     };
 
+
+    const arDict = {
+      languageLabel: "اللغة",
+      heroEyebrow: "تنسيق السفر الطبي بين كوريا وفيتنام",
+      heroTitle: "تنسيق موثوق للسفر الطبي إلى كوريا، مع مراجعة بشرية.",
+      heroDesc: "نساعد في التحضير للاستشارة، والتواصل مع المستشفيات، والترجمة، ولوجستيات السفر، ودعم الإقامة، وتنسيق التعافي للمرضى الدوليين.",
+      heroCtaConsult: "اطلب استشارة",
+      heroCtaPartner: "شركاء المستشفيات",
+      ctaAiSkin: "جرّب تحليل البشرة بالذكاء الاصطناعي",
+      ctaAiSkinNote: "تحليل مرجعي لـ K-Beauty وليس تشخيصًا طبيًا.",
+      aiBtn: "اسأل مساعد السفر الطبي بالذكاء الاصطناعي",
+      aiDisclaimer: "يساعد المساعد الذكي في تنظيم طلبك. لا يشخّص ولا يصف علاجًا ولا يحل محل الأطباء المرخصين.",
+      verifiedTitle: "مشغّل موثّق",
+      verifiedCompanyLabel: "الشركة:",
+      verifiedCompany: "VR MEDI TOUR & HOME Co., Ltd.",
+      verifiedBrandLabel: "العلامة التجارية:",
+      verifiedBrand: "VR MEDI TOUR",
+      verifiedAreaLabel: "مجال العمل:",
+      verifiedArea: "تنسيق السفر الطبي / K-Beauty / العافية / دعم السفر",
+      verifiedNetworkLabel: "الشبكة:",
+      verifiedNetwork: "كوريا · فيتنام",
+      verifiedOfficeLabel: "المكاتب:",
+      verifiedOffice: "المقر في بوسان / فرع سيول غانغنام / شبكة هانوي",
+      fieldsTitle: "المجالات الطبية الشريكة",
+      fieldDerm: "الأمراض الجلدية",
+      fieldPlastic: "جراحة التجميل",
+      fieldDentistry: "طب الأسنان",
+      fieldCheckup: "الفحص الصحي",
+      fieldWellness: "العافية والتعافي",
+      aiSectionTitle: "مدعوم بالذكاء الاصطناعي ومراجع بشريًا",
+      aiPoint1: "الذكاء الاصطناعي لا يقدّم تشخيصًا.",
+      aiPoint2: "يساعد الذكاء الاصطناعي فقط في تنظيم الاستفسارات.",
+      aiPoint3: "يحدد الذكاء الاصطناعي اللغة والبلد والمجال الطبي ودرجة الاستعجال والمعلومات الناقصة.",
+      aiPoint4: "يراجع منسق بشري الحالة.",
+      aiPoint5: "تُتخذ القرارات الطبية النهائية فقط من قبل مؤسسات طبية كورية مرخصة.",
+      stageTitle: "مراحل التنسيق",
+      stage1: "استلام الاستفسار وفحص اللغة",
+      stage2: "تنظيم الأعراض والأهداف والمواعيد",
+      stage3: "مراجعة بشرية ومطابقة المجال الطبي",
+      stage4: "دعم التواصل مع المستشفى",
+      stage5: "دعم جدول السفر والإقامة والترجمة",
+      stage6: "دعم التعافي والمتابعة بعد الزيارة",
+      costTitle: "إرشادات التكلفة والشفافية",
+      cost1: "لا نضمن سعرًا ثابتًا أو نتيجة علاجية.",
+      cost2: "تؤكد المستشفيات المرخصة نطاق العلاج والتكلفة بعد المراجعة.",
+      cost3: "نساعد المرضى على فهم نطاقات التكلفة المتوقعة والخدمات الاختيارية قبل الزيارة.",
+      partnerTitle: "دعم شراكات المستشفيات",
+      partner1: "استفسارات المرضى الدوليين",
+      partner2: "تحضير الاستشارة متعددة اللغات",
+      partner3: "دعم قائمة معلومات المريض",
+      partner4: "جمع اللغة المفضلة والجدول الزمني",
+      partner5: "دعم نافذة التواصل مع المستشفى",
+      partner6: "تحضير الإحالة دون تقديم قرارات طبية",
+      privacyTitle: "الخصوصية وحماية المعلومات الطبية",
+      privacy1: "تُستخدم الصور والأعراض والملفات ومعلومات الاتصال فقط للتحضير للاستشارة والتواصل مع المستشفى.",
+      privacy2: "لا نشارك المعلومات مع أطراف ثالثة دون موافقة.",
+      privacy3: "عند الحاجة إلى مراجعة مستشفى، نطلب إذن المريض قبل إرسال المواد.",
+      founderTitle: "رسالة المؤسس",
+      founderGreeting: "مرحبًا، أنا جونغ سونغ يونغ، مؤسس VR MEDI TOUR & HOME.",
+      founderPara1: "بدأت VR MEDI TOUR & HOME لدعم المرضى الدوليين الذين يحتاجون إلى خدمات طبية كورية، حتى لا يشعروا بالقلق بسبب اللغة أو المسافة أو الأنظمة أو صعوبة اختيار المستشفى.",
+      founderPara2: "لسنا مستشفى ولا نشخّص أو نصف علاجًا أو نضمن نتائج علاجية. يُستخدم الذكاء الاصطناعي فقط لدعم التحضير للاستشارة، مثل فحص اللغة وتصنيف المجال الطبي ومراجعة المعلومات الناقصة. القرارات الطبية النهائية تُتخذ فقط من قبل مؤسسات طبية كورية مرخصة.",
+      founderPara3: "نهدف إلى بناء منصة قائمة على الثقة تربط السفر الطبي وK-Beauty والعافية ودعم السفر، مع التركيز على كوريا وفيتنام. نساعد المرضى على الفهم والاختيار بلغتهم، وننقل معلومات الاستشارة المنظمة إلى المستشفيات وفق مبادئ حماية الخصوصية وموافقة المريض وإرشاد التكلفة بشفافية والتنسيق المرتكز على الإنسان.",
+      founderBody: "نقدم تنسيقًا للسفر الطبي مع مراجعة بشرية. لسنا مستشفى، وتُتخذ القرارات الطبية النهائية من قبل المؤسسات الطبية الكورية المرخصة.",
+      chip1: "مراجعة بشرية",
+      chip2: "لسنا مستشفى",
+      chip3: "القرار للمؤسسات المرخصة",
+      founderRole: "المؤسس / المنسق",
+      founderCompany: "VR MEDI TOUR & HOME",
+      founderNetwork: "تنسيق السفر الطبي كوريا · فيتنام",
+      formTitle: "نموذج طلب الاستشارة",
+      fInquiryType: "نوع الاستفسار",
+      fLanguage: "اللغة المفضلة",
+      fName: "الاسم",
+      fCountry: "البلد",
+      fContact: "البريد الإلكتروني",
+      fEmailConfirm: "تأكيد البريد الإلكتروني",
+      fPhone: "رقم الهاتف",
+      fMessenger: "Zalo / WhatsApp / KakaoTalk",
+      fCurrentLocation: "مكان الإقامة الحالي",
+      fField: "المجال المطلوب",
+      fMessage: "الرسالة",
+      fDiagnosis: "تشخيص سابق",
+      fVisitDate: "تاريخ الزيارة المفضل",
+      fBudget: "الميزانية",
+      fInterpreter: "دعم الترجمة الفورية",
+      fHotel: "دعم الفندق أو المواصلات",
+      fDoc: "رابط صورة أو مستند",
+      optSelect: "يرجى الاختيار",
+      optPatient: "استفسار مريض",
+      optHospital: "استفسار شراكة مستشفى",
+      optYes: "نعم",
+      optNo: "لا",
+      phName: "اكتب اسمك الكامل",
+      phCountry: "بلد الإقامة",
+      phContact: "you@example.com",
+      phEmailConfirm: "أعد إدخال بريدك الإلكتروني",
+      phPhone: "أدخل رقم الهاتف أو رقم التواصل",
+      phMessenger: "أدخل وسيلة التواصل المفضلة",
+      phCurrentLocation: "مثال: سيول، بوسان، هانوي",
+      phMessage: "يرجى مشاركة الأعراض والأهداف والجدول الزمني وأهم الأسئلة",
+      phDiagnosis: "اختياري",
+      phBudget: "نطاق الميزانية المتوقع",
+      phDoc: "https://",
+      contactNotice: "يرجى التحقق من البريد الإلكتروني ومعلومات التواصل. إذا كان البريد الإلكتروني غير صحيح، فقد لا نتمكن من إرسال الرد على الاستشارة.",
+      privacyAgree: "أوافق على استخدام المعلومات للتحضير للاستشارة، وإجراءات موافقة المريض، وسياسة حماية الخصوصية.",
+      submitBtn: "إرسال طلب الاستشارة",
+      emailMismatchAlert: "يرجى التحقق من البريد الإلكتروني. حقلا البريد الإلكتروني غير متطابقين.",
+      noticeTitle: "تنبيه طبي",
+      noticeBody: "VR MEDI TOUR ليست مستشفى ولا تقدم تشخيصًا طبيًا أو ضمانًا لنتائج العلاج. هذه الاستشارة مخصصة للتوجيه الأولي، وتنسيق المستشفيات أو العيادات، والترجمة، وجدولة إجراءات السياحة العلاجية. يتم تحديد التشخيص وخطة العلاج الدقيقة من قبل المؤسسة الطبية بعد الفحص.",
+      footer1: "المقر الرئيسي في بوسان",
+      footer2: "فرع سيول غانغنام",
+      footer3: "شبكة هانوي",
+      footerNotice: "لسنا مستشفى · لا نقدم تشخيصًا · تنسيق بمراجعة بشرية · القرارات الطبية النهائية للمؤسسات الطبية الكورية المرخصة.",
+      licenseTitle: "تسجيل الأعمال والتراخيص",
+      licenseBusan: "المقر الرئيسي في بوسان، كوريا:",
+      licenseSeoul: "فرع سيول غانغنام:",
+      licenseForeign: "استقطاب المرضى الأجانب:",
+      licenseTour: "تسجيل أعمال السياحة:",
+      licenseCommerce: "تسجيل التجارة الإلكترونية:",
+      ipTitle: "إشعار الملكية الفكرية وطلبات العلامات التجارية",
+      ipIntro: "تطوّر VR MEDI TOUR & HOME منصة موثوقة لتنسيق السفر الطبي مدعومة بطلبات براءات اختراع ونماذج منفعة وعلامات تجارية قيد المراجعة في مجالات تنسيق السفر الطبي، ودعم الاستشارات عبر VR/AI، وتقنيات K-beauty والعافية، ومساعدة المرضى متعددة اللغات، وخدمات المنصة.",
+      ipCard1Title: "علامة VR MEDI TOUR التجارية",
+      ipCard1No: "رقم الطلب: 40-2026-0076680",
+      ipCard1Desc: "طلب علامة تجارية قيد المراجعة لخدمات السفر الطبي وحجوزات السفر وخدمات المنصة.",
+      ipCard2Title: "علامة AMIS TRAVEL LOUNGE",
+      ipCard2No: "رقم الطلب: 40-2026-0071858",
+      ipCard2Desc: "طلب علامة تجارية قيد المراجعة لصالة السفر وحجوزات السفر وتوسيع الخدمات المرتبطة بالعافية.",
+      ipCard3Title: "كابينة استشارة طبية للمرضى بتقنية VR",
+      ipCard3No: "رقم الطلب: 20-2025-0000835",
+      ipCard3Desc: "طلب نموذج منفعة قيد المراجعة يتعلق بكابينة استشارة المرضى عبر VR، وترجمة AI، ودعم الاستقرار النفسي والعلاج الطبيعي.",
+      ipCard4Title: "تقنية تسوية مرتبطة بمراحل العلاج",
+      ipCard4No: "رقم الطلب: 10-2026-0068122",
+      ipCard4Desc: "طلب براءة اختراع قيد المراجعة لتقنية تسوية سفر طبي تفصل وتنسق التكاليف حسب مراحل الاستشارة والعلاج والترجمة والنقل والإقامة والتعافي.",
+      ipCard5Title: "جهاز K-Beauty لتحليل البشرة وتكوين الجسم بالذكاء الاصطناعي",
+      ipCard5No: "رقم الطلب: 10-2026-0006731",
+      ipCard5Desc: "طلب براءة اختراع قيد المراجعة لتقنية تحليل البشرة بالذكاء الاصطناعي، وتحليل تكوين الجسم، واستشارة أفاتار متعددة اللغات، وتوصية منتجات K-beauty.",
+      ipCard6Title: "تقنية مساعدة المرضى متعددة اللغات",
+      ipCard6No: "رقم الطلب: 20-2025-0001985",
+      ipCard6Desc: "طلب نموذج منفعة قيد المراجعة لتقنية مساعدة المرضى متعددة اللغات المتعلقة بالترجمة الطبية ووظائف كشك الإرشاد.",
+      ipLegalNotice: "يصف هذا الإشعار طلبات براءات الاختراع ونماذج المنفعة والعلامات التجارية قيد المراجعة. ولا يعني منح حقوق براءة أو حقوق نموذج منفعة مسجلة أو حقوق علامة تجارية مسجلة أو فعالية طبية أو نتائج علاجية أو حقوق قانونية حصرية قبل الموافقة الرسمية من الجهة المختصة."
+    };
+
     const translations = {
       en: baseEn,
       ko: koDict,
       vi: viDict,
       ja: jaDict,
-      zh: zhDict
+      zh: zhDict,
+      ar: arDict
     };
 
     const languageMap = {
@@ -1012,7 +1231,8 @@
       ko: "Korean",
       vi: "Vietnamese",
       ja: "Japanese",
-      zh: "Chinese"
+      zh: "Chinese",
+      ar: "العربية"
     };
 
     const preferredLanguageLabels = {
@@ -1020,7 +1240,8 @@
       ko: "한국어",
       vi: "Tiếng Việt",
       ja: "日本語",
-      zh: "中文"
+      zh: "中文",
+      ar: "العربية"
     };
 
     function t(lang, key) {
@@ -1031,6 +1252,7 @@
       const active = translations[lang] ? lang : "en";
       document.documentElement.lang = active;
       document.documentElement.dir = "ltr";
+      document.body.classList.toggle("lang-ar", active === "ar");
 
       document.querySelectorAll("[data-i18n]").forEach((el) => {
         const translated = t(active, el.dataset.i18n);
@@ -1075,6 +1297,30 @@
       };
       visitDateInput.addEventListener("focus", openDatePicker);
       visitDateInput.addEventListener("click", openDatePicker);
+    }
+
+    function validateEmailMatch() {
+      const email = document.querySelector('input[name="email"]');
+      const emailConfirm = document.querySelector('input[name="emailConfirm"]');
+
+      if (!email || !emailConfirm) return true;
+
+      if (email.value.trim().toLowerCase() !== emailConfirm.value.trim().toLowerCase()) {
+        alert(t(document.documentElement.lang, "emailMismatchAlert") || baseEn.emailMismatchAlert);
+        emailConfirm.focus();
+        return false;
+      }
+
+      return true;
+    }
+
+    const medicalForm = document.querySelector('form[name="medical-consult"]');
+    if (medicalForm) {
+      medicalForm.addEventListener("submit", (event) => {
+        if (!validateEmailMatch()) {
+          event.preventDefault();
+        }
+      });
     }
 
     applyLanguage(localStorage.getItem("vrMediTourLang") || "en");

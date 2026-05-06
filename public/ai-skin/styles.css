@@ -26,3 +26,27 @@
 }
 
 @media(max-width:900px){.language-buttons{justify-content:flex-start}}
+
+
+/* Keep the AI skin tool shell LTR; only Arabic text blocks render RTL. */
+html[lang="ar"],
+html[lang="ar"] body,
+html[lang="ar"] .page,
+html[lang="ar"] .hero,
+html[lang="ar"] .container {
+  direction: ltr;
+}
+
+html[lang="ar"] [data-i18n],
+html[lang="ar"] .report-item,
+html[lang="ar"] .safety {
+  direction: rtl;
+  unicode-bidi: plaintext;
+  text-align: right;
+}
+
+html[lang="ar"] .language-buttons,
+html[lang="ar"] .report-grid,
+html[lang="ar"] .actions {
+  direction: ltr;
+}
