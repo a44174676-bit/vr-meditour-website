@@ -4,6 +4,12 @@
   <meta charset="utf-8" />
   <title>AI 피부 분석 & 케어 컨시어지</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="manifest" href="/public/ai-skin/manifest.webmanifest" />
+  <meta name="theme-color" content="#0f766e" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="VR MEDI AI Skin" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -61,5 +67,15 @@
     </section>
   </main>
   <script src="script.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("/public/ai-skin/service-worker.js")
+          .catch((error) => {
+            console.warn("Service worker registration failed:", error);
+          });
+      });
+    }
+  </script>
 </body>
 </html>
