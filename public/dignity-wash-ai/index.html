@@ -33,12 +33,14 @@
               <span id="voiceStatus" class="voice-status">꺼짐</span>
             </div>
             <p id="voiceSupportMessage" class="voice-support-message" hidden>
-              이 브라우저에서는 음성 안내가 지원되지 않습니다. 화면 안내 문구를 확인해주세요.
+              이 브라우저에서는 음성 안내가 제한될 수 있습니다. Chrome 또는 Safari에서 다시 열어보거나, 큰 글씨 안내 모드를 사용해주세요.
             </p>
             <div class="voice-buttons" aria-label="음성 안내 제어 버튼">
               <button id="voiceOnBtn" class="voice-button" type="button">음성 안내 켜기</button>
               <button id="voiceOffBtn" class="voice-button secondary" type="button">음성 안내 끄기</button>
               <button id="replayVoiceBtn" class="voice-button replay" type="button">현재 안내 다시 듣기</button>
+              <button id="mobileVoiceTestBtn" class="voice-button test" type="button">모바일 음성 테스트</button>
+              <button id="largeTextModeBtn" class="voice-button large-mode" type="button">큰 글씨 안내 모드</button>
             </div>
             <div class="voice-texts" aria-live="polite">
               <div>
@@ -52,6 +54,14 @@
             </div>
           </div>
         </div>
+      </div>
+    </section>
+
+    <section id="largeGuidancePanel" class="large-guidance-panel" aria-live="assertive" hidden>
+      <div class="large-guidance-card">
+        <p class="large-guidance-label">큰 글씨 안내 모드</p>
+        <p id="largeGuidanceText" class="large-guidance-text">세정 준비를 확인하겠습니다. 편안한 자세인지 확인해주세요.</p>
+        <button id="closeLargeGuidanceBtn" class="large-guidance-close" type="button">큰 글씨 안내 닫기</button>
       </div>
     </section>
 

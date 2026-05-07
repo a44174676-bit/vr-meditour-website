@@ -9,6 +9,8 @@ const steps = [
   "건조·의복 교체·정리",
 ];
 
+const mobileVoiceTestMessage = "존엄세정 AI 음성 안내를 시작합니다.";
+
 const stepVoiceGuidance = {
   "준비 확인": {
     patient: "세정 준비를 확인하겠습니다. 편안한 자세인지 확인해주세요.",
@@ -78,8 +80,15 @@ let currentStepIndex = 0;
 let voiceEnabled = false;
 let currentPatientVoiceText = stepVoiceGuidance[steps[0]].patient;
 let currentCaregiverVoiceText = stepVoiceGuidance[steps[0]].caregiver;
+let availableVoices = [];
+let preferredKoreanVoice = null;
 
-const speechSupported = "speechSynthesis" in window && "SpeechSynthesisUtterance" in window;
+const speechCapability = {
+  hasSynthesis: Boolean(window.speechSynthesis),
+  hasUtterance: Boolean(window.SpeechSynthesisUtterance),
+};
+speechCapability.hasApi = speechCapability.hasSynthesis && speechCapability.hasUtterance;
+
 const stepList = document.querySelector("#stepList");
 const nextStepBtn = document.querySelector("#nextStepBtn");
 const aiMessage = document.querySelector("#aiMessage");
@@ -92,10 +101,15 @@ const recommendation = document.querySelector("#recommendation");
 const voiceOnBtn = document.querySelector("#voiceOnBtn");
 const voiceOffBtn = document.querySelector("#voiceOffBtn");
 const replayVoiceBtn = document.querySelector("#replayVoiceBtn");
+const mobileVoiceTestBtn = document.querySelector("#mobileVoiceTestBtn");
+const largeTextModeBtn = document.querySelector("#largeTextModeBtn");
 const voiceStatus = document.querySelector("#voiceStatus");
 const voiceSupportMessage = document.querySelector("#voiceSupportMessage");
 const patientVoiceText = document.querySelector("#patientVoiceText");
 const caregiverVoiceText = document.querySelector("#caregiverVoiceText");
+const largeGuidancePanel = document.querySelector("#largeGuidancePanel");
+const largeGuidanceText = document.querySelector("#largeGuidanceText");
+const closeLargeGuidanceBtn = document.querySelector("#closeLargeGuidanceBtn");
 
 function renderSteps() {
   stepList.innerHTML = steps
@@ -132,36 +146,125 @@ function updateVoiceTexts({ patient, caregiver }) {
   currentCaregiverVoiceText = caregiver;
   patientVoiceText.textContent = patient;
   caregiverVoiceText.textContent = caregiver;
+
+  if (!largeGuidancePanel.hidden) {
+    largeGuidanceText.textContent = patient;
+  }
 }
 
-function speakCurrentGuidance({ force = false } = {}) {
-  if (!speechSupported) {
+function showLargeGuidance(text = currentPatientVoiceText) {
+  largeGuidanceText.textContent = text;
+  largeGuidancePanel.hidden = false;
+}
+
+function hideLargeGuidance() {
+  largeGuidancePanel.hidden = true;
+}
+
+function showVoiceLimitMessage() {
+  voiceSupportMessage.hidden = false;
+}
+
+function refreshVoiceStatus() {
+  if (!speechCapability.hasApi) {
+    voiceStatus.textContent = "제한됨";
+    voiceStatus.classList.remove("on");
+    showVoiceLimitMessage();
     return;
+  }
+
+  voiceStatus.classList.toggle("on", voiceEnabled);
+
+  if (voiceEnabled) {
+    voiceStatus.textContent = preferredKoreanVoice ? "켜짐" : "켜짐 · 기본음성";
+    return;
+  }
+
+  voiceStatus.textContent = preferredKoreanVoice ? "꺼짐" : "꺼짐 · 테스트 권장";
+}
+
+function findPreferredKoreanVoice(voices) {
+  return voices.find((voice) => voice.lang === "ko-KR")
+    || voices.find((voice) => voice.lang && voice.lang.toLowerCase().startsWith("ko"))
+    || voices.find((voice) => /korean|한국|ko-kr/i.test(`${voice.name} ${voice.lang}`));
+}
+
+function loadVoices() {
+  if (!speechCapability.hasApi || typeof window.speechSynthesis.getVoices !== "function") {
+    refreshVoiceStatus();
+    return;
+  }
+
+  availableVoices = window.speechSynthesis.getVoices();
+  preferredKoreanVoice = findPreferredKoreanVoice(availableVoices);
+
+  if (!preferredKoreanVoice && availableVoices.length === 0) {
+    showVoiceLimitMessage();
+  }
+
+  refreshVoiceStatus();
+}
+
+function speakGuidanceText(text, { force = false, fallbackToLargeText = true } = {}) {
+  if (!speechCapability.hasApi) {
+    showVoiceLimitMessage();
+    if (fallbackToLargeText) {
+      showLargeGuidance(text);
+    }
+    return false;
   }
 
   if (!voiceEnabled && !force) {
-    return;
+    return false;
   }
 
+  loadVoices();
+
   window.speechSynthesis.cancel();
-  const utterance = new SpeechSynthesisUtterance(currentPatientVoiceText);
+
+  if (typeof window.speechSynthesis.resume === "function") {
+    window.speechSynthesis.resume();
+  }
+
+  const utterance = new window.SpeechSynthesisUtterance(text);
   utterance.lang = "ko-KR";
   utterance.rate = 0.92;
   utterance.pitch = 1.02;
+
+  if (preferredKoreanVoice) {
+    utterance.voice = preferredKoreanVoice;
+  }
+
+  utterance.onerror = () => {
+    showVoiceLimitMessage();
+    if (fallbackToLargeText) {
+      showLargeGuidance(text);
+    }
+  };
+
   window.speechSynthesis.speak(utterance);
+  return true;
+}
+
+function speakCurrentGuidance({ force = false, fallbackToLargeText = true } = {}) {
+  return speakGuidanceText(currentPatientVoiceText, { force, fallbackToLargeText });
 }
 
 function setVoiceEnabled(enabled) {
   voiceEnabled = enabled;
-  voiceStatus.textContent = enabled ? "켜짐" : "꺼짐";
-  voiceStatus.classList.toggle("on", enabled);
 
-  if (!enabled && speechSupported) {
+  if (!enabled && speechCapability.hasApi) {
     window.speechSynthesis.cancel();
   }
 
+  refreshVoiceStatus();
+
   if (enabled) {
-    speakCurrentGuidance({ force: true });
+    const spoke = speakCurrentGuidance({ force: true, fallbackToLargeText: true });
+
+    if (!spoke) {
+      showLargeGuidance();
+    }
   }
 }
 
@@ -171,7 +274,7 @@ function applyStepVoiceGuidance(step) {
     patient: guidance.patient,
     caregiver: guidance.caregiver,
   });
-  speakCurrentGuidance();
+  speakCurrentGuidance({ fallbackToLargeText: voiceEnabled });
 }
 
 function moveToNextStep() {
@@ -205,23 +308,48 @@ function runScenario(scenarioName) {
     patient: scenario.patientVoice,
     caregiver: scenario.caregiverVoice,
   });
-  speakCurrentGuidance();
+  speakCurrentGuidance({ fallbackToLargeText: voiceEnabled });
   addLog(scenario.message);
 }
 
-function initializeVoiceControls() {
-  if (!speechSupported) {
-    voiceSupportMessage.hidden = false;
-    voiceOnBtn.disabled = true;
-    voiceOffBtn.disabled = true;
-    replayVoiceBtn.disabled = true;
-    voiceStatus.textContent = "미지원";
-    return;
+function runMobileVoiceTest() {
+  const spoke = speakGuidanceText(mobileVoiceTestMessage, { force: true, fallbackToLargeText: true });
+
+  if (!spoke) {
+    showLargeGuidance(mobileVoiceTestMessage);
   }
+}
+
+function initializeVoiceControls() {
+  if (!speechCapability.hasApi) {
+    showVoiceLimitMessage();
+  }
+
+  if (speechCapability.hasApi && typeof window.speechSynthesis.addEventListener === "function") {
+    window.speechSynthesis.addEventListener("voiceschanged", loadVoices);
+  } else if (speechCapability.hasApi) {
+    window.speechSynthesis.onvoiceschanged = loadVoices;
+  }
+
+  loadVoices();
 
   voiceOnBtn.addEventListener("click", () => setVoiceEnabled(true));
   voiceOffBtn.addEventListener("click", () => setVoiceEnabled(false));
-  replayVoiceBtn.addEventListener("click", () => speakCurrentGuidance({ force: true }));
+  replayVoiceBtn.addEventListener("click", () => {
+    const spoke = speakCurrentGuidance({ force: true, fallbackToLargeText: true });
+
+    if (!spoke) {
+      showLargeGuidance();
+    }
+  });
+  mobileVoiceTestBtn.addEventListener("click", runMobileVoiceTest);
+  largeTextModeBtn.addEventListener("click", () => showLargeGuidance());
+  closeLargeGuidanceBtn.addEventListener("click", hideLargeGuidance);
+  largeGuidancePanel.addEventListener("click", (event) => {
+    if (event.target === largeGuidancePanel) {
+      hideLargeGuidance();
+    }
+  });
 }
 
 nextStepBtn.addEventListener("click", moveToNextStep);
