@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>존엄세정 AI 에이전트</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="page-shell">
+    <section class="hero-card" aria-labelledby="page-title">
+      <div class="hero-copy">
+        <p class="eyebrow">Care Safety MVP Demo</p>
+        <h1 id="page-title">존엄세정 AI 에이전트</h1>
+        <p class="lead">
+          AI 에이전트가 세정 시작 전 준비 상태를 확인하고, 수온·배수·오염수 상태를 모니터링하여 사람이 놓치기 쉬운 부분을 보완합니다.
+        </p>
+      </div>
+      <div class="agent-panel" aria-label="AI 안내 메시지">
+        <div class="agent-orb" aria-hidden="true">AI</div>
+        <div>
+          <p class="panel-label">AI 현재 안내</p>
+          <p id="aiMessage" class="agent-message">준비 확인을 시작합니다. 장비, 보호장구, 사용자 상태를 확인해주세요.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="dashboard-grid">
+      <article class="card procedure-card">
+        <div class="section-heading">
+          <p class="eyebrow">Guided workflow</p>
+          <h2>세정 절차</h2>
+        </div>
+        <ol id="stepList" class="step-list" aria-label="세정 단계 목록"></ol>
+        <button id="nextStepBtn" class="primary-button" type="button">다음 단계</button>
+      </article>
+
+      <article class="card sensor-card">
+        <div class="section-heading">
+          <p class="eyebrow">Sensor simulation</p>
+          <h2>센서 데모</h2>
+        </div>
+        <div class="sensor-buttons" aria-label="센서 시뮬레이션 버튼">
+          <button class="status-button stable" type="button" data-scenario="normal">정상 상태 시뮬레이션</button>
+          <button class="status-button caution" type="button" data-scenario="waste">오염수 높음 시뮬레이션</button>
+          <button class="status-button danger" type="button" data-scenario="temperature">수온 위험 시뮬레이션</button>
+        </div>
+      </article>
+
+      <article class="card summary-card">
+        <div class="section-heading">
+          <p class="eyebrow">Care record</p>
+          <h2>사용 기록 요약</h2>
+        </div>
+        <dl class="summary-list">
+          <div>
+            <dt>현재 단계</dt>
+            <dd id="currentStep">준비 확인</dd>
+          </div>
+          <div>
+            <dt>수온 상태</dt>
+            <dd id="temperatureStatus">적정 범위</dd>
+          </div>
+          <div>
+            <dt>오염수 상태</dt>
+            <dd id="wasteStatus">낮음</dd>
+          </div>
+          <div>
+            <dt>배수 상태</dt>
+            <dd id="drainStatus">정상 배수</dd>
+          </div>
+          <div class="recommendation-row">
+            <dt>AI 권장 조치</dt>
+            <dd id="recommendation">준비 상태를 확인한 뒤 다음 단계로 진행하세요.</dd>
+          </div>
+        </dl>
+      </article>
+
+      <article class="card log-card">
+        <div class="section-heading">
+          <p class="eyebrow">AI guidance log</p>
+          <h2>AI 안내 로그</h2>
+        </div>
+        <ul id="logList" class="log-list" aria-live="polite"></ul>
+      </article>
+    </section>
+
+    <footer class="notice">
+      본 화면은 창업경진대회 발표 및 시제품 설명을 위한 AI 에이전트 MVP 데모입니다. 의료 진단 또는 치료 판단을 제공하지 않으며, 실제 사용 시에는 보호자 또는 요양보호사의 확인과 안전 절차가 필요합니다.
+    </footer>
+  </main>
+
+  <script src="./script.js"></script>
+</body>
+</html>
