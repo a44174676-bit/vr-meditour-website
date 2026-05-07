@@ -21,9 +21,36 @@
       </div>
       <div class="agent-panel" aria-label="AI 안내 메시지">
         <div class="agent-orb" aria-hidden="true">AI</div>
-        <div>
+        <div class="agent-content">
           <p class="panel-label">AI 현재 안내</p>
           <p id="aiMessage" class="agent-message">준비 확인을 시작합니다. 장비, 보호장구, 사용자 상태를 확인해주세요.</p>
+          <div class="voice-card" aria-labelledby="voice-title">
+            <div class="voice-card-header">
+              <div>
+                <p class="voice-kicker">Voice guidance</p>
+                <h2 id="voice-title">음성 안내</h2>
+              </div>
+              <span id="voiceStatus" class="voice-status">꺼짐</span>
+            </div>
+            <p id="voiceSupportMessage" class="voice-support-message" hidden>
+              이 브라우저에서는 음성 안내가 지원되지 않습니다. 화면 안내 문구를 확인해주세요.
+            </p>
+            <div class="voice-buttons" aria-label="음성 안내 제어 버튼">
+              <button id="voiceOnBtn" class="voice-button" type="button">음성 안내 켜기</button>
+              <button id="voiceOffBtn" class="voice-button secondary" type="button">음성 안내 끄기</button>
+              <button id="replayVoiceBtn" class="voice-button replay" type="button">현재 안내 다시 듣기</button>
+            </div>
+            <div class="voice-texts" aria-live="polite">
+              <div>
+                <span>피세정자용 안내</span>
+                <p id="patientVoiceText">세정 준비를 확인하겠습니다. 편안한 자세인지 확인해주세요.</p>
+              </div>
+              <div>
+                <span>요양보호사용 안내</span>
+                <p id="caregiverVoiceText">장비, 보호장구, 사용자 상태를 확인한 뒤 세정을 시작하세요.</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
