@@ -1314,12 +1314,62 @@
       return true;
     }
 
+    const N8N_BRIDGE_ENDPOINT = "/.netlify/functions/send-medical-consult";
+
+    function buildMedicalConsultPayload(form) {
+      const formData = new FormData(form);
+      const getValue = (name) => (formData.get(name) || "").toString().trim();
+
+      return {
+        name: getValue("name"),
+        email: getValue("email"),
+        phone: getValue("phone"),
+        service: getValue("interested_field"),
+        language: getValue("preferred_language"),
+        message: getValue("message")
+      };
+    }
+
+    async function sendMedicalConsultToN8n(form) {
+      const formData = new FormData(form);
+      if ((formData.get("bot-field") || "").toString().trim()) return;
+
+      const controller = new AbortController();
+      const timeoutId = window.setTimeout(() => controller.abort(), 5000);
+
+      try {
+        await fetch(N8N_BRIDGE_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(buildMedicalConsultPayload(form)),
+          signal: controller.signal
+        });
+      } catch (error) {
+        console.warn("n8n consultation webhook delivery failed; continuing default form flow.", error);
+      } finally {
+        window.clearTimeout(timeoutId);
+      }
+    }
+
     const medicalForm = document.querySelector('form[name="medical-consult"]');
+    let isMedicalFormSubmitting = false;
+
     if (medicalForm) {
-      medicalForm.addEventListener("submit", (event) => {
+      medicalForm.addEventListener("submit", async (event) => {
         if (!validateEmailMatch()) {
           event.preventDefault();
+          return;
         }
+
+        if (isMedicalFormSubmitting) {
+          event.preventDefault();
+          return;
+        }
+
+        isMedicalFormSubmitting = true;
+        event.preventDefault();
+        await sendMedicalConsultToN8n(medicalForm);
+        HTMLFormElement.prototype.submit.call(medicalForm);
       });
     }
 
