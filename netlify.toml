@@ -21,3 +21,14 @@
   from = "/campus-agent/*"
   to = "/public/campus-agent/:splat"
   status = 200
+
+[[redirects]]
+  from = "/dignity-wash-ai"
+  to = "/public/dignity-wash-ai/"
+  status = 301
+
+[[redirects]]
+  from = "/dignity-wash-ai/*"
+  to = "/public/dignity-wash-ai/:splat"
+  status = 200
+
