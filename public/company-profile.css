@@ -603,3 +603,8 @@ body.lang-ar .eyebrow {
 @media (min-width: 760px) {
   .procurement-card { grid-column: 1 / -1; }
 }
+
+.minor-registration {
+  font-size: 0.92rem;
+  opacity: 0.86;
+}
