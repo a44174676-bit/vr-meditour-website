@@ -34,3 +34,8 @@
   from = "/company-profile.css"
   to = "/public/company-profile.css"
   status = 200
+
+[[redirects]]
+  from = "/company-profile.js"
+  to = "/public/company-profile.js"
+  status = 200
