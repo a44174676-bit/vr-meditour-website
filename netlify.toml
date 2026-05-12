@@ -21,3 +21,21 @@
   from = "/campus-agent/*"
   to = "/public/campus-agent/:splat"
   status = 200
+
+# The production publish directory is the repository root (publish = ".").
+# Company profile source files live under /public per project convention, so these
+# clean URL rewrites expose them at /company-profile.html and /company-profile.css.
+[[redirects]]
+  from = "/company-profile.html"
+  to = "/public/company-profile.html"
+  status = 200
+
+[[redirects]]
+  from = "/company-profile.css"
+  to = "/public/company-profile.css"
+  status = 200
+
+[[redirects]]
+  from = "/company-profile.js"
+  to = "/public/company-profile.js"
+  status = 200
