@@ -21,3 +21,8 @@
   from = "/campus-agent/*"
   to = "/public/campus-agent/:splat"
   status = 200
+
+[[redirects]]
+  from = "/company-profile.html"
+  to = "/public/company-profile.html"
+  status = 200
