@@ -4,9 +4,10 @@
     en: { htmlLang: "en", dir: "ltr" },
     vi: { htmlLang: "vi", dir: "ltr" },
     ja: { htmlLang: "ja", dir: "ltr" },
-    zh: { htmlLang: "zh-CN", dir: "ltr" },
-    ar: { htmlLang: "ar", dir: "rtl" }
+    zh: { htmlLang: "zh-CN", dir: "ltr" }
   };
+
+  const supportedLanguages = ["ko", "en", "vi", "ja", "zh"];
 
   const translations = {
     ko: {
@@ -516,7 +517,7 @@
   }
 
   function applyLanguage(lang) {
-    const safeLang = translations[lang] ? lang : "ko";
+    const safeLang = supportedLanguages.includes(lang) ? lang : "ko";
     const config = languageConfig[safeLang] || languageConfig.ko;
 
     document.documentElement.lang = config.htmlLang;
@@ -545,7 +546,7 @@
   function getInitialLanguage() {
     try {
       const stored = localStorage.getItem("vrMediTourCompanyLang");
-      if (stored && translations[stored]) return stored;
+      if (stored && supportedLanguages.includes(stored)) return stored;
     } catch (_) {
       // Ignore storage errors and keep Korean as the default.
     }
