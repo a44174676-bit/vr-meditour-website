@@ -389,13 +389,19 @@ h3 {
 
 .language-switcher button img,
 .lang-btn img {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
   object-fit: cover;
+  object-position: 72% 24%;
   border: 1px solid rgba(255,255,255,0.5);
-  background: rgba(255,255,255,0.14);
+  background: #eaf7ff;
 }
+.lang-btn[data-profile-lang="en"] img { object-position: 74% 24%; }
+.lang-btn[data-profile-lang="ko"] img { object-position: 72% 24%; }
+.lang-btn[data-profile-lang="vi"] img { object-position: 72% 24%; }
+.lang-btn[data-profile-lang="ja"] img { object-position: 72% 24%; }
+.lang-btn[data-profile-lang="zh"] img { object-position: 72% 24%; }
 
 .language-switcher button span,
 .lang-btn span {

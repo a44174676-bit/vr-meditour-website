@@ -101,13 +101,21 @@ button, input, select, textarea { font: inherit; color: inherit; }
 }
 .language-buttons button img,
 .lang-btn img {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
   object-fit: cover;
+  object-position: 72% 24%;
   border: 1px solid rgba(255, 255, 255, 0.5);
-  background: rgba(255, 255, 255, 0.18);
+  background: #eaf7ff;
 }
+.lang-btn[data-lang="en"] img { object-position: 74% 24%; }
+.lang-btn[data-lang="ko"] img { object-position: 72% 24%; }
+.lang-btn[data-lang="vi"] img { object-position: 72% 24%; }
+.lang-btn[data-lang="ja"] img { object-position: 72% 24%; }
+.lang-btn[data-lang="zh"] img { object-position: 72% 24%; }
+.lang-btn[data-lang="ar"] img { object-position: 72% 24%; }
+
 .language-buttons button span,
 .lang-btn span {
   font-weight: 800;

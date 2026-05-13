@@ -51,3 +51,5 @@ html[lang="ar"] .report-grid,
 html[lang="ar"] .actions {
   direction: ltr;
 }
+
+.lang-btn img,.language-switcher img{width:34px;height:34px;border-radius:999px;object-fit:cover;object-position:72% 24%;background:#eaf7ff}.lang-btn[data-lang="en"] img{object-position:74% 24%}.lang-btn[data-lang="ko"] img,.lang-btn[data-lang="vi"] img,.lang-btn[data-lang="ja"] img,.lang-btn[data-lang="zh"] img,.lang-btn[data-lang="ar"] img{object-position:72% 24%}
