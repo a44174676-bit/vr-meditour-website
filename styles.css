@@ -67,22 +67,69 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .brand-logo { width: 50px; height: 50px; border-radius: 12px; }
 .brand-text span { color: var(--muted); font-size: 0.86rem; }
 
-.language-select { display: flex; align-items: center; gap: 8px; }
-.language-buttons { display: flex; gap: 6px; }
-.language-buttons button {
-  min-width: 42px;
-  border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.08);
+.language-select { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.language-select > span,
+.language-label {
+  color: var(--muted);
+  font-size: 0.84rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.language-buttons { display: flex; flex-wrap: wrap; gap: 8px; }
+.language-buttons button,
+.lang-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 74px;
+  min-height: 42px;
+  border: 1px solid rgba(202, 222, 255, 0.24);
+  background: linear-gradient(135deg, rgba(255,255,255,0.12), rgba(57,122,255,0.12));
+  color: #eaf3ff;
   border-radius: 999px;
-  min-height: 36px;
+  padding: 4px 10px 4px 5px;
+  box-shadow: 0 10px 28px rgba(2, 8, 23, 0.18);
   cursor: pointer;
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+.language-buttons button::before,
+.lang-btn::before {
+  content: "🌐";
+  font-size: 0.9rem;
+  filter: drop-shadow(0 0 6px rgba(142, 201, 255, 0.45));
+}
+.language-buttons button img,
+.lang-btn img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.18);
+}
+.language-buttons button span,
+.lang-btn span {
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  line-height: 1;
 }
 .language-buttons button:hover,
-.language-buttons button:focus-visible { border-color: var(--primary); outline: none; }
-.language-buttons button.active {
-  background: linear-gradient(135deg, var(--silver), var(--primary));
+.language-buttons button:focus-visible,
+.lang-btn:hover,
+.lang-btn:focus-visible {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(73, 169, 255, 0.18), 0 14px 30px rgba(0,0,0,0.24);
+  outline: none;
+  transform: translateY(-2px);
+}
+.language-buttons button.active,
+.lang-btn.active,
+.lang-btn.is-active {
+  background: linear-gradient(135deg, rgba(238,244,255,0.98), rgba(73,169,255,0.92));
   color: #051427;
-  border-color: transparent;
+  border-color: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 0 0 3px rgba(73, 169, 255, 0.24), 0 0 22px rgba(73, 169, 255, 0.52);
 }
 
 .hero-grid { display: grid; gap: 18px; }
