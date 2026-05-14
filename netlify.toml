@@ -2,6 +2,14 @@
   publish = "."
   functions = "netlify/functions"
 
+# Language button images are stored under /public/assets in the repository, while
+# page markup intentionally references the public URL path /assets/images/language/*.
+[[redirects]]
+  from = "/assets/images/language/*"
+  to = "/public/assets/images/language/:splat"
+  status = 200
+  force = true
+
 [[redirects]]
   from = "/ai-skin"
   to = "/public/ai-skin/"
