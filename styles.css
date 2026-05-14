@@ -841,3 +841,10 @@ textarea.mh-consult-input {
     padding: 16px;
   }
 }
+
+.mh-consult-character img,
+.mh-consult-character-img {
+  background: transparent;
+  background-image: none;
+  object-fit: contain;
+}
