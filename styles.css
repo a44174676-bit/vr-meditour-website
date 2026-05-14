@@ -67,22 +67,69 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .brand-logo { width: 50px; height: 50px; border-radius: 12px; }
 .brand-text span { color: var(--muted); font-size: 0.86rem; }
 
-.language-select { display: flex; align-items: center; gap: 8px; }
-.language-buttons { display: flex; gap: 6px; }
-.language-buttons button {
-  min-width: 42px;
-  border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 999px;
-  min-height: 36px;
-  cursor: pointer;
+.language-select { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.language-select > span,
+.language-label {
+  color: var(--muted);
+  font-size: 0.84rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
+.language-buttons { display: flex; flex-wrap: wrap; gap: 12px; }
+.language-buttons button,
+.lang-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  min-width: 72px;
+  min-height: 72px;
+  border: 1px solid rgba(202, 222, 255, 0.28);
+  background: rgba(255, 255, 255, 0.08);
+  color: #eaf3ff;
+  border-radius: 999px;
+  padding: 6px;
+  box-shadow: 0 10px 28px rgba(2, 8, 23, 0.18);
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+.language-buttons button img,
+.lang-btn img {
+  width: 60px;
+  height: 60px;
+  border-radius: 999px;
+  object-fit: cover;
+  object-position: 72% 24%;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  background: #eaf7ff;
+}
+.lang-btn[data-lang="en"] img { object-position: 74% 24%; }
+.lang-btn[data-lang="ko"] img { object-position: 72% 24%; }
+.lang-btn[data-lang="vi"] img { object-position: 72% 24%; }
+.lang-btn[data-lang="ja"] img { object-position: 72% 24%; }
+.lang-btn[data-lang="zh"] img { object-position: 72% 24%; }
+.lang-btn[data-lang="ar"] img { object-position: 72% 24%; }
+
 .language-buttons button:hover,
-.language-buttons button:focus-visible { border-color: var(--primary); outline: none; }
-.language-buttons button.active {
-  background: linear-gradient(135deg, var(--silver), var(--primary));
+.language-buttons button:focus-visible,
+.lang-btn:hover,
+.lang-btn:focus-visible {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(73, 169, 255, 0.18), 0 14px 30px rgba(0,0,0,0.24);
+  outline: none;
+  transform: translateY(-2px);
+}
+.language-buttons button.active,
+.lang-btn.active,
+.lang-btn.is-active,
+.lang-btn[aria-pressed="true"] {
+  background: rgba(56, 189, 248, 0.18);
   color: #051427;
-  border-color: transparent;
+  border-color: rgba(125, 211, 252, 1);
+  box-shadow: 0 0 24px rgba(56, 189, 248, 0.9), 0 0 0 3px rgba(73, 169, 255, 0.24);
 }
 
 .hero-grid { display: grid; gap: 18px; }
@@ -341,13 +388,32 @@ h2 { margin: 0 0 12px; font-size: clamp(1.25rem, 2.5vw, 2rem); }
 .language-buttons {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 12px;
 }
 
 @media (max-width: 640px) {
   .language-buttons {
     width: 100%;
     justify-content: flex-start;
+  }
+
+  .language-buttons {
+    gap: 12px;
+    justify-content: flex-start;
+  }
+
+  .language-buttons button,
+  .lang-btn {
+    width: 84px;
+    height: 84px;
+    min-width: 84px;
+    min-height: 84px;
+  }
+
+  .language-buttons button img,
+  .lang-btn img {
+    width: 72px;
+    height: 72px;
   }
 
   .field-grid,
