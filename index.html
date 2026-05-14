@@ -84,9 +84,6 @@
             <button type="button" class="lang-btn" data-lang="zh" aria-label="中文">
               <img src="/assets/images/language/lang-zh.png" alt="Medi Hana Chinese language guide" onerror="this.hidden=true" />
             </button>
-            <button type="button" class="lang-btn" data-lang="ar" aria-label="العربية">
-              <img src="/assets/images/language/lang-ar.png" alt="Medi Hana Arabic language guide" onerror="this.hidden=true" />
-            </button>
           </div>
         </div>
       </header>
@@ -225,6 +222,37 @@
       <p class="ai-disclaimer" data-i18n="aiDisclaimer">AI assistant helps organize your inquiry. It does not diagnose, prescribe, or replace licensed medical professionals.</p>
       <p class="form-note" data-i18n="contactNotice">Please check your email address and reachable messenger information carefully. If your email address is entered incorrectly, you may not receive our consultation reply.</p>
 
+      <div class="consult-mode-tabs" aria-label="Consultation mode">
+        <button type="button" class="btn primary consult-mode-btn" data-consult-mode="medi" data-medi-label="start">메디하나와 상담 시작하기</button>
+        <button type="button" class="btn secondary consult-mode-btn" data-consult-mode="quick" data-medi-label="quick">빠른 신청서로 바로 작성하기</button>
+      </div>
+
+      <div class="medi-hana-consult" id="mediHanaConsult" aria-live="polite">
+        <div class="medi-hana-guide">
+          <div class="medi-hana-character" aria-hidden="true">
+            <img id="mediHanaImage" src="/public/assets/medi-hana/medi-hana-en.png?v=3" alt="" />
+          </div>
+          <div class="medi-hana-bubble">
+            <p class="medi-hana-kicker" id="mediHanaProgress">Step 1 / 5</p>
+            <p class="medi-hana-question" id="mediHanaQuestion">어떤 상담을 원하시나요?</p>
+          </div>
+        </div>
+
+        <div class="medi-hana-panel">
+          <div class="medi-hana-step-head">
+            <span class="medi-hana-step-count" id="mediHanaStepCount">1 / 5</span>
+            <h3 id="mediHanaStepTitle">문의 유형</h3>
+          </div>
+          <div class="medi-hana-step-body" id="mediHanaStepBody"></div>
+          <p class="medi-hana-error" id="mediHanaError" role="alert"></p>
+          <div class="medi-hana-actions">
+            <button type="button" class="btn ghost" id="mediHanaPrev">이전</button>
+            <button type="button" class="btn primary" id="mediHanaNext">다음</button>
+            <button type="button" class="btn primary" id="mediHanaSubmit">상담 신청 제출</button>
+          </div>
+        </div>
+      </div>
+
       <form
         name="medical-consult"
         method="POST"
@@ -235,6 +263,9 @@
         class="consult-form"
       >
         <input type="hidden" name="form-name" value="medical-consult" />
+        <input type="hidden" name="medi_hana_mode" value="quick" />
+        <input type="hidden" name="medi_hana_consult_type" value="" />
+        <input type="hidden" name="medi_hana_interest_area" value="" />
         <p class="hidden"><label>Don’t fill this out: <input name="bot-field" /></label></p>
 
         <label>
@@ -424,6 +455,7 @@
     </footer>
   </main>
 
+  <script src="/public/medi-hana-consult.js" defer></script>
   <script>
     const baseEn = {
       languageLabel: "Language",
@@ -1392,7 +1424,9 @@
       });
     }
 
-    applyLanguage(localStorage.getItem("vrMediTourLang") || "en");
+    const supportedSiteLangs = ["ko", "en", "vi", "ja", "zh"];
+    const savedSiteLang = localStorage.getItem("vrMediTourLang");
+    applyLanguage(supportedSiteLangs.includes(savedSiteLang) ? savedSiteLang : "en");
   </script>
 </body>
 </html>
