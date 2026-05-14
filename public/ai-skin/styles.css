@@ -15,7 +15,7 @@
 .safety{margin-top:10px;color:#fde68a;font-size:13px}details{margin-top:10px}
 @media(max-width:900px){.grid{grid-template-columns:1fr}.camera-card{order:-1}.report-grid{grid-template-columns:1fr}}
 
-.language-select{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap;margin-bottom:14px}.language-label{color:var(--muted);font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}.language-buttons{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}.language-buttons button,.lang-btn{display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;min-width:48px;min-height:48px;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.08);color:#dbeafe;border-radius:999px;padding:4px;box-shadow:0 10px 28px rgba(0,0,0,.2);cursor:pointer;overflow:hidden;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease,background .18s ease}.language-buttons button img,.lang-btn img{width:40px;height:40px;border-radius:999px;object-fit:cover;object-position:72% 24%;border:1px solid rgba(255,255,255,.5);background:#eaf7ff}.lang-btn[data-lang="en"] img{object-position:74% 24%}.lang-btn[data-lang="ko"] img,.lang-btn[data-lang="vi"] img,.lang-btn[data-lang="ja"] img,.lang-btn[data-lang="zh"] img,.lang-btn[data-lang="ar"] img{object-position:72% 24%}.language-buttons button:hover,.language-buttons button:focus-visible,.lang-btn:hover,.lang-btn:focus-visible{border-color:var(--mint);box-shadow:0 0 0 3px rgba(113,240,211,.18),0 14px 30px rgba(0,0,0,.24);outline:none;transform:translateY(-2px)}.language-buttons button.active,.lang-btn.active,.lang-btn.is-active,.lang-btn[aria-pressed="true"]{background:rgba(56,189,248,.22);color:#fff;border-color:rgba(125,211,252,.95);box-shadow:0 0 18px rgba(56,189,248,.75),0 0 0 3px rgba(113,240,211,.22)}
+.language-select{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap;margin-bottom:14px}.language-label{color:var(--muted);font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}.language-buttons{display:flex;flex-wrap:wrap;gap:12px;justify-content:flex-end}.language-buttons button,.lang-btn{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;width:58px;min-width:58px;min-height:64px;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.08);color:#dbeafe;border-radius:18px;padding:5px;box-shadow:0 10px 28px rgba(0,0,0,.2);cursor:pointer;overflow:hidden;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease,background .18s ease}.language-buttons button img,.lang-btn img{width:48px;height:48px;border-radius:999px;object-fit:cover;object-position:72% 24%;border:1px solid rgba(255,255,255,.5);background:#eaf7ff}.lang-btn[data-lang="en"] img{object-position:74% 24%}.lang-btn[data-lang="ko"] img,.lang-btn[data-lang="vi"] img,.lang-btn[data-lang="ja"] img,.lang-btn[data-lang="zh"] img,.lang-btn[data-lang="ar"] img{object-position:72% 24%}.lang-code{color:#e0f2fe;font-size:11px;font-weight:800;letter-spacing:.04em;line-height:1}.language-buttons button:hover,.language-buttons button:focus-visible,.lang-btn:hover,.lang-btn:focus-visible{border-color:var(--mint);box-shadow:0 0 0 3px rgba(113,240,211,.18),0 14px 30px rgba(0,0,0,.24);outline:none;transform:translateY(-2px)}.language-buttons button.active,.lang-btn.active,.lang-btn.is-active,.lang-btn[aria-pressed="true"]{background:rgba(56,189,248,.22);color:#fff;border-color:rgba(125,211,252,1);box-shadow:0 0 22px rgba(56,189,248,.85),0 0 0 3px rgba(113,240,211,.22)}.language-buttons button.active .lang-code,.lang-btn.active .lang-code,.lang-btn.is-active .lang-code,.lang-btn[aria-pressed="true"] .lang-code{color:#fff}
 
 
 
@@ -23,10 +23,10 @@
 .language-buttons {
   display:flex;
   flex-wrap:wrap;
-  gap:.5rem;
+  gap:12px;
 }
 
-@media(max-width:900px){.language-select,.language-buttons{justify-content:flex-start}}
+@media(max-width:900px){.language-select,.language-buttons{justify-content:flex-start}.language-buttons{gap:12px}.language-buttons button,.lang-btn{width:68px;min-width:68px;min-height:76px;border-radius:20px}.language-buttons button img,.lang-btn img{width:58px;height:58px}.lang-code{font-size:12px}}
 
 
 /* Keep the AI skin tool shell LTR; only Arabic text blocks render RTL. */

@@ -76,21 +76,22 @@ button, input, select, textarea { font: inherit; color: inherit; }
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
-.language-buttons { display: flex; flex-wrap: wrap; gap: 8px; }
+.language-buttons { display: flex; flex-wrap: wrap; gap: 12px; }
 .language-buttons button,
 .lang-btn {
   display: inline-flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
-  min-width: 48px;
-  min-height: 48px;
+  gap: 3px;
+  width: 58px;
+  min-width: 58px;
+  min-height: 64px;
   border: 1px solid rgba(202, 222, 255, 0.28);
   background: rgba(255, 255, 255, 0.08);
   color: #eaf3ff;
-  border-radius: 999px;
-  padding: 4px;
+  border-radius: 18px;
+  padding: 5px;
   box-shadow: 0 10px 28px rgba(2, 8, 23, 0.18);
   cursor: pointer;
   overflow: hidden;
@@ -98,8 +99,8 @@ button, input, select, textarea { font: inherit; color: inherit; }
 }
 .language-buttons button img,
 .lang-btn img {
-  width: 40px;
-  height: 40px;
+  width: 48px;
+  height: 48px;
   border-radius: 999px;
   object-fit: cover;
   object-position: 72% 24%;
@@ -112,6 +113,13 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .lang-btn[data-lang="ja"] img { object-position: 72% 24%; }
 .lang-btn[data-lang="zh"] img { object-position: 72% 24%; }
 .lang-btn[data-lang="ar"] img { object-position: 72% 24%; }
+.lang-code {
+  color: #e0f2fe;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
 
 .language-buttons button:hover,
 .language-buttons button:focus-visible,
@@ -128,8 +136,14 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .lang-btn[aria-pressed="true"] {
   background: rgba(56, 189, 248, 0.22);
   color: #051427;
-  border-color: rgba(125, 211, 252, 0.95);
-  box-shadow: 0 0 18px rgba(56, 189, 248, 0.75), 0 0 0 3px rgba(73, 169, 255, 0.24);
+  border-color: rgba(125, 211, 252, 1);
+  box-shadow: 0 0 22px rgba(56, 189, 248, 0.85), 0 0 0 3px rgba(73, 169, 255, 0.24);
+}
+.language-buttons button.active .lang-code,
+.lang-btn.active .lang-code,
+.lang-btn.is-active .lang-code,
+.lang-btn[aria-pressed="true"] .lang-code {
+  color: #ffffff;
 }
 
 .hero-grid { display: grid; gap: 18px; }
@@ -388,13 +402,36 @@ h2 { margin: 0 0 12px; font-size: clamp(1.25rem, 2.5vw, 2rem); }
 .language-buttons {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 12px;
 }
 
 @media (max-width: 640px) {
   .language-buttons {
     width: 100%;
     justify-content: flex-start;
+  }
+
+  .language-buttons {
+    gap: 12px;
+    justify-content: flex-start;
+  }
+
+  .language-buttons button,
+  .lang-btn {
+    width: 68px;
+    min-width: 68px;
+    min-height: 76px;
+    border-radius: 20px;
+  }
+
+  .language-buttons button img,
+  .lang-btn img {
+    width: 58px;
+    height: 58px;
+  }
+
+  .lang-code {
+    font-size: 12px;
   }
 
   .field-grid,
