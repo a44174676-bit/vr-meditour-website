@@ -605,9 +605,8 @@ body.lang-ar .cta-button {
   justify-items: center;
   gap: 14px;
   padding: 18px;
-  background:
-    radial-gradient(circle at 50% 20%, rgba(224, 247, 255, 0.72), rgba(103, 232, 249, 0.16) 34%, transparent 58%),
-    rgba(8, 30, 48, 0.7);
+  background: transparent;
+  background-image: none;
 }
 
 .mh-consult-character-img {
@@ -842,19 +841,33 @@ textarea.mh-consult-input {
   }
 }
 
-.mh-consult-character img,
-.mh-consult-character-img {
-  background: transparent;
-  background-image: none;
+.mh-consult-character,
+.mh-consult-character-panel,
+.mh-consult-character-wrap,
+.mh-consult-character-img-wrap {
+  background: transparent !important;
+  background-image: none !important;
+  background-size: auto !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+.mh-consult-character-img,
+.mh-consult-character img {
+  background: transparent !important;
+  background-image: none !important;
+  background-size: auto !important;
   object-fit: contain;
+  box-shadow: none !important;
 }
 
 /* Medi Hana character-as-speaker refinement */
 .mh-consult-character {
   border: none;
-  background: transparent;
-  background-image: none;
-  box-shadow: none;
+  background: transparent !important;
+  background-image: none !important;
+  background-size: auto !important;
+  box-shadow: none !important;
   backdrop-filter: none;
   padding: 8px 4px 4px;
   align-content: start;
@@ -866,15 +879,16 @@ textarea.mh-consult-input {
   width: 100%;
   background: transparent !important;
   background-image: none !important;
-  border: none;
-  box-shadow: none;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 .mh-consult-character-img,
 .mh-consult-character img {
   background: transparent !important;
   background-image: none !important;
-  box-shadow: none;
+  background-size: auto !important;
+  box-shadow: none !important;
   object-fit: contain;
 }
 
