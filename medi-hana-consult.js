@@ -288,6 +288,7 @@
 
   let mediHanaState = null;
   let isSyncingPageLanguage = false;
+  let introTimerId = null;
 
   document.addEventListener("DOMContentLoaded", () => {
     try {
@@ -306,6 +307,8 @@
     mediHanaState.language = normalized;
     mediHanaState.imageFallbackUsed = false;
     mediHanaState.defaultImageFailed = false;
+    mediHanaState.showIntro = false;
+    clearIntroTimer();
 
     if (options.syncPage !== false) syncPageLanguage(normalized);
     render(mediHanaState.root, mediHanaState.form, mediHanaState);
@@ -327,6 +330,7 @@
       language: getInitialMediHanaLanguage(),
       currentStep: 0,
       summary: false,
+      showIntro: true,
       answers: readInitialAnswers(form),
       missingFields: [],
       imageFallbackUsed: false,
@@ -376,11 +380,13 @@
     form.classList.add("mh-consult-hidden");
     panel.innerHTML = state.summary ? renderSummary(state) : renderStage(state);
     attachImageFallback(panel, state);
+    scheduleIntroQuestionSwap(state);
   }
 
   function renderStage(state) {
     const step = STEPS[state.currentStep];
     const copy = getStepCopy(step.key, state);
+    const bubbleText = getBubbleText(copy, state);
     return `
       <div class="mh-consult-language" role="group" aria-label="${escapeAttr(t("languageSelector", state))}">
         ${SUPPORTED_LANGS.map((lang) => `
@@ -389,12 +395,14 @@
       </div>
       <div class="mh-consult-stage">
         <div class="mh-consult-character">
-          <img class="mh-consult-character-img" src="${MH_IMAGES[state.language]}" alt="Medi Hana" />
-          <div class="mh-consult-bubble">${escapeHtml(t("greeting", state))}</div>
+          <div class="mh-consult-bubble ${state.showIntro ? "is-intro" : ""}">${escapeHtml(bubbleText)}</div>
+          <div class="mh-consult-character-img-wrap">
+            <img class="mh-consult-character-img" src="${MH_IMAGES[state.language]}" alt="Medi Hana" />
+          </div>
         </div>
         <div class="mh-consult-card">
           <p class="mh-consult-step-label">${escapeHtml(t("stepPrefix", state))} ${state.currentStep + 1}. ${escapeHtml(copy.title)}</p>
-          <h3 class="mh-consult-question">${escapeHtml(copy.question)}</h3>
+          <p class="mh-consult-question">${escapeHtml(copy.question)}</p>
           ${renderControl(step, state)}
           <p class="mh-consult-error" role="alert" data-error></p>
           ${renderMappingNotice(state)}
@@ -458,12 +466,35 @@
     `;
   }
 
+  function getBubbleText(copy, state) {
+    if (state.showIntro && state.currentStep === 0 && !state.summary) return t("greeting", state);
+    return copy.question || t("greeting", state);
+  }
+
+  function scheduleIntroQuestionSwap(state) {
+    clearIntroTimer();
+    if (!state.showIntro || state.summary || state.currentStep !== 0 || state.mode !== "hana") return;
+    introTimerId = window.setTimeout(() => {
+      if (!mediHanaState || mediHanaState !== state) return;
+      state.showIntro = false;
+      render(state.root, state.form, state);
+    }, 1400);
+  }
+
+  function clearIntroTimer() {
+    if (!introTimerId) return;
+    window.clearTimeout(introTimerId);
+    introTimerId = null;
+  }
+
   function handleRootClick(event, root, form, state) {
     const target = event.target.closest("button");
     if (!target) return;
 
     if (target.dataset.mode) {
       state.mode = target.dataset.mode;
+      state.showIntro = false;
+      clearIntroTimer();
       render(root, form, state);
       return;
     }
@@ -474,6 +505,8 @@
     }
 
     if (target.dataset.option) {
+      state.showIntro = false;
+      clearIntroTimer();
       const step = STEPS[state.currentStep];
       state.answers[step.key] = target.dataset.option;
       if (step.key === "language") {
@@ -485,6 +518,8 @@
     }
 
     if (target.hasAttribute("data-prev")) {
+      state.showIntro = false;
+      clearIntroTimer();
       state.currentStep = Math.max(0, state.currentStep - 1);
       state.summary = false;
       render(root, form, state);
@@ -492,6 +527,8 @@
     }
 
     if (target.hasAttribute("data-skip")) {
+      state.showIntro = false;
+      clearIntroTimer();
       const step = STEPS[state.currentStep];
       if ((step.key === "messenger" || step.withConsent) && !validateStep(root, state)) return;
       if (!state.answers[step.key]) state.answers[step.key] = "";
@@ -501,11 +538,15 @@
     }
 
     if (target.hasAttribute("data-next")) {
+      state.showIntro = false;
+      clearIntroTimer();
       if (validateStep(root, state)) goNext(root, form, state);
       return;
     }
 
     if (target.hasAttribute("data-edit")) {
+      state.showIntro = false;
+      clearIntroTimer();
       state.summary = false;
       state.currentStep = 0;
       render(root, form, state);
