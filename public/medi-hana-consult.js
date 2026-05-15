@@ -23,7 +23,7 @@
     ko: {
       start: "메디하나와 상담 시작하기",
       quick: "빠른 신청서로 바로 작성하기",
-      progress: "Step {step} / 5",
+      progress: "STEP {step} / 5",
       prev: "이전",
       next: "다음",
       submit: "상담 신청 제출",
@@ -32,6 +32,8 @@
       contactRequired: "전화번호 또는 메신저 연락처 중 하나 이상을 입력해 주세요.",
       emailInvalid: "이메일 형식을 확인해 주세요.",
       agreeRequired: "개인정보 동의가 필요합니다.",
+      submitting: "상담 신청을 준비하고 있습니다. 잠시만 기다려 주세요.",
+      summaryLabels: { type: "문의 유형", interest: "관심 분야", language: "선호 언어", contact: "연락처" },
       placeholders: {
         name: "이름",
         email: "you@example.com",
@@ -53,7 +55,7 @@
     en: {
       start: "Start with Medi Hana",
       quick: "Use quick form instead",
-      progress: "Step {step} / 5",
+      progress: "STEP {step} / 5",
       prev: "Back",
       next: "Next",
       submit: "Submit consultation",
@@ -62,6 +64,8 @@
       contactRequired: "Please enter either a phone number or messenger contact.",
       emailInvalid: "Please check the email format.",
       agreeRequired: "Please agree to the privacy consent.",
+      submitting: "Preparing your consultation request. Please wait a moment.",
+      summaryLabels: { type: "Inquiry type", interest: "Interest area", language: "Preferred language", contact: "Contact" },
       placeholders: { name: "Full name", email: "you@example.com", contact: "Phone, KakaoTalk, WhatsApp, or Zalo", message: "Share symptoms, timing, goals, or questions." },
       steps: [
         { title: "Inquiry type", question: "What consultation do you need?" },
@@ -78,7 +82,7 @@
     vi: {
       start: "Bắt đầu với Medi Hana",
       quick: "Viết mẫu nhanh",
-      progress: "Bước {step} / 5",
+      progress: "BƯỚC {step} / 5",
       prev: "Trước",
       next: "Tiếp",
       submit: "Gửi yêu cầu tư vấn",
@@ -87,6 +91,8 @@
       contactRequired: "Vui lòng nhập số điện thoại hoặc liên hệ messenger.",
       emailInvalid: "Vui lòng kiểm tra định dạng email.",
       agreeRequired: "Vui lòng đồng ý với điều khoản bảo mật.",
+      submitting: "Đang chuẩn bị yêu cầu tư vấn. Vui lòng chờ trong giây lát.",
+      summaryLabels: { type: "Loại tư vấn", interest: "Lĩnh vực quan tâm", language: "Ngôn ngữ ưu tiên", contact: "Liên hệ" },
       placeholders: { name: "Họ tên", email: "you@example.com", contact: "Điện thoại, KakaoTalk, WhatsApp hoặc Zalo", message: "Hãy viết triệu chứng, thời gian mong muốn hoặc câu hỏi." },
       steps: [
         { title: "Loại tư vấn", question: "Bạn muốn tư vấn về điều gì?" },
@@ -103,7 +109,7 @@
     ja: {
       start: "メディハナと相談を始める",
       quick: "クイック申請書を使う",
-      progress: "Step {step} / 5",
+      progress: "STEP {step} / 5",
       prev: "戻る",
       next: "次へ",
       submit: "相談を送信",
@@ -112,6 +118,8 @@
       contactRequired: "電話番号またはメッセンジャー連絡先のいずれかを入力してください。",
       emailInvalid: "メール形式を確認してください。",
       agreeRequired: "個人情報同意が必要です。",
+      submitting: "相談申請を準備しています。少々お待ちください。",
+      summaryLabels: { type: "相談タイプ", interest: "関心分野", language: "希望言語", contact: "連絡先" },
       placeholders: { name: "お名前", email: "you@example.com", contact: "電話番号、KakaoTalk、WhatsApp、Zalo", message: "症状、希望時期、質問を自由にご記入ください。" },
       steps: [
         { title: "相談タイプ", question: "どのような相談をご希望ですか？" },
@@ -137,6 +145,8 @@
       contactRequired: "请至少填写电话或即时通讯联系方式。",
       emailInvalid: "请检查邮箱格式。",
       agreeRequired: "请同意个人信息条款。",
+      submitting: "正在准备咨询申请，请稍候。",
+      summaryLabels: { type: "咨询类型", interest: "关注领域", language: "偏好语言", contact: "联系方式" },
       placeholders: { name: "姓名", email: "you@example.com", contact: "电话、KakaoTalk、WhatsApp 或 Zalo", message: "请填写症状、期望时间或问题。" },
       steps: [
         { title: "咨询类型", question: "您需要哪种咨询？" },
@@ -211,7 +221,7 @@
     els.image.src = IMAGE_BY_LANG[state.lang] || IMAGE_BY_LANG.default;
     els.progress.textContent = copy.progress.replace("{step}", String(state.step + 1));
     els.question.textContent = current.question;
-    els.count.textContent = `${state.step + 1} / 5`;
+    els.count.textContent = copy.progress.replace("{step}", String(state.step + 1));
     els.title.textContent = current.title;
     els.prev.textContent = copy.prev;
     els.next.textContent = copy.next;
@@ -276,6 +286,7 @@
   }
 
   function syncToForm() {
+    const copy = activeCopy();
     const interestIndex = VALUE_MAP.interestAreas.indexOf(state.answers.interestArea);
     const existingInterest = VALUE_MAP.existingInterest[interestIndex] || "Wellness & Recovery";
     const isHospital = state.answers.consultType === "병원 연결";
@@ -292,7 +303,8 @@
     setFormValue("phone", state.answers.contact);
     setFormValue("messenger", state.answers.contact);
     setFormValue("interested_field", existingInterest);
-    setFormValue("message", `[Medi Hana 5-step]\n문의 유형: ${state.answers.consultType}\n관심 분야: ${state.answers.interestArea}\n선호 언어: ${state.answers.language}\n연락처: ${state.answers.contact}\n\n${state.answers.message}`);
+    const summary = copy.summaryLabels || COPY.en.summaryLabels;
+    setFormValue("message", `[Medi Hana 5-step]\n${summary.type}: ${state.answers.consultType}\n${summary.interest}: ${state.answers.interestArea}\n${summary.language}: ${state.answers.language}\n${summary.contact}: ${state.answers.contact}\n\n${state.answers.message}`);
     setCheckbox("privacy_agreement", state.answers.agree);
   }
 
@@ -308,9 +320,12 @@
   }
 
   function setLanguage(lang) {
+    const previousLanguage = state.answers.language;
+    const wasAutoLanguage = !previousLanguage || Object.values(LANGUAGE_VALUES).includes(previousLanguage);
     state.lang = normalizeLang(lang);
-    if (!state.answers.language) state.answers.language = LANGUAGE_VALUES[state.lang];
+    if (wasAutoLanguage) state.answers.language = LANGUAGE_VALUES[state.lang];
     renderStaticLabels();
+    renderMode();
     renderStep();
   }
 
@@ -349,6 +364,7 @@
   els.submit.addEventListener("click", () => {
     if (!validateStep()) return;
     syncToForm();
+    setError(activeCopy().submitting || "");
     form.requestSubmit();
   });
 
@@ -366,6 +382,10 @@
       if (button) window.setTimeout(() => setLanguage(button.dataset.lang), 0);
     });
   }
+
+  window.addEventListener("vrmt:language-change", (event) => {
+    if (event.detail?.lang) setLanguage(event.detail.lang);
+  });
 
   form.addEventListener("submit", validateQuickContact, true);
 
