@@ -49,6 +49,11 @@
   status = 200
 # SEO landing pages stored under /public and exposed at root-level URLs.
 [[redirects]]
+  from = "/medical-travel-guide.html"
+  to = "/public/medical-travel-guide.html"
+  status = 200
+
+[[redirects]]
   from = "/vietnam-korea-medical-tourism.html"
   to = "/public/vietnam-korea-medical-tourism.html"
   status = 200
