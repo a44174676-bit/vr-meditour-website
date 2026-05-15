@@ -47,3 +47,64 @@
   from = "/company-profile.js"
   to = "/public/company-profile.js"
   status = 200
+# SEO landing pages stored under /public and exposed at root-level URLs.
+[[redirects]]
+  from = "/vietnam-korea-medical-tourism.html"
+  to = "/public/vietnam-korea-medical-tourism.html"
+  status = 200
+
+[[redirects]]
+  from = "/korea-dermatology-medical-tourism.html"
+  to = "/public/korea-dermatology-medical-tourism.html"
+  status = 200
+
+[[redirects]]
+  from = "/busan-medical-tourism-itinerary.html"
+  to = "/public/busan-medical-tourism-itinerary.html"
+  status = 200
+
+[[redirects]]
+  from = "/gangnam-kbeauty-consultation.html"
+  to = "/public/gangnam-kbeauty-consultation.html"
+  status = 200
+
+[[redirects]]
+  from = "/ai-skin-analysis-kbeauty.html"
+  to = "/public/ai-skin-analysis-kbeauty.html"
+  status = 200
+
+[[redirects]]
+  from = "/foreign-patient-consultation-process.html"
+  to = "/public/foreign-patient-consultation-process.html"
+  status = 200
+
+[[redirects]]
+  from = "/medical-tourism-cost-guide.html"
+  to = "/public/medical-tourism-cost-guide.html"
+  status = 200
+
+[[redirects]]
+  from = "/korea-health-checkup-for-foreigners.html"
+  to = "/public/korea-health-checkup-for-foreigners.html"
+  status = 200
+
+[[redirects]]
+  from = "/korean-hospital-appointment-guide.html"
+  to = "/public/korean-hospital-appointment-guide.html"
+  status = 200
+
+[[redirects]]
+  from = "/kbeauty-tour-korea.html"
+  to = "/public/kbeauty-tour-korea.html"
+  status = 200
+
+[[redirects]]
+  from = "/vietnamese-patient-korea-skin-clinic.html"
+  to = "/public/vietnamese-patient-korea-skin-clinic.html"
+  status = 200
+
+[[redirects]]
+  from = "/safe-medical-travel-korea.html"
+  to = "/public/safe-medical-travel-korea.html"
+  status = 200
+
