@@ -6,6 +6,13 @@
   <title>VR MEDI TOUR &amp; HOME | Korea Medical Tourism, K-Beauty &amp; Foreign Patient Consultation</title>
   <meta name="description" content="Korea medical tourism pre-consultation for foreign patients, Vietnam clients, K-beauty, Busan and Gangnam medical travel, multilingual coordination, and AI skin analysis guidance by VR MEDI TOUR & HOME." />
   <link rel="canonical" href="https://vr-meditour.com/" />
+  <link rel="alternate" hreflang="en" href="https://vr-meditour.com/" />
+  <link rel="alternate" hreflang="ko" href="https://vr-meditour.com/?lang=ko" />
+  <link rel="alternate" hreflang="vi" href="https://vr-meditour.com/?lang=vi" />
+  <link rel="alternate" hreflang="ja" href="https://vr-meditour.com/?lang=ja" />
+  <link rel="alternate" hreflang="zh" href="https://vr-meditour.com/?lang=zh" />
+  <link rel="alternate" hreflang="x-default" href="https://vr-meditour.com/" />
+  <!-- TODO: Replace query-based hreflang URLs with dedicated localized URLs when multilingual routes are published. -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="VR MEDI TOUR & HOME | Korea Medical Tourism, K-Beauty & Foreign Patient Consultation" />
   <meta property="og:description" content="Foreign patient pre-consultation, K-beauty and Korea medical travel coordination for Busan, Gangnam, Vietnam clients, and AI-assisted skin analysis guidance." />
@@ -434,12 +441,12 @@
         <label>
           <span data-i18n="fLanguage">Preferred language</span>
           <select name="preferred_language" id="preferredLanguage" required>
-            <option value="English">English</option>
-            <option value="한국어">한국어</option>
-            <option value="Tiếng Việt">Tiếng Việt</option>
-            <option value="日本語">日本語</option>
-            <option value="中文">中文</option>
-            <option value="العربية">العربية</option>
+            <option value="English" data-i18n-option="langEnglish">English</option>
+            <option value="한국어" data-i18n-option="langKorean">한국어</option>
+            <option value="Tiếng Việt" data-i18n-option="langVietnamese">Tiếng Việt</option>
+            <option value="日本語" data-i18n-option="langJapanese">日本語</option>
+            <option value="中文" data-i18n-option="langChinese">中文</option>
+            <option value="العربية" data-i18n-option="langArabic">العربية</option>
           </select>
         </label>
 
@@ -683,6 +690,12 @@
       formTitle: "Consultation Request Form",
       fInquiryType: "Inquiry type",
       fLanguage: "Preferred language",
+      langEnglish: "English",
+      langKorean: "Korean",
+      langVietnamese: "Vietnamese",
+      langJapanese: "Japanese",
+      langChinese: "Chinese",
+      langArabic: "Arabic",
       fName: "Name",
       fCountry: "Country",
       fContact: "E-mail",
@@ -826,6 +839,12 @@
       formTitle: "상담 신청서",
       fInquiryType: "문의 유형",
       fLanguage: "선호 언어",
+      langEnglish: "영어",
+      langKorean: "한국어",
+      langVietnamese: "베트남어",
+      langJapanese: "일본어",
+      langChinese: "중국어",
+      langArabic: "아랍어",
       fName: "이름",
       fCountry: "국가",
       fContact: "이메일",
@@ -960,6 +979,12 @@
       formTitle: "Mẫu yêu cầu tư vấn",
       fInquiryType: "Loại yêu cầu",
       fLanguage: "Ngôn ngữ ưu tiên",
+      langEnglish: "Tiếng Anh",
+      langKorean: "Tiếng Hàn",
+      langVietnamese: "Tiếng Việt",
+      langJapanese: "Tiếng Nhật",
+      langChinese: "Tiếng Trung",
+      langArabic: "Tiếng Ả Rập",
       fName: "Họ tên",
       fCountry: "Quốc gia",
       fContact: "E-mail",
@@ -1088,6 +1113,12 @@
       formTitle: "相談申請フォーム",
       fInquiryType: "問い合わせ区分",
       fLanguage: "希望言語",
+      langEnglish: "英語",
+      langKorean: "韓国語",
+      langVietnamese: "ベトナム語",
+      langJapanese: "日本語",
+      langChinese: "中国語",
+      langArabic: "アラビア語",
       fName: "お名前",
       fCountry: "国",
       fContact: "メール",
@@ -1216,6 +1247,12 @@
       formTitle: "咨询申请表",
       fInquiryType: "咨询类型",
       fLanguage: "偏好语言",
+      langEnglish: "英语",
+      langKorean: "韩语",
+      langVietnamese: "越南语",
+      langJapanese: "日语",
+      langChinese: "中文",
+      langArabic: "阿拉伯语",
       fName: "姓名",
       fCountry: "国家",
       fContact: "电子邮箱",
@@ -1352,6 +1389,12 @@
       formTitle: "نموذج طلب الاستشارة",
       fInquiryType: "نوع الاستفسار",
       fLanguage: "اللغة المفضلة",
+      langEnglish: "الإنجليزية",
+      langKorean: "الكورية",
+      langVietnamese: "الفيتنامية",
+      langJapanese: "اليابانية",
+      langChinese: "الصينية",
+      langArabic: "العربية",
       fName: "الاسم",
       fCountry: "البلد",
       fContact: "البريد الإلكتروني",
@@ -1679,7 +1722,9 @@
       });
 
       document.querySelectorAll(".language-buttons button").forEach((btn) => {
-        btn.classList.toggle("active", btn.dataset.lang === active);
+        const selected = btn.dataset.lang === active;
+        btn.classList.toggle("active", selected);
+        btn.setAttribute("aria-pressed", selected ? "true" : "false");
       });
 
       const languageSelect = document.getElementById("preferredLanguage");
@@ -1783,9 +1828,18 @@
       });
     }
 
+    function getQueryLang() {
+      try {
+        return new URLSearchParams(window.location.search).get("lang");
+      } catch (error) {
+        return null;
+      }
+    }
+
     const supportedSiteLangs = ["ko", "en", "vi", "ja", "zh"];
+    const querySiteLang = getQueryLang();
     const savedSiteLang = localStorage.getItem("vrMediTourLang");
-    applyLanguage(supportedSiteLangs.includes(savedSiteLang) ? savedSiteLang : "en");
+    applyLanguage(supportedSiteLangs.includes(querySiteLang) ? querySiteLang : (supportedSiteLangs.includes(savedSiteLang) ? savedSiteLang : "en"));
   </script>
 </body>
 </html>
