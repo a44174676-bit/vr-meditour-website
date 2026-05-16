@@ -17,38 +17,14 @@
 
 .language-select{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap;margin-bottom:14px}.language-label{color:var(--muted);font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}.language-buttons{display:flex;flex-wrap:wrap;gap:12px;justify-content:flex-end}.language-buttons button,.lang-btn{display:inline-flex;align-items:center;justify-content:center;width:72px;height:72px;min-width:72px;min-height:72px;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.08);color:#dbeafe;border-radius:999px;padding:6px;box-shadow:0 10px 28px rgba(0,0,0,.2);cursor:pointer;overflow:hidden;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease,background .18s ease}.language-buttons button img,.lang-btn img{width:60px;height:60px;border-radius:999px;object-fit:cover;object-position:72% 24%;border:1px solid rgba(255,255,255,.5);background:#eaf7ff}.lang-btn[data-lang="en"] img{object-position:74% 24%}.lang-btn[data-lang="ko"] img,.lang-btn[data-lang="vi"] img,.lang-btn[data-lang="ja"] img,.lang-btn[data-lang="zh"] img,.lang-btn[data-lang="ar"] img{object-position:72% 24%}.language-buttons button:hover,.language-buttons button:focus-visible,.lang-btn:hover,.lang-btn:focus-visible{border-color:var(--mint);box-shadow:0 0 0 3px rgba(113,240,211,.18),0 14px 30px rgba(0,0,0,.24);outline:none;transform:translateY(-2px)}.language-buttons button.active,.lang-btn.active,.lang-btn.is-active,.lang-btn[aria-pressed="true"]{background:rgba(56,189,248,.18);color:#fff;border-color:rgba(125,211,252,1);box-shadow:0 0 24px rgba(56,189,248,.9),0 0 0 3px rgba(113,240,211,.22)}
 
-
+.ai-booth-link{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,420px);gap:24px;align-items:center;margin:32px 0 28px;padding:28px;border:1px solid rgba(125,211,252,.28);border-radius:24px;background:radial-gradient(circle at 10% 0%,rgba(125,211,252,.18),transparent 34%),linear-gradient(145deg,rgba(15,23,42,.92),rgba(2,8,23,.86));box-shadow:0 24px 70px rgba(0,0,0,.28)}.ai-booth-link__eyebrow{margin:0 0 10px;color:#7dd3fc;font-size:.78rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase}.ai-booth-link h2{margin:0 0 12px;color:#f8fafc;font-size:clamp(1.6rem,3vw,2.4rem);line-height:1.18;letter-spacing:-.04em}.ai-booth-link p{color:#cbd5e1}.ai-booth-link__notice{display:inline-block;margin:12px 0 18px;padding:10px 12px;border:1px solid rgba(125,211,252,.28);border-radius:14px;background:rgba(125,211,252,.08);font-size:.92rem}.ai-booth-link__button{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 18px;border-radius:999px;background:linear-gradient(135deg,#7dd3fc,#d9b978);color:#020617;font-weight:800;text-decoration:none}.ai-booth-link__media{margin:0;overflow:hidden;border-radius:20px;border:1px solid rgba(226,232,240,.18);background:rgba(255,255,255,.06)}.ai-booth-link__media img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}.ai-booth-link__media figcaption{padding:10px 12px;color:#94a3b8;font-size:.82rem;border-top:1px solid rgba(226,232,240,.14)}
 
 .language-switcher,
-.language-buttons {
-  display:flex;
-  flex-wrap:wrap;
-  gap:12px;
-}
+.language-buttons {display:flex;flex-wrap:wrap;gap:12px;}
 
-@media(max-width:900px){.language-select,.language-buttons{justify-content:flex-start}.language-buttons{gap:12px}.language-buttons button,.lang-btn{width:84px;height:84px;min-width:84px;min-height:84px}.language-buttons button img,.lang-btn img{width:72px;height:72px}}
-
+@media(max-width:900px){.language-select,.language-buttons{justify-content:flex-start}.language-buttons{gap:12px}.language-buttons button,.lang-btn{width:84px;height:84px;min-width:84px;min-height:84px}.language-buttons button img,.lang-btn img{width:72px;height:72px}.ai-booth-link{grid-template-columns:1fr;padding:22px;margin:30px 0}.ai-booth-link__button{width:100%}}
 
 /* Keep the AI skin tool shell LTR; only Arabic text blocks render RTL. */
-html[lang="ar"],
-html[lang="ar"] body,
-html[lang="ar"] .page,
-html[lang="ar"] .hero,
-html[lang="ar"] .container {
-  direction: ltr;
-}
-
-html[lang="ar"] [data-i18n],
-html[lang="ar"] .report-item,
-html[lang="ar"] .safety {
-  direction: rtl;
-  unicode-bidi: plaintext;
-  text-align: right;
-}
-
-html[lang="ar"] .language-buttons,
-html[lang="ar"] .report-grid,
-html[lang="ar"] .actions {
-  direction: ltr;
-}
-
+html[lang="ar"],html[lang="ar"] body,html[lang="ar"] .page,html[lang="ar"] .hero,html[lang="ar"] .container {direction:ltr;}
+html[lang="ar"] [data-i18n],html[lang="ar"] .report-item,html[lang="ar"] .safety {direction:rtl;unicode-bidi:plaintext;text-align:right;}
+html[lang="ar"] .language-buttons,html[lang="ar"] .report-grid,html[lang="ar"] .actions {direction:ltr;}
