@@ -1,0 +1,3 @@
+/ai-skin-booth              /public/ai-skin-booth/              301
+/ai-skin-booth/*            /public/ai-skin-booth/:splat       200
+/assets/ai-skin-booth/*     /public/assets/ai-skin-booth/:splat 200!
