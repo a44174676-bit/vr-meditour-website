@@ -12,12 +12,13 @@
   };
 
   const MH_IMAGES = {
-    ko: "/assets/medi-hana/medi-hana-ko.png",
-    en: "/assets/medi-hana/medi-hana-en.png",
-    vi: "/assets/medi-hana/medi-hana-vi.png",
-    jp: "/assets/medi-hana/medi-hana-jp.png",
-    cn: "/assets/medi-hana/medi-hana-cn.png",
-    default: "/assets/medi-hana/medi-hana-default.png"
+    ko: "/public/assets/medi-hana/medi-hana-ko.png?v=3",
+    en: "/public/assets/medi-hana/medi-hana-en.png?v=3",
+    vi: "/public/assets/medi-hana/medi-hana-vi.png?v=3",
+    jp: "/public/assets/medi-hana/medi-hana-jp.png?v=3",
+    cn: "/public/assets/medi-hana/medi-hana-cn.png?v=3",
+    ar: "/public/assets/medi-hana/medi-hana-ar.png?v=3",
+    default: "/public/assets/medi-hana/medi-hana-default.png?v=3"
   };
 
   const FIELD_CANDIDATES = {
