@@ -10,14 +10,47 @@
   status = 200
   force = true
 
+# AI Skin is stored under /public while the site publishes from the repository
+# root. Keep /ai-skin/ as the customer-facing URL and use one-way rewrites only;
+# do not redirect to /public/ai-skin/ or wildcard-rewrite all files to index.html.
 [[redirects]]
   from = "/ai-skin"
-  to = "/public/ai-skin/"
-  status = 301
+  to = "/public/ai-skin/index.html"
+  status = 200
 
 [[redirects]]
-  from = "/ai-skin/*"
-  to = "/public/ai-skin/:splat"
+  from = "/ai-skin/"
+  to = "/public/ai-skin/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/ai-skin/index.html"
+  to = "/public/ai-skin/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/ai-skin/styles.css"
+  to = "/public/ai-skin/styles.css"
+  status = 200
+
+[[redirects]]
+  from = "/ai-skin/script.js"
+  to = "/public/ai-skin/script.js"
+  status = 200
+
+[[redirects]]
+  from = "/ai-skin/manifest.webmanifest"
+  to = "/public/ai-skin/manifest.webmanifest"
+  status = 200
+
+[[redirects]]
+  from = "/ai-skin/service-worker.js"
+  to = "/public/ai-skin/service-worker.js"
+  status = 200
+
+[[redirects]]
+  from = "/ai-skin/icons/*"
+  to = "/public/ai-skin/icons/:splat"
   status = 200
 
 [[redirects]]
