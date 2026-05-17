@@ -2,21 +2,21 @@
   "name": "VR MEDI TOUR AI Skin",
   "short_name": "AI Skin",
   "description": "AI skin analysis experience for VR MEDI TOUR & HOME.",
-  "start_url": "/public/ai-skin/",
-  "scope": "/public/ai-skin/",
+  "start_url": "/ai-skin/",
+  "scope": "/ai-skin/",
   "display": "standalone",
   "background_color": "#0b1220",
   "theme_color": "#0f766e",
   "orientation": "portrait",
   "icons": [
     {
-      "src": "/public/ai-skin/icons/icon-192.png",
+      "src": "/ai-skin/icons/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/public/ai-skin/icons/icon-512.png",
+      "src": "/ai-skin/icons/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"

@@ -5,8 +5,8 @@
   <title>AI 피부 분석 & 케어 컨시어지 | VR MEDI TOUR</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="canonical" href="https://vr-meditour.com/ai-skin/" />
-  <link rel="manifest" href="/public/ai-skin/manifest.webmanifest" />
-  <link rel="apple-touch-icon" href="/public/ai-skin/icons/icon-192.png">
+  <link rel="manifest" href="/ai-skin/manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="/ai-skin/icons/icon-192.png">
   <meta name="theme-color" content="#0f766e" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -57,6 +57,17 @@
           <span class="badge" data-i18n="badgeConsult">전문 상담 연계 가능</span>
         </div>
 
+        <section id="vrmtPremiumPanel" class="premium-panel" hidden aria-live="polite">
+          <div class="premium-access-badge">Premium Access 확인 완료</div>
+          <h2>부산 굿즈 구매 고객 전용 AI K-뷰티 컨시어지 리포트가 활성화되었습니다.</h2>
+          <p>
+            카메라로 얼굴 사진을 촬영하면 무료 분석보다 자세한 피부 컨디션 참고 리포트, K-뷰티 루틴, 제품 카테고리, 한국 상담 준비 체크리스트를 확인할 수 있습니다.
+          </p>
+          <p class="privacy-notice">
+            촬영 이미지는 피부 컨디션 리포트 생성을 위한 참고 자료로만 사용됩니다. 기본 설정에서는 장기 저장하지 않으며, 상담 또는 이메일 리포트 수신을 신청하는 경우 별도 동의가 필요합니다.
+          </p>
+        </section>
+
         <section class="ai-booth-link" aria-labelledby="aiBoothLinkTitle">
           <div class="ai-booth-link__copy">
             <p class="ai-booth-link__eyebrow">Offline Expansion Model</p>
@@ -83,12 +94,21 @@
 
         <div class="grid">
           <section class="card">
-            <p class="guide" data-i18n="guide">카메라를 시작한 뒤 얼굴을 가이드에 맞추고 AI 판별 촬영을 눌러 주세요.</p>
+            <p class="guide" data-i18n="guide" data-premium-i18n="premiumGuide">카메라를 시작한 뒤 얼굴을 가이드에 맞추고 AI 판별 촬영을 눌러 주세요.</p>
             <div class="actions">
               <button id="vrmtStartCameraBtn" class="btn primary" type="button" data-i18n="startBtn">카메라 시작</button>
               <button id="vrmtCaptureBtn" class="btn" type="button" data-i18n="captureBtn">AI 판별 촬영</button>
             </div>
-            <p id="vrmtStatus" class="status" data-i18n="statusInit">카메라를 시작한 뒤 얼굴을 가이드에 맞추고 AI 판별 촬영을 눌러 주세요.</p>
+            <div id="vrmtPremiumQuality" class="quality-panel" hidden></div>
+            <label class="premium-confirm">
+              <input id="vrmtPremiumConfirm" type="checkbox" />
+              <span>본 서비스가 의료 진단이 아닌 피부 컨디션 참고 리포트임을 확인했습니다.</span>
+            </label>
+            <div class="actions premium-actions">
+              <button id="vrmtRetakeBtn" class="btn" type="button">다시 촬영하기</button>
+              <button id="vrmtPremiumAnalyzeBtn" class="btn primary" type="button" disabled>프리미엄 분석 시작</button>
+            </div>
+            <p id="vrmtStatus" class="status" data-i18n="statusInit" data-premium-i18n="premiumStatusInit">카메라를 시작한 뒤 얼굴을 가이드에 맞추고 AI 판별 촬영을 눌러 주세요.</p>
           </section>
 
           <section class="card camera-card">
@@ -115,7 +135,7 @@
   <script>
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
-        navigator.serviceWorker.register("/public/ai-skin/service-worker.js")
+        navigator.serviceWorker.register("/ai-skin/service-worker.js")
           .catch((error) => {
             console.warn("Service worker registration failed:", error);
           });

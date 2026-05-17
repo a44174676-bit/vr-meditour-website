@@ -12,8 +12,13 @@
 
 [[redirects]]
   from = "/ai-skin"
-  to = "/public/ai-skin/"
+  to = "/ai-skin/"
   status = 301
+
+[[redirects]]
+  from = "/ai-skin/"
+  to = "/public/ai-skin/index.html"
+  status = 200
 
 [[redirects]]
   from = "/ai-skin/*"
