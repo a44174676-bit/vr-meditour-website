@@ -19,11 +19,8 @@
   let qrScanStream = null;
   let qrScanTimer = null;
 
-  const params = new URLSearchParams(window.location.search);
-  const premiumCode = params.get('premium');
-  const isPremium = premiumCode === 'BUSANBLUE';
-  const hasInvalidPremium = premiumCode && !isPremium;
-  let premiumUnlocked = isPremium;
+  const premiumAccessCode = 'BUSANBLUE';
+  let premiumUnlocked = false;
   const supported = ['ko', 'en', 'vi', 'ja', 'jp', 'zh', 'cn', 'ar'];
   const medicalSafetyNotice = '본 리포트는 의료 진단이 아닙니다. 카메라 이미지 기반의 비의료적 피부 컨디션 참고 자료이며, 질병의 진단, 치료, 예방 또는 의료적 판단을 제공하지 않습니다. 최종 진료 및 치료 판단은 의료기관 상담을 통해 이루어져야 합니다.';
   const privacyNotice = '촬영 이미지는 피부 컨디션 리포트 생성을 위한 참고 자료로만 사용됩니다. 기본 설정에서는 장기 저장하지 않으며, 상담 또는 이메일 리포트 수신을 신청하는 경우 별도 동의가 필요합니다.';
@@ -35,6 +32,7 @@
   let lastReportMode = null;
   let lastErrorReport = null;
   let pendingPremiumImage = null;
+  let pendingPremiumFreeAnalysis = null;
   let qualityReady = false;
 
   const translations = {
@@ -176,13 +174,12 @@
     document.documentElement.lang = currentLanguage;
     document.documentElement.dir = 'ltr';
     document.querySelectorAll('[data-i18n]').forEach((el) => {
-      const key = isPremium && el.dataset.premiumI18n ? el.dataset.premiumI18n : el.dataset.i18n;
+      const key = premiumUnlocked && el.dataset.premiumI18n ? el.dataset.premiumI18n : el.dataset.i18n;
       const translated = t(key);
       if (translated) el.textContent = translated;
     });
     document.querySelectorAll('#languageButtons button').forEach((b) => b.classList.toggle('active', b.dataset.lang === currentLanguage));
-    captureBtn.textContent = captureBtn.disabled ? t('captureLoading') : t(isPremium ? 'premiumCaptureBtn' : 'captureBtn');
-    if (hasInvalidPremium && !lastAnalysis && !lastErrorReport) statusEl.textContent = t('statusInvalidPremium');
+    captureBtn.textContent = captureBtn.disabled ? t('captureLoading') : t(premiumUnlocked ? 'premiumCaptureBtn' : 'captureBtn');
     localStorage.setItem('vrmtAiSkinLang', currentLanguage);
     configureMode();
     bindPremiumControlEvents();
@@ -252,12 +249,9 @@
     renderModeShell();
     document.body.classList.toggle('premium-mode', premiumUnlocked);
     document.body.classList.toggle('free-mode', !premiumUnlocked);
-    document.body.classList.toggle('invalid-premium-mode', Boolean(hasInvalidPremium));
-    captureBtn.textContent = t(isPremium ? 'premiumCaptureBtn' : 'captureBtn');
-    if (isPremium) {
+    captureBtn.textContent = t(premiumUnlocked ? 'premiumCaptureBtn' : 'captureBtn');
+    if (premiumUnlocked) {
       statusEl.textContent = t('premiumStatusInit');
-    } else if (hasInvalidPremium) {
-      statusEl.textContent = t('statusInvalidPremium');
     }
   }
 
@@ -274,7 +268,7 @@
   function setLoading(v) {
     captureBtn.disabled = v;
     if (premiumAnalyzeBtn && premiumConfirm) premiumAnalyzeBtn.disabled = v || !qualityReady || !premiumConfirm.checked;
-    captureBtn.textContent = v ? t('captureLoading') : t(isPremium ? 'premiumCaptureBtn' : 'captureBtn');
+    captureBtn.textContent = v ? t('captureLoading') : t(premiumUnlocked ? 'premiumCaptureBtn' : 'captureBtn');
     if (premiumAnalyzeBtn) premiumAnalyzeBtn.textContent = v ? t('premiumGenerating') : t('premiumAnalyzeStart');
   }
 
@@ -356,6 +350,7 @@
 
   function resetPremiumCapture() {
     pendingPremiumImage = null;
+    pendingPremiumFreeAnalysis = null;
     qualityReady = false;
     if (premiumConfirm) premiumConfirm.checked = false;
     if (premiumQuality) premiumQuality.hidden = true;
@@ -365,7 +360,7 @@
   }
 
   function updatePremiumAnalyzeState() {
-    const enabled = Boolean(isPremium && pendingPremiumImage && qualityReady && premiumConfirm?.checked);
+    const enabled = Boolean(premiumUnlocked && pendingPremiumImage && qualityReady && premiumConfirm?.checked);
     if (premiumAnalyzeBtn) premiumAnalyzeBtn.disabled = !enabled;
     if (premiumReportBtn) premiumReportBtn.disabled = !enabled;
     premiumQuality?.querySelector('#vrmtPremiumAnalyzeBtnInline')?.toggleAttribute('disabled', !enabled);
@@ -374,14 +369,14 @@
   async function runPremiumAnalysis() {
     if (!pendingPremiumImage || !qualityReady || !premiumConfirm?.checked) return;
     setLoading(true);
-    try { await analyze(pendingPremiumImage); } finally { setLoading(false); }
+    try { await analyze(pendingPremiumImage, pendingPremiumFreeAnalysis); } finally { setLoading(false); }
   }
 
   async function analyze(imageBase64, sourceFreeAnalysis = null, options = {}) {
     setStatus('statusAnalyzing', true);
     const requestPremium = premiumUnlocked && !options.forceFree;
     const body = requestPremium
-      ? { imageBase64, image: imageBase64, mode: 'premium', premium: 'BUSANBLUE', language: currentLanguage, freeAnalysis: sourceFreeAnalysis }
+      ? { imageBase64, image: imageBase64, mode: 'premium', premium: premiumAccessCode, language: currentLanguage, freeAnalysis: sourceFreeAnalysis }
       : { imageBase64, image: imageBase64, mode: 'free', language: currentLanguage };
     try {
       const res = await fetch('/.netlify/functions/analyze-skin', {
@@ -527,6 +522,7 @@
       return;
     }
     pendingPremiumImage = recent.imageBase64;
+    pendingPremiumFreeAnalysis = recent.analysis || null;
     qualityReady = true;
     if (premiumConfirm) premiumConfirm.checked = true;
     if (premiumQuality) {
@@ -547,7 +543,16 @@
   }
 
   function isValidPremiumQr(value) {
-    return /BUSANBLUE|premium=BUSANBLUE/i.test(String(value || ''));
+    const raw = String(value || '').trim();
+    if (!raw) return false;
+    if (raw.toUpperCase() === premiumAccessCode) return true;
+    try {
+      const url = new URL(raw, window.location.origin);
+      const source = url.searchParams.get('source') || url.searchParams.get('utm_source') || '';
+      return url.searchParams.get('premium') === premiumAccessCode && /goods|busanblue|qr/i.test(source);
+    } catch (_) {
+      return /BUSANBLUE-GOODS-QR/i.test(raw);
+    }
   }
 
   function stopQrScanner() {
@@ -643,6 +648,5 @@
     startBtn?.addEventListener('click', startCamera);
     captureBtn?.addEventListener('click', capture);
     bindPremiumControlEvents();
-    if (isPremium) preparePremiumReportAfterAuth();
   });
 }());
