@@ -148,6 +148,39 @@
   Object.assign(translations.vi, { premiumPanelDesc:'Chụp ảnh khuôn mặt để xem báo cáo tham khảo tình trạng da chi tiết hơn, routine K-beauty, danh mục sản phẩm và checklist tư vấn tại Hàn Quốc.', privacyNotice:'Ảnh chụp chỉ được dùng làm tư liệu tham khảo để tạo báo cáo tình trạng da và mặc định không lưu lâu dài.', premiumConfirmText:'Tôi xác nhận đây là báo cáo tham khảo tình trạng da, không phải chẩn đoán y tế.', qualityChecking:'Đang kiểm tra chất lượng ảnh...', qualityCenter:'Khuôn mặt ở giữa màn hình', qualityLighting:'Ánh sáng không quá tối', qualityDistance:'Khuôn mặt không quá xa', qualityBlur:'Ảnh không bị rung nhiều', qualityMask:'Không đeo khẩu trang hoặc kính râm', qualityGood:'Chất lượng ảnh: Tốt', premiumLockTitle:'Báo cáo Premium đang khóa', premiumLockDesc:'Dựa trên ảnh vừa chụp, bạn có thể xem báo cáo AI K-beauty concierge chi tiết hơn. Quét QR trong hướng dẫn quà Busan để mở báo cáo Premium.', sevenScores:'7 điểm thành phần', topConcerns:'Top 5 mối quan tâm về da', zoneObservation:'Quan sát theo vùng khuôn mặt', morningRoutine:'Routine K-beauty buổi sáng', eveningRoutine:'Routine K-beauty buổi tối', weeklyCare:'Routine chăm sóc hằng tuần', productCategories:'Danh mục sản phẩm gợi ý', consultChecklist:'Checklist chuẩn bị tư vấn K-beauty / du lịch y tế Hàn Quốc', kBeautyConsult:'Đăng ký tư vấn K-beauty', medicalTourConsult:'Đăng ký tư vấn du lịch y tế Hàn Quốc', emailReport:'Nhận báo cáo qua email', backHome:'Quay lại VR MEDI TOUR', hydration:'Ước tính độ ẩm', oilBalance:'Cân bằng dầu', texture:'Độ đều bề mặt da', pores:'Độ thấy rõ lỗ chân lông', redSensitive:'Tín hiệu đỏ/nhạy cảm', toneEvenness:'Độ đều màu da', glow:'Độ rạng rỡ', needFreeCapture:'Cần chụp phân tích da miễn phí trước khi tạo báo cáo Premium.', premiumOpened:'Báo cáo Premium dành cho khách mua quà Busan đã mở.', premiumViewHint:'Nhấn Xem báo cáo Premium để tạo báo cáo chi tiết từ kết quả miễn phí mà không cần chụp lại.' });
   Object.assign(translations.ja, { privacyNotice:'撮影画像は肌コンディションレポート作成の参考資料としてのみ使用され、初期設定では長期保存されません。', premiumConfirmText:'本サービスは医療診断ではなく肌コンディション参考レポートであることを確認しました。', qualityChecking:'写真品質を確認中...', qualityCenter:'顔が画面中央にある', qualityLighting:'照明が暗すぎない', qualityDistance:'顔が遠すぎない', qualityBlur:'ブレが大きくない', qualityMask:'マスクやサングラスがない', qualityGood:'写真品質：良好', premiumLockTitle:'プレミアムレポートロック', premiumLockDesc:'今撮影した写真を基に、より詳しいAI Kビューティーコンシェルジュレポートを確認できます。釜山グッズ案内書のQRをスキャンすると開きます。', sevenScores:'7つのサブスコア', topConcerns:'肌悩みTOP 5', zoneObservation:'顔部位別観察', morningRoutine:'朝のKビューティールーティン', eveningRoutine:'夜のKビューティールーティン', weeklyCare:'週間ケアルーティン', productCategories:'おすすめ製品カテゴリー', consultChecklist:'韓国Kビューティー・医療観光相談準備チェックリスト', kBeautyConsult:'Kビューティー相談申請', medicalTourConsult:'韓国医療観光相談申請', emailReport:'レポートをメールで受け取る', backHome:'VR MEDI TOURホームへ戻る', hydration:'水分感推定', oilBalance:'油分バランス', texture:'肌きめ均一度', pores:'毛穴の見え方', redSensitive:'赤み・敏感サイン', toneEvenness:'トーン均一度', glow:'ツヤ・生気', needFreeCapture:'プレミアムレポート作成には先に無料肌分析撮影が必要です。', premiumOpened:'釜山グッズ購入者専用プレミアムレポートが開きました。', premiumViewHint:'プレミアムレポートを見るを押すと、再撮影せず無料分析結果を基に詳細レポートを作成します。' });
   Object.assign(translations.zh, { privacyNotice:'拍摄图像仅作为生成皮肤状态报告的参考资料，默认不长期保存。', premiumConfirmText:'我确认本服务是皮肤状态参考报告，不是医疗诊断。', qualityChecking:'正在确认照片质量...', qualityCenter:'脸部位于画面中央', qualityLighting:'光线不太暗', qualityDistance:'脸部距离不太远', qualityBlur:'抖动不严重', qualityMask:'未佩戴口罩或太阳镜', qualityGood:'照片质量：良好', premiumLockTitle:'高级报告已锁定', premiumLockDesc:'基于刚拍摄的照片，您可以查看更详细的AI K-Beauty礼宾报告。扫描釜山商品指南中的QR即可打开高级报告。', sevenScores:'7项子分数', topConcerns:'皮肤关注TOP 5', zoneObservation:'面部分区观察', morningRoutine:'早间K-Beauty流程', eveningRoutine:'晚间K-Beauty流程', weeklyCare:'每周护理流程', productCategories:'推荐产品类别', consultChecklist:'韩国K-Beauty·医疗旅游咨询准备清单', kBeautyConsult:'申请K-Beauty咨询', medicalTourConsult:'申请韩国医疗旅游咨询', emailReport:'通过邮件接收报告', backHome:'返回VR MEDI TOUR首页', hydration:'水分感估计', oilBalance:'油脂平衡', texture:'肤质均匀度', pores:'毛孔可见度', redSensitive:'泛红·敏感信号', toneEvenness:'肤色均匀度', glow:'光泽·活力', needFreeCapture:'生成高级报告前需要先完成免费皮肤分析拍摄。', premiumOpened:'釜山商品购买客户专属高级报告已开启。', premiumViewHint:'点击查看高级报告，即可基于免费分析结果生成详细报告，无需重新拍照。' });
+
+  Object.assign(translations.en, {
+    photoQualityTitle:'Photo quality assessment', lighting:'Lighting', facePosition:'Face position', clarity:'Clarity', note:'Reference note',
+    interpretation:'Interpretation', careDirection:'Care direction', whyItMatters:'Why it matters', firstAction:'First action',
+    medicalTourismPreparation:'Before medical-travel consultation', nextBestActions:'Next best actions', consultationCtaTitle:'Consultation CTA',
+    premiumError:'An error occurred during the premium analysis request. Please try again later.',
+    premiumAutoStarting:'BUSANBLUE verified: premium analysis will start automatically with the same photo.',
+    premiumCtaDesc:'Use this premium report to request K-beauty routine guidance or prepare for a Korea visit consultation.',
+  });
+  Object.assign(translations.vi, {
+    photoQualityTitle:'Đánh giá chất lượng ảnh', lighting:'Ánh sáng', facePosition:'Vị trí khuôn mặt', clarity:'Độ rõ nét', note:'Ghi chú tham khảo',
+    interpretation:'Diễn giải', careDirection:'Hướng chăm sóc', whyItMatters:'Vì sao quan trọng', firstAction:'Việc nên làm đầu tiên',
+    medicalTourismPreparation:'Chuẩn bị trước tư vấn du lịch y tế', nextBestActions:'Hành động tiếp theo', consultationCtaTitle:'CTA đăng ký tư vấn',
+    premiumError:'Đã xảy ra lỗi khi yêu cầu phân tích Premium. Vui lòng thử lại sau.',
+    premiumAutoStarting:'Đã xác thực BUSANBLUE: phân tích Premium sẽ tự động bắt đầu với cùng ảnh.',
+    premiumCtaDesc:'Sử dụng báo cáo Premium này để yêu cầu tư vấn routine K-beauty hoặc chuẩn bị tư vấn khi đến Hàn Quốc.',
+  });
+  Object.assign(translations.ja, {
+    photoQualityTitle:'写真品質評価', lighting:'照明', facePosition:'顔の位置', clarity:'鮮明度', note:'参考メモ',
+    interpretation:'解釈', careDirection:'ケア方向', whyItMatters:'重要な理由', firstAction:'最初のアクション',
+    medicalTourismPreparation:'医療観光相談前の準備事項', nextBestActions:'次のおすすめ行動', consultationCtaTitle:'相談申請CTA',
+    premiumError:'プレミアム分析リクエスト中にエラーが発生しました。しばらくしてからもう一度お試しください。',
+    premiumAutoStarting:'BUSANBLUE認証成功：同じ写真でプレミアム分析を自動開始します。',
+    premiumCtaDesc:'このプレミアムレポートを基に、Kビューティールーティン相談または韓国訪問相談の準備を依頼できます。',
+  });
+  Object.assign(translations.zh, {
+    photoQualityTitle:'照片质量评估', lighting:'光线', facePosition:'面部位置', clarity:'清晰度', note:'参考备注',
+    interpretation:'解读', careDirection:'护理方向', whyItMatters:'重要原因', firstAction:'第一步行动',
+    medicalTourismPreparation:'医疗旅游咨询前准备事项', nextBestActions:'下一步建议行动', consultationCtaTitle:'咨询申请 CTA',
+    premiumError:'高级分析请求发生错误。请稍后再试。',
+    premiumAutoStarting:'BUSANBLUE 验证成功：将使用同一张照片自动开始高级分析。',
+    premiumCtaDesc:'可根据此高级报告申请 K-Beauty 流程咨询，或为韩国访问咨询做准备。',
+  });
   translations.cn = translations.zh; translations.jp = translations.ja; translations.ar = translations.en;
 
   function t(k) { return translations[currentLanguage]?.[k] ?? translations.en?.[k] ?? translations.ko?.[k] ?? k; }
