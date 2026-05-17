@@ -23,6 +23,7 @@
   const supported = ['ko', 'en', 'vi', 'ja', 'zh', 'ar'];
   const medicalSafetyNotice = '본 리포트는 의료 진단이 아닙니다. 카메라 이미지 기반의 비의료적 피부 컨디션 참고 자료이며, 질병의 진단, 치료, 예방 또는 의료적 판단을 제공하지 않습니다. 최종 진료 및 치료 판단은 의료기관 상담을 통해 이루어져야 합니다.';
   const privacyNotice = '촬영 이미지는 피부 컨디션 리포트 생성을 위한 참고 자료로만 사용됩니다. 기본 설정에서는 장기 저장하지 않으며, 상담 또는 이메일 리포트 수신을 신청하는 경우 별도 동의가 필요합니다.';
+  const recentCaptureKey = 'vrmtAiSkinRecentFreeCapture';
 
   let stream = null;
   let currentLanguage = 'ko';
@@ -47,7 +48,7 @@
       premiumCaptureBtn: '얼굴 사진 촬영',
       captureLoading: 'AI가 이미지를 분석 중입니다...',
       statusInit: '카메라를 시작한 뒤 얼굴을 가이드에 맞추고 AI 판별 촬영을 눌러 주세요.',
-      premiumStatusInit: 'Premium Access 확인 완료: 카메라를 시작한 뒤 얼굴 사진을 촬영해 주세요.',
+      premiumStatusInit: 'Premium Access 확인 완료: 방금 촬영한 사진이 있으면 새 촬영 없이 프리미엄 리포트를 생성합니다.',
       statusCameraOn: '카메라가 시작되었습니다. 가이드에 맞춘 뒤 촬영해 주세요.',
       statusAnalyzing: 'AI가 이미지를 분석 중입니다...',
       statusDone: 'AI 분석이 완료되었습니다.',
@@ -92,7 +93,7 @@
       premiumCaptureBtn: 'Capture Face Photo',
       captureLoading: 'AI is analyzing the image...',
       statusInit: 'Start the camera, align your face in the guide, then tap AI Capture.',
-      premiumStatusInit: 'Premium Access confirmed: start the camera and capture a face photo.',
+      premiumStatusInit: 'Premium Access confirmed: if a recent photo exists, the premium report is generated without another capture.',
       statusCameraOn: 'Camera started. Align to the guide and capture.',
       statusAnalyzing: 'AI is analyzing the image...',
       statusDone: 'AI analysis is complete.',
@@ -134,6 +135,29 @@
     return Number.isFinite(n) ? Math.max(0, Math.min(100, Math.round(n))) : fallback;
   }
 
+  function saveRecentFreeCapture(imageBase64, freeAnalysis) {
+    try {
+      sessionStorage.setItem(recentCaptureKey, JSON.stringify({
+        imageBase64,
+        freeAnalysis,
+        language: currentLanguage,
+        savedAt: Date.now(),
+      }));
+    } catch (_) {}
+  }
+
+  function getRecentFreeCapture() {
+    try {
+      const saved = JSON.parse(sessionStorage.getItem(recentCaptureKey) || 'null');
+      if (!saved?.imageBase64?.startsWith('data:image/')) return null;
+      const maxAgeMs = 30 * 60 * 1000;
+      if (Date.now() - Number(saved.savedAt || 0) > maxAgeMs) return null;
+      return saved;
+    } catch (_) {
+      return null;
+    }
+  }
+
   function applyLanguage(lang) {
     currentLanguage = supported.includes(lang) ? lang : 'ko';
     document.documentElement.lang = currentLanguage;
@@ -165,11 +189,15 @@
           </p>
         </section>`;
       premiumControls.innerHTML = `
+        <div class="premium-unlock-card" id="vrmtPremiumUnlockCard">
+          <strong>BUSANBLUE 프리미엄 인증 성공</strong>
+          <p>방금 촬영한 사진과 무료 분석 결과가 이 브라우저 세션에 있으면 새로 사진을 찍지 않고 프리미엄 리포트를 생성합니다.</p>
+        </div>
         <div class="premium-step-row" aria-label="Premium analysis steps">
-          <span>1. 카메라 시작</span>
-          <span>2. 사진 촬영</span>
-          <span>3. 사진 품질 확인</span>
-          <span>4. 프리미엄 분석 시작</span>
+          <span>1. 무료 분석 완료</span>
+          <span>2. 굿즈 QR 인증</span>
+          <span>3. 기존 사진 확인</span>
+          <span>4. 프리미엄 리포트 생성</span>
         </div>
         <div id="vrmtPremiumQuality" class="quality-panel" hidden></div>
         <label class="premium-confirm">
@@ -319,10 +347,10 @@
     try { await analyze(pendingPremiumImage); } finally { setLoading(false); }
   }
 
-  async function analyze(imageBase64) {
+  async function analyze(imageBase64, sourceFreeAnalysis = null) {
     setStatus('statusAnalyzing', true);
     const body = isPremium
-      ? { imageBase64, image: imageBase64, mode: 'premium', premium: 'BUSANBLUE', language: currentLanguage }
+      ? { imageBase64, image: imageBase64, mode: 'premium', premium: 'BUSANBLUE', language: currentLanguage, freeAnalysis: sourceFreeAnalysis }
       : { imageBase64, image: imageBase64, mode: 'free', language: currentLanguage };
     try {
       const res = await fetch('/.netlify/functions/analyze-skin', {
@@ -340,6 +368,7 @@
         return;
       }
       lastAnalysis = json.analysis || {};
+      if (!isPremium) saveRecentFreeCapture(imageBase64, lastAnalysis);
       lastErrorReport = null;
       renderReport(lastAnalysis);
       setStatus('statusDone');
@@ -376,7 +405,11 @@
         <div class="report-item"><strong>${esc(t('carePriority'))}</strong><ul>${li(a.care_priority)}</ul></div>
         <div class="report-item"><strong>${esc(t('productDirection'))}</strong><ul>${li(a.recommended_product_direction)}</ul></div>
       </div>
-      <div class="premium-info-card">프리미엄 K-뷰티 컨시어지 리포트는 부산 굿즈 구매 고객에게 제공됩니다. 굿즈 안내서의 QR을 스캔하면 더 자세한 리포트를 확인할 수 있습니다.</div>
+      <div class="premium-info-card">
+        <strong>프리미엄 리포트 잠금</strong>
+        <p>방금 촬영한 사진을 기반으로 더 자세한 AI K-뷰티 컨시어지 리포트를 확인할 수 있습니다. 부산 굿즈 안내서의 QR을 스캔하면 프리미엄 리포트가 열립니다.</p>
+        <a class="btn primary" href="/ai-skin/?premium=BUSANBLUE">굿즈 QR 스캔하기</a>
+      </div>
       <details><summary>${esc(t('devJson'))}</summary><pre>${esc(JSON.stringify(a, null, 2))}</pre></details>
       ${noticeMarkup()}`;
   }
@@ -451,6 +484,25 @@
     return Object.entries(labels).map(([key, label]) => `<div class="report-item"><strong>${label}</strong><p>${esc(zones[key])}</p></div>`).join('');
   }
 
+  async function resumePremiumFromRecentCapture() {
+    if (!isPremium) return;
+    const recent = getRecentFreeCapture();
+    if (!recent) {
+      premiumQuality.hidden = false;
+      premiumQuality.innerHTML = '<h3>최근 무료 분석 사진을 찾을 수 없습니다.</h3><p>같은 브라우저에서 무료 분석을 먼저 완료하거나, 아래 카메라로 다시 촬영해 주세요.</p>';
+      return;
+    }
+    pendingPremiumImage = recent.imageBase64;
+    qualityReady = true;
+    if (premiumConfirm) premiumConfirm.checked = true;
+    if (premiumQuality) {
+      premiumQuality.hidden = false;
+      premiumQuality.innerHTML = '<h3>프리미엄 인증 성공</h3><div class="quality-result good"><strong>방금 촬영한 사진 확인 완료</strong><br>새로 사진을 찍지 않고 무료 분석 결과를 기반으로 프리미엄 리포트를 생성합니다.</div>';
+    }
+    updatePremiumAnalyzeState();
+    await analyze(recent.imageBase64, recent.freeAnalysis || null);
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     configureMode();
     document.querySelectorAll('#languageButtons button').forEach((btn) => btn.addEventListener('click', () => applyLanguage(btn.dataset.lang)));
@@ -461,5 +513,6 @@
     premiumAnalyzeBtn?.addEventListener('click', runPremiumAnalysis);
     retakeBtn?.addEventListener('click', resetPremiumCapture);
     qualityCheckBtn?.addEventListener('click', () => { if (pendingPremiumImage) showQualityCheck(); });
+    resumePremiumFromRecentCapture();
   });
 }());

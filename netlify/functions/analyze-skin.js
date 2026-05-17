@@ -23,8 +23,11 @@ exports.handler = async function (event) {
 
   try {
     const langName = { ko:'Korean', en:'English', vi:'Vietnamese', ja:'Japanese', zh:'Chinese', ar:'Arabic' }[lang];
+    const freeAnalysisContext = body.freeAnalysis
+      ? ` Previous free analysis context for the same photo: ${JSON.stringify(body.freeAnalysis).slice(0, 2500)}`
+      : '';
     const prompt = mode === 'premium'
-      ? `You are a skin and K-beauty reference AI, not a medical diagnostician. Do not identify disease, make medical judgments, promise improvement, or prescribe drugs. Write values in ${langName}. Keep JSON keys in English exactly matching schema. Build a detailed premium K-beauty concierge reference report with practical non-medical skin condition guidance and Korea consultation preparation.`
+      ? `You are a skin and K-beauty reference AI, not a medical diagnostician. Do not identify disease, make medical judgments, promise improvement, or prescribe drugs. Write values in ${langName}. Keep JSON keys in English exactly matching schema. Build a detailed premium K-beauty concierge reference report with practical non-medical skin condition guidance and Korea consultation preparation. Use the image as the primary reference and, when provided, use the prior free analysis only as supporting context.${freeAnalysisContext}`
       : `You are a skin/beauty reference AI, not a medical diagnostician. Do not identify disease, make medical judgments, promise improvement, or prescribe drugs. Write values in ${langName}. Keep JSON keys in English exactly matching schema.`;
     const schema = mode === 'premium' ? premiumSchema : freeSchema;
 
