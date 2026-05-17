@@ -20,6 +20,22 @@
   to = "/public/ai-skin/:splat"
   status = 200
 
+
+[[redirects]]
+  from = "/ai-skin-premium"
+  to = "/public/ai-skin-premium/"
+  status = 301
+
+[[redirects]]
+  from = "/ai-skin-premium/"
+  to = "/public/ai-skin-premium/"
+  status = 200
+
+[[redirects]]
+  from = "/ai-skin-premium/*"
+  to = "/public/ai-skin-premium/:splat"
+  status = 200
+
 [[redirects]]
   from = "/campus-agent"
   to = "/public/campus-agent/"

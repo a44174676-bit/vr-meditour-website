@@ -57,6 +57,30 @@
           <span class="badge" data-i18n="badgeConsult">전문 상담 연계 가능</span>
         </div>
 
+        <section id="vrmtPremiumAccess" class="premium-access card" aria-labelledby="premiumAccessTitle">
+          <div class="premium-access__content">
+            <p id="vrmtPremiumModeBadge" class="premium-access__badge" data-i18n="premiumLockedBadge">QR Premium Locked</p>
+            <h2 id="premiumAccessTitle" data-i18n="premiumAccessTitle">프리미엄 K-뷰티 컨시어지 리포트</h2>
+            <p class="premium-access__locked" data-i18n="premiumLockedDesc">프리미엄 K-뷰티 컨시어지 리포트는 부산 굿즈 또는 제휴 QR을 스캔한 고객에게 제공됩니다.</p>
+            <p class="premium-access__unlocked" data-i18n="premiumUnlockedDesc">프리미엄 K-뷰티 컨시어지 리포트가 활성화되었습니다.</p>
+            <p class="premium-access__safety" data-i18n="premiumSafety">본 리포트는 의료 진단이 아닙니다. 카메라 이미지 기반의 비의료적 피부 컨디션 참고 자료이며, 질병의 진단, 치료, 예방 또는 의료적 판단을 제공하지 않습니다. 최종 진료 및 치료 판단은 의료기관 상담을 통해 이루어져야 합니다.</p>
+            <div class="premium-access__actions">
+              <button id="vrmtFreeAnalysisCta" class="btn primary" type="button" data-i18n="freeAnalysisStart">무료 분석 시작</button>
+              <button id="vrmtQrInputCta" class="btn" type="button" data-i18n="qrInputOpen">QR 코드 입력하기</button>
+              <a class="btn premium-link" href="/ai-skin-premium/" data-i18n="premiumInfoCta">프리미엄 리포트 안내</a>
+            </div>
+            <div class="premium-access__form" aria-label="QR Access Code manual input">
+              <label for="vrmtQrAccessInput" data-i18n="qrInputLabel">QR Access Code 입력</label>
+              <div class="premium-access__input-row">
+                <input id="vrmtQrAccessInput" type="text" autocomplete="off" inputmode="latin" placeholder="BUSANBLUE" />
+                <button id="vrmtQrAccessOpenBtn" class="btn primary" type="button" data-i18n="qrOpenBtn">프리미엄 열기</button>
+              </div>
+              <p id="vrmtQrAccessMessage" class="premium-access__message" role="status" aria-live="polite"></p>
+            </div>
+          </div>
+        </section>
+
+
         <section class="ai-booth-link" aria-labelledby="aiBoothLinkTitle">
           <div class="ai-booth-link__copy">
             <p class="ai-booth-link__eyebrow">Offline Expansion Model</p>
@@ -67,9 +91,14 @@
             <p class="ai-booth-link__notice">
               본 서비스는 의료 진단이 아닌 참고용 피부 관심도 분석 및 K-뷰티 상담 보조 서비스입니다.
             </p>
-            <a class="ai-booth-link__button" href="/ai-skin-booth/">
-              부스형 사업 모델 보기
-            </a>
+            <div class="ai-booth-link__actions">
+              <a class="ai-booth-link__button" href="/ai-skin-booth/">
+                부스형 사업 모델 보기
+              </a>
+              <a class="ai-booth-link__button ai-booth-link__button--premium" href="/ai-skin-premium/" data-i18n="premiumReportCta">
+                더 자세한 컨시어지 리포트 보기
+              </a>
+            </div>
           </div>
           <figure class="ai-booth-link__media">
             <img
