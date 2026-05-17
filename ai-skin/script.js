@@ -15,6 +15,10 @@
   let premiumAnalyzeBtn = null;
   let retakeBtn = null;
   let qualityCheckBtn = null;
+  let premiumReportBtn = null;
+  let qrScanStream = null;
+  let qrScanTimer = null;
+  let premiumUnlocked = isPremium;
 
   const params = new URLSearchParams(window.location.search);
   const premiumCode = params.get('premium');
@@ -28,6 +32,7 @@
   let stream = null;
   let currentLanguage = 'ko';
   let lastAnalysis = null;
+  let lastReportMode = null;
   let lastErrorReport = null;
   let pendingPremiumImage = null;
   let qualityReady = false;
@@ -171,12 +176,12 @@
     captureBtn.textContent = captureBtn.disabled ? t('captureLoading') : t(isPremium ? 'premiumCaptureBtn' : 'captureBtn');
     if (hasInvalidPremium && !lastAnalysis && !lastErrorReport) statusEl.textContent = t('statusInvalidPremium');
     localStorage.setItem('vrmtAiSkinLang', currentLanguage);
-    if (lastAnalysis) renderReport(lastAnalysis);
+    if (lastAnalysis) renderReport(lastAnalysis, lastReportMode);
     else if (lastErrorReport) renderError(lastErrorReport.message, lastErrorReport.payload);
   }
 
   function renderModeShell() {
-    if (isPremium) {
+    if (premiumUnlocked) {
       modePanel.innerHTML = `
         <section id="vrmtPremiumPanel" class="premium-panel premium-panel--active" aria-live="polite">
           <div class="premium-access-badge">Premium Access 확인 완료</div>
@@ -208,6 +213,7 @@
           <button id="vrmtRetakeBtn" class="btn" type="button">다시 촬영</button>
           <button id="vrmtQualityCheckBtn" class="btn" type="button" disabled>사진 품질 확인</button>
           <button id="vrmtPremiumAnalyzeBtn" class="btn primary" type="button" disabled>프리미엄 분석 시작</button>
+          <button id="vrmtPremiumReportBtn" class="btn primary" type="button" disabled>프리미엄 리포트 보기</button>
         </div>`;
     } else {
       modePanel.replaceChildren();
@@ -220,12 +226,13 @@
     premiumAnalyzeBtn = $('vrmtPremiumAnalyzeBtn');
     retakeBtn = $('vrmtRetakeBtn');
     qualityCheckBtn = $('vrmtQualityCheckBtn');
+    premiumReportBtn = $('vrmtPremiumReportBtn');
   }
 
   function configureMode() {
     renderModeShell();
-    document.body.classList.toggle('premium-mode', isPremium);
-    document.body.classList.toggle('free-mode', !isPremium);
+    document.body.classList.toggle('premium-mode', premiumUnlocked);
+    document.body.classList.toggle('free-mode', !premiumUnlocked);
     document.body.classList.toggle('invalid-premium-mode', Boolean(hasInvalidPremium));
     captureBtn.textContent = t(isPremium ? 'premiumCaptureBtn' : 'captureBtn');
     if (isPremium) {
@@ -278,14 +285,17 @@
   async function capture() {
     if (!stream) { setStatus('statusNeedCamera'); return; }
     const imageBase64 = captureResized();
-    if (isPremium) {
+    if (premiumUnlocked && getRecentFreeCapture()) {
       pendingPremiumImage = imageBase64;
       if (qualityCheckBtn) qualityCheckBtn.disabled = false;
       showQualityCheck();
       return;
     }
     setLoading(true);
-    try { await analyze(imageBase64); } finally { setLoading(false); }
+    try {
+      await analyze(imageBase64, null, { forceFree: premiumUnlocked && !getRecentFreeCapture() });
+      if (premiumUnlocked) preparePremiumReportAfterAuth();
+    } finally { setLoading(false); }
   }
 
   function showQualityCheck() {
@@ -338,6 +348,7 @@
   function updatePremiumAnalyzeState() {
     const enabled = Boolean(isPremium && pendingPremiumImage && qualityReady && premiumConfirm?.checked);
     if (premiumAnalyzeBtn) premiumAnalyzeBtn.disabled = !enabled;
+    if (premiumReportBtn) premiumReportBtn.disabled = !enabled;
     premiumQuality?.querySelector('#vrmtPremiumAnalyzeBtnInline')?.toggleAttribute('disabled', !enabled);
   }
 
@@ -347,9 +358,10 @@
     try { await analyze(pendingPremiumImage); } finally { setLoading(false); }
   }
 
-  async function analyze(imageBase64, sourceFreeAnalysis = null) {
+  async function analyze(imageBase64, sourceFreeAnalysis = null, options = {}) {
     setStatus('statusAnalyzing', true);
-    const body = isPremium
+    const requestPremium = premiumUnlocked && !options.forceFree;
+    const body = requestPremium
       ? { imageBase64, image: imageBase64, mode: 'premium', premium: 'BUSANBLUE', language: currentLanguage, freeAnalysis: sourceFreeAnalysis }
       : { imageBase64, image: imageBase64, mode: 'free', language: currentLanguage };
     try {
@@ -368,9 +380,10 @@
         return;
       }
       lastAnalysis = json.analysis || {};
-      if (!isPremium) saveRecentFreeCapture(imageBase64, lastAnalysis);
+      lastReportMode = requestPremium ? 'premium' : 'free';
+      if (!requestPremium) saveRecentFreeCapture(imageBase64, lastAnalysis);
       lastErrorReport = null;
-      renderReport(lastAnalysis);
+      renderReport(lastAnalysis, lastReportMode);
       setStatus('statusDone');
     } catch (_) {
       const m = t('errServer');
@@ -387,8 +400,8 @@
     analysis.innerHTML = `<h2>${esc(t('reportTitle'))}</h2><div class="report-item"><strong>${esc(message)}</strong></div><details><summary>${esc(t('devJson'))}</summary><pre>${esc(JSON.stringify(payload, null, 2))}</pre></details>${noticeMarkup()}`;
   }
 
-  function renderReport(a) {
-    if (isPremium) renderPremiumReport(a);
+  function renderReport(a, mode = null) {
+    if ((mode || lastReportMode) === 'premium') renderPremiumReport(a);
     else renderFreeReport(a);
   }
 
@@ -408,10 +421,11 @@
       <div class="premium-info-card">
         <strong>프리미엄 리포트 잠금</strong>
         <p>방금 촬영한 사진을 기반으로 더 자세한 AI K-뷰티 컨시어지 리포트를 확인할 수 있습니다. 부산 굿즈 안내서의 QR을 스캔하면 프리미엄 리포트가 열립니다.</p>
-        <a class="btn primary" href="/ai-skin/?premium=BUSANBLUE">굿즈 QR 스캔하기</a>
+        <button id="vrmtOpenQrScanBtn" class="btn primary" type="button">굿즈 QR 스캔하기</button>
       </div>
       <details><summary>${esc(t('devJson'))}</summary><pre>${esc(JSON.stringify(a, null, 2))}</pre></details>
       ${noticeMarkup()}`;
+    document.getElementById('vrmtOpenQrScanBtn')?.addEventListener('click', openQrScannerModal);
   }
 
   function renderPremiumReport(a) {
@@ -484,12 +498,13 @@
     return Object.entries(labels).map(([key, label]) => `<div class="report-item"><strong>${label}</strong><p>${esc(zones[key])}</p></div>`).join('');
   }
 
-  async function resumePremiumFromRecentCapture() {
-    if (!isPremium) return;
+  function preparePremiumReportAfterAuth() {
     const recent = getRecentFreeCapture();
     if (!recent) {
-      premiumQuality.hidden = false;
-      premiumQuality.innerHTML = '<h3>최근 무료 분석 사진을 찾을 수 없습니다.</h3><p>같은 브라우저에서 무료 분석을 먼저 완료하거나, 아래 카메라로 다시 촬영해 주세요.</p>';
+      if (premiumQuality) {
+        premiumQuality.hidden = false;
+        premiumQuality.innerHTML = '<h3>프리미엄 리포트를 생성하려면 먼저 무료 피부 분석 촬영이 필요합니다.</h3><p>무료 분석을 완료한 뒤 굿즈 안내서 QR을 다시 스캔해 주세요.</p>';
+      }
       return;
     }
     pendingPremiumImage = recent.imageBase64;
@@ -497,10 +512,113 @@
     if (premiumConfirm) premiumConfirm.checked = true;
     if (premiumQuality) {
       premiumQuality.hidden = false;
-      premiumQuality.innerHTML = '<h3>프리미엄 인증 성공</h3><div class="quality-result good"><strong>방금 촬영한 사진 확인 완료</strong><br>새로 사진을 찍지 않고 무료 분석 결과를 기반으로 프리미엄 리포트를 생성합니다.</div>';
+      premiumQuality.innerHTML = '<h3>Premium Access 확인 완료</h3><div class="quality-result good"><strong>부산 굿즈 구매 고객 전용 프리미엄 리포트가 열렸습니다.</strong><br>프리미엄 리포트 보기 버튼을 누르면 새로 사진을 찍지 않고 무료 분석 결과를 기반으로 상세 리포트를 생성합니다.</div>';
     }
     updatePremiumAnalyzeState();
-    await analyze(recent.imageBase64, recent.freeAnalysis || null);
+  }
+
+  function unlockPremiumAccess() {
+    premiumUnlocked = true;
+    renderModeShell();
+    document.body.classList.add('premium-mode');
+    document.body.classList.remove('free-mode');
+    statusEl.textContent = 'Premium Access 확인 완료';
+    preparePremiumReportAfterAuth();
+    premiumConfirm?.addEventListener('change', updatePremiumAnalyzeState);
+    premiumAnalyzeBtn?.addEventListener('click', runPremiumAnalysis);
+    premiumReportBtn?.addEventListener('click', runPremiumAnalysis);
+    retakeBtn?.addEventListener('click', resetPremiumCapture);
+    qualityCheckBtn?.addEventListener('click', () => { if (pendingPremiumImage) showQualityCheck(); });
+  }
+
+  function isValidPremiumQr(value) {
+    return /BUSANBLUE|premium=BUSANBLUE/i.test(String(value || ''));
+  }
+
+  function stopQrScanner() {
+    if (qrScanTimer) cancelAnimationFrame(qrScanTimer);
+    qrScanTimer = null;
+    qrScanStream?.getTracks().forEach((track) => track.stop());
+    qrScanStream = null;
+  }
+
+  function showQrResult(message, ok = false) {
+    const result = document.getElementById('vrmtQrScanResult');
+    if (!result) return;
+    result.className = ok ? 'qr-scan-result success' : 'qr-scan-result error';
+    result.textContent = message;
+  }
+
+  async function startQrScanner() {
+    const videoEl = document.getElementById('vrmtQrScannerVideo');
+    if (!videoEl) return;
+    if (!('BarcodeDetector' in window)) {
+      showQrResult('이 브라우저에서는 자동 QR 인식이 제한됩니다. 하단의 Access Code 직접 입력을 이용해 주세요.');
+      return;
+    }
+    try {
+      const detector = new BarcodeDetector({ formats: ['qr_code'] });
+      qrScanStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' }, audio: false });
+      videoEl.srcObject = qrScanStream;
+      await videoEl.play();
+      const scan = async () => {
+        try {
+          const codes = await detector.detect(videoEl);
+          const raw = codes?.[0]?.rawValue || '';
+          if (raw) {
+            if (isValidPremiumQr(raw)) {
+              showQrResult('Premium Access 확인 완료', true);
+              stopQrScanner();
+              document.getElementById('vrmtQrPremiumViewBtn')?.removeAttribute('disabled');
+              return;
+            }
+            showQrResult('유효하지 않은 QR입니다. 굿즈 안내서의 QR을 다시 확인해 주세요.');
+          }
+        } catch (_) {}
+        qrScanTimer = requestAnimationFrame(scan);
+      };
+      scan();
+    } catch (_) {
+      showQrResult('QR 스캔 카메라를 시작할 수 없습니다. 카메라 권한을 확인하거나 Access Code 직접 입력을 이용해 주세요.');
+    }
+  }
+
+  function openQrScannerModal() {
+    if (!getRecentFreeCapture()) {
+      analysis.insertAdjacentHTML('beforeend', '<p class="safety">프리미엄 리포트를 생성하려면 먼저 무료 피부 분석 촬영이 필요합니다.</p>');
+      return;
+    }
+    const existing = document.getElementById('vrmtQrScanModal');
+    existing?.remove();
+    const modal = document.createElement('div');
+    modal.id = 'vrmtQrScanModal';
+    modal.className = 'qr-scan-modal';
+    modal.innerHTML = `
+      <div class="qr-scan-dialog" role="dialog" aria-modal="true" aria-labelledby="vrmtQrScanTitle">
+        <h2 id="vrmtQrScanTitle">굿즈 안내서 QR을 스캔해 주세요</h2>
+        <p>여권케이스 또는 굿즈 안내서에 인쇄된 QR을 카메라에 비추면 프리미엄 AI K-뷰티 컨시어지 리포트가 열립니다.</p>
+        <video id="vrmtQrScannerVideo" class="qr-scan-video" playsinline muted></video>
+        <p id="vrmtQrScanResult" class="qr-scan-result">QR 스캔 시작 버튼을 눌러 주세요.</p>
+        <div class="actions qr-scan-actions">
+          <button id="vrmtStartQrScanBtn" class="btn primary" type="button">QR 스캔 시작</button>
+          <button id="vrmtCancelQrScanBtn" class="btn" type="button">스캔 취소</button>
+          <button id="vrmtQrPremiumViewBtn" class="btn primary" type="button" disabled>프리미엄 리포트 보기</button>
+        </div>
+        <details class="qr-manual-code"><summary>QR이 인식되지 않나요? Access Code 직접 입력</summary><input id="vrmtQrManualCode" type="text" autocomplete="off" placeholder="Access Code" /><button id="vrmtQrManualSubmitBtn" class="btn" type="button">확인</button></details>
+      </div>`;
+    document.body.appendChild(modal);
+    modal.querySelector('#vrmtStartQrScanBtn')?.addEventListener('click', startQrScanner);
+    modal.querySelector('#vrmtCancelQrScanBtn')?.addEventListener('click', () => { stopQrScanner(); modal.remove(); });
+    modal.querySelector('#vrmtQrPremiumViewBtn')?.addEventListener('click', () => { stopQrScanner(); modal.remove(); unlockPremiumAccess(); });
+    modal.querySelector('#vrmtQrManualSubmitBtn')?.addEventListener('click', () => {
+      const value = modal.querySelector('#vrmtQrManualCode')?.value || '';
+      if (isValidPremiumQr(value)) {
+        showQrResult('Premium Access 확인 완료', true);
+        modal.querySelector('#vrmtQrPremiumViewBtn')?.removeAttribute('disabled');
+      } else {
+        showQrResult('유효하지 않은 QR입니다. 굿즈 안내서의 QR을 다시 확인해 주세요.');
+      }
+    });
   }
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -511,8 +629,9 @@
     captureBtn?.addEventListener('click', capture);
     premiumConfirm?.addEventListener('change', updatePremiumAnalyzeState);
     premiumAnalyzeBtn?.addEventListener('click', runPremiumAnalysis);
+    premiumReportBtn?.addEventListener('click', runPremiumAnalysis);
     retakeBtn?.addEventListener('click', resetPremiumCapture);
     qualityCheckBtn?.addEventListener('click', () => { if (pendingPremiumImage) showQualityCheck(); });
-    resumePremiumFromRecentCapture();
+    if (isPremium) preparePremiumReportAfterAuth();
   });
 }());
