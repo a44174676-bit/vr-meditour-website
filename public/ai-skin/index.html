@@ -57,6 +57,12 @@
           <span class="badge" data-i18n="badgeConsult">전문 상담 연계 가능</span>
         </div>
 
+        <section id="premiumModeNotice" class="premium-mode-notice" hidden>
+          <span class="premium-mode-badge">Premium Access 확인 완료</span>
+          <h2>프리미엄 AI K-뷰티 컨시어지 리포트 활성화</h2>
+          <p>부산 굿즈 구매 고객 전용 프리미엄 흐름입니다. 얼굴 사진 촬영 후 사진 품질을 확인하고 프리미엄 분석을 시작해 주세요.</p>
+        </section>
+
         <section class="ai-booth-link" aria-labelledby="aiBoothLinkTitle">
           <div class="ai-booth-link__copy">
             <p class="ai-booth-link__eyebrow">Offline Expansion Model</p>
@@ -89,6 +95,7 @@
               <button id="vrmtCaptureBtn" class="btn" type="button" data-i18n="captureBtn">AI 판별 촬영</button>
             </div>
             <p id="vrmtStatus" class="status" data-i18n="statusInit">카메라를 시작한 뒤 얼굴을 가이드에 맞추고 AI 판별 촬영을 눌러 주세요.</p>
+            <p id="premiumPrivacyCopy" class="privacy-copy" hidden>촬영 이미지는 피부 컨디션 리포트 생성을 위한 참고 자료로만 사용됩니다. 기본 설정에서는 장기 저장하지 않으며, 상담 또는 이메일 리포트 수신을 신청하는 경우 별도 동의가 필요합니다.</p>
           </section>
 
           <section class="card camera-card">
@@ -103,6 +110,25 @@
             </div>
           </section>
         </div>
+
+        <section id="premiumQualityPanel" class="card premium-quality" hidden>
+          <div>
+            <p class="quality-eyebrow">Premium Photo Quality Check</p>
+            <h2>사진 품질 확인</h2>
+            <p id="premiumQualityMessage" class="quality-message">촬영 후 품질 확인 결과가 표시됩니다.</p>
+          </div>
+          <ul class="quality-list" id="premiumQualityList">
+            <li>얼굴이 중앙에 있는지</li>
+            <li>조명이 너무 어둡지 않은지</li>
+            <li>얼굴이 너무 멀지 않은지</li>
+            <li>흔들림이 심하지 않은지</li>
+            <li>마스크나 선글라스가 없는지</li>
+          </ul>
+          <div class="actions">
+            <button id="vrmtRetakeBtn" class="btn" type="button">다시 촬영</button>
+            <button id="vrmtPremiumAnalyzeBtn" class="btn primary" type="button">프리미엄 분석 시작</button>
+          </div>
+        </section>
 
         <section id="vrmtAnalysis" class="card result">
           <h2 data-i18n="reportTitle">AI 피부 분석 리포트</h2>

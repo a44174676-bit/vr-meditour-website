@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI K-뷰티 컨시어지 리포트 | VR MEDI TOUR</title>
+  <meta name="description" content="부산 굿즈 구매 고객을 위한 AI K-뷰티 컨시어지 리포트입니다. 카메라 이미지 기반 피부 컨디션 참고 리포트와 K-뷰티 루틴, 한국 상담 준비를 안내합니다." />
+  <link rel="canonical" href="https://vr-meditour.com/ai-skin-premium/" />
+  <meta name="theme-color" content="#0f766e" />
+  <meta property="og:title" content="AI K-뷰티 컨시어지 리포트 | VR MEDI TOUR" />
+  <meta property="og:description" content="부산 굿즈 구매 고객을 위한 카메라 이미지 기반 피부 컨디션 참고 리포트와 K-뷰티 루틴 안내입니다." />
+  <meta property="og:url" content="https://vr-meditour.com/ai-skin-premium/" />
+  <meta property="og:type" content="website" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="premium-page">
+    <section class="premium-hero">
+      <div class="container">
+        <a class="home-link" href="/">← VR MEDI TOUR 홈</a>
+        <p class="eyebrow">BUSAN GOODS PREMIUM ACCESS</p>
+        <div id="accessBadge" class="access-badge" aria-live="polite">Premium Access 확인 중</div>
+        <h1>AI K-Beauty Concierge Report</h1>
+        <p class="lead">부산 굿즈 구매 고객 전용 프리미엄 리포트</p>
+        <p class="description">
+          굿즈 안내서의 QR을 휴대폰 카메라로 스캔하면 연결되는 프리미엄 안내 페이지입니다.
+          카메라로 얼굴 사진을 촬영하면 피부 컨디션 참고 리포트, K-뷰티 루틴, 제품 카테고리,
+          한국 상담 준비 체크리스트를 한 번에 확인할 수 있습니다.
+        </p>
+
+        <div class="notice-card safety-notice">
+          본 리포트는 의료 진단이 아닙니다. 카메라 이미지 기반의 비의료적 피부 컨디션 참고 자료이며, 질병의 진단, 치료, 예방 또는 의료적 판단을 제공하지 않습니다. 최종 진료 및 치료 판단은 의료기관 상담을 통해 이루어져야 합니다.
+        </div>
+
+        <div class="notice-card privacy-notice">
+          촬영 이미지는 피부 컨디션 리포트 생성을 위한 참고 자료로만 사용됩니다. 기본 설정에서는 장기 저장하지 않으며, 상담 또는 이메일 리포트 수신을 신청하는 경우 별도 동의가 필요합니다.
+        </div>
+
+        <div class="cta-row">
+          <button id="startPremiumBtn" class="btn primary" type="button">프리미엄 리포트 시작하기</button>
+          <a class="btn secondary" href="/ai-skin/">무료 AI 피부 체크 먼저 보기</a>
+          <a class="btn ghost" href="/">VR MEDI TOUR 홈으로 가기</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="premium-details" aria-label="프리미엄 리포트 구성">
+      <div class="container detail-grid">
+        <article class="detail-card">
+          <h2>리포트 구성</h2>
+          <ul>
+            <li>종합 피부 컨디션 점수와 7개 하위 점수</li>
+            <li>피부 고민 TOP 5와 얼굴 부위별 관찰</li>
+            <li>아침·저녁·주간 K-뷰티 루틴</li>
+            <li>추천 제품 카테고리와 상담 전 준비 체크리스트</li>
+          </ul>
+        </article>
+        <article class="detail-card">
+          <h2>QR 이용 안내</h2>
+          <p>
+            고객이 코드를 직접 입력하는 흐름이 아닙니다. 굿즈 안내서의 QR을 스캔하면
+            <strong>/ai-skin-premium/?access=BUSANBLUE</strong>로 접속되고 프리미엄 권한이 확인됩니다.
+          </p>
+        </article>
+        <article class="detail-card access-helper">
+          <h2>Access Code 보조 입력</h2>
+          <p>QR 접속이 어려운 경우에만 사용하세요.</p>
+          <div class="helper-form">
+            <input id="accessInput" type="text" inputmode="latin" autocomplete="one-time-code" placeholder="Access Code" />
+            <button id="accessApplyBtn" class="btn small" type="button">확인</button>
+          </div>
+          <p id="accessHelperStatus" class="helper-status" aria-live="polite"></p>
+        </article>
+      </div>
+    </section>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
