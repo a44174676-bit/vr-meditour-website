@@ -14,7 +14,8 @@ exports.handler = async function (event) {
   const model = process.env.OPENAI_MODEL || 'gpt-4.1-mini';
   if (!apiKey) return response(500, { ok: false, error: t(lang, 'errApiKey') });
 
-  const imageBase64 = body.imageBase64;
+  const imageBase64 = body.imageBase64 || body.image;
+  const mode = body.mode === 'premium' && body.premium === 'BUSANBLUE' ? 'premium' : 'free';
   if (!imageBase64 || typeof imageBase64 !== 'string' || !imageBase64.startsWith('data:image/')) {
     return response(400, { ok: false, error: t(lang, 'errImageFormat') });
   }
@@ -22,7 +23,13 @@ exports.handler = async function (event) {
 
   try {
     const langName = { ko:'Korean', en:'English', vi:'Vietnamese', ja:'Japanese', zh:'Chinese', ar:'Arabic' }[lang];
-    const prompt = `You are a skin/beauty reference AI, not a medical diagnostician. Do not diagnose diseases or prescribe treatment/drugs. Write values in ${langName}. Keep JSON keys in English exactly matching schema.`;
+    const freeAnalysisContext = body.freeAnalysis
+      ? ` Previous free analysis context for the same photo: ${JSON.stringify(body.freeAnalysis).slice(0, 2500)}`
+      : '';
+    const prompt = mode === 'premium'
+      ? `You are a skin and K-beauty reference AI, not a medical diagnostician. Do not identify disease, make medical judgments, promise improvement, or prescribe drugs. Write values in ${langName}. Keep JSON keys in English exactly matching schema. Build a detailed premium K-beauty concierge reference report with practical non-medical skin condition guidance and Korea consultation preparation. Use the image as the primary reference and, when provided, use the prior free analysis only as supporting context.${freeAnalysisContext}`
+      : `You are a skin/beauty reference AI, not a medical diagnostician. Do not identify disease, make medical judgments, promise improvement, or prescribe drugs. Write values in ${langName}. Keep JSON keys in English exactly matching schema.`;
+    const schema = mode === 'premium' ? premiumSchema : freeSchema;
 
     const openaiRes = await fetch('https://api.openai.com/v1/responses', {
       method: 'POST',
@@ -30,13 +37,7 @@ exports.handler = async function (event) {
       body: JSON.stringify({
         model,
         input: [{ role: 'user', content: [{ type: 'input_text', text: prompt }, { type: 'input_image', image_url: imageBase64 }] }],
-        text: { format: { type: 'json_schema', name: 'skin_analysis', schema: {
-          type: 'object', additionalProperties: false,
-          properties: {
-            summary: { type: 'string' }, confidence: { type: 'number' }, observations: { type: 'array', items: { type: 'string' } }, care_priority: { type: 'array', items: { type: 'string' } }, recommended_product_direction: { type: 'array', items: { type: 'string' } }, dermatology_consult_recommendation: { type: 'string' }
-          },
-          required: ['summary','confidence','observations','care_priority','recommended_product_direction','dermatology_consult_recommendation']
-        } } }
+        text: { format: { type: 'json_schema', name: 'skin_analysis', schema } }
       })
     });
 
@@ -51,10 +52,58 @@ exports.handler = async function (event) {
     if (!outputText) return response(502, { ok: false, error: t(lang, 'errAnalyze') });
     let analysis;
     try { analysis = JSON.parse(outputText); } catch (_) { return response(502, { ok: false, error: t(lang, 'errAnalyze') }); }
-    return response(200, { ok: true, analysis });
+    analysis.mode = mode;
+    return response(200, { ok: true, mode, analysis });
   } catch (_) {
     return response(500, { ok: false, error: t(lang, 'errAnalyze') });
   }
+};
+
+
+const freeSchema = {
+  type: 'object', additionalProperties: false,
+  properties: {
+    summary: { type: 'string' },
+    confidence: { type: 'number' },
+    observations: { type: 'array', items: { type: 'string' } },
+    care_priority: { type: 'array', items: { type: 'string' } },
+    recommended_product_direction: { type: 'array', items: { type: 'string' } },
+    dermatology_consult_recommendation: { type: 'string' },
+  },
+  required: ['summary','confidence','observations','care_priority','recommended_product_direction','dermatology_consult_recommendation'],
+};
+
+const premiumSchema = {
+  type: 'object', additionalProperties: false,
+  properties: {
+    summary: { type: 'string' },
+    overallScore: { type: 'number' },
+    photoQuality: {
+      type: 'object', additionalProperties: false,
+      properties: { status: { type: 'string' }, lighting: { type: 'string' }, facePosition: { type: 'string' }, note: { type: 'string' } },
+      required: ['status','lighting','facePosition','note'],
+    },
+    subScores: {
+      type: 'object', additionalProperties: false,
+      properties: {
+        hydration: { type: 'number' }, oilBalance: { type: 'number' }, texture: { type: 'number' }, pores: { type: 'number' }, redness: { type: 'number' }, toneEvenness: { type: 'number' }, glow: { type: 'number' },
+      },
+      required: ['hydration','oilBalance','texture','pores','redness','toneEvenness','glow'],
+    },
+    topConcerns: { type: 'array', items: { type: 'string' } },
+    zoneAnalysis: {
+      type: 'object', additionalProperties: false,
+      properties: { forehead: { type: 'string' }, cheeks: { type: 'string' }, nose: { type: 'string' }, mouthArea: { type: 'string' }, chin: { type: 'string' }, eyeArea: { type: 'string' } },
+      required: ['forehead','cheeks','nose','mouthArea','chin','eyeArea'],
+    },
+    morningRoutine: { type: 'array', items: { type: 'string' } },
+    eveningRoutine: { type: 'array', items: { type: 'string' } },
+    weeklyCare: { type: 'array', items: { type: 'string' } },
+    productCategories: { type: 'array', items: { type: 'string' } },
+    koreaConsultChecklist: { type: 'array', items: { type: 'string' } },
+    disclaimer: { type: 'string' },
+  },
+  required: ['summary','overallScore','photoQuality','subScores','topConcerns','zoneAnalysis','morningRoutine','eveningRoutine','weeklyCare','productCategories','koreaConsultChecklist','disclaimer'],
 };
 
 const messages = {

@@ -10,16 +10,8 @@
   status = 200
   force = true
 
-[[redirects]]
-  from = "/ai-skin"
-  to = "/public/ai-skin/"
-  status = 301
-
-[[redirects]]
-  from = "/ai-skin/*"
-  to = "/public/ai-skin/:splat"
-  status = 200
-
+# AI Skin is served as real static files from /ai-skin/ because publish = ".".
+# Keep this path free of redirects to avoid Deploy Preview redirect loops.
 [[redirects]]
   from = "/campus-agent"
   to = "/public/campus-agent/"
