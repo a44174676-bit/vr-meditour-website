@@ -7,11 +7,14 @@
   const statusEl = $('vrmtStatus');
   const analysis = $('vrmtAnalysis');
   const guide = $('vrmtFaceGuide');
-  const premiumPanel = $('vrmtPremiumPanel');
-  const premiumConfirm = $('vrmtPremiumConfirm');
-  const premiumQuality = $('vrmtPremiumQuality');
-  const premiumAnalyzeBtn = $('vrmtPremiumAnalyzeBtn');
-  const retakeBtn = $('vrmtRetakeBtn');
+  const modePanel = $('vrmtModePanel');
+  const premiumControls = $('vrmtPremiumControls');
+  let premiumPanel = null;
+  let premiumConfirm = null;
+  let premiumQuality = null;
+  let premiumAnalyzeBtn = null;
+  let retakeBtn = null;
+  let qualityCheckBtn = null;
 
   const params = new URLSearchParams(window.location.search);
   const premiumCode = params.get('premium');
@@ -148,11 +151,54 @@
     else if (lastErrorReport) renderError(lastErrorReport.message, lastErrorReport.payload);
   }
 
+  function renderModeShell() {
+    if (isPremium) {
+      modePanel.innerHTML = `
+        <section id="vrmtPremiumPanel" class="premium-panel premium-panel--active" aria-live="polite">
+          <div class="premium-access-badge">Premium Access 확인 완료</div>
+          <h2>부산 굿즈 구매 고객 전용 AI K-뷰티 컨시어지 리포트</h2>
+          <p>
+            카메라로 얼굴 사진을 촬영하면 무료 분석보다 자세한 피부 컨디션 참고 리포트, K-뷰티 루틴, 제품 카테고리, 한국 상담 준비 체크리스트를 확인할 수 있습니다.
+          </p>
+          <p class="privacy-notice">
+            촬영 이미지는 피부 컨디션 리포트 생성을 위한 참고 자료로만 사용됩니다. 기본 설정에서는 장기 저장하지 않으며, 상담 또는 이메일 리포트 수신을 신청하는 경우 별도 동의가 필요합니다.
+          </p>
+        </section>`;
+      premiumControls.innerHTML = `
+        <div class="premium-step-row" aria-label="Premium analysis steps">
+          <span>1. 카메라 시작</span>
+          <span>2. 사진 촬영</span>
+          <span>3. 사진 품질 확인</span>
+          <span>4. 프리미엄 분석 시작</span>
+        </div>
+        <div id="vrmtPremiumQuality" class="quality-panel" hidden></div>
+        <label class="premium-confirm">
+          <input id="vrmtPremiumConfirm" type="checkbox" />
+          <span>본 서비스가 의료 진단이 아닌 피부 컨디션 참고 리포트임을 확인했습니다.</span>
+        </label>
+        <div class="actions premium-actions">
+          <button id="vrmtRetakeBtn" class="btn" type="button">다시 촬영</button>
+          <button id="vrmtQualityCheckBtn" class="btn" type="button" disabled>사진 품질 확인</button>
+          <button id="vrmtPremiumAnalyzeBtn" class="btn primary" type="button" disabled>프리미엄 분석 시작</button>
+        </div>`;
+    } else {
+      modePanel.replaceChildren();
+      premiumControls.replaceChildren();
+    }
+
+    premiumPanel = $('vrmtPremiumPanel');
+    premiumConfirm = $('vrmtPremiumConfirm');
+    premiumQuality = $('vrmtPremiumQuality');
+    premiumAnalyzeBtn = $('vrmtPremiumAnalyzeBtn');
+    retakeBtn = $('vrmtRetakeBtn');
+    qualityCheckBtn = $('vrmtQualityCheckBtn');
+  }
+
   function configureMode() {
+    renderModeShell();
     document.body.classList.toggle('premium-mode', isPremium);
+    document.body.classList.toggle('free-mode', !isPremium);
     document.body.classList.toggle('invalid-premium-mode', Boolean(hasInvalidPremium));
-    premiumPanel.hidden = !isPremium;
-    premiumQuality.hidden = true;
     captureBtn.textContent = t(isPremium ? 'premiumCaptureBtn' : 'captureBtn');
     if (isPremium) {
       statusEl.textContent = t('premiumStatusInit');
@@ -173,9 +219,9 @@
 
   function setLoading(v) {
     captureBtn.disabled = v;
-    premiumAnalyzeBtn.disabled = v || !qualityReady || !premiumConfirm.checked;
+    if (premiumAnalyzeBtn && premiumConfirm) premiumAnalyzeBtn.disabled = v || !qualityReady || !premiumConfirm.checked;
     captureBtn.textContent = v ? t('captureLoading') : t(isPremium ? 'premiumCaptureBtn' : 'captureBtn');
-    premiumAnalyzeBtn.textContent = v ? '프리미엄 리포트 생성 중...' : '프리미엄 분석 시작';
+    if (premiumAnalyzeBtn) premiumAnalyzeBtn.textContent = v ? '프리미엄 리포트 생성 중...' : '프리미엄 분석 시작';
   }
 
   async function startCamera() {
@@ -206,6 +252,7 @@
     const imageBase64 = captureResized();
     if (isPremium) {
       pendingPremiumImage = imageBase64;
+      if (qualityCheckBtn) qualityCheckBtn.disabled = false;
       showQualityCheck();
       return;
     }
@@ -215,6 +262,8 @@
 
   function showQualityCheck() {
     qualityReady = false;
+    if (!premiumQuality || !premiumAnalyzeBtn) return;
+    if (qualityCheckBtn) qualityCheckBtn.textContent = '사진 품질 확인 중';
     premiumQuality.hidden = false;
     premiumAnalyzeBtn.disabled = true;
     premiumQuality.innerHTML = `
@@ -237,6 +286,7 @@
       premiumQuality.querySelector('.quality-result').className = 'quality-result good';
       premiumQuality.querySelector('.quality-result').innerHTML = '<strong>사진 품질: 양호</strong><br>프리미엄 리포트를 생성할 수 있습니다.<br><span>더 안정적인 리포트를 위해 다시 촬영해주세요.</span>';
       wireQualityButtons();
+      if (qualityCheckBtn) qualityCheckBtn.textContent = '사진 품질 확인 완료';
       updatePremiumAnalyzeState();
     }, 650);
     wireQualityButtons();
@@ -250,20 +300,21 @@
   function resetPremiumCapture() {
     pendingPremiumImage = null;
     qualityReady = false;
-    premiumConfirm.checked = false;
-    premiumQuality.hidden = true;
+    if (premiumConfirm) premiumConfirm.checked = false;
+    if (premiumQuality) premiumQuality.hidden = true;
+    if (qualityCheckBtn) { qualityCheckBtn.disabled = true; qualityCheckBtn.textContent = '사진 품질 확인'; }
     setStatus('statusCameraOn');
     updatePremiumAnalyzeState();
   }
 
   function updatePremiumAnalyzeState() {
-    const enabled = Boolean(isPremium && pendingPremiumImage && qualityReady && premiumConfirm.checked);
-    premiumAnalyzeBtn.disabled = !enabled;
-    premiumQuality.querySelector('#vrmtPremiumAnalyzeBtnInline')?.toggleAttribute('disabled', !enabled);
+    const enabled = Boolean(isPremium && pendingPremiumImage && qualityReady && premiumConfirm?.checked);
+    if (premiumAnalyzeBtn) premiumAnalyzeBtn.disabled = !enabled;
+    premiumQuality?.querySelector('#vrmtPremiumAnalyzeBtnInline')?.toggleAttribute('disabled', !enabled);
   }
 
   async function runPremiumAnalysis() {
-    if (!pendingPremiumImage || !qualityReady || !premiumConfirm.checked) return;
+    if (!pendingPremiumImage || !qualityReady || !premiumConfirm?.checked) return;
     setLoading(true);
     try { await analyze(pendingPremiumImage); } finally { setLoading(false); }
   }
@@ -409,5 +460,6 @@
     premiumConfirm?.addEventListener('change', updatePremiumAnalyzeState);
     premiumAnalyzeBtn?.addEventListener('click', runPremiumAnalysis);
     retakeBtn?.addEventListener('click', resetPremiumCapture);
+    qualityCheckBtn?.addEventListener('click', () => { if (pendingPremiumImage) showQualityCheck(); });
   });
 }());
