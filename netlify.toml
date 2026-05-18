@@ -36,9 +36,26 @@
   status = 200
 
 [[redirects]]
+  from = "/company-agent-trust.css"
+  to = "/public/company-agent-trust.css"
+  status = 200
+
+[[redirects]]
   from = "/company-profile.js"
   to = "/public/company-profile.js"
   status = 200
+
+# FAQ page source files live under /public and are exposed at root-level URLs.
+[[redirects]]
+  from = "/faq.html"
+  to = "/public/faq.html"
+  status = 200
+
+[[redirects]]
+  from = "/faq.css"
+  to = "/public/faq.css"
+  status = 200
+
 # SEO landing pages stored under /public and exposed at root-level URLs.
 [[redirects]]
   from = "/medical-travel-guide.html"
