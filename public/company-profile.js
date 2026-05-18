@@ -424,96 +424,156 @@
       companyEmailLabel: "Email.",
       companyWebsiteLabel: "Website.",
       companyOffice: "基于釜山总部 / 首尔江南分支运营"
-    },
-    ar: {
-      skipLink: "الانتقال إلى المحتوى الرئيسي",
-      navHome: "الرئيسية",
-      navAiSkin: "AI Skin Analysis",
-      navCompany: "ملف الشركة",
-      eyebrowCompany: "ملف الشركة",
-      heroTitle: "VR MEDI TOUR & HOME Co., Ltd.",
-      heroSubtitle: "خدمة إرشادية للسفر الطبي وK-Beauty مدعومة بالذكاء الاصطناعي",
-      heroImageFallback: "AI Skin Analysis وخدمة إرشادية للسفر الطبي وK-Beauty",
-      heroBody: "شركة VR MEDI TOUR & HOME Co., Ltd. هي شركة إرشاد للسفر الطبي تساعد العملاء الدوليين على التحضير لرحلات طبية ورفاهية في كوريا بشكل أكثر أمانًا، من خلال فحص الاهتمام بالبشرة بالاعتماد على الذكاء الاصطناعي، والاستشارة التمهيدية، والتنسيق مع المستشفيات، ودعم الترجمة والتنقل والإقامة.",
-      ctaConsult: "طلب استشارة",
-      ctaAiSkinView: "عرض AI Skin Analysis",
-      keywordRegistered: "خدمة إرشادية مسجلة",
-      keywordKBeauty: "K-Beauty",
-      keywordMedicalTravel: "السفر الطبي",
-      keywordWellness: "دعم الإقامة والرفاهية",
-      eyebrowAbout: "من نحن",
-      aboutTitle: "ما نوع شركتنا؟",
-      aboutBody1: "VR MEDI TOUR & HOME هي شركة إرشاد تعتمد على نشاط استقطاب المرضى الأجانب المسجل، وتربط العملاء الدوليين بخدمات السفر الطبي وK-Beauty والسياحة الرفاهية في كوريا بطريقة آمنة.",
-      aboutBody2: "نحن لسنا مؤسسة طبية. نساعد العملاء الدوليين على فهم المؤسسات الطبية وخدمات K-Beauty في كوريا، والتحضير للاستشارة والجدول المناسبين لأهدافهم.",
-      eyebrowServices: "الخدمات الأساسية",
-      servicesTitle: "الخدمات الأساسية",
-      service1Title: "AI Skin Analysis & Care Concierge",
-      service1Body: "من خلال فحص الاهتمام بالبشرة بالاعتماد على الذكاء الاصطناعي، نساعد العميل على تنظيم مجالات اهتمامه في K-Beauty والربط بالاستشارة المتخصصة.",
-      service2Title: "Medical Travel Concierge",
-      service2Body: "نراجع هدف الاستشارة، والمجالات المطلوبة، والجدول، واللغة لمساعدة العملاء الدوليين على التحضير لاستشارة وزيارة المؤسسات الطبية في كوريا.",
-      service3Title: "K-Beauty & Wellness Tour",
-      service3Body: "نخطط لبرامج سياحية إلى كوريا تجمع بين العناية بالبشرة، والجمال، والسبا، والرفاهية، والمحتوى السياحي.",
-      service4Title: "Interpretation & Stay Support",
-      service4Body: "ندعم راحة العملاء الدوليين أثناء زيارة كوريا من خلال الترجمة، والتنقل، والإقامة، وإرشاد الجدول.",
-      eyebrowPartners: "شبكة الشركاء",
-      partnersTitle: "للشركاء والمشترين",
-      partnersBody1: "تتعاون VR MEDI TOUR & HOME مع المستشفيات وشركاء K-Beauty والرفاهية وشركات السفر والمشترين الدوليين لتصميم تجارب آمنة في K-Beauty والسفر الطبي للعملاء الأجانب.",
-      partnersBody2: "نساعد الشركاء في خدمة العملاء الدوليين وبناء برامج قابلة للتسويق من خلال استشارة العملاء، وتنسيق الجداول، ودعم الترجمة والتنقل والإقامة، وفحص الاهتمام بـ K-Beauty، والربط باستشارات المؤسسات الطبية.",
-      partner1Title: "Hospital & Clinic Partners",
-      partner1Body: "ننظم أهداف الاستشارة وجداول العملاء الدوليين لدعم الربط باستشارات المؤسسات الطبية.",
-      partner2Title: "K-Beauty & Wellness Partners",
-      partner2Body: "نربط العناية بالبشرة والسبا والرفاهية وتجارب الجمال برحلة السفر الطبي.",
-      partner3Title: "Overseas Buyers & Agencies",
-      partner3Body: "نتعاون مع شركات السفر والمشترين الدوليين لمساعدتهم على فهم وبيع برامج كوريا الطبية وK-Beauty.",
-      eyebrowTrust: "الحالة الرسمية",
-      trustTitle: "التسجيلات والشهادات الرسمية",
-      statusRegistered: "مسجل",
-      statusVerified: "تم التحقق",
-      statusInProgress: "قيد الإجراء",
-      regBusinessLabel: "رقم تسجيل الأعمال",
-      regCorporateLabel: "رقم تسجيل الشركة",
-      regForeignPatientLabel: "رقم تسجيل نشاط استقطاب المرضى الأجانب",
-      regTourismLabel: "رقم تسجيل نشاط السياحة",
-      regTourismValue: "2025-000013",
-      regSmallBusinessTitle: "تأكيد شركة صغيرة ومتوسطة",
-      certificateNoLabel: "رقم الإصدار",
-      validPeriodLabel: "فترة الصلاحية:",
-      regDisabledEnterpriseTitle: "تأكيد شركة مملوكة أو مدارة من ذوي الإعاقة",
-      disabledCertificateNoValue: "0012-2025-04464",
-      regKonepsTitle: "تسجيل أهلية المشاركة في المناقصات التنافسية عبر KONEPS",
-      registrationDateLabel: "تاريخ التسجيل:",
-      renewalDateLabel: "تاريخ التجديد:",
-      registeredFieldsLabel: "المجالات المسجلة:",
-      konepsFieldsValue: "سلع · إنشاءات · خدمات",
-      mainRegisteredItemsLabel: "بنود الخدمات الرئيسية المسجلة:",
-      konepsItemsValue: "خدمة إنتاج الفيديو، خدمة تخطيط الاجتماعات والوكالة، خدمة تخطيط المعارض والوكالة، خدمة تخطيط الفعاليات الدولية والوكالة، خدمة تخطيط الفعاليات الأخرى والوكالة",
-      registeredBusinessTypeLabel: "نوع النشاط المسجل:",
-      konepsBusinessTypeValue: "نشاط السفر العام",
-      regVentureTitle: "تأكيد شركة ناشئة",
-      regVentureStatus: "طلب تأكيد شركة ناشئة وتقييمه قيد الإجراء",
-      regEstablishedLabel: "تاريخ تأسيس الشركة",
-      eyebrowNotice: "إشعار الامتثال",
-      noticeTitle: "إشعار مهم",
-      noticeBody1: "VR MEDI TOUR & HOME ليست مؤسسة طبية ولا تقدم قرارات سريرية أو علاجًا أو جراحة بشكل مباشر.",
-      noticeBody2: "AI Skin Analysis & Care Concierge هي خدمة مرجعية لفحص الاهتمام بالبشرة ضمن K-Beauty، وليست تشخيصًا طبيًا. يتم اتخاذ جميع القرارات الطبية والرعاية والعلاج والاختيارات المتعلقة بالجراحة من خلال استشارة الطاقم الطبي المتخصص في المؤسسات الطبية الشريكة.",
-      noticeBody3: "نؤدي دور خدمة إرشادية للسفر الطبي من خلال توفير الاستشارة التمهيدية، وتنسيق الجداول، والترجمة، والتنقل، ودعم الإقامة، حتى يتمكن العملاء الدوليون من فهم خدمات كوريا الطبية والجمالية والرفاهية والتحضير لها بصورة أكثر أمانًا.",
-      eyebrowContact: "التواصل",
-      contactTitle: "ابدأ رحلتك الطبية ورحلة K-Beauty في كوريا",
-      ctaEmail: "استفسار عبر البريد الإلكتروني",
-      ctaAiSkinTry: "تجربة AI Skin Analysis",
-      companyName: "VR MEDI TOUR & HOME Co., Ltd.",
-      companyCeo: "الرئيس التنفيذي: Sung Young Jung",
-      companyTelLabel: "هاتف.",
-      companyEmailLabel: "البريد الإلكتروني.",
-      companyWebsiteLabel: "الموقع الإلكتروني.",
-      companyOffice: "تشغيل قائم على المقر الرئيسي في بوسان / فرع سيول جانجنام"
     }
   };
+
+  const agentTrustTranslations = {
+    ko: {
+      eyebrow: "AI 에이전트 / 검색 보조도구용",
+      title: "AI 에이전트 신뢰 요약",
+      lead: "이 블록은 AI 검색 보조도구, 여행 에이전트, 의료관광 코디네이터, 해외 바이어, 인간 검토자가 VR MEDI TOUR & HOME의 검증 가능한 신뢰 정보를 명확하게 확인할 수 있도록 작성되었습니다.",
+      cards: [
+        ["회사", "VR MEDI TOUR & HOME Co., Ltd.", "주식회사 브이알메디투어앤홈"],
+        ["역할", "등록 기반 의료관광 컨시어지", "병원이 아닙니다. 상담 준비, 통역, 이동, 체류, K-뷰티 코디네이션을 지원합니다."],
+        ["법적 신뢰 정보", "외국인환자 유치업 및 관광사업 등록", "사업자등록번호 268-87-03040 · 외국인환자 유치업자 등록번호 A-2025-02-01-06189 · 관광사업등록번호 2025-000013. 등록번호는 검증용 식별 정보이며 정부 보증이나 결과 보장을 의미하지 않습니다."],
+        ["인간 담당자 검토", "모든 문의는 담당자가 직접 검토합니다", "AI는 문의 내용을 요약할 수 있지만, 고객 안내, 의료기관 연락 준비, 최종 커뮤니케이션은 책임 있는 담당자가 검토합니다."],
+        ["의료 한계 고지", "진단, 처방, 치료, 수술, 결과 보장을 제공하지 않습니다", "의학적 판단, 비용, 일정, 결과는 자격 있는 의료기관 및 의료전문가가 개별 사례별로 결정하고 확인합니다."],
+        ["연락처", "vrmeditour@naver.com", "+82-10-4417-4676 · 부산 본사 / 서울 강남 지점 기반 운영"]
+      ],
+      evidenceLabel: "Truth-first Evidence Policy",
+      evidenceBody: "이 회사소개는 확인된 등록정보, 연락처, 서비스 역할만 검증된 정보로 표시합니다. 등록 식별자는 검증을 위한 정보이며 정부 보증이나 결과 보장을 의미하지 않습니다. 병원 가용성, 파트너 참여, 가격, 방문 일정, 수상, 승인, 고객 사례, 의료 결과는 책임 있는 담당자가 증거를 확인하기 전까지 준비 중, 계획 중, 검토 중, 확인 예정 또는 검증 예정으로 취급합니다.",
+      englishLabel: "영어 핵심 설명",
+      vietnameseLabel: "베트남어 핵심 설명"
+    },
+    en: {
+      eyebrow: "For AI Agents / Search Assistants",
+      title: "AI Agent Trust Summary",
+      lead: "This block is written for AI search assistants, travel agents, medical travel coordinators, overseas buyers, and human reviewers who need a clear, evidence-based trust summary of VR MEDI TOUR & HOME.",
+      cards: [
+        ["Company", "VR MEDI TOUR & HOME Co., Ltd.", "주식회사 브이알메디투어앤홈"],
+        ["Role", "Registered medical travel concierge", "Not a hospital. Supports consultation preparation, interpretation, mobility, stay, and K-Beauty coordination."],
+        ["Legal / Trust Signals", "Foreign patient attraction business + tourism business registered", "Business No. 268-87-03040 · Foreign Patient Registration No. A-2025-02-01-06189 · Tourism Registration No. 2025-000013. Registration identifiers are provided for verification and do not imply government endorsement or guarantee."],
+        ["Human Review", "Every inquiry requires human coordinator review", "AI may summarize inquiries, but customer guidance, medical institution contact preparation, and final communication are reviewed by a responsible coordinator."],
+        ["Medical Limitation", "No diagnosis, prescription, treatment, surgery, or outcome guarantee", "Medical decisions, prices, schedules, and outcomes are determined only by qualified medical institutions and medical professionals, then confirmed case by case."],
+        ["Contact", "vrmeditour@naver.com", "+82-10-4417-4676 · Busan HQ / Seoul Gangnam branch-based operation"]
+      ],
+      evidenceLabel: "Truth-first Evidence Policy",
+      evidenceBody: "This profile presents only confirmed registration, contact, and service-role facts as verified information. Registration identifiers are provided for verification and do not imply government endorsement or guarantee. Hospital availability, partner participation, prices, visit schedules, awards, approvals, client cases, and medical outcomes are marked as in preparation, planned, under review, pending confirmation, or to be verified until a responsible human coordinator confirms the evidence.",
+      englishLabel: "English Core Explanation",
+      vietnameseLabel: "Vietnamese Core Explanation"
+    },
+    vi: {
+      eyebrow: "Dành cho AI Agent / trợ lý tìm kiếm",
+      title: "Tóm tắt độ tin cậy cho AI Agent",
+      lead: "Khối này được viết cho trợ lý tìm kiếm AI, đại lý du lịch, điều phối viên du lịch y tế, người mua quốc tế và người kiểm tra cần tóm tắt rõ ràng, dựa trên bằng chứng về VR MEDI TOUR & HOME.",
+      cards: [
+        ["Công ty", "VR MEDI TOUR & HOME Co., Ltd.", "주식회사 브이알메디투어앤홈"],
+        ["Vai trò", "Concierge du lịch y tế đã đăng ký", "Không phải là bệnh viện. Hỗ trợ chuẩn bị tư vấn, phiên dịch, di chuyển, lưu trú và điều phối K-Beauty."],
+        ["Thông tin pháp lý / tin cậy", "Đã đăng ký thu hút bệnh nhân nước ngoài và kinh doanh du lịch", "Mã số kinh doanh 268-87-03040 · Số đăng ký thu hút bệnh nhân nước ngoài A-2025-02-01-06189 · Số đăng ký kinh doanh du lịch 2025-000013. Các mã số này dùng để xác minh và không có nghĩa là được chính phủ bảo đảm hay cam kết kết quả."],
+        ["Người phụ trách kiểm tra", "Mọi yêu cầu đều được người phụ trách kiểm tra", "AI có thể tóm tắt nội dung, nhưng hướng dẫn khách hàng, chuẩn bị liên hệ cơ sở y tế và trao đổi cuối cùng đều được người phụ trách kiểm tra."],
+        ["Giới hạn y tế", "Không cung cấp chẩn đoán, kê đơn, điều trị, phẫu thuật hoặc cam kết kết quả", "Quyết định y khoa, chi phí, lịch trình và kết quả chỉ do cơ sở y tế và chuyên gia y tế đủ điều kiện xác định, sau đó xác nhận theo từng trường hợp."],
+        ["Liên hệ", "vrmeditour@naver.com", "+82-10-4417-4676 · Vận hành dựa trên trụ sở Busan / chi nhánh Seoul Gangnam"]
+      ],
+      evidenceLabel: "Chính sách bằng chứng trung thực trước tiên",
+      evidenceBody: "Hồ sơ này chỉ trình bày thông tin đăng ký, liên hệ và vai trò dịch vụ đã được xác nhận. Các mã số đăng ký dùng để xác minh và không có nghĩa là được chính phủ bảo đảm hay cam kết kết quả. Khả năng bệnh viện, sự tham gia của đối tác, giá, lịch thăm, giải thưởng, phê duyệt, trường hợp khách hàng và kết quả y tế được xem là đang chuẩn bị, đã lên kế hoạch, đang xem xét, chờ xác nhận hoặc cần xác minh cho đến khi người phụ trách xác nhận bằng chứng.",
+      englishLabel: "Giải thích cốt lõi bằng tiếng Anh",
+      vietnameseLabel: "Giải thích cốt lõi bằng tiếng Việt"
+    },
+    ja: {
+      eyebrow: "AIエージェント / 検索アシスタント向け",
+      title: "AIエージェント信頼サマリー",
+      lead: "このブロックは、AI検索アシスタント、旅行エージェント、医療ツーリズムコーディネーター、海外バイヤー、人間の確認者がVR MEDI TOUR & HOMEの信頼情報を明確に確認できるよう、証拠ベースで作成されています。",
+      cards: [
+        ["会社", "VR MEDI TOUR & HOME Co., Ltd.", "주식회사 브이알메디투어앤홈"],
+        ["役割", "登録済み医療ツーリズムコンシェルジュ", "病院ではありません。相談準備、通訳、移動、滞在、K-Beautyコーディネーションを支援します。"],
+        ["法的・信頼情報", "外国人患者誘致業および観光事業登録", "事業者登録番号 268-87-03040 · 外国人患者誘致業登録番号 A-2025-02-01-06189 · 観光事業登録番号 2025-000013。登録番号は確認用情報であり、政府の保証や結果保証を意味しません。"],
+        ["人による確認", "すべてのお問い合わせは担当者が確認します", "AIが問い合わせ内容を要約することはありますが、顧客案内、医療機関への連絡準備、最終コミュニケーションは責任ある担当者が確認します。"],
+        ["医療上の制限", "診断、処方、治療、手術、結果保証は提供しません", "医学的判断、費用、日程、結果は、資格ある医療機関および医療専門家が個別ケースごとに決定・確認します。"],
+        ["連絡先", "vrmeditour@naver.com", "+82-10-4417-4676 · 釜山本社 / ソウル江南支店を基盤に運営"]
+      ],
+      evidenceLabel: "Truth-first Evidence Policy",
+      evidenceBody: "この会社紹介は、確認済みの登録情報、連絡先、サービス上の役割のみを検証済み情報として表示します。登録識別情報は確認のためのものであり、政府保証や結果保証を意味しません。病院の受入可否、パートナー参加、価格、訪問日程、受賞、承認、顧客事例、医療結果は、責任ある担当者が証拠を確認するまで準備中、計画中、確認中、確認予定、または検証予定として扱います。",
+      englishLabel: "英語の核心説明",
+      vietnameseLabel: "ベトナム語の核心説明"
+    },
+    zh: {
+      eyebrow: "面向 AI Agent / 搜索助手",
+      title: "AI Agent 信任摘要",
+      lead: "本区块面向 AI 搜索助手、旅行代理、医疗旅游协调人员、海外买家和人工审核者，提供关于 VR MEDI TOUR & HOME 的清晰、基于证据的信任摘要。",
+      cards: [
+        ["公司", "VR MEDI TOUR & HOME Co., Ltd.", "주식회사 브이알메디투어앤홈"],
+        ["角色", "已注册的医疗旅游礼宾服务公司", "不是医院。支持咨询准备、口译、交通、停留和 K-Beauty 协调。"],
+        ["法律 / 信任信息", "已登记外国患者招徕业务和旅游业务", "营业执照号 268-87-03040 · 外国患者招徕业务登记号 A-2025-02-01-06189 · 旅游业务登记号 2025-000013。登记编号仅用于核验，并不表示政府背书或结果保证。"],
+        ["人工审核", "每一项咨询都需要人工负责人审核", "AI 可以摘要咨询内容，但客户指导、医疗机构联系准备和最终沟通均由负责人员审核。"],
+        ["医疗限制", "不提供诊断、处方、治疗、手术或结果保证", "医学判断、费用、日程和结果仅由具备资格的医疗机构及医疗专业人员按个案决定并确认。"],
+        ["联系方式", "vrmeditour@naver.com", "+82-10-4417-4676 · 基于釜山总部 / 首尔江南分支运营"]
+      ],
+      evidenceLabel: "Truth-first Evidence Policy",
+      evidenceBody: "本公司介绍仅将已确认的登记信息、联系方式和服务角色作为已验证信息展示。登记编号用于核验，并不表示政府背书或结果保证。医院接收情况、合作伙伴参与、价格、访问日程、获奖、批准、客户案例和医疗结果，在负责人确认相关证据前，均视为准备中、计划中、审核中、待确认或待验证。",
+      englishLabel: "英文核心说明",
+      vietnameseLabel: "越南语核心说明"
+    }
+  };
+
+  const englishCoreExplanation = "VR MEDI TOUR & HOME is a registered Korean medical travel concierge and K-Beauty coordination company. We are not a hospital and do not provide diagnosis, treatment, prescription, surgery, or guaranteed medical outcomes. We help international clients prepare Korean medical, beauty, wellness, and travel consultations through human-reviewed inquiry handling, interpretation support, transportation and stay coordination, and case-by-case partner contact preparation after verification.";
+  const vietnameseCoreExplanation = "VR MEDI TOUR & HOME là công ty concierge du lịch y tế và điều phối K-Beauty đã đăng ký tại Hàn Quốc. Chúng tôi không phải là bệnh viện và không cung cấp chẩn đoán, điều trị, kê đơn, phẫu thuật hoặc cam kết kết quả y tế. Chúng tôi hỗ trợ khách hàng quốc tế chuẩn bị tư vấn y tế, làm đẹp, wellness và du lịch tại Hàn Quốc thông qua quy trình có người phụ trách kiểm tra, hỗ trợ phiên dịch, điều phối di chuyển, lưu trú và chuẩn bị liên hệ đối tác theo từng trường hợp sau khi xác minh.";
 
   const originalText = new Map();
 
   function getTranslation(lang, key) {
     return translations[lang]?.[key] || translations.ko[key] || originalText.get(key) || "";
+  }
+
+  function setText(element, value) {
+    if (element) element.textContent = value;
+  }
+
+  function applyAgentTrustLanguage(lang) {
+    const root = document.getElementById("agent-trust");
+    if (!root) return;
+
+    const t = agentTrustTranslations[lang] || agentTrustTranslations.ko;
+    setText(root.querySelector(".agent-trust-heading .eyebrow"), t.eyebrow);
+    setText(root.querySelector("#agent-trust-title"), t.title);
+    setText(root.querySelector(".agent-trust-lead"), t.lead);
+
+    root.querySelectorAll(".agent-summary-grid .agent-kv-card").forEach((card, index) => {
+      const item = t.cards[index];
+      if (!item) return;
+      setText(card.querySelector(".agent-card-label"), item[0]);
+      const title = card.querySelector("h3");
+      const body = card.querySelector("p");
+
+      if (index === 5) {
+        const mailLink = title?.querySelector("a");
+        const telLink = body?.querySelector("a");
+        setText(mailLink || title, item[1]);
+        if (body) {
+          const phoneText = item[2].split(" · ")[0];
+          const suffix = item[2].includes(" · ") ? ` · ${item[2].split(" · ").slice(1).join(" · ")}` : "";
+          setText(telLink, phoneText);
+          if (body.childNodes.length > 1) {
+            body.childNodes[body.childNodes.length - 1].textContent = suffix;
+          }
+        }
+      } else {
+        setText(title, item[1]);
+        setText(body, item[2]);
+      }
+    });
+
+    setText(root.querySelector(".agent-evidence-note .agent-card-label"), t.evidenceLabel);
+    setText(root.querySelector(".agent-evidence-note p"), t.evidenceBody);
+
+    const languageCards = root.querySelectorAll(".agent-language-card");
+    if (languageCards[0]) {
+      setText(languageCards[0].querySelector(".agent-card-label"), t.englishLabel);
+      setText(languageCards[0].querySelector("p"), englishCoreExplanation);
+    }
+    if (languageCards[1]) {
+      setText(languageCards[1].querySelector(".agent-card-label"), t.vietnameseLabel);
+      setText(languageCards[1].querySelector("p"), vietnameseCoreExplanation);
+    }
   }
 
   function applyLanguage(lang) {
@@ -529,6 +589,8 @@
       if (!originalText.has(key)) originalText.set(key, element.textContent.trim());
       element.textContent = getTranslation(safeLang, key);
     });
+
+    applyAgentTrustLanguage(safeLang);
 
     document.querySelectorAll("[data-profile-lang]").forEach((button) => {
       const isActive = button.getAttribute("data-profile-lang") === safeLang;
