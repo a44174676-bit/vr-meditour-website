@@ -57,6 +57,11 @@
   to = "/public/faq.css"
   status = 200
 
+[[redirects]]
+  from = "/faq-i18n.js"
+  to = "/public/faq-i18n.js"
+  status = 200
+
 # SEO landing pages stored under /public and exposed at root-level URLs.
 [[redirects]]
   from = "/medical-travel-guide.html"
