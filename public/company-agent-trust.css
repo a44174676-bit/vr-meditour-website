@@ -20,6 +20,7 @@
 
 .agent-trust-heading,
 .agent-summary-grid,
+.agent-evidence-note,
 .agent-language-grid {
   position: relative;
   z-index: 1;
@@ -47,6 +48,7 @@
 }
 
 .agent-kv-card,
+.agent-evidence-note,
 .agent-language-card {
   border: 1px solid var(--line);
   border-radius: 18px;
@@ -61,8 +63,14 @@
   padding: 1.15rem;
 }
 
+.agent-evidence-note,
 .agent-language-card {
   padding: 1.25rem;
+}
+
+.agent-evidence-note {
+  margin-top: 1rem;
+  border-color: rgba(103, 214, 231, 0.38);
 }
 
 .agent-card-label {
@@ -86,12 +94,14 @@
 }
 
 .agent-kv-card p,
+.agent-evidence-note p,
 .agent-language-card p {
   margin: 0;
   color: var(--muted);
 }
 
 .agent-kv-card a,
+.agent-evidence-note a,
 .agent-language-card a {
   color: #d8f7ff;
   text-decoration: underline;
@@ -101,6 +111,8 @@
 
 .agent-kv-card a:hover,
 .agent-kv-card a:focus-visible,
+.agent-evidence-note a:hover,
+.agent-evidence-note a:focus-visible,
 .agent-language-card a:hover,
 .agent-language-card a:focus-visible {
   color: #ffffff;
@@ -129,6 +141,7 @@
   }
 
   .agent-kv-card,
+  .agent-evidence-note,
   .agent-language-card {
     padding: 1rem;
   }
