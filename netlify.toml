@@ -48,8 +48,9 @@
 # FAQ page source files live under /public and are exposed at root-level URLs.
 [[redirects]]
   from = "/faq.html"
-  to = "/public/faq.html"
+  to = "/public/faq-multilingual.html"
   status = 200
+  force = true
 
 [[redirects]]
   from = "/faq.css"
