@@ -48,13 +48,18 @@
 # FAQ page source files live under /public and are exposed at root-level URLs.
 [[redirects]]
   from = "/faq.html"
-  to = "/public/faq-multilingual.html"
+  to = "/public/faq.html"
   status = 200
   force = true
 
 [[redirects]]
   from = "/faq.css"
   to = "/public/faq.css"
+  status = 200
+
+[[redirects]]
+  from = "/faq-i18n.js"
+  to = "/public/faq-i18n.js"
   status = 200
 
 # SEO landing pages stored under /public and exposed at root-level URLs.
