@@ -246,12 +246,42 @@ details p {
 .contact-card a { color: #d8f7ff; }
 .contact-card span { color: var(--muted); }
 
-/* Multilingual FAQ header alignment: keep navigation and language buttons centered for a trustworthy layout. */
-.site-header > div {
-  width: 100% !important;
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
+/* FAQ language controls: keep the KO / EN switch centered and non-intrusive. */
+.faq-lang-wrap {
+  display: flex;
+  flex: 1 0 100%;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  text-align: center;
+}
+
+.faq-lang-label {
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-weight: 800;
+}
+
+.faq-lang-btn {
+  min-width: 3.5rem;
+  min-height: 40px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: #dceeff;
+  background: rgba(255, 255, 255, 0.055);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 900;
+}
+
+.faq-lang-btn.is-active,
+.faq-lang-btn:focus-visible {
+  border-color: rgba(103, 214, 231, 0.78);
+  color: #04111f;
+  background: linear-gradient(135deg, var(--silver), var(--cyan));
+  outline: none;
+  box-shadow: 0 0 20px rgba(103, 214, 231, 0.2);
 }
 
 .site-header .header-nav {
@@ -266,8 +296,8 @@ details p {
   justify-content: center !important;
   align-items: center !important;
   text-align: center !important;
-  margin: 0.9rem auto 0 !important;
-  gap: 0.75rem !important;
+  margin: 0.65rem auto 0 !important;
+  gap: 0.65rem !important;
 }
 
 .site-header .faq-lang-label {
