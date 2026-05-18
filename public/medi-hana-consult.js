@@ -171,6 +171,22 @@
   const state = { lang: "en", step: 0, mode: "medi", answers: { consultType: "", interestArea: "", language: "", name: "", email: "", contact: "", message: "", agree: false } };
 
   const $ = (selector) => document.querySelector(selector);
+
+  function insertMainFaqLink() {
+    const topbar = document.querySelector(".topbar");
+    if (!topbar || topbar.querySelector('a[href="/faq.html"]')) return;
+    const companyLink = topbar.querySelector('a[href="/company-profile.html"]');
+    if (!companyLink) return;
+    const faqLink = document.createElement("a");
+    faqLink.href = "/faq.html";
+    faqLink.className = companyLink.className || "btn secondary";
+    faqLink.setAttribute("aria-label", "View FAQ");
+    faqLink.textContent = "FAQ";
+    companyLink.insertAdjacentElement("afterend", faqLink);
+  }
+
+  insertMainFaqLink();
+
   const form = $('form[name="medical-consult"]');
   const wizard = $("#mediHanaConsult");
   if (!form || !wizard) return;
