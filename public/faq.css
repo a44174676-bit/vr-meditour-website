@@ -352,3 +352,6 @@ details p {
   .section-shell { border-radius: 20px; }
   details p { padding-left: 1.15rem; }
 }
+
+
+.faq-language-switcher{width:100%;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:.75rem;margin-top:.9rem}.faq-language-label{color:var(--muted);font-weight:900}.faq-language-switcher .faq-lang-btn{width:56px;height:56px}.faq-language-switcher .faq-lang-btn img{width:46px;height:46px;border-radius:50%;object-fit:cover}@media (max-width:640px){.faq-language-switcher .faq-lang-btn{width:48px;height:48px}.faq-language-switcher .faq-lang-btn img{width:39px;height:39px}}
