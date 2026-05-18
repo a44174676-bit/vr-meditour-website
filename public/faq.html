@@ -98,7 +98,7 @@
 <body>
   <a class="skip-link" href="#main-content">본문으로 건너뛰기</a>
 
-  <header class="site-header" aria-label="FAQ header">
+  <header class="site-header faq-premium-header" aria-label="FAQ header">
     <a class="brand" href="/" aria-label="VR MEDI TOUR & HOME home">
       <img src="/assets/logo.jpg" alt="VR MEDI TOUR & HOME logo" />
       <span>
@@ -106,16 +106,34 @@
         <small>&amp; HOME</small>
       </span>
     </a>
+
     <nav class="header-nav" aria-label="Primary navigation">
-      <a href="/">Home</a>
-      <a href="/company-profile.html">Company Profile</a>
-      <a href="/ai-skin/">AI Skin Analysis</a>
-      <a href="/faq.html" aria-current="page">FAQ</a>
+      <a href="/company-profile.html" data-faq-key="nav.company">Company Profile</a>
+      <a href="/faq.html" aria-current="page" data-faq-key="nav.faq">FAQ</a>
     </nav>
-    <div class="faq-lang-wrap" aria-label="FAQ language selector">
-      <span class="faq-lang-label">Language</span>
-      <button class="faq-lang-btn is-active" type="button" data-faq-lang="ko" aria-pressed="true">KO</button>
-      <button class="faq-lang-btn" type="button" data-faq-lang="en" aria-pressed="false">EN</button>
+
+    <div class="faq-language-switcher" aria-label="FAQ language selector">
+      <span class="faq-language-label" data-faq-key="languageLabel">LANGUAGE</span>
+
+      <button type="button" class="faq-lang-btn" data-faq-lang="en" aria-label="English" aria-pressed="false">
+        <img src="/assets/images/language/lang-en.png" alt="English" onerror="this.hidden=true" />
+      </button>
+
+      <button type="button" class="faq-lang-btn active is-active" data-faq-lang="ko" aria-label="한국어" aria-pressed="true">
+        <img src="/assets/images/language/lang-ko.png" alt="Korean" onerror="this.hidden=true" />
+      </button>
+
+      <button type="button" class="faq-lang-btn" data-faq-lang="vi" aria-label="Tiếng Việt" aria-disabled="true" disabled title="Coming soon">
+        <img src="/assets/images/language/lang-vi.png" alt="Vietnamese" onerror="this.hidden=true" />
+      </button>
+
+      <button type="button" class="faq-lang-btn" data-faq-lang="ja" aria-label="日本語" aria-disabled="true" disabled title="Coming soon">
+        <img src="/assets/images/language/lang-ja.png" alt="Japanese" onerror="this.hidden=true" />
+      </button>
+
+      <button type="button" class="faq-lang-btn" data-faq-lang="zh" aria-label="中文" aria-disabled="true" disabled title="Coming soon">
+        <img src="/assets/images/language/lang-zh.png" alt="Chinese" onerror="this.hidden=true" />
+      </button>
     </div>
   </header>
 

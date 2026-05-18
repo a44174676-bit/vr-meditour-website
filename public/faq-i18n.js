@@ -249,6 +249,7 @@
     document.querySelectorAll("[data-faq-lang]").forEach((button) => {
       const isActive = button.dataset.faqLang === language;
       button.classList.toggle("is-active", isActive);
+      button.classList.toggle("active", isActive);
       button.setAttribute("aria-pressed", String(isActive));
     });
   };
