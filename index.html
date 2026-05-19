@@ -158,7 +158,20 @@
           </div>
         </a>
 
-       <a href="/company-profile.html" class="btn secondary" data-i18n="navCompanyProfile" aria-label="View company profile">Company Profile</a>
+        <nav class="top-nav" aria-label="주요 메뉴">
+          <a href="/company-profile.html" data-i18n="navCompanyProfile">Company</a>
+          <a href="/company-profile.html#agent-trust" data-i18n="navTrustCenter">Trust Center</a>
+          <a href="/faq.html" data-i18n="navFaq">FAQ</a>
+          <a class="nav-ai-link" href="/ai-skin/" aria-label="AI 피부 분석 체험하기">
+            <span aria-hidden="true">🧬</span>
+            <span data-i18n="navAiSkinMenu">AI Skin</span>
+          </a>
+          <a class="nav-ai-link" href="/#consult-form" aria-label="AI 의료관광 상담 도우미에게 질문하기">
+            <span aria-hidden="true">🤖</span>
+            <span data-i18n="navAiConsult">AI Consult</span>
+          </a>
+          <a href="/#contact" data-i18n="navContact">Contact</a>
+        </nav>
         <div class="language-select">
           <span data-i18n="languageLabel">Language</span>
           <div class="language-buttons" id="languageButtons" aria-label="Language selector">
@@ -562,6 +575,11 @@
     const baseEn = {
       languageLabel: "Language",
       navCompanyProfile: "Company Profile",
+      navTrustCenter: "Trust Center",
+      navFaq: "FAQ",
+      navAiSkinMenu: "AI Skin",
+      navAiConsult: "AI Consult",
+      navContact: "Contact",
       heroEyebrow: "Korea · Vietnam Medical Travel Coordination",
       heroTitle: "Trusted Korean Medical Travel Coordination, Human-Reviewed.",
       heroDesc: "We support consultation preparation, hospital communication, interpretation, travel logistics, stay support, and recovery coordination for international patients.",
@@ -711,6 +729,11 @@
       ...baseEn,
       languageLabel: "언어",
       navCompanyProfile: "회사소개",
+      navTrustCenter: "Trust Center",
+      navFaq: "FAQ",
+      navAiSkinMenu: "AI 피부분석",
+      navAiConsult: "AI 상담",
+      navContact: "문의",
       heroEyebrow: "한국 · 베트남 의료관광 코디네이션",
       heroTitle: "한국 의료관광,\n전문 코디네이터가 함께합니다",
       heroDesc: "외국인 환자의 상담 준비, 병원 소통, 통역, 이동·숙박, 회복 지원을 차분하고 체계적으로 돕습니다.",
@@ -859,6 +882,11 @@
       ...baseEn,
       languageLabel: "Ngôn ngữ",
       navCompanyProfile: "Hồ sơ công ty",
+      navTrustCenter: "Trung tâm tin cậy",
+      navFaq: "FAQ",
+      navAiSkinMenu: "Phân tích da AI",
+      navAiConsult: "Tư vấn AI",
+      navContact: "Liên hệ",
       heroEyebrow: "Điều phối du lịch y tế Hàn Quốc · Việt Nam",
       heroTitle: "Điều phối du lịch y tế Hàn Quốc đáng tin cậy, có con người rà soát.",
       heroDesc: "Chúng tôi hỗ trợ chuẩn bị tư vấn, liên hệ bệnh viện, thông dịch, đi lại, lưu trú và phục hồi cho bệnh nhân quốc tế.",
@@ -993,6 +1021,11 @@
       ...baseEn,
       languageLabel: "言語",
       navCompanyProfile: "会社紹介",
+      navTrustCenter: "Trust Center",
+      navFaq: "FAQ",
+      navAiSkinMenu: "AI肌分析",
+      navAiConsult: "AI相談",
+      navContact: "お問い合わせ",
       heroEyebrow: "韓国・ベトナム 医療渡航コーディネーション",
       heroTitle: "信頼できる韓国医療渡航コーディネーション（人による確認）。",
       heroDesc: "海外患者向けに、相談準備、病院連携、通訳、移動・宿泊、回復支援を行います。",
@@ -1127,6 +1160,11 @@
       ...baseEn,
       languageLabel: "语言",
       navCompanyProfile: "公司简介",
+      navTrustCenter: "信任中心",
+      navFaq: "FAQ",
+      navAiSkinMenu: "AI皮肤分析",
+      navAiConsult: "AI咨询",
+      navContact: "联系我们",
       heroEyebrow: "韩国·越南 医疗旅游协调",
       heroTitle: "可信赖的韩国医疗旅游协调，人工复核。",
       heroDesc: "我们为国际患者提供咨询准备、医院沟通、翻译、出行住宿与康复支持。",
@@ -1261,6 +1299,11 @@
     const arDict = {
       languageLabel: "اللغة",
       navCompanyProfile: "ملف الشركة",
+      navTrustCenter: "مركز الثقة",
+      navFaq: "FAQ",
+      navAiSkinMenu: "تحليل البشرة بالذكاء الاصطناعي",
+      navAiConsult: "استشارة الذكاء الاصطناعي",
+      navContact: "اتصل بنا",
       heroEyebrow: "تنسيق السفر الطبي بين كوريا وفيتنام",
       heroTitle: "تنسيق موثوق للسفر الطبي إلى كوريا، مع مراجعة بشرية.",
       heroDesc: "نساعد في التحضير للاستشارة، والتواصل مع المستشفيات، والترجمة، ولوجستيات السفر، ودعم الإقامة، وتنسيق التعافي للمرضى الدوليين.",
