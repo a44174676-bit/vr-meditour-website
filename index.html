@@ -157,22 +157,24 @@
             <span>&amp; HOME</span>
           </div>
         </a>
-
-        <nav class="top-nav" aria-label="주요 메뉴">
+        <nav class="top-nav top-nav-main" aria-label="주요 메뉴">
           <a href="/company-profile.html" data-i18n="navCompanyProfile">Company</a>
           <a href="/company-profile.html#agent-trust" data-i18n="navTrustCenter">Trust Center</a>
           <a href="/faq.html" data-i18n="navFaq">FAQ</a>
-          <a class="nav-ai-link" href="/ai-skin/" aria-label="AI 피부 분석 체험하기">
-            <span aria-hidden="true">🧬</span>
-            <span data-i18n="navAiSkinMenu">AI Skin</span>
-          </a>
-          <a class="nav-ai-link" href="/#consult-form" aria-label="AI 의료관광 상담 도우미에게 질문하기">
-            <span aria-hidden="true">🤖</span>
-            <span data-i18n="navAiConsult">AI Consult</span>
-          </a>
           <a href="/#contact" data-i18n="navContact">Contact</a>
         </nav>
-        <div class="language-select">
+        <div class="top-tools">
+          <nav class="top-nav top-nav-cta" aria-label="AI quick links">
+            <a class="nav-ai-link" href="/ai-skin/" aria-label="AI 피부 분석 체험하기">
+              <span aria-hidden="true">🧬</span>
+              <span data-i18n="navAiSkinMenu">AI Skin</span>
+            </a>
+            <a class="nav-ai-link" href="/#consult-form" aria-label="AI 의료관광 상담 도우미에게 질문하기">
+              <span aria-hidden="true">🤖</span>
+              <span data-i18n="navAiConsult">AI Consult</span>
+            </a>
+          </nav>
+          <div class="language-select">
           <span data-i18n="languageLabel">Language</span>
           <div class="language-buttons" id="languageButtons" aria-label="Language selector">
             <button type="button" class="lang-btn" data-lang="en" aria-label="English">
@@ -192,6 +194,7 @@
             </button>
           </div>
         </div>
+        </div>
       </header>
 
       <div class="hero-grid">
@@ -202,9 +205,6 @@
           <div class="hero-actions">
             <a href="#consult-form" class="btn primary" data-i18n="heroCtaConsult" aria-label="Go to consultation form">Request Consultation</a>
             <a href="#hospital-partnership" class="btn secondary" data-i18n="heroCtaPartner" aria-label="Go to hospital partnership">Hospital Partners</a>
-            <a href="/ai-skin/" class="btn secondary" data-i18n="ctaAiSkin" aria-label="Try AI skin analysis">AI 피부 분석 체험하기</a>
-            <span class="ai-skin-note" data-i18n="ctaAiSkinNote">의료 진단이 아닌 K-뷰티 참고 분석입니다.</span>
-            <a href="https://chatgpt.com/g/g-68f04d401e488191b5afaed323a7b714-vr-medi-tour-home-korean-medical-tourism-gpt" class="btn ai-chat" target="_blank" rel="noopener noreferrer" data-i18n="aiBtn" aria-label="Ask AI Medical Travel Assistant in new tab">Ask AI Medical Travel Assistant</a>
           </div>
           <p class="ai-disclaimer" data-i18n="aiDisclaimer">AI assistant helps organize your inquiry. It does not diagnose, prescribe, or replace licensed medical professionals.</p>
         </article>
