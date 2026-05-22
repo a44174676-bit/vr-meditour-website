@@ -1,4 +1,4 @@
-const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+const MEDI_HANA_OPENAI_API_KEY = process.env.MEDI_HANA_OPENAI_API_KEY;
 const MODEL = process.env.MEDI_HANA_MODEL || 'gpt-4o-mini';
 const RATE_LIMIT_MS = 3000;
 const rateMap = new Map();
@@ -48,13 +48,13 @@ exports.handler = async (event) => {
   const piiDetected = /(passport|resident|ssn|diagnosis report|mri|ct|x-ray|credit card)/i.test(message);
   const safetyNotice = piiDetected ? 'Please avoid sharing sensitive personal or medical information before explicit consent.' : 'Medi Hana is for pre-consultation support only; not diagnosis or treatment.';
 
-  if (!OPENAI_API_KEY) {
-    console.error('[medi-hana-chat] status=500 error_type=missing_api_key');
-    return json(500,{errorType:'missing_api_key',reply:'AI 연결 설정이 아직 완료되지 않았습니다.',summary:{},safetyNotice,handoffRecommended:true},origin);
+  if (!MEDI_HANA_OPENAI_API_KEY) {
+    console.error('[medi-hana-chat] status=500 error_type=missing_medi_hana_api_key');
+    return json(500,{errorType:'missing_medi_hana_api_key',reply:'메디하나 AI 연결 설정이 아직 완료되지 않았습니다.',summary:{},safetyNotice,handoffRecommended:true},origin);
   }
 
   try {
-    const resp = await fetch('https://api.openai.com/v1/chat/completions',{method:'POST',headers:{'Authorization':`Bearer ${OPENAI_API_KEY}`,'Content-Type':'application/json'},body:JSON.stringify({model:MODEL,temperature:0.2,max_tokens:450,response_format:{type:'json_object'},messages:[{role:'system',content:SYSTEM_PROMPT},...history.map(m=>({role:m.role==='user'?'user':'assistant',content:String(m.text||'').slice(0,800)})),{role:'user',content:`User language: ${payload.language||'en'}\nUser message: ${message}\nReturn JSON schema {reply, summary:{inquiryType,language,country,city,field,timeline,supportNeeded,keyConcern,needsHumanReview}, safetyNotice, handoffRecommended}.`}]})});
+    const resp = await fetch('https://api.openai.com/v1/chat/completions',{method:'POST',headers:{'Authorization':`Bearer ${MEDI_HANA_OPENAI_API_KEY}`,'Content-Type':'application/json'},body:JSON.stringify({model:MODEL,temperature:0.2,max_tokens:450,response_format:{type:'json_object'},messages:[{role:'system',content:SYSTEM_PROMPT},...history.map(m=>({role:m.role==='user'?'user':'assistant',content:String(m.text||'').slice(0,800)})),{role:'user',content:`User language: ${payload.language||'en'}\nUser message: ${message}\nReturn JSON schema {reply, summary:{inquiryType,language,country,city,field,timeline,supportNeeded,keyConcern,needsHumanReview}, safetyNotice, handoffRecommended}.`}]})});
 
     if (!resp.ok) {
       console.error(`[medi-hana-chat] status=${resp.status} error_type=upstream_api_error`);

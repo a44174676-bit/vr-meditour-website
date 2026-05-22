@@ -1,10 +1,10 @@
 :root{--bg:#071426;--card:#0d2138;--text:#eaf4ff;--mint:#63e6cf;--blue:#3aa6ff}
 *{box-sizing:border-box}body{margin:0;background:linear-gradient(135deg,#040b16,#081b32);color:var(--text);font-family:Arial,sans-serif}
-.topbar{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;background:#091a2dcc;position:sticky;top:0}.topbar a{color:#fff;text-decoration:none;margin:0 8px}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;background:#091a2dcc;position:sticky;top:0;gap:12px}.topbar a{color:#fff;text-decoration:none;margin:0 8px}
 .container{max-width:1200px;margin:20px auto;padding:0 14px}.card{background:var(--card);border:1px solid #1e3a56;border-radius:18px;padding:16px}
 .chat-layout{display:grid;grid-template-columns:260px 1fr 320px;gap:14px}.messages{min-height:360px;max-height:58vh;overflow:auto;border:1px solid #25435f;padding:12px;border-radius:12px;background:#061323}
 .msg{margin-bottom:10px;padding:10px;border-radius:10px;white-space:pre-wrap}.u{background:#12395a}.a{background:#0e2f2a}
 textarea{width:100%;min-height:72px;background:#03101f;color:#fff;border:1px solid #2a4e71;border-radius:10px;padding:10px}button,.btn{border:none;border-radius:999px;padding:10px 14px;background:var(--blue);color:#fff;cursor:pointer;text-decoration:none;display:inline-block}
-.summary-actions{display:grid;gap:8px;margin-top:12px}.legal,.notice{font-size:.92rem;color:#b9d0ea}.sr-only{position:absolute;left:-9999px}
-#langSwitch button{margin:0 3px;background:#143254}.profile img{width:100%;border-radius:12px}
-@media (max-width: 900px){.chat-layout{grid-template-columns:1fr}.profile img{max-width:220px}}
+.summary-actions{display:grid;gap:8px;margin-top:12px}.legal,.notice,.summary-desc,.sub-desc{font-size:.92rem;color:#b9d0ea}.sr-only{position:absolute;left:-9999px}.profile img{width:100%;border-radius:12px}
+.lang-switch{display:flex;gap:6px;flex-wrap:wrap}.lang-btn{min-width:44px;min-height:44px;border:1px solid #2a4e71;background:#102943;border-radius:999px;padding:6px;display:inline-flex;align-items:center;justify-content:center}.lang-btn img{width:28px;height:28px;border-radius:999px;object-fit:cover}.lang-btn.active,.lang-btn[aria-pressed="true"]{border-color:#63e6cf;box-shadow:0 0 0 2px #63e6cf55}
+@media (max-width: 900px){.chat-layout{grid-template-columns:1fr}.profile img{max-width:220px}.topbar{flex-wrap:wrap}}

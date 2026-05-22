@@ -12,15 +12,14 @@
   <meta property="og:url" content="https://vr-meditour.com/medi-hana/" />
   <meta property="og:image" content="https://vr-meditour.com/assets/hero-medical-travel.jpg" />
   <link rel="stylesheet" href="/public/medi-hana/styles.css" />
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Medi Hana AI Consultation","url":"https://vr-meditour.com/medi-hana/","description":"AI-assisted medical tourism pre-consultation preparation page.","isPartOf":{"@type":"WebSite","name":"VR MEDI TOUR & HOME","url":"https://vr-meditour.com/"}}</script>
 </head>
 <body>
   <header class="topbar">
     <a href="/" class="logo">VR MEDI TOUR &amp; HOME</a>
     <nav>
-      <a href="/">홈으로</a>
-      <a href="/#consult-form">상담 신청</a>
-      <a href="/ai-skin/">AI 피부 분석</a>
+      <a href="/" data-i18n="home">홈으로</a>
+      <a href="/#consult-form" data-i18n="consult">상담 신청</a>
+      <a href="/ai-skin/" data-i18n="skin">AI 피부 분석</a>
     </nav>
     <div class="lang-switch" id="langSwitch" aria-label="Language selector"></div>
   </header>
@@ -32,41 +31,43 @@
       <p class="notice" data-i18n="noticeShort">메디하나는 진단·처방·치료 판단을 하지 않습니다. 최종 의료 판단은 한국의 면허 의료기관이 합니다.</p>
     </section>
 
-    <p class="legal" data-i18n="legal">VR MEDI TOUR & HOME is not a hospital and does not provide diagnosis, prescription, or medical treatment. Medical decisions are made only by licensed medical professionals at partner medical institutions.</p>
+    <p class="legal" data-i18n="legal"></p>
 
     <section class="chat-layout">
       <aside class="card profile">
         <img src="/public/assets/medi-hana/medi-hana-default.png" alt="Medi Hana" />
         <h2>Medi Hana</h2>
-        <p data-i18n="profile">Secure medical tourism pre-consultation assistant for foreign patient coordination.</p>
+        <p data-i18n="profile"></p>
       </aside>
 
       <section class="card chat">
         <div id="chatMessages" class="messages" aria-live="polite"></div>
         <form id="chatForm" class="input-wrap">
           <label for="chatInput" class="sr-only">Message</label>
-          <textarea id="chatInput" placeholder="메시지를 입력하세요" data-i18n-placeholder="placeholder" aria-label="Chat message input"></textarea>
-          <button type="submit" aria-label="Send message" data-i18n="send">보내기</button>
+          <textarea id="chatInput" data-i18n-placeholder="placeholder" aria-label="Chat message input"></textarea>
+          <button type="submit" aria-label="Send message" data-i18n="send"></button>
         </form>
         <p class="legal" data-i18n="legal"></p>
       </section>
 
       <aside class="card summary">
-        <h3 data-i18n="summaryTitle">상담 요약</h3>
+        <h3 data-i18n="summaryTitle"></h3>
+        <p class="summary-desc" data-i18n="summaryDesc"></p>
         <dl id="summaryFields"></dl>
         <div class="consent">
-          <p data-i18n="consentText">상담 준비를 위해 입력하신 정보가 VR MEDI TOUR & HOME 담당자에게 전달될 수 있습니다. 병원 또는 제3자에게 전달하기 전에는 별도 동의가 필요합니다.</p>
-          <label><input type="checkbox" id="consent1" /> <span data-i18n="consent1">개인정보 수집 및 상담 준비 목적 이용에 동의합니다.</span></label>
-          <label><input type="checkbox" id="consent2" /> <span data-i18n="consent2">병원 전달은 별도 동의 후 진행된다는 점을 확인했습니다.</span></label>
+          <p data-i18n="consentText"></p>
+          <label><input type="checkbox" id="consent1" /> <span data-i18n="consent1"></span></label>
+          <label><input type="checkbox" id="consent2" /> <span data-i18n="consent2"></span></label>
         </div>
         <p class="legal" data-i18n="legal"></p>
         <div class="summary-actions">
-          <button id="submitLead" disabled data-i18n="submit">상담 신청으로 제출</button>
-          <a class="btn" href="/#consult-form" data-i18n="toForm">상담폼으로 이동</a>
-          <button id="copyBtn" data-i18n="copy">대화 내용 복사</button>
-          <button id="resetBtn" data-i18n="reset">다시 시작</button>
+          <button id="submitLead" disabled data-i18n="submit"></button>
+          <a class="btn" href="/#consult-form" data-i18n="toForm"></a>
+          <button id="copyBtn" data-i18n="copy"></button>
+          <button id="resetBtn" data-i18n="reset"></button>
         </div>
-        <a class="sub-link" href="https://chatgpt.com/g/g-67ef3f4f6f5c819192b4a4f97489b4f2-vr-medi-tour-home-ai" target="_blank" rel="noopener">고급 AI 상담 도구 열기</a>
+        <a id="advancedLink" class="sub-link" href="https://chatgpt.com/g/g-68f04d401e488191b5afaed323a7b714-vr-medi-tour-home-korean-medical-tourism-gpt" target="_blank" rel="noopener noreferrer" data-i18n="advancedBtn" aria-label=""></a>
+        <p class="sub-desc" data-i18n="advancedDesc"></p>
       </aside>
     </section>
 

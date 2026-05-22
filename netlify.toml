@@ -138,3 +138,13 @@
   from = "/medi-hana/*"
   to = "/public/medi-hana/:splat"
   status = 200
+
+[[redirects]]
+  from = "/public/medi-hana"
+  to = "/medi-hana/"
+  status = 301
+
+[[redirects]]
+  from = "/public/medi-hana/*"
+  to = "/medi-hana/:splat"
+  status = 301
