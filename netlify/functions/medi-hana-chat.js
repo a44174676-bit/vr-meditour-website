@@ -49,14 +49,27 @@ exports.handler = async (event) => {
   const safetyNotice = piiDetected ? 'Please avoid sharing sensitive personal or medical information before explicit consent.' : 'Medi Hana is for pre-consultation support only; not diagnosis or treatment.';
 
   if (!OPENAI_API_KEY) {
-    return json(500,{reply:'죄송합니다. 잠시 후 다시 시도해 주세요. 급한 의료 상황이면 가까운 의료기관 또는 응급 서비스에 연락해 주세요.',summary:{},safetyNotice,handoffRecommended:true},origin);
+    console.error('[medi-hana-chat] status=500 error_type=missing_api_key');
+    return json(500,{errorType:'missing_api_key',reply:'AI 연결 설정이 아직 완료되지 않았습니다.',summary:{},safetyNotice,handoffRecommended:true},origin);
   }
 
-  const resp = await fetch('https://api.openai.com/v1/chat/completions',{method:'POST',headers:{'Authorization':`Bearer ${OPENAI_API_KEY}`,'Content-Type':'application/json'},body:JSON.stringify({model:MODEL,temperature:0.2,max_tokens:450,response_format:{type:'json_object'},messages:[{role:'system',content:SYSTEM_PROMPT},...history.map(m=>({role:m.role==='user'?'user':'assistant',content:String(m.text||'').slice(0,800)})),{role:'user',content:`User language: ${payload.language||'en'}\nUser message: ${message}\nReturn JSON schema {reply, summary:{inquiryType,language,country,city,field,timeline,supportNeeded,keyConcern,needsHumanReview}, safetyNotice, handoffRecommended}.`}]})});
+  try {
+    const resp = await fetch('https://api.openai.com/v1/chat/completions',{method:'POST',headers:{'Authorization':`Bearer ${OPENAI_API_KEY}`,'Content-Type':'application/json'},body:JSON.stringify({model:MODEL,temperature:0.2,max_tokens:450,response_format:{type:'json_object'},messages:[{role:'system',content:SYSTEM_PROMPT},...history.map(m=>({role:m.role==='user'?'user':'assistant',content:String(m.text||'').slice(0,800)})),{role:'user',content:`User language: ${payload.language||'en'}\nUser message: ${message}\nReturn JSON schema {reply, summary:{inquiryType,language,country,city,field,timeline,supportNeeded,keyConcern,needsHumanReview}, safetyNotice, handoffRecommended}.`}]})});
 
-  if (!resp.ok) return json(502,{reply:'죄송합니다. 잠시 후 다시 시도해 주세요. 급한 의료 상황이면 가까운 의료기관 또는 응급 서비스에 연락해 주세요.',summary:{},safetyNotice,handoffRecommended:true},origin);
-  const data = await resp.json();
-  let parsed;
-  try { parsed = JSON.parse(data.choices?.[0]?.message?.content || '{}'); } catch { parsed = {}; }
-  return json(200,{reply:parsed.reply||'상담 준비를 도와드릴게요. 상담 목적과 희망 언어를 알려주세요.',summary:parsed.summary||{},safetyNotice:parsed.safetyNotice||safetyNotice,handoffRecommended:parsed.handoffRecommended ?? true},origin);
+    if (!resp.ok) {
+      console.error(`[medi-hana-chat] status=${resp.status} error_type=upstream_api_error`);
+      return json(502,{errorType:'upstream_api_error',reply:'AI 응답 서버 연결에 실패했습니다.',summary:{},safetyNotice,handoffRecommended:true},origin);
+    }
+    const data = await resp.json();
+    let parsed;
+    try { parsed = JSON.parse(data.choices?.[0]?.message?.content || '{}'); }
+    catch {
+      console.error('[medi-hana-chat] status=502 error_type=response_parse_error');
+      return json(502,{errorType:'response_parse_error',reply:'AI 응답 형식을 읽지 못했습니다.',summary:{},safetyNotice,handoffRecommended:true},origin);
+    }
+    return json(200,{reply:parsed.reply||'상담 준비를 도와드릴게요. 상담 목적과 희망 언어를 알려주세요.',summary:parsed.summary||{},safetyNotice:parsed.safetyNotice||safetyNotice,handoffRecommended:parsed.handoffRecommended ?? true},origin);
+  } catch {
+    console.error('[medi-hana-chat] status=502 error_type=function_runtime_error');
+    return json(502,{errorType:'function_runtime_error',reply:'AI 응답 서버 연결에 실패했습니다.',summary:{},safetyNotice,handoffRecommended:true},origin);
+  }
 };
