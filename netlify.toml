@@ -127,3 +127,14 @@
   to = "/public/safe-medical-travel-korea.html"
   status = 200
 
+
+
+[[redirects]]
+  from = "/medi-hana"
+  to = "/public/medi-hana/"
+  status = 301
+
+[[redirects]]
+  from = "/medi-hana/*"
+  to = "/public/medi-hana/:splat"
+  status = 200
