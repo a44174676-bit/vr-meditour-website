@@ -26,21 +26,15 @@
 
   <main class="container">
     <section class="hero card">
-      <h1 data-i18n="title">메디하나 의료관광 AI 상담 도우미</h1>
-      <p data-i18n="subtitle">한국 의료관광 상담 준비를 안전하게 도와드립니다.</p>
-      <p class="notice" data-i18n="noticeShort">메디하나는 진단·처방·치료 판단을 하지 않습니다. 최종 의료 판단은 한국의 면허 의료기관이 합니다.</p>
+      <h1 data-i18n="title"></h1>
+      <p data-i18n="subtitle"></p>
+      <p class="notice" data-i18n="noticeShort"></p>
     </section>
 
     <p class="legal" data-i18n="legal"></p>
 
     <section class="chat-layout">
-      <aside class="card profile">
-        <img src="/public/assets/medi-hana/medi-hana-default.png" alt="Medi Hana" />
-        <h2>Medi Hana</h2>
-        <p data-i18n="profile"></p>
-      </aside>
-
-      <section class="card chat">
+      <section class="card main-chat">
         <div id="chatMessages" class="messages" aria-live="polite"></div>
         <form id="chatForm" class="input-wrap">
           <label for="chatInput" class="sr-only">Message</label>
@@ -50,24 +44,34 @@
         <p class="legal" data-i18n="legal"></p>
       </section>
 
-      <aside class="card summary">
-        <h3 data-i18n="summaryTitle"></h3>
-        <p class="summary-desc" data-i18n="summaryDesc"></p>
-        <dl id="summaryFields"></dl>
-        <div class="consent">
-          <p data-i18n="consentText"></p>
-          <label><input type="checkbox" id="consent1" /> <span data-i18n="consent1"></span></label>
-          <label><input type="checkbox" id="consent2" /> <span data-i18n="consent2"></span></label>
-        </div>
-        <p class="legal" data-i18n="legal"></p>
-        <div class="summary-actions">
-          <button id="submitLead" disabled data-i18n="submit"></button>
-          <a class="btn" href="/#consult-form" data-i18n="toForm"></a>
-          <button id="copyBtn" data-i18n="copy"></button>
-          <button id="resetBtn" data-i18n="reset"></button>
-        </div>
-        <a id="advancedLink" class="sub-link" href="https://chatgpt.com/g/g-68f04d401e488191b5afaed323a7b714-vr-medi-tour-home-korean-medical-tourism-gpt" target="_blank" rel="noopener noreferrer" data-i18n="advancedBtn" aria-label=""></a>
-        <p class="sub-desc" data-i18n="advancedDesc"></p>
+      <aside class="side-stack">
+        <section class="card profile">
+          <img src="/public/assets/medi-hana/medi-hana-default.png" alt="Medi Hana" />
+          <h2>Medi Hana</h2>
+          <p data-i18n="profile"></p>
+        </section>
+
+        <section class="card summary">
+          <h3 data-i18n="summaryTitle"></h3>
+          <p class="summary-desc" data-i18n="summaryDesc"></p>
+          <dl id="summaryFields"></dl>
+          <div class="consent">
+            <p data-i18n="consentText"></p>
+            <label><input type="checkbox" id="consent1" /> <span data-i18n="consent1"></span></label>
+            <label><input type="checkbox" id="consent2" /> <span data-i18n="consent2"></span></label>
+          </div>
+          <p class="legal" data-i18n="legal"></p>
+          <div class="summary-actions">
+            <button id="submitLead" disabled data-i18n="submit"></button>
+            <div class="secondary-actions">
+              <a class="btn" href="/#consult-form" data-i18n="toForm"></a>
+              <button id="copyBtn" data-i18n="copy"></button>
+              <button id="resetBtn" data-i18n="reset"></button>
+            </div>
+          </div>
+          <a id="advancedLink" class="btn" href="https://chatgpt.com/g/g-68f04d401e488191b5afaed323a7b714-vr-medi-tour-home-korean-medical-tourism-gpt" target="_blank" rel="noopener noreferrer" data-i18n="advancedBtn" aria-label=""></a>
+          <p class="sub-desc" data-i18n="advancedDesc"></p>
+        </section>
       </aside>
     </section>
 
