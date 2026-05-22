@@ -64,17 +64,17 @@
 
           <div class="contact-fields">
             <label for="contactName" data-i18n="nameLabel"></label>
-            <input id="lead_name" name="name" type="text" data-i18n-placeholder="namePlaceholder" />
+            <input id="contact_name" name="name" type="text" data-i18n-placeholder="namePlaceholder" />
             <label for="contactEmail" data-i18n="emailLabel"></label>
-            <input id="lead_email" name="email" type="email" data-i18n-placeholder="emailPlaceholder" />
+            <input id="contact_email" name="email" type="email" data-i18n-placeholder="emailPlaceholder" />
             <label for="contactPhone" data-i18n="phoneLabel"></label>
-            <input id="lead_phone" name="phone" type="text" data-i18n-placeholder="phonePlaceholder" />
+            <input id="contact_phone" name="phone" type="text" data-i18n-placeholder="phonePlaceholder" />
             <label for="contactMessenger" data-i18n="messengerLabel"></label>
-            <input id="lead_messenger" name="messenger" type="text" data-i18n-placeholder="messengerPlaceholder" />
+            <input id="contact_messenger" name="messenger" type="text" data-i18n-placeholder="messengerPlaceholder" />
             <label for="contactMethod" data-i18n="preferredContactLabel"></label>
-            <input id="lead_preferred_contact" name="preferred_contact_method" type="text" data-i18n-placeholder="preferredContactPlaceholder" />
+            <input id="contact_preferred_contact" name="preferred_contact_method" type="text" data-i18n-placeholder="preferredContactPlaceholder" />
             <label for="contactMemo" data-i18n="memoLabel"></label>
-            <textarea id="lead_message" name="message" data-i18n-placeholder="memoPlaceholder"></textarea>
+            <textarea id="contact_message" name="message" data-i18n-placeholder="memoPlaceholder"></textarea>
           </div>
           <p class="summary-desc" data-i18n="contactGuide"></p>
           <p id="submitStatus" class="submit-status" aria-live="polite"></p>
@@ -95,9 +95,14 @@
     <form name="medical-consult" method="POST" action="/thank-you.html" data-netlify="true" netlify-honeypot="bot-field" hidden>
       <p hidden><label>Don’t fill this out: <input name="bot-field" /></label></p>
       <input type="hidden" name="form-name" value="medical-consult" />
+      <input type="hidden" name="name" id="form_name" />
+      <input type="hidden" name="email" id="form_email" />
+      <input type="hidden" name="phone" id="form_phone" />
+      <input type="hidden" name="messenger" id="form_messenger" />
+      <input type="hidden" name="preferred_contact_method" id="form_preferred_contact" />
             <input type="hidden" name="service" id="lead_service" />
       <input type="hidden" name="language" id="lead_lang2" />
-      <input type="hidden" name="message" id="lead_message" />
+      <input type="hidden" name="message" id="form_message" />
             <input type="hidden" name="medi_hana_mode" id="lead_mode" value="ai_chat" />
       <input type="hidden" name="medi_hana_summary" id="lead_summary" />
       <input type="hidden" name="medi_hana_transcript" id="lead_transcript" />
