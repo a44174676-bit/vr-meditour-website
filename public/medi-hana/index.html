@@ -14,106 +14,37 @@
   <link rel="stylesheet" href="/public/medi-hana/styles.css" />
 </head>
 <body>
-  <header class="topbar">
-    <a href="/" class="logo">VR MEDI TOUR &amp; HOME</a>
-    <nav>
-      <a href="/" data-i18n="home">홈으로</a>
-      <a href="/#consult-form" data-i18n="consult">상담 신청</a>
-      <a href="/ai-skin/" data-i18n="skin">AI 피부 분석</a>
-    </nav>
-    <div class="lang-switch" id="langSwitch" aria-label="Language selector"></div>
-  </header>
-
-  <main class="container">
-    <section class="hero card">
-      <h1 data-i18n="title"></h1>
-      <p data-i18n="subtitle"></p>
-      <p class="notice" data-i18n="noticeShort"></p>
-    </section>
-
-    <p class="legal" data-i18n="legal"></p>
-
-    <section class="chat-layout">
-      <section class="card main-chat">
-        <div id="chatMessages" class="messages" aria-live="polite"></div>
-        <form id="chatForm" class="input-wrap">
-          <label for="chatInput" class="sr-only">Message</label>
-          <textarea id="chatInput" data-i18n-placeholder="placeholder" aria-label="Chat message input"></textarea>
-          <button type="submit" aria-label="Send message" data-i18n="send"></button>
-        </form>
-        <p class="legal" data-i18n="legal"></p>
-      </section>
-
-      <aside class="side-stack">
-        <section class="card profile">
-          <img src="/public/assets/medi-hana/medi-hana-default.png" alt="Medi Hana" />
-          <h2>Medi Hana</h2>
-          <p data-i18n="profile"></p>
-        </section>
-
-        <section class="card summary">
-          <h3 data-i18n="summaryTitle"></h3>
-          <p class="summary-desc" data-i18n="summaryDesc"></p>
-          <dl id="summaryFields"></dl>
-          <div class="consent">
-            <p data-i18n="consentText"></p>
-            <label><input type="checkbox" id="consent1" /> <span data-i18n="consent1"></span></label>
-            <label><input type="checkbox" id="consent2" /> <span data-i18n="consent2"></span></label>
-          </div>
-          <p class="legal" data-i18n="legal"></p>
-
-          <div class="contact-fields">
-            <label for="contactName" data-i18n="nameLabel"></label>
-            <input id="contact_name" name="name" type="text" data-i18n-placeholder="namePlaceholder" />
-            <label for="contactEmail" data-i18n="emailLabel"></label>
-            <input id="contact_email" name="email" type="email" data-i18n-placeholder="emailPlaceholder" />
-            <label for="contactPhone" data-i18n="phoneLabel"></label>
-            <input id="contact_phone" name="phone" type="text" data-i18n-placeholder="phonePlaceholder" />
-            <label for="contactMessenger" data-i18n="messengerLabel"></label>
-            <input id="contact_messenger" name="messenger" type="text" data-i18n-placeholder="messengerPlaceholder" />
-            <label for="contactMethod" data-i18n="preferredContactLabel"></label>
-            <input id="contact_preferred_contact" name="preferred_contact_method" type="text" data-i18n-placeholder="preferredContactPlaceholder" />
-            <label for="contactMemo" data-i18n="memoLabel"></label>
-            <textarea id="contact_message" name="message" data-i18n-placeholder="memoPlaceholder"></textarea>
-          </div>
-          <p class="summary-desc" data-i18n="contactGuide"></p>
-          <p id="consentWarning" class="consent-warning" aria-live="polite"></p>
-          <p id="submitStatus" class="submit-status" aria-live="polite"></p>
-          <div class="summary-actions">
-            <button id="submitLead" type="button" data-i18n="submit"></button>
-            
-          </div>
-          <a id="advancedLink" class="btn" href="https://chatgpt.com/g/g-68f04d401e488191b5afaed323a7b714-vr-medi-tour-home-korean-medical-tourism-gpt" target="_blank" rel="noopener noreferrer" data-i18n="advancedBtn" aria-label=""></a>
-          <p class="sub-desc" data-i18n="advancedDesc"></p>
-        </section>
-      </aside>
-    </section>
-
-    <form name="medical-consult" method="POST" action="/thank-you.html" data-netlify="true" netlify-honeypot="bot-field" hidden>
-      <p hidden><label>Don’t fill this out: <input name="bot-field" /></label></p>
-      <input type="hidden" name="form-name" value="medical-consult" />
-      <input type="hidden" name="name" id="form_name" />
-      <input type="hidden" name="email" id="form_email" />
-      <input type="hidden" name="phone" id="form_phone" />
-      <input type="hidden" name="messenger" id="form_messenger" />
-      <input type="hidden" name="preferred_contact_method" id="form_preferred_contact" />
-            <input type="hidden" name="service" id="lead_service" />
-      <input type="hidden" name="language" id="lead_lang2" />
-      <input type="hidden" name="message" id="form_message" />
-            <input type="hidden" name="medi_hana_mode" id="lead_mode" value="ai_chat" />
-      <input type="hidden" name="medi_hana_summary" id="lead_summary" />
-      <input type="hidden" name="medi_hana_transcript" id="lead_transcript" />
-      <input type="hidden" name="inquiry_type" id="lead_inquiry_type" />
-      <input type="hidden" name="preferred_language" id="lead_language" />
-      <input type="hidden" name="interested_field" id="lead_field" />
-      <input type="hidden" name="country" id="lead_country" />
-      <input type="hidden" name="currentLocation" id="lead_location" />
-      <input type="hidden" name="support_needed" id="lead_support" />
-      <input type="hidden" name="privacy_agreement" id="lead_privacy" />
-      <button type="submit" id="realSubmit">submit</button>
-    </form>
-  </main>
-
-  <script src="/public/medi-hana/script.js"></script>
-</body>
-</html>
+<header class="topbar"><a href="/" class="logo">VR MEDI TOUR &amp; HOME</a><nav><a href="/" data-i18n="home"></a><a href="/#consult-form" data-i18n="consult"></a><a href="/ai-skin/" data-i18n="skin"></a></nav><div class="lang-switch" id="langSwitch" aria-label="Language selector"></div></header>
+<main class="container">
+<section class="hero card"><h1 data-i18n="title"></h1><p data-i18n="subtitle"></p><p class="notice" data-i18n="noticeShort"></p></section>
+<p class="legal" data-i18n="legal"></p>
+<section class="chat-layout"><section class="card main-chat"><div id="chatMessages" class="messages" aria-live="polite"></div><form id="chatForm" class="input-wrap"><label for="chatInput" class="sr-only">Message</label><textarea id="chatInput" data-i18n-placeholder="placeholder" aria-label="Chat message input"></textarea><button type="submit" data-i18n="send"></button></form><p class="legal" data-i18n="legal"></p></section>
+<aside class="side-stack"><section class="card profile"><img src="/public/assets/medi-hana/medi-hana-default.png" alt="Medi Hana" /><h2>Medi Hana</h2><p data-i18n="profile"></p></section>
+<section class="card summary"><h3 data-i18n="summaryTitle"></h3><p class="summary-desc" data-i18n="summaryDesc"></p><dl id="summaryFields"></dl>
+<form id="mediHanaLeadForm" name="medical-consult" method="POST" action="/thank-you.html" data-netlify="true" netlify-honeypot="bot-field">
+<input type="hidden" name="form-name" value="medical-consult" /><p hidden><label>Don’t fill this out: <input name="bot-field" /></label></p>
+<div class="consent"><p data-i18n="consentText"></p><label><input type="checkbox" id="consent1"/> <span data-i18n="consent1"></span></label><label><input type="checkbox" id="consent2"/> <span data-i18n="consent2"></span></label></div>
+<div class="contact-fields"><label for="contact_name" data-i18n="nameLabel"></label><input id="contact_name" name="name" type="text" data-i18n-placeholder="namePlaceholder" />
+<label for="contact_email" data-i18n="emailLabel"></label><input id="contact_email" name="email" type="email" data-i18n-placeholder="emailPlaceholder" />
+<label for="contact_phone" data-i18n="phoneLabel"></label><input id="contact_phone" name="phone" type="text" data-i18n-placeholder="phonePlaceholder" />
+<label for="contact_messenger" data-i18n="messengerLabel"></label><input id="contact_messenger" name="messenger" type="text" data-i18n-placeholder="messengerPlaceholder" />
+<label for="contact_preferred_contact" data-i18n="preferredContactLabel"></label><input id="contact_preferred_contact" name="preferred_contact_method" type="text" data-i18n-placeholder="preferredContactPlaceholder" />
+<label for="contact_message" data-i18n="memoLabel"></label><textarea id="contact_message" data-i18n-placeholder="memoPlaceholder"></textarea></div>
+<input type="hidden" name="message" id="form_message" />
+<input type="hidden" name="medi_hana_mode" id="lead_mode" value="ai_chat" />
+<input type="hidden" name="medi_hana_summary" id="lead_summary" />
+<input type="hidden" name="medi_hana_transcript" id="lead_transcript" />
+<input type="hidden" name="privacy_agreement" id="lead_privacy" />
+<input type="hidden" name="preferred_language" id="lead_language" />
+<input type="hidden" name="inquiry_type" id="lead_inquiry_type" />
+<input type="hidden" name="interested_field" id="lead_field" />
+<input type="hidden" name="country" id="lead_country" />
+<input type="hidden" name="currentLocation" id="lead_location" />
+<input type="hidden" name="support_needed" id="lead_support" />
+<p class="summary-desc" data-i18n="contactGuide"></p><p id="submitStatus" class="submit-status" aria-live="polite"></p>
+<button id="submitLead" type="button" data-i18n="submit"></button>
+</form>
+<a id="advancedLink" class="sub-link" href="https://chatgpt.com/g/g-68f04d401e488191b5afaed323a7b714-vr-medi-tour-home-korean-medical-tourism-gpt" target="_blank" rel="noopener noreferrer" data-i18n="advancedBtn"></a><p class="sub-desc" data-i18n="advancedDesc"></p>
+</section></aside></section></main>
+<script src="/public/medi-hana/script.js"></script>
+</body></html>

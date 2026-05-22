@@ -17,7 +17,7 @@ button,.btn{border:none;border-radius:999px;padding:10px 16px;background:var(--b
 @media (max-width: 980px){.chat-layout{grid-template-columns:1fr}.topbar{flex-wrap:wrap}.container{padding-bottom:160px}}
 @media (max-width:768px){.lang-switch{justify-content:center;padding-right:0;gap:8px;flex-wrap:wrap}.lang-btn{width:50px;height:50px}}
 
-.contact-fields{display:grid;gap:8px;margin-top:12px}.contact-fields input,.contact-fields textarea{width:100%;background:#071a2d;color:#eaf4ff;border:1px solid #2a4e71;border-radius:10px;padding:10px;min-height:44px}.contact-fields textarea{min-height:90px}.contact-fields label{font-size:.86rem;color:#cfe7ff}.submit-status{margin-top:10px;font-size:.9rem;color:#9fe6d0}
+.contact-fields{display:grid;gap:8px;margin-top:12px}.contact-fields input,.contact-fields textarea{width:100%;background:#071a2d;color:#eaf4ff;border:1px solid #2a4e71;border-radius:10px;padding:10px;min-height:44px}.contact-fields textarea{min-height:90px}.contact-fields label{font-size:.86rem;color:#cfe7ff}.submit-status{margin-top:10px;font-size:.9rem} .sub-link{font-size:.9rem;color:#9fd6ff;display:inline-block;margin-top:10px}
 
 .consent-warning{background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.4);color:#fde68a;border-radius:12px;padding:10px 12px;margin-top:10px;font-size:14px;line-height:1.5}
 
