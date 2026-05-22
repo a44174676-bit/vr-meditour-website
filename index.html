@@ -332,11 +332,13 @@
     <section class="section-card consult-cta-section" id="consult-form">
       <div class="consult-cta-layout">
         <div class="consult-cta-copy">
+          <p class="eyebrow" data-i18n="consultCtaBadge">Ask Medi Hana AI consultation assistant</p>
           <h2 data-i18n="consultCtaTitle">Consultation Request</h2>
           <p data-i18n="consultCtaDesc">Medi Hana AI consultation assistant organizes your inquiry and delivers your customer information and consultation details to VR MEDI TOUR &amp; HOME coordinators.</p>
-          <p class="ai-disclaimer" data-i18n="consultCtaMedicalNotice">AI consultation assistant does not provide diagnosis, prescription, or treatment decisions. Final medical decisions are made by licensed medical institutions in Korea.</p>
-          <p class="ai-disclaimer" data-i18n="consultCtaSafety1">AI 상담 도우미는 문의 내용을 정리하는 역할을 하며, 진단·처방·의료인의 판단을 대신하지 않습니다.</p>
-          <p class="ai-disclaimer" data-i18n="consultCtaSafety2">VR MEDI TOUR &amp; HOME은 병원이 아니며, 최종 의료 판단은 한국의 면허 의료기관이 합니다.</p>
+          <p class="ai-disclaimer" data-i18n="consultCtaNotice">AI consultation assistant does not provide diagnosis, prescription, or treatment decisions.</p>
+          <p class="ai-disclaimer" data-i18n="consultCtaHospitalNotice">VR MEDI TOUR &amp; HOME is not a hospital and does not provide diagnosis, prescription, or medical treatment. Medical decisions are made only by licensed medical professionals at partner medical institutions.</p>
+          <p class="form-note" data-i18n="consultCtaSubnote">AI 상담 도우미는 문의 내용을 정리하는 역할을 하며, 진단·처방·의료인의 판단을 대신하지 않습니다.</p>
+          <p class="form-note" data-i18n="consultCtaReplyNote">상담 신청 후 메디하나 상담 내용은 담당 코디네이터 검토 후 순차 회신됩니다.</p>
           <a href="/medi-hana/" class="btn primary" data-i18n="consultCtaButton">Start Consultation with Medi Hana</a>
         </div>
         <div class="consult-cta-visual" aria-hidden="true">
@@ -566,11 +568,13 @@
       ipCard6Desc: "Utility model application pending for multilingual patient assistance technology related to medical interpretation and wayfinding kiosk functions.",
       ipLegalNotice: "This notice describes pending patent, utility model, and trademark applications. It does not imply granted patent rights, registered utility model rights, registered trademark rights, medical efficacy, treatment results, or exclusive legal rights until officially approved by the relevant authority.",
       consultCtaTitle: "Consultation Request",
+      consultCtaBadge: "Ask Medi Hana AI consultation assistant",
       consultCtaDesc: "Medi Hana AI consultation assistant organizes your inquiry and delivers your customer information and consultation details to VR MEDI TOUR & HOME coordinators.",
-      consultCtaMedicalNotice: "AI consultation assistant does not provide diagnosis, prescription, or treatment decisions. Final medical decisions are made by licensed medical institutions in Korea.",
-      consultCtaSafety1: "AI 상담 도우미는 문의 내용을 정리하는 역할을 하며, 진단·처방·의료인의 판단을 대신하지 않습니다.",
-      consultCtaSafety2: "VR MEDI TOUR & HOME은 병원이 아니며, 최종 의료 판단은 한국의 면허 의료기관이 합니다.",
-      consultCtaButton: "Start Consultation with Medi Hana"
+      consultCtaNotice: "AI consultation assistant does not provide diagnosis, prescription, or treatment decisions.",
+      consultCtaHospitalNotice: "VR MEDI TOUR & HOME is not a hospital and does not provide diagnosis, prescription, or medical treatment. Medical decisions are made only by licensed medical professionals at partner medical institutions.",
+      consultCtaButton: "Start Consultation with Medi Hana",
+      consultCtaSubnote: "AI consultation assistant helps organize inquiries and does not replace licensed medical professionals.",
+      consultCtaReplyNote: "After submission, Medi Hana consultation details are reviewed by coordinators before reply."
     };
 
     const koDict = {
@@ -587,11 +591,13 @@
       heroDesc: "외국인 환자의 상담 준비, 병원 소통, 통역, 이동·숙박, 회복 지원을 차분하고 체계적으로 돕습니다.",
       heroCtaConsult: "상담 신청하기",
       consultCtaTitle: "상담 신청",
+      consultCtaBadge: "AI 의료관광 상담 도우미에게 질문하기",
       consultCtaDesc: "메디하나 AI 상담 도우미가 문의 내용을 정리하고, 고객 정보와 상담 내용을 VR MEDI TOUR & HOME 담당자에게 전달합니다.",
-      consultCtaMedicalNotice: "AI 상담 도우미는 진단·처방·치료 판단을 하지 않으며, 최종 의료 판단은 한국의 면허 의료기관이 합니다.",
-      consultCtaSafety1: "AI 상담 도우미는 문의 내용을 정리하는 역할을 하며, 진단·처방·의료인의 판단을 대신하지 않습니다.",
-      consultCtaSafety2: "VR MEDI TOUR & HOME은 병원이 아니며, 최종 의료 판단은 한국의 면허 의료기관이 합니다.",
+      consultCtaNotice: "AI 상담 도우미는 진단·처방·치료 판단을 하지 않습니다.",
+      consultCtaHospitalNotice: "VR MEDI TOUR & HOME은 병원이 아니며 진단, 처방, 의료행위를 제공하지 않습니다. 의료 판단은 협력 의료기관의 면허 의료진이 수행합니다.",
       consultCtaButton: "메디하나와 상담 시작하기",
+      consultCtaSubnote: "AI 상담 도우미는 문의 내용을 정리하는 역할을 하며, 진단·처방·의료인의 판단을 대신하지 않습니다.",
+      consultCtaReplyNote: "상담 신청 후 메디하나 상담 내용은 담당 코디네이터 검토 후 순차 회신됩니다.",
       heroCtaPartner: "병원 파트너 문의",
       ctaAiSkin: "AI 피부 분석 체험하기",
       ctaAiSkinNote: "의료 진단이 아닌 K-뷰티 참고 분석입니다.",
@@ -745,6 +751,14 @@
       heroTitle: "Điều phối du lịch y tế Hàn Quốc đáng tin cậy, có con người rà soát.",
       heroDesc: "Chúng tôi hỗ trợ chuẩn bị tư vấn, liên hệ bệnh viện, thông dịch, đi lại, lưu trú và phục hồi cho bệnh nhân quốc tế.",
       heroCtaConsult: "Gửi yêu cầu tư vấn",
+      consultCtaTitle: "Đăng ký tư vấn",
+      consultCtaBadge: "Hỏi trợ lý tư vấn y tế AI Medi Hana",
+      consultCtaDesc: "Trợ lý tư vấn AI Medi Hana sắp xếp nội dung yêu cầu và chuyển thông tin khách hàng cùng nội dung tư vấn đến điều phối viên VR MEDI TOUR & HOME.",
+      consultCtaNotice: "Trợ lý tư vấn AI không cung cấp chẩn đoán, kê đơn hoặc quyết định điều trị.",
+      consultCtaHospitalNotice: "VR MEDI TOUR & HOME không phải là bệnh viện và không cung cấp chẩn đoán, kê đơn hoặc điều trị y tế. Quyết định y khoa chỉ do đội ngũ y tế có giấy phép tại cơ sở đối tác đưa ra.",
+      consultCtaButton: "Bắt đầu tư vấn với Medi Hana",
+      consultCtaSubnote: "Trợ lý AI chỉ hỗ trợ sắp xếp câu hỏi và không thay thế chuyên gia y tế có giấy phép.",
+      consultCtaReplyNote: "Sau khi gửi, nội dung tư vấn Medi Hana sẽ được điều phối viên xem xét trước khi phản hồi.",
       heroCtaPartner: "Đối tác bệnh viện",
       ctaAiSkin: "Trải nghiệm phân tích da AI",
       ctaAiSkinNote: "Phân tích tham khảo K-beauty, không phải chẩn đoán y tế.",
@@ -884,6 +898,14 @@
       heroTitle: "信頼できる韓国医療渡航コーディネーション（人による確認）。",
       heroDesc: "海外患者向けに、相談準備、病院連携、通訳、移動・宿泊、回復支援を行います。",
       heroCtaConsult: "相談を申し込む",
+      consultCtaTitle: "相談申請",
+      consultCtaBadge: "AI医療観光相談アシスタントに質問する",
+      consultCtaDesc: "Medi Hana AI相談アシスタントが問い合わせ内容を整理し、顧客情報と相談内容をVR MEDI TOUR & HOME担当者へ連携します。",
+      consultCtaNotice: "AI相談アシスタントは診断・処方・治療判断を行いません。",
+      consultCtaHospitalNotice: "VR MEDI TOUR & HOMEは病院ではなく、診断・処方・医療行為を提供しません。医療判断は提携医療機関の有資格医療専門職のみが行います。",
+      consultCtaButton: "Medi Hanaで相談を始める",
+      consultCtaSubnote: "AIアシスタントは問い合わせ整理を支援するもので、医療専門職の判断を代替しません。",
+      consultCtaReplyNote: "送信後、Medi Hana相談内容は担当コーディネーター確認後に順次返信されます。",
       heroCtaPartner: "病院パートナー",
       ctaAiSkin: "AI肌分析を体験する",
       ctaAiSkinNote: "医療診断ではなく、Kビューティー参考分析です。",
@@ -1023,6 +1045,14 @@
       heroTitle: "可信赖的韩国医疗旅游协调，人工复核。",
       heroDesc: "我们为国际患者提供咨询准备、医院沟通、翻译、出行住宿与康复支持。",
       heroCtaConsult: "提交咨询申请",
+      consultCtaTitle: "咨询申请",
+      consultCtaBadge: "咨询 Medi Hana AI 医疗旅游助手",
+      consultCtaDesc: "Medi Hana AI 咨询助手会整理您的咨询内容，并将客户信息与咨询内容发送给 VR MEDI TOUR & HOME 协调团队。",
+      consultCtaNotice: "AI 咨询助手不提供诊断、处方或治疗决策。",
+      consultCtaHospitalNotice: "VR MEDI TOUR & HOME 不是医院，不提供诊断、处方或医疗治疗。医疗决定仅由合作医疗机构的持牌医疗专业人员作出。",
+      consultCtaButton: "开始与 Medi Hana 咨询",
+      consultCtaSubnote: "AI 助手仅用于整理咨询内容，不替代持牌医疗专业人员判断。",
+      consultCtaReplyNote: "提交后，Medi Hana 咨询内容将由协调员审核后依次回复。",
       heroCtaPartner: "医院合作咨询",
       ctaAiSkin: "体验 AI 皮肤分析",
       ctaAiSkinNote: "这是 K-Beauty 参考分析，并非医疗诊断。",
