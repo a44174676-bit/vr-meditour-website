@@ -26,11 +26,33 @@ Always return a compact JSON object with keys: reply, summary, safetyNotice, han
 
 function json(statusCode, body, origin=''){return {statusCode,headers:{'Content-Type':'application/json','Access-Control-Allow-Origin':origin||CORS_ORIGIN,'Vary':'Origin'},body:JSON.stringify(body)};}
 
+function hostFromUrl(value){try{return new URL(value).hostname.toLowerCase();}catch{return '';}}
+function hostOnly(value=''){return String(value).split(':')[0].toLowerCase();}
+function isAllowedOrigin(origin, event){
+  if(!origin) return true;
+  let originHost='';
+  try{originHost=new URL(origin).hostname.toLowerCase();}catch{return false;}
+  const reqHost=hostOnly(event.headers.host || event.headers['x-forwarded-host'] || '');
+  const allow=new Set([
+    reqHost,
+    hostFromUrl(process.env.URL||''),
+    hostFromUrl(process.env.DEPLOY_URL||''),
+    hostFromUrl(process.env.DEPLOY_PRIME_URL||''),
+    'vr-meditour.com',
+    'www.vr-meditour.com'
+  ].filter(Boolean));
+  if(reqHost.endsWith('.netlify.app')) allow.add(reqHost);
+  return allow.has(originHost);
+}
+
 exports.handler = async (event) => {
   if (event.httpMethod === 'OPTIONS') return {statusCode: 204, headers:{'Access-Control-Allow-Origin': event.headers.origin || CORS_ORIGIN,'Access-Control-Allow-Methods':'POST,OPTIONS','Access-Control-Allow-Headers':'Content-Type'}};
   if (event.httpMethod !== 'POST') return json(405,{error:'Method not allowed'}, event.headers.origin);
   const origin = event.headers.origin || '';
-  if (origin && CORS_ORIGIN && !origin.includes(new URL(CORS_ORIGIN).hostname)) return json(403,{error:'Forbidden origin'},origin);
+  if (!isAllowedOrigin(origin, event)) {
+    console.error('[medi-hana-chat] status=403 error_type=forbidden_origin');
+    return json(403,{errorType:'forbidden_origin',reply:'현재 접속 주소에서 메디하나 AI 연결이 허용되지 않았습니다. 담당자에게 문의해 주세요.',summary:{},handoffRecommended:true},origin);
+  }
 
   const ip = event.headers['x-nf-client-connection-ip'] || event.headers['client-ip'] || 'anon';
   const now = Date.now();
