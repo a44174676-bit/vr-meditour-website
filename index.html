@@ -203,7 +203,7 @@
           <h1 class="hero-title" data-i18n="heroTitle">Trusted Korean Medical Travel Coordination, Human-Reviewed.</h1>
           <p class="hero-desc" data-i18n="heroDesc">We support consultation preparation, hospital communication, interpretation, travel logistics, stay support, and recovery coordination for international patients.</p>
           <div class="hero-actions">
-            <a href="#consult-form" class="btn primary" data-i18n="heroCtaConsult" aria-label="Go to consultation form">Request Consultation</a>
+            <a href="/medi-hana/" class="btn primary" data-i18n="heroCtaConsult" aria-label="Go to Medi Hana consultation">Request Consultation</a>
             <a href="#hospital-partnership" class="btn secondary" data-i18n="heroCtaPartner" aria-label="Go to hospital partnership">Hospital Partners</a>
           </div>
           <p class="ai-disclaimer" data-i18n="aiDisclaimer">AI assistant helps organize your inquiry. It does not diagnose, prescribe, or replace licensed medical professionals.</p>
@@ -329,178 +329,20 @@
     </section>
 
     <span id="consultation" aria-hidden="true"></span>
-    <section class="section-card" id="consult-form">
-      <div class="form-header">
-        <h2 data-i18n="formTitle">Consultation Request Form</h2>
-        <a href="https://chatgpt.com/g/g-68f04d401e488191b5afaed323a7b714-vr-medi-tour-home-korean-medical-tourism-gpt" class="btn ai-chat" target="_blank" rel="noopener noreferrer" data-i18n="aiBtn" aria-label="Ask AI Medical Travel Assistant in new tab">Ask AI Medical Travel Assistant</a>
-      </div>
-      <p class="ai-disclaimer" data-i18n="aiDisclaimer">AI assistant helps organize your inquiry. It does not diagnose, prescribe, or replace licensed medical professionals.</p>
-      <p class="form-note" data-i18n="contactNotice">Please check your email address and reachable messenger information carefully. If your email address is entered incorrectly, you may not receive our consultation reply.</p>
-
-      <div class="consult-mode-tabs" aria-label="Consultation mode">
-        <button type="button" class="btn primary consult-mode-btn" data-consult-mode="medi" data-medi-label="start">메디하나와 상담 시작하기</button>
-        <button type="button" class="btn secondary consult-mode-btn" data-consult-mode="quick" data-medi-label="quick">빠른 신청서로 바로 작성하기</button>
-      </div>
-
-      <div class="medi-hana-consult" id="mediHanaConsult" aria-live="polite">
-        <div class="medi-hana-guide">
-          <div class="medi-hana-character" aria-hidden="true">
-            <img id="mediHanaImage" src="/public/assets/medi-hana/medi-hana-en.png?v=3" alt="Medi Hana multilingual consultation assistant for Korea medical tourism" />
-          </div>
-          <div class="medi-hana-bubble">
-            <p class="medi-hana-kicker" id="mediHanaProgress">Step 1 / 5</p>
-            <p class="medi-hana-question" id="mediHanaQuestion">어떤 상담을 원하시나요?</p>
-          </div>
+    <section class="section-card consult-cta-section" id="consult-form">
+      <div class="consult-cta-layout">
+        <div class="consult-cta-copy">
+          <h2 data-i18n="consultCtaTitle">Consultation Request</h2>
+          <p data-i18n="consultCtaDesc">Medi Hana AI consultation assistant organizes your inquiry and delivers your customer information and consultation details to VR MEDI TOUR &amp; HOME coordinators.</p>
+          <p class="ai-disclaimer" data-i18n="consultCtaMedicalNotice">AI consultation assistant does not provide diagnosis, prescription, or treatment decisions. Final medical decisions are made by licensed medical institutions in Korea.</p>
+          <p class="ai-disclaimer" data-i18n="consultCtaSafety1">AI 상담 도우미는 문의 내용을 정리하는 역할을 하며, 진단·처방·의료인의 판단을 대신하지 않습니다.</p>
+          <p class="ai-disclaimer" data-i18n="consultCtaSafety2">VR MEDI TOUR &amp; HOME은 병원이 아니며, 최종 의료 판단은 한국의 면허 의료기관이 합니다.</p>
+          <a href="/medi-hana/" class="btn primary" data-i18n="consultCtaButton">Start Consultation with Medi Hana</a>
         </div>
-
-        <div class="medi-hana-panel">
-          <div class="medi-hana-step-head">
-            <span class="medi-hana-step-count" id="mediHanaStepCount">1 / 5</span>
-            <h3 id="mediHanaStepTitle">문의 유형</h3>
-          </div>
-          <div class="medi-hana-step-body" id="mediHanaStepBody"></div>
-          <p class="medi-hana-error" id="mediHanaError" role="alert"></p>
-          <div class="medi-hana-actions">
-            <button type="button" class="btn ghost" id="mediHanaPrev">이전</button>
-            <button type="button" class="btn primary" id="mediHanaNext">다음</button>
-            <button type="button" class="btn primary" id="mediHanaSubmit">상담 신청 제출</button>
-          </div>
+        <div class="consult-cta-visual" aria-hidden="true">
+          <img src="/public/assets/medi-hana/medi-hana-ko.png?v=3" alt="Medi Hana consultation assistant character" />
         </div>
       </div>
-
-      <form
-        name="medical-consult"
-        method="POST"
-        action="/thank-you.html"
-        data-netlify="true"
-        netlify-honeypot="bot-field"
-        enctype="multipart/form-data"
-        class="consult-form"
-      >
-        <input type="hidden" name="form-name" value="medical-consult" />
-        <input type="hidden" name="medi_hana_mode" value="quick" />
-        <input type="hidden" name="medi_hana_consult_type" value="" />
-        <input type="hidden" name="medi_hana_interest_area" value="" />
-        <p class="hidden"><label>Don’t fill this out: <input name="bot-field" /></label></p>
-
-        <label>
-          <span data-i18n="fInquiryType">Inquiry type</span>
-          <select name="inquiry_type" required>
-            <option value="" data-i18n-option="optSelect">Please select</option>
-            <option value="Patient Inquiry" data-i18n-option="optPatient">Patient Inquiry</option>
-            <option value="Hospital Partnership Inquiry" data-i18n-option="optHospital">Hospital Partnership Inquiry</option>
-          </select>
-        </label>
-
-        <label>
-          <span data-i18n="fLanguage">Preferred language</span>
-          <select name="preferred_language" id="preferredLanguage" required>
-            <option value="English" data-i18n-option="langEnglish">English</option>
-            <option value="한국어" data-i18n-option="langKorean">한국어</option>
-            <option value="Tiếng Việt" data-i18n-option="langVietnamese">Tiếng Việt</option>
-            <option value="日本語" data-i18n-option="langJapanese">日本語</option>
-            <option value="中文" data-i18n-option="langChinese">中文</option>
-            <option value="العربية" data-i18n-option="langArabic">العربية</option>
-          </select>
-        </label>
-
-        <label>
-          <span data-i18n="fName">Name</span>
-          <input type="text" name="name" data-i18n-placeholder="phName" placeholder="Your full name" required />
-        </label>
-
-        <label>
-          <span data-i18n="fCountry">Country</span>
-          <input type="text" name="country" data-i18n-placeholder="phCountry" placeholder="Country of residence" required />
-        </label>
-
-        <label>
-          <span data-i18n="fContact">E-mail</span>
-          <input type="email" name="email" autocomplete="email" dir="ltr" data-i18n-placeholder="phContact" placeholder="you@example.com" required />
-        </label>
-
-        <label>
-          <span data-i18n="fEmailConfirm">Confirm E-mail</span>
-          <input type="email" name="emailConfirm" autocomplete="email" dir="ltr" data-i18n-placeholder="phEmailConfirm" placeholder="Re-enter your email address" required />
-        </label>
-
-        <label>
-          <span data-i18n="fPhone">Phone Number</span>
-          <input type="tel" name="phone" autocomplete="tel" dir="ltr" data-i18n-placeholder="phPhone" placeholder="Phone or contact number" />
-        </label>
-
-        <label>
-          <span data-i18n="fMessenger">Zalo / WhatsApp / KakaoTalk</span>
-          <input type="text" name="messenger" dir="ltr" data-i18n-placeholder="phMessenger" placeholder="Preferred messenger ID or number" />
-        </label>
-
-        <label>
-          <span data-i18n="fCurrentLocation">Current Location</span>
-          <input type="text" name="currentLocation" data-i18n-placeholder="phCurrentLocation" placeholder="Example: Seoul, Busan, Hanoi" />
-        </label>
-
-        <label>
-          <span data-i18n="fField">Interested field</span>
-          <select name="interested_field" required>
-            <option value="" data-i18n-option="optSelect">Please select</option>
-            <option value="Dermatology" data-i18n-option="fieldDerm">Dermatology</option>
-            <option value="Plastic Surgery" data-i18n-option="fieldPlastic">Plastic Surgery</option>
-            <option value="Dentistry" data-i18n-option="fieldDentistry">Dentistry</option>
-            <option value="Health Check-up" data-i18n-option="fieldCheckup">Health Check-up</option>
-            <option value="Wellness & Recovery" data-i18n-option="fieldWellness">Wellness & Recovery</option>
-          </select>
-        </label>
-
-        <label class="full">
-          <span data-i18n="fMessage">Message</span>
-          <textarea name="message" rows="5" data-i18n-placeholder="phMessage" placeholder="Please share symptoms, goals, timeline, and key concerns" required></textarea>
-        </label>
-
-        <label>
-          <span data-i18n="fDiagnosis">Existing diagnosis</span>
-          <input type="text" name="existing_diagnosis" data-i18n-placeholder="phDiagnosis" placeholder="Optional" />
-        </label>
-
-        <label>
-          <span data-i18n="fVisitDate">Preferred visit date</span>
-          <input type="date" name="preferred_visit_date" id="visitDate" />
-        </label>
-
-        <label>
-          <span data-i18n="fBudget">Budget</span>
-          <input type="text" name="budget" data-i18n-placeholder="phBudget" placeholder="Estimated budget range" />
-        </label>
-
-        <label>
-          <span data-i18n="fInterpreter">Interpreter support</span>
-          <select name="interpreter_support">
-            <option value="" data-i18n-option="optSelect">Please select</option>
-            <option value="Yes" data-i18n-option="optYes">Yes</option>
-            <option value="No" data-i18n-option="optNo">No</option>
-          </select>
-        </label>
-
-        <label>
-          <span data-i18n="fHotel">Hotel or transport support</span>
-          <select name="hotel_transport_support">
-            <option value="" data-i18n-option="optSelect">Please select</option>
-            <option value="Yes" data-i18n-option="optYes">Yes</option>
-            <option value="No" data-i18n-option="optNo">No</option>
-          </select>
-        </label>
-
-        <label>
-          <span data-i18n="fDoc">Photo or document link</span>
-          <input type="url" name="photo_document_link" dir="ltr" data-i18n-placeholder="phDoc" placeholder="https://" />
-        </label>
-
-        <label class="agree full">
-          <input type="checkbox" name="privacy_agreement" required />
-          <span data-i18n="privacyAgree">I agree to consultation preparation use, patient consent process, and privacy protection policy.</span>
-        </label>
-
-        <button type="submit" class="btn primary full" data-i18n="submitBtn" aria-label="Submit consultation request">Submit Consultation Request</button>
-      </form>
     </section>
 
     <section class="section-card notice-card">
@@ -722,7 +564,13 @@
       ipCard6Title: "Multilingual Patient Assistance Technology",
       ipCard6No: "Application No.: 20-2025-0001985",
       ipCard6Desc: "Utility model application pending for multilingual patient assistance technology related to medical interpretation and wayfinding kiosk functions.",
-      ipLegalNotice: "This notice describes pending patent, utility model, and trademark applications. It does not imply granted patent rights, registered utility model rights, registered trademark rights, medical efficacy, treatment results, or exclusive legal rights until officially approved by the relevant authority."
+      ipLegalNotice: "This notice describes pending patent, utility model, and trademark applications. It does not imply granted patent rights, registered utility model rights, registered trademark rights, medical efficacy, treatment results, or exclusive legal rights until officially approved by the relevant authority.",
+      consultCtaTitle: "Consultation Request",
+      consultCtaDesc: "Medi Hana AI consultation assistant organizes your inquiry and delivers your customer information and consultation details to VR MEDI TOUR & HOME coordinators.",
+      consultCtaMedicalNotice: "AI consultation assistant does not provide diagnosis, prescription, or treatment decisions. Final medical decisions are made by licensed medical institutions in Korea.",
+      consultCtaSafety1: "AI 상담 도우미는 문의 내용을 정리하는 역할을 하며, 진단·처방·의료인의 판단을 대신하지 않습니다.",
+      consultCtaSafety2: "VR MEDI TOUR & HOME은 병원이 아니며, 최종 의료 판단은 한국의 면허 의료기관이 합니다.",
+      consultCtaButton: "Start Consultation with Medi Hana"
     };
 
     const koDict = {
@@ -738,6 +586,12 @@
       heroTitle: "한국 의료관광,\n전문 코디네이터가 함께합니다",
       heroDesc: "외국인 환자의 상담 준비, 병원 소통, 통역, 이동·숙박, 회복 지원을 차분하고 체계적으로 돕습니다.",
       heroCtaConsult: "상담 신청하기",
+      consultCtaTitle: "상담 신청",
+      consultCtaDesc: "메디하나 AI 상담 도우미가 문의 내용을 정리하고, 고객 정보와 상담 내용을 VR MEDI TOUR & HOME 담당자에게 전달합니다.",
+      consultCtaMedicalNotice: "AI 상담 도우미는 진단·처방·치료 판단을 하지 않으며, 최종 의료 판단은 한국의 면허 의료기관이 합니다.",
+      consultCtaSafety1: "AI 상담 도우미는 문의 내용을 정리하는 역할을 하며, 진단·처방·의료인의 판단을 대신하지 않습니다.",
+      consultCtaSafety2: "VR MEDI TOUR & HOME은 병원이 아니며, 최종 의료 판단은 한국의 면허 의료기관이 합니다.",
+      consultCtaButton: "메디하나와 상담 시작하기",
       heroCtaPartner: "병원 파트너 문의",
       ctaAiSkin: "AI 피부 분석 체험하기",
       ctaAiSkinNote: "의료 진단이 아닌 K-뷰티 참고 분석입니다.",

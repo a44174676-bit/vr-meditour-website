@@ -889,3 +889,23 @@ body.lang-ar .cta-button {
 @media (max-width: 640px) {
   .guide-card .btn { width: 100%; }
 }
+
+.consult-cta-layout {
+  display: grid;
+  grid-template-columns: 1.4fr 0.6fr;
+  gap: 22px;
+  align-items: center;
+}
+.consult-cta-copy { display: grid; gap: 12px; }
+.consult-cta-visual {
+  background: linear-gradient(145deg, rgba(31, 111, 235, 0.12), rgba(31, 111, 235, 0.02));
+  border: 1px solid rgba(168, 198, 255, 0.2);
+  border-radius: 18px;
+  padding: 14px;
+}
+.consult-cta-visual img { width: 100%; max-width: 240px; display: block; margin: 0 auto; }
+
+@media (max-width: 900px) {
+  .consult-cta-layout { grid-template-columns: 1fr; }
+  .consult-cta-visual { max-width: 300px; margin: 0 auto; }
+}
