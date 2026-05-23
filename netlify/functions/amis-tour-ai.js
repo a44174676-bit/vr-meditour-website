@@ -28,8 +28,10 @@ exports.handler = async function (event) {
     '의료 진단, 치료 보장, 예약 확정, 가격 확정 표현은 절대 사용하지 않는다.',
     '의료관광은 “사전상담” 또는 “담당자 확인 후 안내”로만 표현한다.',
     '특정 아티스트 공식 협력, 공식 티켓, 공식 굿즈 판매처럼 보이는 표현도 사용하지 않는다.',
-    `입력 언어: ${language}`,
+    `선택 언어 코드: ${language}`,
     `입력 데이터: ${JSON.stringify({ purpose: body.purpose, area: body.area, days: body.days, category: body.category, language, message: body.message || '' })}`,
+    '사용자가 선택한 language 값에 따라 모든 응답 필드 값은 해당 언어로 작성하라. JSON key는 영어로 유지하라.',
+    'language=ko는 Korean, en은 English, vi는 Vietnamese, ja는 Japanese, zh는 Simplified Chinese를 의미한다.',
     '반드시 JSON으로만 답하고, 아래 키를 정확히 사용하라: ok, title, summary, items, notice',
     'items 각 원소 키: day, spot_name, area, description, recommended_time, transport, tip',
     'notice에는 다음 문장을 포함하라: 이 루트는 참고용 추천이며, 실제 운영 여부와 예약 가능 여부는 담당자 확인 후 안내됩니다.'
