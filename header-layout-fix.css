@@ -1,0 +1,49 @@
+/* Header alignment override. */
+.topbar,
+.topbar * {
+  writing-mode: horizontal-tb;
+  word-break: keep-all;
+}
+
+.topbar {
+  display: grid;
+  grid-template-columns: minmax(190px, auto) minmax(260px, 1fr) auto;
+  grid-template-areas: "brand nav tools";
+  align-items: center;
+  gap: 16px 18px;
+}
+
+.topbar .brand { grid-area: brand; min-width: 190px; white-space: nowrap; }
+.topbar .top-nav-main { grid-area: nav; display: flex; justify-content: center; gap: 18px; flex-wrap: nowrap; }
+.topbar .top-tools { grid-area: tools; display: flex; justify-content: flex-end; gap: 12px; flex-wrap: nowrap; }
+.topbar .top-nav-main a,
+.topbar .top-nav-cta a,
+.topbar .language-select > span { white-space: nowrap; line-height: 1.2; }
+.topbar .top-nav-cta { display: flex; gap: 10px; flex-wrap: nowrap; }
+.topbar .language-select { display: flex; align-items: center; gap: 10px; flex-wrap: nowrap; }
+.topbar .language-buttons { display: flex; align-items: center; gap: 10px; flex-wrap: nowrap; }
+.topbar .language-buttons button,
+.topbar .lang-btn { width: 58px; height: 58px; min-width: 58px; min-height: 58px; }
+.topbar .language-buttons button img,
+.topbar .lang-btn img { width: 48px; height: 48px; }
+
+@media (max-width: 1180px) {
+  .topbar { grid-template-columns: minmax(190px, auto) 1fr; grid-template-areas: "brand nav" "tools tools"; }
+  .topbar .top-nav-main { justify-content: flex-end; flex-wrap: wrap; }
+  .topbar .top-tools { width: 100%; justify-content: center; flex-wrap: wrap; }
+  .topbar .top-nav-cta { justify-content: center; flex-wrap: wrap; }
+}
+
+@media (max-width: 760px) {
+  .topbar { display: flex; flex-direction: column; align-items: stretch; }
+  .topbar .brand { justify-content: center; min-width: 0; }
+  .topbar .top-nav-main,
+  .topbar .top-nav-cta,
+  .topbar .language-select,
+  .topbar .language-buttons { width: 100%; justify-content: flex-start; flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; }
+  .topbar .top-tools { width: 100%; flex-direction: column; align-items: stretch; }
+  .topbar .language-buttons button,
+  .topbar .lang-btn { width: 52px; height: 52px; min-width: 52px; min-height: 52px; }
+  .topbar .language-buttons button img,
+  .topbar .lang-btn img { width: 42px; height: 42px; }
+}
