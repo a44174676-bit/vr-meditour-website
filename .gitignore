@@ -6,3 +6,7 @@ __pycache__/
 node_modules/
 dist/
 .venv/
+
+# Sensitive local workflow exports (never commit)
+통합.json
+*통합*.json
