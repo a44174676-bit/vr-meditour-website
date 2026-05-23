@@ -11,127 +11,36 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://vr-meditour.com/amis-travel-lounge/" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="AMIS Travel Lounge | AI 다국어 여행·상담 라운지" />
-  <meta name="twitter:description" content="부산 관광, K-뷰티, 웰니스, 의료관광 사전상담을 AI 다국어 상담 접수와 담당자 확인 절차로 연결합니다." />
   <link rel="stylesheet" href="/public/amis-travel-lounge/styles.css" />
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "name": "AMIS Travel Lounge",
-    "alternateName": "아미스 트레블라운지",
-    "provider": {
-      "@type": "Organization",
-      "name": "VR MEDI TOUR & HOME Co., Ltd.",
-      "url": "https://vr-meditour.com/"
-    },
-    "serviceType": "AI multilingual travel and consultation lounge",
-    "areaServed": ["Korea", "Busan", "Vietnam", "Japan", "China", "Global"],
-    "description": "AMIS Travel Lounge is a customer-facing travel and consultation lounge brand operated by VR MEDI TOUR & HOME. It supports multilingual inquiry intake, AI-assisted Korean summaries, customer-language draft replies, and human-reviewed consultation preparation for Busan travel, K-beauty, wellness and medical tourism coordination."
-  }
-  </script>
 </head>
 <body>
-  <main class="page">
-    <section class="hero" data-i18n="hero.section">
-      <div class="language-switcher" aria-label="Language switcher">
-        <p class="lang-label">언어 선택 / 번역</p>
-        <div class="lang-buttons">
-          <button class="lang-btn active" data-lang="ko" aria-label="한국어로 보기" aria-pressed="true">KO</button>
-          <button class="lang-btn" data-lang="en" aria-label="View in English" aria-pressed="false">EN</button>
-          <button class="lang-btn" data-lang="vi" aria-label="Xem bằng tiếng Việt" aria-pressed="false">VI</button>
-          <button class="lang-btn" data-lang="ja" aria-label="日本語で表示" aria-pressed="false">JP</button>
-          <button class="lang-btn" data-lang="zh" aria-label="用中文查看" aria-pressed="false">CN</button>
-        </div>
-      </div>
-      <h1 data-i18n="hero.title">AMIS Travel Lounge</h1>
-      <p class="subtitle" data-i18n="hero.subtitle">AI 기반 다국어 여행·상담 라운지</p>
-      <p data-i18n="hero.desc">부산을 방문하는 외국인 고객을 위해 관광, K-뷰티, 웰니스, 의료관광 사전상담을 하나의 흐름으로 연결합니다. AI가 문의 내용을 번역·요약하고, 담당자가 최종 확인하여 안전하게 상담을 준비합니다.</p>
-      <div class="cta-row">
-        <a class="btn primary" href="/#consult" aria-label="상담 문의하기">상담 문의하기</a>
-        <a class="btn secondary" href="#workflow" aria-label="상담 자동화 흐름 보기">상담 자동화 흐름 보기</a>
-      </div>
-      <ul class="badge-list">
-        <li>Multilingual Consultation</li><li>AI Summary</li><li>Human Review</li><li>K-Beauty</li><li>Wellness</li><li>Medical Tourism Coordination</li><li>Busan Travel</li>
-      </ul>
-      <p class="operator">Operated by VR MEDI TOUR &amp; HOME Co., Ltd.<br />주식회사 브이알메디투어앤홈 운영</p>
-    </section>
-
-    <section class="who">
-      <h2>여행자가 처음 만나는 다국어 상담 라운지</h2>
-      <p class="who-desc">AMIS Travel Lounge는 VR MEDI TOUR &amp; HOME이 운영하는 고객 접점형 여행·상담 라운지 브랜드입니다. 외국인 고객이 한국 방문 전 궁금해하는 관광, 이동, K-뷰티, 웰니스, 의료관광 사전상담 정보를 다국어로 접수하고, AI 요약과 담당자 확인 절차를 통해 신뢰할 수 있는 상담으로 연결합니다.</p>
-      <div class="grid three">
-        <article class="card"><h3>Travel</h3><p>부산 방문 전 이동, 숙소, 관광 동선, K-POP 팬 관광 정보를 안내합니다.</p></article>
-        <article class="card"><h3>Beauty &amp; Wellness</h3><p>K-뷰티, 피부 분석, 웰니스, 마사지, 스파 등 체험형 상담을 연결합니다.</p></article>
-        <article class="card"><h3>Medical Tourism Consultation</h3><p>피부과, 치과, 검진 등 의료관광 사전상담 문의를 접수하고 담당자 확인 후 안내합니다.</p></article>
-      </div>
-    </section>
-
-    <section id="workflow">
-      <h2>상담은 AI가 정리하고, 최종 확인은 사람이 합니다</h2>
-      <p class="workflow-desc">고객이 남긴 문의는 자동화 워크플로우를 통해 정리됩니다. AI는 내용을 번역·요약하고 답변 초안을 만들지만, 최종 안내와 상담 진행은 담당자가 확인한 뒤 이루어집니다.</p>
-      <ol class="timeline">
-        <li>고객 문의 접수</li><li>n8n Webhook 수신</li><li>AI 번역·요약</li><li>고객 언어 답변 초안</li><li>Gmail 초안 생성</li><li>Google Sheets 기록</li><li>대표 내부 알림</li><li>담당자 확인 후 응대</li>
-      </ol>
-      <div class="notice">이 자동화는 고객에게 예약을 확정하거나 의료적 판단을 제공하지 않습니다. AI는 상담 준비를 돕는 보조 도구이며, 최종 안내는 담당자가 확인한 뒤 진행됩니다.</div>
-    </section>
-
-    <section class="automation"><h2>현재 연결된 자동화 구조</h2><p class="automation-desc">현재 상담 자동화 워크플로우는 고객 문의를 수신한 뒤, AI 요약을 생성하고, Gmail 초안과 Google Sheets 상담대장 기록, 대표 내부 알림으로 연결되는 구조입니다.</p><div class="grid five"><article class="card">Webhook</article><article class="card">AI Summary</article><article class="card">Gmail Draft</article><article class="card">Google Sheets</article><article class="card">Internal Alert</article></div><p class="important">현재 구조는 예약 확정 시스템이 아니라 상담·예약 문의 접수 및 내부 처리 자동화입니다.</p></section>
-
-    <section class="translation"><h2>고객 언어는 그대로, 내부 확인은 한국어로</h2><p>고객이 영어, 베트남어, 일본어, 중국어 등으로 문의하더라도 AI가 내용을 분석하여 대표 확인용 한국어 요약을 생성합니다. 고객에게 보낼 1차 답변 초안은 고객이 선택한 상담 언어로 작성됩니다.</p><div class="card">Vietnamese Inquiry → Korean Summary → Vietnamese Draft Reply → Human Review → Customer Response<br/>베트남어 문의 → 한국어 요약 → 베트남어 답변 초안 → 담당자 확인 → 고객 응대</div><p><span class="translation-note">AI 번역 결과는 상담 준비를 위한 참고 자료이며, 중요한 의료·예약·비용 안내는 담당자가 확인 후 전달합니다.</span></p></section>
-
-    <section class="scope"><h2>상담 접수 중심의 안전한 사전 준비 단계</h2><div class="grid two"><article class="card"><h3>자동화로 가능한 처리</h3><ul><li>상담 문의 접수</li><li>예약 희망일 확인</li><li>관심 서비스 분류</li><li>필요 자료 요청</li><li>AI 요약 생성</li><li>고객 언어 답변 초안</li><li>담당자 검토</li></ul></article><article class="card"><h3>자동으로 결정하지 않는 처리</h3><ul><li>병원 일정 결정</li><li>진료 관련 최종 판단</li><li>최종 비용 안내</li><li>의료적 판단</li><li>결제 확정</li></ul></article></div><p class="important">AMIS Travel Lounge는 빠른 접수와 정확한 사전 정리를 돕습니다. 실제 일정, 비용, 진료 관련 사항은 담당자와 병원 확인 후 안내됩니다.</p></section>
-
-    <section class="kpop"><h2>부산을 방문한 글로벌 팬의 다음 경험을 설계합니다</h2><p>부산 K-POP 공연과 도시형 팬 경험은 숙박, 이동, 관광, 굿즈, K-뷰티, 웰니스 수요로 이어집니다. AMIS Travel Lounge는 공연 자체를 판매하는 것이 아니라, 부산을 방문한 외국인 팬들이 겪는 언어·이동·관광·뷰티 정보의 불편을 해결하는 라운지 역할을 합니다.</p><ul class="check-list"><li>부산역 / 김해공항 도착 안내</li><li>서면·해운대 숙소 거점 안내</li><li>부산아시아드주경기장 이동 안내</li><li>광안리·해운대·감천문화마을 관광</li><li>서면 K-뷰티 체험</li><li>웰니스·마사지·스파 연결</li><li>의료관광 사전상담 문의 접수</li></ul></section>
-
-    <section id="busan-route">
-      <h2>부산 관광 루트 데이터베이스</h2>
-      <p class="subtitle">부산 도착부터 공연장 이동, 관광, K-뷰티, 웰니스, 의료관광 사전상담까지 하나의 여정으로 연결합니다.</p>
-      <p>AMIS Travel Lounge는 부산을 방문하는 외국인 고객이 어디서 도착하고, 어디에 머물며, 어떤 관광지와 체험을 거쳐 상담으로 이어지는지를 기준으로 관광 루트를 설계합니다. 이 루트는 단순한 여행 정보가 아니라, 부산 방문객의 실제 이동과 상담 전환을 연결하는 고객 여정 데이터베이스입니다.</p>
-      <div class="grid route-grid">
-        <article class="card route-card"><span class="mini-badge">Arrival</span><h3>부산역 / 김해공항</h3><p>외국인 고객과 K-POP 팬의 첫 도착 지점입니다. KTX, 항공, 공항버스, 택시 이동 정보를 기준으로 부산 여행의 출발점을 안내합니다.</p></article>
-        <article class="card route-card"><span class="mini-badge">Stay</span><h3>서면 숙소 거점</h3><p>부산 중심부에 위치한 교통·쇼핑·식사 중심지입니다. K-뷰티 체험, 피부관리, 병원 이동, 야간 관광과 연결하기 좋은 거점입니다.</p></article>
-        <article class="card route-card"><span class="mini-badge">Stay</span><h3>해운대 숙소 거점</h3><p>호텔, 해변, 해양관광, 외국인 선호 숙박지가 밀집한 지역입니다. 프리미엄 관광객과 웰니스 고객에게 적합한 거점입니다.</p></article>
-        <article class="card route-card"><span class="mini-badge">Event</span><h3>부산아시아드주경기장</h3><p>대형 공연과 스포츠 이벤트가 열리는 핵심 방문지입니다. 공연 전후 이동 동선, 대기 시간, 숙소 복귀 안내가 필요한 지점입니다.</p></article>
-        <article class="card route-card"><span class="mini-badge">Night View</span><h3>광안리 / 광안대교</h3><p>야경, 해변, 사진 촬영, SNS 콘텐츠에 강한 관광지입니다. 공연 후 야간 관광과 팬 커뮤니티 경험으로 연결할 수 있습니다.</p></article>
-        <article class="card route-card"><span class="mini-badge">Wellness</span><h3>해운대 / 동백섬</h3><p>부산 대표 해양 관광지입니다. 산책, 해변, 호텔, 카페, 웰니스 코스와 연결하기 좋습니다.</p></article>
-        <article class="card route-card"><span class="mini-badge">Culture</span><h3>감천문화마을</h3><p>사진 촬영과 문화 체험에 적합한 관광지입니다. 외국인 관광객에게 부산의 색감과 지역 문화를 보여줄 수 있습니다.</p></article>
-        <article class="card route-card"><span class="mini-badge">Local</span><h3>남포동 / 자갈치시장</h3><p>전통시장, 먹거리, 쇼핑, 항구 문화를 경험할 수 있는 코스입니다. 부산다운 현장감을 원하는 고객에게 적합합니다.</p></article>
-        <article class="card route-card"><span class="mini-badge">K-Beauty</span><h3>서면 K-뷰티 체험</h3><p>피부 분석, 화장품 추천, 뷰티 상담, 피부관리 체험으로 이어지는 핵심 전환 지점입니다.</p></article>
-        <article class="card route-card"><span class="mini-badge">Wellness</span><h3>웰니스 / 마사지 / 스파</h3><p>공연과 여행 후 피로 회복을 원하는 고객을 위한 회복형 코스입니다. 마사지, 스파, 휴식형 관광과 연결합니다.</p></article>
-        <article class="card route-card"><span class="mini-badge">Consultation</span><h3>의료관광 사전상담</h3><p>피부과, 치과, 검진 등 의료관광 관심 고객의 문의를 접수하고, 병원 확인 전 사전상담 단계로 연결합니다.</p></article>
-        <article class="card route-card"><span class="mini-badge">AI Guide</span><h3>AI 다국어 안내</h3><p>영어, 일본어, 중국어, 베트남어 등으로 고객의 질문을 정리하고 상담 전 필요한 정보를 안내하는 AI 기반 고객 응대 접점입니다.</p></article>
-      </div>
-
-      <h3>추천 루트 예시</h3>
-      <div class="grid three itinerary-grid">
-        <article class="card itinerary-card">
-          <span class="mini-badge">K-POP 팬 관광</span>
-          <h4>K-POP 팬 1박 2일 루트</h4>
-          <p><strong>Day 1:</strong> 부산역 또는 김해공항 도착 → 서면 또는 해운대 숙소 체크인 → 부산아시아드주경기장 이동 → 공연 관람 → 광안리 또는 해운대 야간 관광</p>
-          <p><strong>Day 2:</strong> 해운대 산책 → 서면 K-뷰티 체험 → 남포동 또는 감천문화마을 관광 → 부산역 또는 김해공항 이동</p>
-        </article>
-        <article class="card itinerary-card">
-          <span class="mini-badge">K-Beauty · Wellness</span>
-          <h4>K-뷰티·웰니스 2박 3일 루트</h4>
-          <p><strong>Day 1:</strong> 부산 도착 → 해운대 숙소 체크인 → 해운대·동백섬 관광 → 웰니스 또는 스파 체험</p>
-          <p><strong>Day 2:</strong> 서면 이동 → AI 피부 분석 또는 K-뷰티 상담 → 피부관리 또는 뷰티 체험 → 광안리 야경 관광</p>
-          <p><strong>Day 3:</strong> 의료관광 사전상담 → 남포동·자갈치시장 관광 → 귀국 또는 다음 도시 이동</p>
-        </article>
-        <article class="card itinerary-card">
-          <span class="mini-badge">Consultation Flow</span>
-          <h4>의료관광 사전상담 루트</h4>
-          <ol>
-            <li>홈페이지 상담 접수</li><li>AI 번역·요약 및 담당자 확인</li><li>필요 자료 확인</li><li>부산 도착 후 숙소 체크인</li><li>K-뷰티 또는 웰니스 체험</li><li>병원 확인 후 사전상담 또는 일정 안내</li><li>부산 관광 후 귀국</li>
-          </ol>
-        </article>
-      </div>
-    </section>
-
-    <section class="trust"><h2>신뢰와 안전을 우선합니다</h2><div class="grid two"><article class="card">VR MEDI TOUR &amp; HOME은 병원이 아니며, 외국인 고객의 의료관광 사전상담과 코디네이션을 지원하는 사업자입니다. 홈페이지 상담은 의료 진단이나 치료 확정이 아니며, 실제 진료·검사·치료 가능 여부와 비용은 병원 확인 후 안내됩니다.</article><article class="card">상담 접수 시 제공된 개인정보는 상담 응대, 일정 확인, 서비스 안내 목적 범위 내에서만 사용됩니다. 고객 동의 없이 불필요한 제3자 제공을 하지 않습니다.</article></div><p>AI는 번역, 요약, 답변 초안 생성을 보조합니다. 최종 상담과 고객 안내는 담당자 확인 후 진행됩니다.</p><p>AMIS Travel Lounge는 VR MEDI TOUR &amp; HOME이 운영하는 고객 접점형 여행·상담 라운지 브랜드입니다.</p><p class="notice">VR MEDI TOUR &amp; HOME is not a hospital and does not provide diagnosis, prescription, or medical treatment. Medical decisions are made only by licensed medical professionals at partner medical institutions.</p></section>
-
-    <section class="bottom-cta"><h2>한국 방문 전, AMIS Travel Lounge에서 먼저 상담하세요</h2><p class="bottom-desc">부산 관광, K-뷰티, 웰니스, 의료관광 사전상담이 필요하다면 문의를 남겨주세요. AI가 내용을 정리하고 담당자가 확인한 뒤 안내드립니다.</p><a class="btn primary" href="/#consult" aria-label="상담 문의하기">상담 문의하기</a><p>상담은 의료 진단이나 예약 확정이 아니며, 담당자 확인 후 안내됩니다.</p></section>
-  </main>
-  <script src="/public/amis-travel-lounge/script.js" defer></script>
-</body>
-</html>
+<main class="page">
+<section class="hero">
+  <div class="language-switcher" aria-label="Language switcher">
+    <p class="lang-label" data-i18n="langLabel">언어 선택 / Translate</p>
+    <div class="lang-buttons">
+      <button class="lang-btn" data-lang="ko" aria-label="한국어로 보기" aria-pressed="false">KO</button>
+      <button class="lang-btn" data-lang="en" aria-label="View in English" aria-pressed="false">EN</button>
+      <button class="lang-btn" data-lang="vi" aria-label="Xem bằng tiếng Việt" aria-pressed="false">VI</button>
+      <button class="lang-btn" data-lang="ja" aria-label="日本語で表示" aria-pressed="false">JP</button>
+      <button class="lang-btn" data-lang="zh" aria-label="用中文查看" aria-pressed="false">CN</button>
+    </div>
+  </div>
+  <h1 data-i18n="heroTitle">AMIS Travel Lounge</h1>
+  <p class="subtitle" data-i18n="heroSub">AI 기반 다국어 여행·상담 라운지</p>
+  <p data-i18n="heroDesc">부산을 방문하는 외국인 고객을 위해 관광, K-뷰티, 웰니스, 의료관광 사전상담을 하나의 흐름으로 연결합니다. AI가 문의 내용을 번역·요약하고, 담당자가 최종 확인하여 안전하게 상담을 준비합니다.</p>
+  <div class="cta-row"><a class="btn primary" href="/#consult" data-i18n="ctaConsult">상담 문의하기</a><a class="btn secondary" href="#workflow" data-i18n="ctaFlow">상담 자동화 흐름 보기</a></div>
+</section>
+<section class="who"><h2 data-i18n="whoTitle">여행자가 처음 만나는 다국어 상담 라운지</h2><p data-i18n="whoDesc">AMIS Travel Lounge는 VR MEDI TOUR & HOME이 운영하는 고객 접점형 여행·상담 라운지 브랜드입니다.</p></section>
+<section id="workflow"><h2 data-i18n="wfTitle">상담은 AI가 정리하고, 최종 확인은 사람이 합니다</h2><p data-i18n="wfDesc">고객 문의는 자동화 워크플로우로 정리되며, 최종 안내는 담당자 확인 후 진행됩니다.</p></section>
+<section class="automation"><h2 data-i18n="autoTitle">현재 연결된 자동화 구조</h2><p data-i18n="autoDesc">상담 데이터 수신 후 AI 요약, Gmail 초안, Google Sheets 기록, 내부 알림으로 연결됩니다.</p><div class="grid five"><article class="card"><h3>Webhook</h3><p data-i18n="auto1">상담 문의 데이터를 수신합니다.</p></article><article class="card"><h3>AI Summary</h3><p data-i18n="auto2">문의를 번역·요약하고 초안을 생성합니다.</p></article><article class="card"><h3>Gmail Draft</h3><p data-i18n="auto3">담당자 검토용 답변 초안을 생성합니다.</p></article><article class="card"><h3>Google Sheets</h3><p data-i18n="auto4">고객문의 관리대장에 자동 기록합니다.</p></article><article class="card"><h3>Internal Alert</h3><p data-i18n="auto5">신규 문의를 내부에 즉시 공유합니다.</p></article></div></section>
+<section class="translation"><h2 data-i18n="trTitle">고객 언어는 그대로, 내부 확인은 한국어로</h2><p data-i18n="trDesc">AI 번역·요약은 상담 준비를 돕는 참고 자료이며, 중요 안내는 담당자 확인 후 전달됩니다.</p></section>
+<section class="scope"><h2 data-i18n="scopeTitle">상담 접수 중심의 안전한 사전 준비 단계</h2><p data-i18n="scopeDesc">자동화는 상담 접수와 사전 정리를 지원하며, 일정·비용·진료 관련 사항은 병원 확인 후 안내됩니다.</p></section>
+<section class="kpop"><h2 data-i18n="kpopTitle">부산을 방문한 글로벌 팬의 다음 경험을 설계합니다</h2><p data-i18n="kpopDesc">K-POP 팬 관광, 부산 이동, K-뷰티·웰니스 연결을 다국어 상담 흐름으로 지원합니다.</p></section>
+<section id="busan-route"><h2 data-i18n="routeTitle">부산 관광 루트 데이터베이스</h2><div class="grid route-grid"><article class="card"><span class="mini-badge">Arrival</span><h3 data-i18n="r1t">부산역 / 김해공항</h3><p data-i18n="r1d">첫 도착 지점 동선을 안내합니다.</p></article><article class="card"><span class="mini-badge">Stay</span><h3 data-i18n="r2t">서면 숙소 거점</h3><p data-i18n="r2d">교통·쇼핑 중심 숙소 거점입니다.</p></article><article class="card"><span class="mini-badge">Stay</span><h3 data-i18n="r3t">해운대 숙소 거점</h3><p data-i18n="r3d">해양관광·웰니스 연계 거점입니다.</p></article><article class="card"><span class="mini-badge">Event</span><h3 data-i18n="r4t">부산아시아드주경기장</h3><p data-i18n="r4d">공연 전후 이동 동선을 안내합니다.</p></article></div>
+<div class="grid three itinerary-grid"><article class="card itinerary-card"><h4 data-i18n="p1t">K-POP 팬 1박 2일 루트</h4><p data-i18n="p1d">도착 → 숙소 → 공연 → 야간관광 → K-뷰티 체험</p></article><article class="card itinerary-card"><h4 data-i18n="p2t">K-뷰티·웰니스 2박 3일 루트</h4><p data-i18n="p2d">해운대 관광 → 웰니스 → K-뷰티 상담 → 야경 관광</p></article><article class="card itinerary-card"><h4 data-i18n="p3t">의료관광 사전상담 루트</h4><p data-i18n="p3d">상담 접수 → AI 요약 → 담당자 확인 → 병원 확인 후 안내</p></article></div></section>
+<section class="trust"><h2 data-i18n="trustTitle">Trust & Compliance</h2><div class="grid two"><article class="card"><h3 data-i18n="tc1t">의료관광 고지</h3><p data-i18n="tc1d">VR MEDI TOUR & HOME은 병원이 아니며, secure medical tourism pre-consultation 및 foreign patient coordination을 지원합니다.</p></article><article class="card"><h3 data-i18n="tc2t">개인정보 고지</h3><p data-i18n="tc2d">개인정보는 상담 응대 목적 범위 내에서만 사용하며 동의 없이 불필요한 제3자 제공을 하지 않습니다.</p></article><article class="card"><h3 data-i18n="tc3t">AI 사용 고지</h3><p data-i18n="tc3d">AI는 번역·요약·답변 초안 생성 보조 도구이며 최종 안내는 담당자 확인 후 진행됩니다.</p></article><article class="card"><h3 data-i18n="tc4t">브랜드 고지</h3><p data-i18n="tc4d">AMIS Travel Lounge는 VR MEDI TOUR & HOME이 운영하는 고객 접점형 브랜드입니다.</p></article></div><p class="notice">VR MEDI TOUR & HOME is not a hospital and does not provide diagnosis, prescription, or medical treatment. Medical decisions are made only by licensed medical professionals at partner medical institutions.</p></section>
+<section class="bottom-cta"><h2 data-i18n="bottomTitle">한국 방문 전, AMIS Travel Lounge에서 먼저 상담하세요</h2><p data-i18n="bottomDesc">부산 관광, K-뷰티, 웰니스, 의료관광 사전상담이 필요하다면 문의를 남겨주세요.</p><a class="btn primary" href="/#consult" data-i18n="ctaConsult">상담 문의하기</a></section>
+</main>
+<script src="/public/amis-travel-lounge/script.js" defer></script>
+</body></html>
