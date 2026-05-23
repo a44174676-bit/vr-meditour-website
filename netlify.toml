@@ -148,3 +148,14 @@
   from = "/public/medi-hana/*"
   to = "/medi-hana/:splat"
   status = 301
+
+
+[[redirects]]
+  from = "/amis-travel-lounge"
+  to = "/public/amis-travel-lounge/"
+  status = 301
+
+[[redirects]]
+  from = "/amis-travel-lounge/*"
+  to = "/public/amis-travel-lounge/:splat"
+  status = 200
