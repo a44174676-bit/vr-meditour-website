@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AMIS Travel Lounge | AI 관광 루트 · 다국어 상담 라운지</title>
+  <meta name="description" content="AMIS Travel Lounge는 부산 방문객을 위해 관광 루트, 맛집, 숙소, 이동 경로, K-뷰티·웰니스·의료관광 사전상담을 AI와 자동화 워크플로우로 연결하는 다국어 관광 라운지입니다." />
+  <link rel="canonical" href="https://vr-meditour.com/amis-travel-lounge/" />
+  <link rel="stylesheet" href="/public/amis-travel-lounge/styles.css" />
+</head>
+<body>
+<main class="page">
+<section class="hero">
+  <div class="language-switcher" aria-label="Language selector">
+    <span class="language-switcher__label" data-i18n="lang.label">Language / Translate</span>
+    <div class="language-buttons">
+      <button class="lang-btn" data-lang="en" aria-label="View in English" aria-pressed="false"><img src="/assets/images/language/lang-en.png" alt="EN" /></button>
+      <button class="lang-btn" data-lang="ko" aria-label="한국어로 보기" aria-pressed="false"><img src="/assets/images/language/lang-ko.png" alt="KO" /></button>
+      <button class="lang-btn" data-lang="vi" aria-label="Xem bằng tiếng Việt" aria-pressed="false"><img src="/assets/images/language/lang-vi.png" alt="VI" /></button>
+      <button class="lang-btn" data-lang="ja" aria-label="日本語で表示" aria-pressed="false"><img src="/assets/images/language/lang-ja.png" alt="JP" /></button>
+      <button class="lang-btn" data-lang="zh" aria-label="用中文查看" aria-pressed="false"><img src="/assets/images/language/lang-zh.png" alt="CN" /></button>
+    </div>
+  </div>
+  <h1 data-i18n="hero.title">AMIS Travel Lounge</h1>
+  <p class="subtitle" data-i18n="hero.sub">AI 관광 루트 · 다국어 상담 라운지</p>
+  <p data-i18n="hero.body">부산을 방문하는 외국인 고객과 K-POP 팬을 위해 관광 루트, 맛집, 숙소, 이동 경로, K-뷰티, 웰니스, 의료관광 사전상담을 하나의 흐름으로 연결합니다. AI와 n8n 자동화가 정보를 수집·요약·번역하고, 담당자가 최종 확인하여 안전하게 상담을 진행합니다.</p>
+  <div class="cta-row"><a class="btn primary" href="#tour-bot" data-i18n="hero.cta1">AI 관광 루트 찾기</a><a class="btn secondary" href="/#consult" data-i18n="hero.cta2">상담 문의하기</a></div>
+  <ul class="badge-list"><li data-i18n="hero.b1">AI Route Search</li><li data-i18n="hero.b2">Naver Local</li><li data-i18n="hero.b3">Google Places</li><li data-i18n="hero.b4">Public Transit</li><li data-i18n="hero.b5">K-Beauty</li><li data-i18n="hero.b6">Wellness</li><li data-i18n="hero.b7">Medical Tourism Pre-consultation</li><li data-i18n="hero.b8">Human Review</li></ul>
+</section>
+
+<section id="tour-bot">
+  <h2 data-i18n="bot.title">AI 관광 루트 찾기</h2>
+  <p data-i18n="bot.sub">부산 방문 목적과 관심사를 입력하면, AI가 관광 루트와 주변 정보를 정리합니다.</p>
+  <form id="tour-form" class="grid two">
+    <label data-i18n="bot.label.purpose" for="purpose">여행 목적</label>
+    <select id="purpose" name="purpose"><option data-i18n="bot.opt.p1" value="K-POP fan tour">K-POP fan tour</option><option data-i18n="bot.opt.p2" value="K-beauty">K-beauty</option><option data-i18n="bot.opt.p3" value="wellness">wellness</option><option data-i18n="bot.opt.p4" value="medical tourism pre-consultation">medical tourism pre-consultation</option><option data-i18n="bot.opt.p5" value="food & cafe">food & cafe</option><option data-i18n="bot.opt.p6" value="family trip">family trip</option></select>
+    <label data-i18n="bot.label.area" for="area">지역</label>
+    <select id="area" name="area"><option data-i18n="bot.opt.a1">Seomyeon</option><option data-i18n="bot.opt.a2">Haeundae</option><option data-i18n="bot.opt.a3">Gwangalli</option><option data-i18n="bot.opt.a4">Busan Asiad Stadium</option><option data-i18n="bot.opt.a5">Nampo-dong</option><option data-i18n="bot.opt.a6">Gamcheon Culture Village</option></select>
+    <label data-i18n="bot.label.days" for="days">일정</label>
+    <select id="days" name="days"><option data-i18n="bot.opt.d1" value="half-day">half-day</option><option data-i18n="bot.opt.d2" value="1">1 day</option><option data-i18n="bot.opt.d3" value="2">2 days</option><option data-i18n="bot.opt.d4" value="3">3 days</option></select>
+    <label data-i18n="bot.label.lang" for="langSelect">언어</label>
+    <select id="langSelect" name="language"><option value="ko">ko</option><option value="en">en</option><option value="vi">vi</option><option value="ja">ja</option><option value="zh">zh</option></select>
+    <label data-i18n="bot.label.category" for="category">관심 카테고리</label>
+    <input id="category" name="category" data-i18n-ph="bot.ph.category" placeholder="관심 카테고리를 선택하세요" />
+    <label data-i18n="bot.label.message" for="message">요청사항</label>
+    <textarea id="message" name="message" data-i18n-ph="bot.ph.message" placeholder="원하는 여행 스타일이나 요청사항을 입력하세요"></textarea>
+    <button class="btn primary" type="submit" data-i18n="bot.submit">AI 루트 추천 받기</button>
+  </form>
+  <p id="tour-status"></p>
+  <div id="tour-results" class="grid two"></div>
+  <div class="cta-row"><button class="btn secondary" id="tour-retry" type="button" data-i18n="bot.retry">다시 시도</button><a class="btn secondary" href="/#consult" data-i18n="bot.consult">상담 문의하기</a></div>
+</section>
+
+<section id="busan-route"><h2 data-i18n="route.title">부산 관광 루트 데이터베이스</h2><p data-i18n="route.sub">도착지, 숙소 거점, 공연장, 관광지, K-뷰티, 웰니스, 의료관광 사전상담을 하나의 고객 여정으로 연결합니다.</p><div class="grid three" id="route-cards"></div></section>
+<section><h2 data-i18n="it.title">추천 루트</h2><div class="grid three"><article class="card"><h3 data-i18n="it.c1t"></h3><p data-i18n="it.c1d"></p></article><article class="card"><h3 data-i18n="it.c2t"></h3><p data-i18n="it.c2d"></p></article><article class="card"><h3 data-i18n="it.c3t"></h3><p data-i18n="it.c3d"></p></article></div><p class="notice" data-i18n="it.notice"></p></section>
+
+<section class="trust"><h2 data-i18n="trust.title">Trust & Compliance</h2><div class="grid three"><article class="card"><h3 data-i18n="trust.c1t"></h3><p data-i18n="trust.c1d"></p></article><article class="card"><h3 data-i18n="trust.c2t"></h3><p data-i18n="trust.c2d"></p></article><article class="card"><h3 data-i18n="trust.c3t"></h3><p data-i18n="trust.c3d"></p></article><article class="card"><h3 data-i18n="trust.c4t"></h3><p data-i18n="trust.c4d"></p></article><article class="card"><h3 data-i18n="trust.c5t"></h3><p data-i18n="trust.c5d"></p></article></div></section>
+<section><a class="btn primary" href="/#consult" data-i18n="cta.consult">상담 문의하기</a></section>
+</main>
+<script src="/public/amis-travel-lounge/script.js" defer></script>
+</body></html>
