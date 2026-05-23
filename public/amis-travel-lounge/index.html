@@ -13,11 +13,23 @@
   <section class="hero">
     <div class="language-switcher" aria-label="Language selector">
       <span class="language-switcher__label" data-i18n="lang.label">Language / Translate</span>
-      <button class="lang-btn" data-lang="ko" aria-label="한국어로 보기" aria-pressed="false">KO</button>
-      <button class="lang-btn" data-lang="en" aria-label="View in English" aria-pressed="false">EN</button>
-      <button class="lang-btn" data-lang="vi" aria-label="Xem bằng tiếng Việt" aria-pressed="false">VI</button>
-      <button class="lang-btn" data-lang="ja" aria-label="日本語で表示" aria-pressed="false">JP</button>
-      <button class="lang-btn" data-lang="zh" aria-label="用中文查看" aria-pressed="false">CN</button>
+      <div class="language-buttons" aria-label="Language icon buttons">
+        <button class="lang-btn amis-lang-button" data-lang="en" aria-label="View in English" aria-pressed="false">
+          <img src="/assets/images/language/lang-en.png" alt="EN" onerror="this.hidden=true" />
+        </button>
+        <button class="lang-btn amis-lang-button" data-lang="ko" aria-label="한국어로 보기" aria-pressed="false">
+          <img src="/assets/images/language/lang-ko.png" alt="KO" onerror="this.hidden=true" />
+        </button>
+        <button class="lang-btn amis-lang-button" data-lang="vi" aria-label="Xem bằng tiếng Việt" aria-pressed="false">
+          <img src="/assets/images/language/lang-vi.png" alt="VI" onerror="this.hidden=true" />
+        </button>
+        <button class="lang-btn amis-lang-button" data-lang="ja" aria-label="日本語で表示" aria-pressed="false">
+          <img src="/assets/images/language/lang-ja.png" alt="JP" onerror="this.hidden=true" />
+        </button>
+        <button class="lang-btn amis-lang-button" data-lang="zh" aria-label="用中文查看" aria-pressed="false">
+          <img src="/assets/images/language/lang-zh.png" alt="CN" onerror="this.hidden=true" />
+        </button>
+      </div>
     </div>
     <h1 data-i18n="hero.title">AMIS Travel Lounge</h1>
     <p class="subtitle" data-i18n="hero.sub">AI 기반 다국어 여행·상담 라운지</p>
