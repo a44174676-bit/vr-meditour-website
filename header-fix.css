@@ -1,0 +1,5 @@
+/* Temporary header alignment override for VR MEDI TOUR main page. */
+.topbar,
+.topbar * {
+  writing-mode: horizontal-tb;
+}
