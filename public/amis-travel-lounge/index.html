@@ -6,166 +6,129 @@
   <title>AMIS Travel Lounge | AI 관광 루트 추천</title>
   <meta name="description" content="AMIS Travel Lounge에서 여행 목적, 지역, 일정, 관심 카테고리 기반 AI 관광 루트 추천을 제공합니다." />
   <style>
-    :root {
-      color-scheme: dark;
-      --bg: #07101f;
-      --panel: #0d1a2f;
-      --line: rgba(133, 231, 226, 0.24);
-      --text: #e8f5ff;
-      --muted: #a9bdd0;
-      --cta: linear-gradient(135deg, #1dc7c0, #20a4ff);
-      --danger: #ff5e7a;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: "Inter", "Noto Sans KR", system-ui, sans-serif;
-      color: var(--text);
-      background: radial-gradient(circle at top, #102544, var(--bg) 55%);
-    }
-    .page { max-width: 1100px; margin: 0 auto; padding: 32px 18px 56px; }
-    .hero, .panel {
-      background: linear-gradient(150deg, rgba(18, 35, 64, 0.95), rgba(9, 20, 40, 0.95));
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      box-shadow: 0 20px 48px rgba(0,0,0,0.35);
-      padding: 28px;
-      margin-bottom: 18px;
-    }
-    h1 { margin: 0 0 8px; font-size: clamp(1.6rem, 3.3vw, 2.2rem); }
-    .muted { color: var(--muted); }
-    .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 14px; }
-    .full { grid-column: 1 / -1; }
-    label { display:block; font-weight: 700; font-size: .95rem; margin-bottom: 6px; }
-    input, select, textarea {
-      width: 100%; border-radius: 12px; border: 1px solid rgba(149,202,231,.35);
-      background: rgba(8, 18, 34, 0.86); color: #e9f4ff; padding: 12px 13px;
-      outline: none; transition: border-color .2s, box-shadow .2s;
-    }
-    input:focus, select:focus, textarea:focus { border-color: #5de1d5; box-shadow: 0 0 0 3px rgba(93,225,213,.18); }
-    .actions { display:flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
-    .btn {
-      border: 1px solid rgba(255,255,255,.18); color:#f3fdff; text-decoration:none;
-      border-radius: 12px; padding: 11px 16px; font-weight: 700; cursor: pointer;
-      background: rgba(255,255,255,.05);
-    }
-    .btn.primary { background: var(--cta); border: none; color: #001a20; }
-    .btn:disabled { opacity: .6; cursor: wait; }
-    .alert {
-      border-radius: 14px; border: 1px solid rgba(255,94,122,.4); background: rgba(60, 15, 25, .6);
-      color: #ffdbe3; padding: 12px 14px; margin-top: 12px;
-    }
-    .result-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 14px; margin-top: 14px; }
-    .route-card {
-      border-radius: 16px; padding: 16px;
-      background: rgba(178, 238, 255, 0.08);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(138, 228, 239, .32);
-    }
-    .route-card h3 { margin: 0 0 8px; }
-    .legal { font-size: .92rem; margin-top: 16px; line-height: 1.5; }
-    @media (max-width: 840px) {
-      .form-grid, .result-grid { grid-template-columns: 1fr; }
-      .hero, .panel { padding: 20px; }
-    }
+    :root { color-scheme: dark; --bg:#07101f; --panel:#0d1a2f; --line:rgba(133,231,226,.24); --text:#e8f5ff; --muted:#a9bdd0; --cta:linear-gradient(135deg,#1dc7c0,#20a4ff); }
+    *{box-sizing:border-box} body{margin:0;font-family:"Inter","Noto Sans KR",system-ui,sans-serif;color:var(--text);background:radial-gradient(circle at top,#102544,var(--bg) 55%)}
+    .page{max-width:1100px;margin:0 auto;padding:30px 18px 56px}.hero,.panel{background:linear-gradient(150deg,rgba(18,35,64,.95),rgba(9,20,40,.95));border:1px solid var(--line);border-radius:20px;box-shadow:0 20px 48px rgba(0,0,0,.35);padding:24px;margin-bottom:18px}
+    h1{margin:0 0 8px;font-size:clamp(1.6rem,3.3vw,2.2rem)} .muted{color:var(--muted)}
+    .lang-wrap{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 2px}.language-icon-button{border:1px solid rgba(157,220,255,.35);background:rgba(9,20,40,.7);border-radius:999px;padding:6px;cursor:pointer;transition:.2s}.language-icon-button img{width:36px;height:36px;display:block;border-radius:999px}.language-icon-button[aria-pressed="true"]{box-shadow:0 0 0 2px rgba(95,226,216,.6),0 0 16px rgba(33,172,255,.45);transform:translateY(-1px)}
+    .form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.full{grid-column:1/-1} label{display:block;font-weight:700;font-size:.95rem;margin-bottom:6px}
+    input,select,textarea{width:100%;border-radius:12px;border:1px solid rgba(149,202,231,.35);background:rgba(8,18,34,.86);color:#e9f4ff;padding:12px 13px;outline:none;transition:.2s} input:focus,select:focus,textarea:focus{border-color:#5de1d5;box-shadow:0 0 0 3px rgba(93,225,213,.18)}
+    .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}.btn{border:1px solid rgba(255,255,255,.18);color:#f3fdff;text-decoration:none;border-radius:12px;padding:11px 16px;font-weight:700;cursor:pointer;background:rgba(255,255,255,.05)}.btn.primary{background:var(--cta);border:none;color:#001a20}.btn:disabled{opacity:.6;cursor:wait}
+    .alert{border-radius:14px;border:1px solid rgba(255,94,122,.4);background:rgba(60,15,25,.6);color:#ffdbe3;padding:12px 14px;margin-top:12px}
+    .result-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:14px}.route-card{border-radius:16px;padding:16px;background:rgba(178,238,255,.08);backdrop-filter:blur(8px);border:1px solid rgba(138,228,239,.32)}.route-card h3{margin:0 0 8px}
+    .legal{font-size:.92rem;margin-top:16px;line-height:1.6}
+    @media (max-width:840px){.form-grid,.result-grid{grid-template-columns:1fr}.hero,.panel{padding:20px}}
   </style>
 </head>
 <body>
   <main class="page">
     <section class="hero">
-      <h1>AMIS Travel Lounge AI 관광 루트 찾기</h1>
-      <p class="muted">여행 목적, 지역, 일정, 관심 카테고리를 입력하면 안전한 참고용 루트를 안내합니다.</p>
+      <h1 data-i18n="title">AMIS Travel Lounge AI 관광 루트 찾기</h1>
+      <p class="muted" data-i18n="desc">여행 목적, 지역, 일정, 관심 카테고리를 입력하면 안전한 참고용 루트를 안내합니다.</p>
+      <div class="lang-wrap" id="languageButtons" aria-label="Language selector">
+        <button type="button" class="language-icon-button" data-lang="ko" aria-label="한국어로 보기" aria-pressed="true"><img src="/assets/images/language/lang-ko.png" alt="KO" onerror="this.hidden=true" /></button>
+        <button type="button" class="language-icon-button" data-lang="en" aria-label="View in English" aria-pressed="false"><img src="/assets/images/language/lang-en.png" alt="EN" onerror="this.hidden=true" /></button>
+        <button type="button" class="language-icon-button" data-lang="vi" aria-label="Xem bằng tiếng Việt" aria-pressed="false"><img src="/assets/images/language/lang-vi.png" alt="VI" onerror="this.hidden=true" /></button>
+        <button type="button" class="language-icon-button" data-lang="ja" aria-label="日本語で表示" aria-pressed="false"><img src="/assets/images/language/lang-ja.png" alt="JP" onerror="this.hidden=true" /></button>
+        <button type="button" class="language-icon-button" data-lang="zh" aria-label="查看中文" aria-pressed="false"><img src="/assets/images/language/lang-zh.png" alt="CN" onerror="this.hidden=true" /></button>
+      </div>
     </section>
 
     <section class="panel" id="amis-tour-ai">
       <form id="amisTourForm" novalidate>
         <div class="form-grid">
-          <div><label for="purpose">여행 목적</label><input id="purpose" name="purpose" required placeholder="예: K-POP 팬 관광" /></div>
-          <div><label for="area">지역</label><input id="area" name="area" required placeholder="예: 부산아시아드주경기장" /></div>
-          <div><label for="days">일정</label><input id="days" name="days" required placeholder="예: 2일" /></div>
-          <div><label for="category">관심 카테고리</label><input id="category" name="category" required placeholder="예: K-뷰티와 야경" /></div>
-          <div><label for="language">언어</label><select id="language" name="language"><option value="ko">한국어</option><option value="en">English</option><option value="vi">Tiếng Việt</option><option value="ja">日本語</option><option value="zh">中文</option></select></div>
-          <div class="full"><label for="message">추가 요청사항</label><textarea id="message" name="message" rows="4" placeholder="예: 부산 공연 후 K-뷰티와 야경을 함께 보고 싶습니다."></textarea></div>
+          <div><label for="purpose" data-i18n="labelPurpose">여행 목적</label><input id="purpose" name="purpose" required data-ph="phPurpose" placeholder="예: K-POP 팬 관광" /></div>
+          <div><label for="area" data-i18n="labelArea">지역</label><input id="area" name="area" required data-ph="phArea" placeholder="예: 부산아시아드주경기장" /></div>
+          <div><label for="days" data-i18n="labelDays">일정</label><input id="days" name="days" required data-ph="phDays" placeholder="예: 2일" /></div>
+          <div><label for="category" data-i18n="labelCategory">관심 카테고리</label><input id="category" name="category" required data-ph="phCategory" placeholder="예: K-뷰티와 야경" /></div>
+          <div><label for="language" data-i18n="labelLanguage">언어</label><select id="language" name="language"><option value="ko">한국어</option><option value="en">English</option><option value="vi">Tiếng Việt</option><option value="ja">日本語</option><option value="zh">中文</option></select></div>
+          <div class="full"><label for="message" data-i18n="labelMessage">추가 요청사항</label><textarea id="message" name="message" rows="4" data-ph="phMessage" placeholder="예: 부산 공연 후 K-뷰티와 야경을 함께 보고 싶습니다."></textarea></div>
         </div>
         <div class="actions">
-          <button type="submit" class="btn primary" id="amisSubmitBtn">AI 루트 추천 받기</button>
-          <button type="button" class="btn" id="amisRetryBtn" hidden>다시 시도</button>
-          <a class="btn" href="/#consult">상담 문의하기</a>
+          <button type="submit" class="btn primary" id="amisSubmitBtn" data-i18n="btnSubmit">AI 루트 추천 받기</button>
+          <button type="button" class="btn" id="amisRetryBtn" data-i18n="btnRetry" hidden>다시 시도</button>
+          <a class="btn" href="/#consult" data-i18n="btnConsult">상담 문의하기</a>
         </div>
       </form>
       <p id="amisStatus" class="muted" aria-live="polite"></p>
       <div id="amisError" class="alert" role="alert" hidden></div>
       <div id="amisResult" class="result-grid" hidden></div>
-
-      <p class="legal muted">VR MEDI TOUR &amp; HOME은 병원이 아니며, 의료 진단·처방·치료를 제공하지 않습니다.<br/>의료관광 관련 내용은 사전상담이며, 실제 진료·예약·비용은 담당자와 관련 기관 확인 후 안내됩니다.</p>
+      <p class="legal muted" data-i18n="legal">VR MEDI TOUR &amp; HOME은 병원이 아니며, 의료 진단·처방·치료를 제공하지 않습니다. 의료관광 관련 내용은 사전상담이며, 실제 진료·예약·비용은 담당자와 관련 기관 확인 후 안내됩니다.</p>
     </section>
   </main>
 
   <script>
     (() => {
+      const dict = {
+        ko:{title:'AMIS Travel Lounge AI 관광 루트 찾기',desc:'여행 목적, 지역, 일정, 관심 카테고리를 입력하면 안전한 참고용 루트를 안내합니다.',labelPurpose:'여행 목적',labelArea:'지역',labelDays:'일정',labelCategory:'관심 카테고리',labelLanguage:'언어',labelMessage:'추가 요청사항',btnSubmit:'AI 루트 추천 받기',btnRetry:'다시 시도',btnConsult:'상담 문의하기',loading:'AI 관광 루트를 생성 중입니다...',error:'요청 처리 중 문제가 발생했습니다. 잠시 후 다시 시도해 주세요.',resTitle:'추천 루트 제목',resSummary:'요약',resNotice:'주의 문구',resArea:'지역',resTime:'추천 시간',resTransport:'이동 방법',resTip:'팁',phPurpose:'예: K-POP 팬 관광',phArea:'예: 부산아시아드주경기장',phDays:'예: 2일',phCategory:'예: K-뷰티와 야경',phMessage:'예: 부산 공연 후 K-뷰티와 야경을 함께 보고 싶습니다.',legal:'VR MEDI TOUR & HOME은 병원이 아니며, 의료 진단·처방·치료를 제공하지 않습니다. 의료관광 관련 내용은 사전상담이며, 실제 진료·예약·비용은 담당자와 관련 기관 확인 후 안내됩니다.'},
+        en:{title:'AMIS Travel Lounge AI Tour Route',desc:'Enter your travel purpose, area, days, and interests to receive a safe reference route.',labelPurpose:'Travel purpose',labelArea:'Area',labelDays:'Schedule',labelCategory:'Interest category',labelLanguage:'Language',labelMessage:'Additional request',btnSubmit:'Get AI Route',btnRetry:'Try again',btnConsult:'Contact consultation',loading:'Generating your AI tour route...',error:'A temporary issue occurred. Please try again shortly.',resTitle:'Route Title',resSummary:'Summary',resNotice:'Notice',resArea:'Area',resTime:'Recommended time',resTransport:'Transport',resTip:'Tip',phPurpose:'e.g. K-POP fan tour',phArea:'e.g. Busan Asiad Stadium',phDays:'e.g. 2 days',phCategory:'e.g. K-beauty and night view',phMessage:'e.g. I want K-beauty and night view after the concert.',legal:'VR MEDI TOUR & HOME is not a hospital and does not provide diagnosis, prescription, or medical treatment. Medical tourism guidance is pre-consultation only; actual care, booking, and costs are confirmed with coordinators and relevant institutions.'},
+        vi:{title:'AMIS Travel Lounge AI Lộ trình du lịch',desc:'Nhập mục tiêu, khu vực, lịch trình và sở thích để nhận lộ trình tham khảo an toàn.',labelPurpose:'Mục tiêu chuyến đi',labelArea:'Khu vực',labelDays:'Lịch trình',labelCategory:'Danh mục quan tâm',labelLanguage:'Ngôn ngữ',labelMessage:'Yêu cầu bổ sung',btnSubmit:'Nhận lộ trình AI',btnRetry:'Thử lại',btnConsult:'Liên hệ tư vấn',loading:'Đang tạo lộ trình AI...',error:'Đã xảy ra lỗi tạm thời. Vui lòng thử lại sau.',resTitle:'Tiêu đề lộ trình',resSummary:'Tóm tắt',resNotice:'Lưu ý',resArea:'Khu vực',resTime:'Thời gian gợi ý',resTransport:'Di chuyển',resTip:'Mẹo',phPurpose:'Ví dụ: tour fan K-POP',phArea:'Ví dụ: Sân vận động Asiad Busan',phDays:'Ví dụ: 2 ngày',phCategory:'Ví dụ: K-beauty và cảnh đêm',phMessage:'Ví dụ: Tôi muốn kết hợp K-beauty và cảnh đêm sau buổi diễn.',legal:'VR MEDI TOUR & HOME không phải bệnh viện và không cung cấp chẩn đoán, kê đơn hoặc điều trị. Nội dung du lịch y tế là tư vấn trước; lịch khám, đặt chỗ và chi phí thực tế cần được xác nhận với điều phối viên và cơ sở liên quan.'},
+        ja:{title:'AMIS Travel Lounge AI 観光ルート',desc:'旅行目的・地域・日程・関心カテゴリを入力すると、安全な参考ルートを案内します。',labelPurpose:'旅行目的',labelArea:'地域',labelDays:'日程',labelCategory:'関心カテゴリ',labelLanguage:'言語',labelMessage:'追加要望',btnSubmit:'AIルートを受け取る',btnRetry:'再試行',btnConsult:'相談問い合わせ',loading:'AI観光ルートを作成中です...',error:'一時的な問題が発生しました。しばらくしてから再試行してください。',resTitle:'おすすめルートタイトル',resSummary:'要約',resNotice:'注意文句',resArea:'地域',resTime:'推奨時間',resTransport:'移動方法',resTip:'ヒント',phPurpose:'例: K-POPファン観光',phArea:'例: 釜山アジアード主競技場',phDays:'例: 2日',phCategory:'例: K-ビューティーと夜景',phMessage:'例: 公演後にK-ビューティーと夜景を楽しみたいです。',legal:'VR MEDI TOUR & HOMEは病院ではなく、診断・処方・治療を提供しません。医療観光関連案内は事前相談であり、実際の診療・予約・費用は担当者および関連機関確認後に案内されます。'},
+        zh:{title:'AMIS Travel Lounge AI 旅游路线',desc:'输入旅行目的、地区、行程和兴趣类别，即可获得安全的参考路线。',labelPurpose:'旅行目的',labelArea:'地区',labelDays:'行程',labelCategory:'兴趣类别',labelLanguage:'语言',labelMessage:'附加需求',btnSubmit:'获取AI路线',btnRetry:'重试',btnConsult:'咨询联系',loading:'正在生成AI旅游路线...',error:'出现临时问题，请稍后重试。',resTitle:'推荐路线标题',resSummary:'摘要',resNotice:'注意事项',resArea:'地区',resTime:'推荐时间',resTransport:'交通方式',resTip:'提示',phPurpose:'例如：K-POP粉丝旅行',phArea:'例如：釜山亚运主竞技场',phDays:'例如：2天',phCategory:'例如：K-Beauty与夜景',phMessage:'例如：演出后想体验K-Beauty和夜景。',legal:'VR MEDI TOUR & HOME不是医院，不提供诊断、处方或治疗。医疗旅游相关内容仅为行前咨询，实际就诊、预约与费用需由负责人及相关机构确认后 안내。'}
+      };
       const form = document.getElementById('amisTourForm');
       const statusEl = document.getElementById('amisStatus');
       const errorEl = document.getElementById('amisError');
       const resultEl = document.getElementById('amisResult');
       const retryBtn = document.getElementById('amisRetryBtn');
       const submitBtn = document.getElementById('amisSubmitBtn');
+      const langButtons = [...document.querySelectorAll('.language-icon-button')];
+      let currentLang = 'ko';
+
+      function t(k){ return (dict[currentLang]||dict.ko)[k] || dict.ko[k] || k; }
+      function applyLang(lang){
+        currentLang = dict[lang] ? lang : 'ko';
+        document.documentElement.lang = currentLang;
+        localStorage.setItem('amisLang', currentLang);
+        document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
+        document.querySelectorAll('[data-ph]').forEach(el => { el.setAttribute('placeholder', t(el.dataset.ph)); });
+        langButtons.forEach(btn => {
+          const active = btn.dataset.lang === currentLang;
+          btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+        });
+        document.getElementById('language').value = currentLang;
+      }
 
       const setLoading = (loading) => {
         submitBtn.disabled = loading;
-        submitBtn.textContent = loading ? '생성 중...' : 'AI 루트 추천 받기';
-        statusEl.textContent = loading ? 'AI 관광 루트를 생성 중입니다...' : '';
+        submitBtn.textContent = loading ? '...' : t('btnSubmit');
+        statusEl.textContent = loading ? t('loading') : '';
       };
 
       const renderResult = (data) => {
         const cards = (data.items || []).map((item) => `
           <article class="route-card">
             <h3>${item.day || ''} · ${item.spot_name || ''}</h3>
-            <p><strong>지역</strong> ${item.area || ''}</p>
+            <p><strong>${t('resArea')}</strong> ${item.area || ''}</p>
             <p>${item.description || ''}</p>
-            <p><strong>추천 시간</strong> ${item.recommended_time || ''}</p>
-            <p><strong>이동 방법</strong> ${item.transport || ''}</p>
-            <p><strong>팁</strong> ${item.tip || ''}</p>
-          </article>
-        `).join('');
-
-        resultEl.innerHTML = `
-          <article class="route-card" style="grid-column:1/-1;">
-            <h3>추천 루트 제목: ${data.title || '추천 관광 루트'}</h3>
-            <p><strong>요약</strong> ${data.summary || ''}</p>
-            <p><strong>주의 문구</strong> ${data.notice || ''}</p>
-          </article>
-          ${cards}
-        `;
+            <p><strong>${t('resTime')}</strong> ${item.recommended_time || ''}</p>
+            <p><strong>${t('resTransport')}</strong> ${item.transport || ''}</p>
+            <p><strong>${t('resTip')}</strong> ${item.tip || ''}</p>
+          </article>`).join('');
+        resultEl.innerHTML = `<article class="route-card" style="grid-column:1/-1;"><h3>${t('resTitle')}: ${data.title || ''}</h3><p><strong>${t('resSummary')}</strong> ${data.summary || ''}</p><p><strong>${t('resNotice')}</strong> ${data.notice || ''}</p></article>${cards}`;
         resultEl.hidden = false;
       };
 
       form.addEventListener('submit', async (event) => {
         event.preventDefault();
-        errorEl.hidden = true;
-        resultEl.hidden = true;
-        retryBtn.hidden = true;
-        setLoading(true);
-
+        errorEl.hidden = true; resultEl.hidden = true; retryBtn.hidden = true; setLoading(true);
         try {
           const payload = Object.fromEntries(new FormData(form).entries());
-          const res = await fetch('/.netlify/functions/amis-tour-ai', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-          });
+          const res = await fetch('/.netlify/functions/amis-tour-ai', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) });
           const data = await res.json();
-          if (!res.ok || !data.ok) throw new Error(data.error || 'route_failed');
+          if (!res.ok || !data.ok) throw new Error('route_failed');
           renderResult(data);
         } catch (_) {
-          errorEl.textContent = '요청 처리 중 문제가 발생했습니다. 잠시 후 다시 시도해 주세요.';
+          errorEl.textContent = t('error');
           errorEl.hidden = false;
           retryBtn.hidden = false;
-        } finally {
-          setLoading(false);
-        }
+        } finally { setLoading(false); }
       });
-
       retryBtn.addEventListener('click', () => form.requestSubmit());
+      document.getElementById('languageButtons').addEventListener('click', (e) => {
+        const b=e.target.closest('.language-icon-button'); if (!b) return; applyLang(b.dataset.lang);
+      });
+      applyLang(localStorage.getItem('amisLang') || 'ko');
     })();
   </script>
 </body>
