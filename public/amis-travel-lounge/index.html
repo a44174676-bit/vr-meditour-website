@@ -32,16 +32,23 @@
   <h2 data-i18n="bot.title">AI 관광 루트 찾기</h2>
   <p data-i18n="bot.sub">부산 방문 목적과 관심사를 입력하면, AI가 관광 루트와 주변 정보를 정리합니다.</p>
   <form id="tour-form" class="grid two">
-    <select name="purpose"><option value="K-POP fan tour">K-POP fan tour</option><option value="K-beauty">K-beauty</option><option value="wellness">wellness</option><option value="medical tourism pre-consultation">medical tourism pre-consultation</option></select>
-    <select name="area"><option>Seomyeon</option><option>Haeundae</option><option>Gwangalli</option><option>Busan Asiad Stadium</option></select>
-    <select name="days"><option value="half-day">half-day</option><option value="1">1 day</option><option value="2">2 days</option><option value="3">3 days</option></select>
-    <select name="language"><option value="ko">ko</option><option value="en">en</option><option value="vi">vi</option><option value="ja">ja</option><option value="zh">zh</option></select>
-    <input name="category" placeholder="category" />
-    <input name="message" placeholder="message" />
+    <label data-i18n="bot.label.purpose" for="purpose">여행 목적</label>
+    <select id="purpose" name="purpose"><option data-i18n="bot.opt.p1" value="K-POP fan tour">K-POP fan tour</option><option data-i18n="bot.opt.p2" value="K-beauty">K-beauty</option><option data-i18n="bot.opt.p3" value="wellness">wellness</option><option data-i18n="bot.opt.p4" value="medical tourism pre-consultation">medical tourism pre-consultation</option><option data-i18n="bot.opt.p5" value="food & cafe">food & cafe</option><option data-i18n="bot.opt.p6" value="family trip">family trip</option></select>
+    <label data-i18n="bot.label.area" for="area">지역</label>
+    <select id="area" name="area"><option data-i18n="bot.opt.a1">Seomyeon</option><option data-i18n="bot.opt.a2">Haeundae</option><option data-i18n="bot.opt.a3">Gwangalli</option><option data-i18n="bot.opt.a4">Busan Asiad Stadium</option><option data-i18n="bot.opt.a5">Nampo-dong</option><option data-i18n="bot.opt.a6">Gamcheon Culture Village</option></select>
+    <label data-i18n="bot.label.days" for="days">일정</label>
+    <select id="days" name="days"><option data-i18n="bot.opt.d1" value="half-day">half-day</option><option data-i18n="bot.opt.d2" value="1">1 day</option><option data-i18n="bot.opt.d3" value="2">2 days</option><option data-i18n="bot.opt.d4" value="3">3 days</option></select>
+    <label data-i18n="bot.label.lang" for="langSelect">언어</label>
+    <select id="langSelect" name="language"><option value="ko">ko</option><option value="en">en</option><option value="vi">vi</option><option value="ja">ja</option><option value="zh">zh</option></select>
+    <label data-i18n="bot.label.category" for="category">관심 카테고리</label>
+    <input id="category" name="category" data-i18n-ph="bot.ph.category" placeholder="관심 카테고리를 선택하세요" />
+    <label data-i18n="bot.label.message" for="message">요청사항</label>
+    <textarea id="message" name="message" data-i18n-ph="bot.ph.message" placeholder="원하는 여행 스타일이나 요청사항을 입력하세요"></textarea>
     <button class="btn primary" type="submit" data-i18n="bot.submit">AI 루트 추천 받기</button>
   </form>
   <p id="tour-status"></p>
   <div id="tour-results" class="grid two"></div>
+  <div class="cta-row"><button class="btn secondary" id="tour-retry" type="button" data-i18n="bot.retry">다시 시도</button><a class="btn secondary" href="/#consult" data-i18n="bot.consult">상담 문의하기</a></div>
 </section>
 
 <section id="busan-route"><h2 data-i18n="route.title">부산 관광 루트 데이터베이스</h2><p data-i18n="route.sub">도착지, 숙소 거점, 공연장, 관광지, K-뷰티, 웰니스, 의료관광 사전상담을 하나의 고객 여정으로 연결합니다.</p><div class="grid three" id="route-cards"></div></section>

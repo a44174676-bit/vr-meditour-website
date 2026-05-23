@@ -14,5 +14,8 @@ h1,h2,h3{line-height:1.3}.subtitle{color:var(--accent);font-weight:700}.cta-row{
 .grid{display:grid;gap:12px}.three{grid-template-columns:repeat(3,minmax(0,1fr))}.two{grid-template-columns:repeat(2,minmax(0,1fr))}.five{grid-template-columns:repeat(5,minmax(0,1fr))}
 .card{background:var(--panel-soft);border:1px solid var(--line);border-radius:14px;padding:14px}.timeline{display:grid;gap:8px;padding-left:20px}.notice,.important{border-left:4px solid var(--accent);background:#0b1327;padding:12px;border-radius:8px}.operator{color:var(--muted)}
 .route-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.route-card h3{margin:8px 0}.mini-badge{display:inline-block;font-size:.75rem;color:#dbeafe;background:#0b2f49;border:1px solid var(--line);padding:3px 8px;border-radius:999px}.itinerary-card h4{margin:10px 0}
+form label{font-size:.9rem;color:var(--muted);font-weight:700}
+form select,form input,form textarea{width:100%;min-height:44px;border:1px solid var(--line);background:rgba(15,23,42,.85);color:var(--text);padding:10px 12px;border-radius:12px}
+form textarea{min-height:90px}
 a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 @media (max-width:900px){.three,.two,.five,.route-grid{grid-template-columns:1fr}.page{padding:14px}section,.hero{padding:20px}.language-switcher{justify-content:center}.language-buttons{justify-content:center}}
