@@ -170,3 +170,14 @@
   from = "/store/*"
   to = "/public/store/:splat"
   status = 200
+
+
+[[redirects]]
+  from = "/amis-shop/"
+  to = "/public/amis-shop/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/amis-shop/*"
+  to = "/public/amis-shop/:splat"
+  status = 200
