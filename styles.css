@@ -909,3 +909,9 @@ body.lang-ar .cta-button {
   .consult-cta-layout { grid-template-columns: 1fr; }
   .consult-cta-visual { max-width: 300px; margin: 0 auto; }
 }
+
+/* Unified Medi Hana language character sizing */
+.language-buttons{gap:18px}
+.language-buttons button,.lang-btn{width:96px;height:96px;min-width:96px;min-height:96px;padding:6px}
+.language-buttons button img,.lang-btn img{width:78px;height:78px}
+@media (max-width:768px){.language-buttons{gap:10px;justify-content:center}.language-buttons button,.lang-btn{width:68px;height:68px;min-width:68px;min-height:68px}.language-buttons button img,.lang-btn img{width:56px;height:56px}}

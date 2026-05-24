@@ -10,8 +10,8 @@
     *{box-sizing:border-box} body{margin:0;font-family:"Inter","Noto Sans KR",system-ui,sans-serif;color:var(--text);background:radial-gradient(circle at top,#102544,var(--bg) 55%)}
     .page{max-width:1140px;margin:0 auto;padding:28px 18px 56px}.card{background:linear-gradient(150deg,rgba(18,35,64,.95),rgba(9,20,40,.95));border:1px solid var(--line);border-radius:20px;box-shadow:0 20px 48px rgba(0,0,0,.35);padding:22px;margin-bottom:16px}
     h1,h2,h3{margin:.2rem 0 .6rem}.muted{color:var(--muted)} .lang-wrap{display:flex;gap:.8rem;flex-wrap:wrap;margin:12px 0 0}
-    .language-icon-button,.amis-lang-button{width:64px;height:64px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(125,211,252,.45);background:rgba(15,23,42,.85);transition:transform .2s,box-shadow .2s,border-color .2s;cursor:pointer}
-    .language-icon-button img,.amis-lang-button img{width:52px;height:52px;object-fit:contain;border-radius:999px}
+    .language-icon-button,.amis-lang-button{width:96px;height:96px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(125,211,252,.45);background:rgba(15,23,42,.85);transition:transform .2s,box-shadow .2s,border-color .2s;cursor:pointer}
+    .language-icon-button img,.amis-lang-button img{width:78px;height:78px;object-fit:contain;border-radius:999px}
     .language-icon-button.is-active,.amis-lang-button.is-active,.language-icon-button[aria-pressed="true"],.amis-lang-button[aria-pressed="true"]{border-color:#38bdf8;box-shadow:0 0 0 3px rgba(56,189,248,.22),0 0 24px rgba(56,189,248,.7);transform:translateY(-2px)}
     .flow{display:grid;gap:10px}.flow-step{padding:12px;border:1px dashed rgba(142,228,238,.35);border-radius:12px;background:rgba(151,221,255,.06)}.arrow{text-align:center;color:#7de4e0}
     .grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.db-card,.route-card{border-radius:14px;padding:14px;background:rgba(178,238,255,.08);backdrop-filter:blur(8px);border:1px solid rgba(138,228,239,.32)}
@@ -22,7 +22,7 @@
     .alert{border-radius:14px;border:1px solid rgba(255,94,122,.4);background:rgba(60,15,25,.6);color:#ffdbe3;padding:12px;margin-top:12px}.result-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}
     .amis-mission-sound{margin-top:2rem}.amis-video-card{border:1px solid rgba(56,189,248,.28);border-radius:28px;padding:1rem;background:rgba(15,23,42,.72);box-shadow:0 0 36px rgba(56,189,248,.14)}.amis-video-frame{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:22px;background:#020617}.amis-video-frame iframe{width:100%;height:100%;border:0;display:block}
     @media (max-width: 980px){.grid-3,.form-grid,.result-grid{grid-template-columns:1fr}}
-    @media (max-width: 640px){.language-icon-button,.amis-lang-button{width:52px;height:52px}.language-icon-button img,.amis-lang-button img{width:44px;height:44px}.lang-wrap{flex-wrap:wrap;gap:.6rem}.amis-video-card{padding:.75rem;border-radius:22px}.amis-video-frame{border-radius:18px}}
+    @media (max-width: 640px){.language-icon-button,.amis-lang-button{width:78px;height:78px}.language-icon-button img,.amis-lang-button img{width:44px;height:44px}.lang-wrap{flex-wrap:wrap;gap:.6rem}.amis-video-card{padding:.75rem;border-radius:22px}.amis-video-frame{border-radius:18px}}
   </style>
 </head>
 <body>
@@ -32,11 +32,11 @@
       <p class="muted" data-i18n="heroSub">AI 기반 부산 K-POP 팬 관광·다국어 안내 라운지</p>
       <p data-i18n="heroBody">AMIS Travel Lounge는 부산을 방문하는 글로벌 K-POP 팬과 외국인 관광객을 위해 관광 루트, 이동 안내, K-뷰티, 웰니스, 의료관광 사전상담을 연결하는 AI 기반 다국어 여행 라운지입니다.</p>
       <div class="lang-wrap amis-language-switcher" id="languageButtons" aria-label="Language selector">
-        <button type="button" class="language-icon-button amis-lang-button" data-lang="ko" aria-label="한국어로 보기" aria-pressed="true"><img src="/assets/images/language/lang-ko.png" alt="KO" onerror="this.hidden=true" /></button>
-        <button type="button" class="language-icon-button amis-lang-button" data-lang="en" aria-label="View in English" aria-pressed="false"><img src="/assets/images/language/lang-en.png" alt="EN" onerror="this.hidden=true" /></button>
-        <button type="button" class="language-icon-button amis-lang-button" data-lang="vi" aria-label="Xem bằng tiếng Việt" aria-pressed="false"><img src="/assets/images/language/lang-vi.png" alt="VI" onerror="this.hidden=true" /></button>
-        <button type="button" class="language-icon-button amis-lang-button" data-lang="ja" aria-label="日本語で表示" aria-pressed="false"><img src="/assets/images/language/lang-ja.png" alt="JP" onerror="this.hidden=true" /></button>
-        <button type="button" class="language-icon-button amis-lang-button" data-lang="zh" aria-label="查看中文" aria-pressed="false"><img src="/assets/images/language/lang-zh.png" alt="CN" onerror="this.hidden=true" /></button>
+        <button type="button" class="language-icon-button amis-lang-button" data-lang="ko" aria-label="한국어로 보기" aria-pressed="true"><img src="/assets/images/language/medi-hana-ko.png" alt="KO" onerror="this.hidden=true" /></button>
+        <button type="button" class="language-icon-button amis-lang-button" data-lang="en" aria-label="View in English" aria-pressed="false"><img src="/assets/images/language/medi-hana-en.png" alt="EN" onerror="this.hidden=true" /></button>
+        <button type="button" class="language-icon-button amis-lang-button" data-lang="vi" aria-label="Xem bằng tiếng Việt" aria-pressed="false"><img src="/assets/images/language/medi-hana-vi.png" alt="VI" onerror="this.hidden=true" /></button>
+        <button type="button" class="language-icon-button amis-lang-button" data-lang="ja" aria-label="日本語で表示" aria-pressed="false"><img src="/assets/images/language/medi-hana-jp.png" alt="JP" onerror="this.hidden=true" /></button>
+        <button type="button" class="language-icon-button amis-lang-button" data-lang="zh" aria-label="查看中文" aria-pressed="false"><img src="/assets/images/language/medi-hana-cn.png" alt="CN" onerror="this.hidden=true" /></button>
       </div>
     </section>
 
