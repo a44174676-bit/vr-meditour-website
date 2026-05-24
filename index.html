@@ -26,6 +26,7 @@
   <meta name="twitter:image" content="https://vr-meditour.com/assets/hero-medical-travel.jpg" />
   <meta name="twitter:url" content="https://vr-meditour.com/" />
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="/assets/css/language-icons.css" />
   <script type="application/ld+json">
 {
     "@context": "https://schema.org",
@@ -183,7 +184,7 @@
             </a>
           </nav>
           <div class="language-select">
-          <span data-i18n="languageLabel">Language</span>
+          <span data-i18n="languageLabel">언어</span>
           <div class="language-buttons language-character-group" id="languageButtons" aria-label="Language selector">
             <button type="button" class="lang-btn lang-character-btn" data-lang="en" aria-label="English">
               <img class="lang-character-img" src="/assets/images/language/medi-hana-en.png" alt="Medi Hana English language guide" onerror="this.hidden=true" />
@@ -194,10 +195,10 @@
             <button type="button" class="lang-btn lang-character-btn" data-lang="vi" aria-label="Tiếng Việt">
               <img class="lang-character-img" src="/assets/images/language/medi-hana-vi.png" alt="Medi Hana Vietnamese language guide" onerror="this.hidden=true" />
             </button>
-            <button type="button" class="lang-btn lang-character-btn" data-lang="ja" aria-label="日本語">
+            <button type="button" class="lang-btn lang-character-btn" data-lang="jp" aria-label="日本語">
               <img class="lang-character-img" src="/assets/images/language/medi-hana-jp.png" alt="Medi Hana Japanese language guide" onerror="this.hidden=true" />
             </button>
-            <button type="button" class="lang-btn lang-character-btn" data-lang="zh" aria-label="中文">
+            <button type="button" class="lang-btn lang-character-btn" data-lang="cn" aria-label="中文">
               <img class="lang-character-img" src="/assets/images/language/medi-hana-cn.png" alt="Medi Hana Chinese language guide" onerror="this.hidden=true" />
             </button>
           </div>
@@ -1547,12 +1548,15 @@
       if (translations[lang]) Object.assign(translations[lang], dictionary);
     });
 
+    translations.jp = translations.ja;
+    translations.cn = translations.zh;
+
     const languageMap = {
       en: "English",
       ko: "Korean",
       vi: "Vietnamese",
-      ja: "Japanese",
-      zh: "Chinese",
+      jp: "Japanese",
+      cn: "Chinese",
       ar: "العربية"
     };
 
@@ -1560,8 +1564,8 @@
       en: "English",
       ko: "한국어",
       vi: "Tiếng Việt",
-      ja: "日本語",
-      zh: "中文",
+      jp: "日本語",
+      cn: "中文",
       ar: "العربية"
     };
 
@@ -1570,7 +1574,8 @@
     }
 
     function applyLanguage(lang) {
-      const active = translations[lang] ? lang : "en";
+      const normalizedLang = ({ ja: "jp", zh: "cn" }[lang] || lang);
+      const active = translations[normalizedLang] ? normalizedLang : "en";
       document.documentElement.lang = active;
       document.documentElement.dir = "ltr";
       document.body.classList.toggle("lang-ar", active === "ar");

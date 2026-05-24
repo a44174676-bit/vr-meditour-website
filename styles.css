@@ -923,3 +923,23 @@ body.lang-ar .cta-button {
 .lang-character-btn:hover{transform:translateY(-3px);border-color:rgba(90,220,255,.95);box-shadow:0 0 30px rgba(70,205,255,.4)}
 .lang-character-btn.active,.lang-character-btn[aria-pressed="true"],.lang-character-btn.is-active{border-color:rgba(115,255,230,.98);background:rgba(12,42,72,.9);box-shadow:0 0 0 3px rgba(115,255,230,.18),0 0 34px rgba(90,220,255,.58)}
 @media (max-width:768px){.language-character-group{justify-content:center;gap:10px}.lang-character-btn{width:64px;height:64px;padding:2px}.lang-character-btn img,.lang-character-img{width:60px;height:60px}}
+
+
+/* main page language selector: remove inner badge overlays, show character-only */
+#languageButtons .lang-btn::before,
+#languageButtons .lang-btn::after,
+#languageButtons .lang-character-btn::before,
+#languageButtons .lang-character-btn::after,
+#languageButtons [class*="badge"] {
+  content: none !important;
+  display: none !important;
+}
+#languageButtons .lang-btn span,
+#languageButtons .lang-character-btn span,
+#languageButtons [data-lang-label] {
+  display: none !important;
+}
+#languageButtons .lang-btn,
+#languageButtons .lang-character-btn {
+  transform: none !important;
+}
