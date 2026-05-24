@@ -13,7 +13,7 @@ i18n.ja={...i18n.en,home:'ホーム',consult:'相談申込',skin:'AI肌分析',t
 i18n.zh={...i18n.en,home:'返回首页',consult:'提交咨询',skin:'AI皮肤分析',title:'Medi Hana 医疗旅游AI咨询助手',subtitle:'协助韩国医疗旅游咨询准备。',send:'发送',placeholder:'请输入咨询目的和首选语言。',initialDefault:'您好。Medi Hana 是支持医疗旅游、K-Beauty、旅行行程和 AMIS 商品咨询的 AI 咨询助手。请告诉我们您的咨询目的和首选语言。',initialStorePassportCase:'您好。我可以协助您咨询 AMIS 釜山医疗旅行护照夹的预订事宜。请告知数量、配送国家、首选语言以及是否为团体订购。',initialAiSkin:'您好。我可以协助您准备 AI 皮肤检测和 K-Beauty 咨询。请告知您的皮肤关注点、首选语言和咨询目的，我们会整理参考说明和咨询连接信息。',initialAmisTravelLounge:'您好。我可以协助您准备 AMIS Travel Lounge 咨询。请告诉我们您需要医疗旅游、旅行行程、口译、住宿、交通、K-Beauty 或 AMIS 商品方面的帮助。',replyPassportCaseInquiry:'可以，我可以协助您咨询 AMIS 釜山医疗旅行护照夹的预订事宜。目前样品预订价为19.00美元，并包含1次高级AI皮肤检测QR使用权。请提供数量、配送国家、姓名和可联系的电子邮箱。'};
 i18n.jp=i18n.ja; i18n.cn=i18n.zh;
 function tr(k){return (i18n[state.lang]&&i18n[state.lang][k])||i18n.en[k]||k}
-function getInitialMessageKey(s){if(s==='store-passport-case')return 'initialStorePassportCase';if(s==='ai-skin')return 'initialAiSkin';if(s==='amis-travel-lounge')return 'initialAmisTravelLounge';return 'initialDefault'}
+function getInitialMessageKey(s){if(s==='store'||s==='store-passport-case')return 'initialStorePassportCase';if(s==='ai-skin')return 'initialAiSkin';if(s==='amis-travel-lounge')return 'initialAmisTravelLounge';if(s==='medical')return 'replyMedicalTravelInquiry';return 'initialDefault'}
 function add(role,text,key=''){state.messages.push({role,text,key});renderMessages();sessionStorage.setItem('medi_hana_chat',JSON.stringify(state));}
 function addByKey(key){add('assistant',tr(key),key)}
 function renderMessages(){const c=document.getElementById('chatMessages');c.innerHTML='';state.messages.forEach(m=>{const k=m.key?` data-message-key="${m.key}"`:'';c.insertAdjacentHTML('beforeend',`<div class="msg ${m.role==='user'?'u':'a'}"${k}>${(m.key?tr(m.key):m.text).replace(/</g,'&lt;')}</div>`)})}
@@ -21,7 +21,18 @@ function renderLang(){const b=document.getElementById('langSwitch');b.innerHTML=
 function applyI18n(){document.documentElement.lang=state.lang;const d=i18n[state.lang]||i18n.en;document.querySelectorAll('[data-i18n]').forEach(el=>el.textContent=d[el.dataset.i18n]||'');document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>el.placeholder=d[el.dataset.i18nPlaceholder]||'');updateSummary(state.summary,false)}
 function pickReplyKey(msg){const s=msg.toLowerCase();if(/passport case|여권|사전예약|pre-?order|구매/.test(s))return 'replyPassportCaseInquiry';if(/itinerary|일정|travel plan|여행/.test(s))return 'replyTravelItineraryInquiry';if(/medical|의료관광|hospital|clinic/.test(s))return 'replyMedicalTravelInquiry';if(/k-beauty|beauty|뷰티|스킨케어/.test(s))return 'replyKBeautyInquiry';if(/ai skin|피부|skin/.test(s))return 'replyAiSkinInquiry';return 'replyGeneralInquiry'}
 function updateSummary(s,save=true){state.summary={...state.summary,...s,language:state.lang};const map=[['inquiryType','sumInquiryType'],['language','sumLanguage'],['field','sumField'],['country','sumCountry'],['city','sumCity'],['timeline','sumTimeline'],['supportNeeded','sumSupportNeeded'],['keyConcern','sumKeyConcern'],['needsHumanReview','sumNeedsHumanReview']];document.getElementById('summaryFields').innerHTML=map.map(([k,l])=>`<dt>${tr(l)}</dt><dd>${Array.isArray(state.summary[k])?state.summary[k].join(', '):(state.summary[k]??'')}</dd>`).join('');if(save)sessionStorage.setItem('medi_hana_chat',JSON.stringify(state));}
-function init(){if(!langs.includes(state.lang))state.lang='ko';renderLang();applyI18n();addByKey(getInitialMessageKey(source));document.getElementById('chatForm').addEventListener('submit',e=>{e.preventDefault();const i=document.getElementById('chatInput');const m=i.value.trim();if(!m)return;add('user',m);i.value='';addByKey(pickReplyKey(m));});}
+async function requestAiReply(message){
+  const res=await fetch('/.netlify/functions/medi-hana-chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message,language:state.lang,source:source||'default',history:state.messages.slice(-12).map(m=>({role:m.role,text:m.key?tr(m.key):m.text}))})});
+  let body={};
+  try{body=await res.json();}catch{body={};}
+  return {ok:res.ok,status:res.status,body};
+}
+function transparentFallback(){
+  return state.lang==='ko'
+    ? '상담 접수는 가능하나 AI 응답 연결을 확인 중입니다. 문의 내용을 남겨주시면 담당자가 확인해 안내드리겠습니다.'
+    : 'Consultation intake is available, but we are currently verifying the AI response connection. Please leave your inquiry and a coordinator will follow up.';
+}
+function init(){if(!langs.includes(state.lang))state.lang='ko';renderLang();applyI18n();addByKey(getInitialMessageKey(source));document.getElementById('chatForm').addEventListener('submit',async e=>{e.preventDefault();const i=document.getElementById('chatInput');const m=i.value.trim();if(!m)return;add('user',m);i.value='';try{const r=await requestAiReply(m);if(r.ok&&r.body.reply){add('assistant',String(r.body.reply));if(r.body.summary&&typeof r.body.summary==='object')updateSummary(r.body.summary);return;}console.warn('[medi-hana-chat]',{status:r.status,body:r.body});add('assistant',r.body.reply||transparentFallback());}catch(err){console.warn('[medi-hana-chat] network_error',err);add('assistant',transparentFallback());}});}
 
 function setStatus(msg){const el=document.getElementById('submitStatus');if(el)el.textContent=msg}
 document.getElementById('submitLead')?.addEventListener('click',()=>{const form=document.getElementById('mediHanaLeadForm');if(!form)return;document.getElementById('lead_language').value=state.lang;document.getElementById('lead_summary').value=JSON.stringify(state.summary);document.getElementById('lead_transcript').value=state.messages.map(m=>`${m.role}: ${m.key?tr(m.key):m.text}`).join('\n');setStatus(tr('submitSuccess'));form.submit();});
