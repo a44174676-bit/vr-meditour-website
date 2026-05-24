@@ -152,10 +152,11 @@
 
 [[redirects]]
   from = "/amis-travel-lounge"
-  to = "/public/amis-travel-lounge/"
+  to = "/amis-travel-lounge/"
   status = 301
 
 [[redirects]]
-  from = "/amis-travel-lounge/*"
-  to = "/public/amis-travel-lounge/:splat"
+  from = "/amis-travel-lounge/"
+  to = "/public/amis-travel-lounge/index.html"
   status = 200
+  force = true
