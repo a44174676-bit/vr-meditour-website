@@ -280,6 +280,7 @@ exports.handler = async (event) => {
   try { payload = JSON.parse(event.body || '{}'); } catch { return json(400,{error:'Invalid JSON'},origin); }
   const message = String(payload.message || '').trim();
   const history = Array.isArray(payload.history) ? payload.history.slice(-12) : [];
+  const existingSummary = payload.summary && typeof payload.summary === 'object' ? payload.summary : {};
   if (!message) return json(400,{error:'Empty message'},origin);
   if (message.length > 1200) return json(400,{error:'Message too long. Please summarize your request.'},origin);
 
@@ -291,22 +292,63 @@ exports.handler = async (event) => {
     return json(500,{errorType:'missing_medi_hana_api_key',reply:'메디하나 AI 연결 설정이 아직 완료되지 않았습니다.',summary:{},safetyNotice,handoffRecommended:true},origin);
   }
 
-  try {
-    const resp = await fetch('https://api.openai.com/v1/chat/completions',{method:'POST',headers:{'Authorization':`Bearer ${MEDI_HANA_OPENAI_API_KEY}`,'Content-Type':'application/json'},body:JSON.stringify({model:MODEL,temperature:0.2,max_tokens:450,response_format:{type:'json_object'},messages:[{role:'system',content:SYSTEM_PROMPT},...history.map(m=>({role:m.role==='user'?'user':'assistant',content:String(m.text||'').slice(0,800)})),{role:'user',content:`User language: ${payload.language||'en'}\nUser message: ${message}\nReturn JSON schema {reply, summary:{inquiryType,customerName,email,phone,language,country,city,field,product,quantity,timeline,supportNeeded,keyConcern,missingInfo,status,needsHumanReview}, safetyNotice, handoffRecommended}.`}]})});
+try {
+  const resp = await fetch('https://api.openai.com/v1/chat/completions',{
+    method:'POST',
+    headers:{
+      'Authorization':`Bearer ${MEDI_HANA_OPENAI_API_KEY}`,
+      'Content-Type':'application/json'
+    },
+    body:JSON.stringify({
+      model:MODEL,
+      temperature:0.2,
+      max_tokens:450,
+      response_format:{type:'json_object'},
+      messages:[
+        {role:'system',content:SYSTEM_PROMPT},
+        ...history.map(m=>({
+          role:m.role==='user'?'user':'assistant',
+          content:String(m.text||'').slice(0,800)
+        })),
+        {
+          role:'user',
+          content:`User language: ${payload.language||'en'}
+Source: ${payload.source||'general'}
+Existing summary: ${JSON.stringify(existingSummary)}
+User message: ${message}
 
-    if (!resp.ok) {
-      console.error(`[medi-hana-chat] status=${resp.status} error_type=upstream_api_error`);
-      return json(502,{errorType:'upstream_api_error',reply:'AI 응답 서버 연결에 실패했습니다.',summary:{},safetyNotice,handoffRecommended:true},origin);
-    }
-    const data = await resp.json();
-    let parsed;
-    try { parsed = JSON.parse(data.choices?.[0]?.message?.content || '{}'); }
-    catch {
-      console.error('[medi-hana-chat] status=502 error_type=response_parse_error');
-      return json(502,{errorType:'response_parse_error',reply:'AI 응답 형식을 읽지 못했습니다.',summary:{},safetyNotice,handoffRecommended:true},origin);
-    }
-    return json(200,{reply:parsed.reply||'상담 준비를 도와드릴게요. 상담 목적과 희망 언어를 알려주세요.',summary:parsed.summary||{},safetyNotice:parsed.safetyNotice||safetyNotice,handoffRecommended:parsed.handoffRecommended ?? true},origin);
+Use the existing summary and conversation history as memory.
+Do not drop customerName, email, phone, product, quantity, country, city, supportNeeded, missingInfo, or status if they were already known.
+Update only fields that are newly provided or clearly corrected by the user.
+If a field is unknown, keep it as an empty string.
+Return JSON schema {reply, summary:{inquiryType,customerName,email,phone,language,country,city,field,product,quantity,timeline,supportNeeded,keyConcern,missingInfo,status,needsHumanReview}, safetyNotice, handoffRecommended}.`
+        }
+      ]
+    })
+  });
+
+  if (!resp.ok) {
+    console.error(`[medi-hana-chat] status=${resp.status} error_type=upstream_api_error`);
+    return json(502,{errorType:'upstream_api_error',reply:'AI 응답 서버 연결에 실패했습니다.',summary:{},safetyNotice,handoffRecommended:true},origin);
+  }
+
+  const data = await resp.json();
+  let parsed;
+
+  try {
+    parsed = JSON.parse(data.choices?.[0]?.message?.content || '{}');
   } catch {
+    console.error('[medi-hana-chat] status=502 error_type=response_parse_error');
+    return json(502,{errorType:'response_parse_error',reply:'AI 응답 형식을 읽지 못했습니다.',summary:{},safetyNotice,handoffRecommended:true},origin);
+  }
+
+  return json(200,{
+    reply:parsed.reply||'상담 준비를 도와드릴게요. 상담 목적과 희망 언어를 알려주세요.',
+    summary:parsed.summary||{},
+    safetyNotice:parsed.safetyNotice||safetyNotice,
+    handoffRecommended:parsed.handoffRecommended ?? true
+  },origin);
+    } catch {
     console.error('[medi-hana-chat] status=502 error_type=function_runtime_error');
     return json(502,{errorType:'function_runtime_error',reply:'AI 응답 서버 연결에 실패했습니다.',summary:{},safetyNotice,handoffRecommended:true},origin);
   }
