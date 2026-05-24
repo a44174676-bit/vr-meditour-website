@@ -159,3 +159,14 @@
   from = "/amis-travel-lounge/*"
   to = "/public/amis-travel-lounge/:splat"
   status = 200
+
+
+[[redirects]]
+  from = "/store"
+  to = "/public/store/"
+  status = 301
+
+[[redirects]]
+  from = "/store/*"
+  to = "/public/store/:splat"
+  status = 200
