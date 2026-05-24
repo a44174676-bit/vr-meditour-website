@@ -234,3 +234,14 @@ h3 { margin: 12px 0 6px; }
     height: 42px;
   }
 }
+
+.language-buttons{gap:18px}.lang-btn{width:96px;height:96px}.lang-btn img{width:78px;height:78px}
+@media (max-width:768px){.language-buttons{gap:10px;justify-content:center}.lang-btn{width:68px;height:68px}.lang-btn img{width:56px;height:56px}}
+
+/* unified language character ui */
+.language-character-group{display:flex;align-items:center;justify-content:flex-end;gap:14px;flex-wrap:wrap}
+.lang-character-btn{width:88px;height:88px;padding:3px;border-radius:999px;border:1px solid rgba(135,190,255,.45);background:rgba(8,24,48,.72);box-shadow:0 10px 28px rgba(0,0,0,.32);display:flex;align-items:center;justify-content:center;cursor:pointer;overflow:hidden;transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease,background .2s ease}
+.lang-character-btn img,.lang-character-img{width:82px;height:82px;border-radius:50%;object-fit:contain!important;background:transparent!important;display:block;box-shadow:none!important}
+.lang-character-btn:hover{transform:translateY(-3px);border-color:rgba(90,220,255,.95);box-shadow:0 0 30px rgba(70,205,255,.4)}
+.lang-character-btn.active,.lang-character-btn[aria-pressed="true"],.lang-character-btn.is-active{border-color:rgba(115,255,230,.98);background:rgba(12,42,72,.9);box-shadow:0 0 0 3px rgba(115,255,230,.18),0 0 34px rgba(90,220,255,.58)}
+@media (max-width:768px){.language-character-group{justify-content:center;gap:10px}.lang-character-btn{width:64px;height:64px;padding:2px}.lang-character-btn img,.lang-character-img{width:60px;height:60px}}
