@@ -60,7 +60,24 @@ Output rule:
 Always return a compact JSON object with exactly these keys:
 {
   "reply": "customer-facing answer",
-  "summary": "short internal consultation summary",
+  "summary": {
+    "inquiryType": "consultation type",
+    "customerName": "customer name if provided, otherwise empty string",
+    "email": "customer email if provided, otherwise empty string",
+    "phone": "customer phone or messenger if provided, otherwise empty string",
+    "language": "preferred language",
+    "country": "customer country or shipping country",
+    "city": "city if provided, otherwise empty string",
+    "field": "main consultation field",
+    "product": "product or service name",
+    "quantity": "quantity if provided, otherwise empty string",
+    "timeline": "preferred date or timeline if provided, otherwise empty string",
+    "supportNeeded": ["needed support items"],
+    "keyConcern": "main customer request",
+    "missingInfo": "only information still needed",
+    "status": "additional information needed / ready for staff review / ready for intake",
+    "needsHumanReview": true or false
+  },
   "safetyNotice": "short safety notice when needed, otherwise empty string",
   "handoffRecommended": true or false
 }`;
@@ -117,7 +134,7 @@ exports.handler = async (event) => {
   }
 
   try {
-    const resp = await fetch('https://api.openai.com/v1/chat/completions',{method:'POST',headers:{'Authorization':`Bearer ${MEDI_HANA_OPENAI_API_KEY}`,'Content-Type':'application/json'},body:JSON.stringify({model:MODEL,temperature:0.2,max_tokens:450,response_format:{type:'json_object'},messages:[{role:'system',content:SYSTEM_PROMPT},...history.map(m=>({role:m.role==='user'?'user':'assistant',content:String(m.text||'').slice(0,800)})),{role:'user',content:`User language: ${payload.language||'en'}\nUser message: ${message}\nReturn JSON schema {reply, summary:{inquiryType,language,country,city,field,timeline,supportNeeded,keyConcern,needsHumanReview}, safetyNotice, handoffRecommended}.`}]})});
+    const resp = await fetch('https://api.openai.com/v1/chat/completions',{method:'POST',headers:{'Authorization':`Bearer ${MEDI_HANA_OPENAI_API_KEY}`,'Content-Type':'application/json'},body:JSON.stringify({model:MODEL,temperature:0.2,max_tokens:450,response_format:{type:'json_object'},messages:[{role:'system',content:SYSTEM_PROMPT},...history.map(m=>({role:m.role==='user'?'user':'assistant',content:String(m.text||'').slice(0,800)})),{role:'user',content:`User language: ${payload.language||'en'}\nUser message: ${message}\nReturn JSON schema {reply, summary:{inquiryType,customerName,email,phone,language,country,city,field,product,quantity,timeline,supportNeeded,keyConcern,missingInfo,status,needsHumanReview}, safetyNotice, handoffRecommended}.`}]})});
 
     if (!resp.ok) {
       console.error(`[medi-hana-chat] status=${resp.status} error_type=upstream_api_error`);
