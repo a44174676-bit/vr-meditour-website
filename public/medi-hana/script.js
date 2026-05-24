@@ -20,22 +20,95 @@ function renderMessages(){const c=document.getElementById('chatMessages');c.inne
 function renderLang(){const b=document.getElementById('langSwitch');b.innerHTML=langs.map(l=>`<button class="lang-btn lang-character-btn ${state.lang===l?'active':''}" data-l="${l}" aria-pressed="${state.lang===l}"><img class="lang-character-img" src="${langImgs[l]}" alt="${l} language"/></button>`).join('');b.onclick=e=>{const t=e.target.closest('button[data-l]');if(!t)return;state.lang=t.dataset.l;localStorage.setItem('lang',state.lang);applyI18n();renderLang();renderMessages();};}
 function applyI18n(){document.documentElement.lang=state.lang;const d=i18n[state.lang]||i18n.en;document.querySelectorAll('[data-i18n]').forEach(el=>el.textContent=d[el.dataset.i18n]||'');document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>el.placeholder=d[el.dataset.i18nPlaceholder]||'');updateSummary(state.summary,false)}
 function pickReplyKey(msg){const s=msg.toLowerCase();if(/passport case|여권|사전예약|pre-?order|구매/.test(s))return 'replyPassportCaseInquiry';if(/itinerary|일정|travel plan|여행/.test(s))return 'replyTravelItineraryInquiry';if(/medical|의료관광|hospital|clinic/.test(s))return 'replyMedicalTravelInquiry';if(/k-beauty|beauty|뷰티|스킨케어/.test(s))return 'replyKBeautyInquiry';if(/ai skin|피부|skin/.test(s))return 'replyAiSkinInquiry';return 'replyGeneralInquiry'}
-function updateSummary(s,save=true){state.summary={...state.summary,...s,language:state.lang};const map=[['inquiryType','sumInquiryType'],['language','sumLanguage'],['field','sumField'],['country','sumCountry'],['city','sumCity'],['timeline','sumTimeline'],['supportNeeded','sumSupportNeeded'],['keyConcern','sumKeyConcern'],['needsHumanReview','sumNeedsHumanReview']];document.getElementById('summaryFields').innerHTML=map.map(([k,l])=>`<dt>${tr(l)}</dt><dd>${Array.isArray(state.summary[k])?state.summary[k].join(', '):(state.summary[k]??'')}</dd>`).join('');if(save)sessionStorage.setItem('medi_hana_chat',JSON.stringify(state));}
+function updateSummary(s,save=true){
+  state.summary = {
+    ...state.summary,
+    ...s,
+    language: s.language || state.summary.language || state.lang
+  };
+
+  const labels = {
+    inquiryType: '상담 유형',
+    customerName: '고객명',
+    email: '이메일',
+    phone: '전화/메신저',
+    language: '희망 언어',
+    field: '관심 분야',
+    product: '상품/서비스',
+    quantity: '수량',
+    country: '국가/배송국가',
+    city: '도시/주소',
+    timeline: '방문/희망 시기',
+    supportNeeded: '필요 지원',
+    keyConcern: '문의 핵심',
+    missingInfo: '추가 필요 정보',
+    status: '진행 상태',
+    needsHumanReview: '담당자 검토 필요'
+  };
+
+  function safe(value){
+    if(Array.isArray(value)) return value.filter(Boolean).join(', ');
+    if(typeof value === 'boolean') return value ? '예' : '아니오';
+    return value ?? '';
+  }
+
+  const keys = [
+    'inquiryType',
+    'customerName',
+    'email',
+    'phone',
+    'language',
+    'field',
+    'product',
+    'quantity',
+    'country',
+    'city',
+    'timeline',
+    'supportNeeded',
+    'keyConcern',
+    'missingInfo',
+    'status',
+    'needsHumanReview'
+  ];
+
+  document.getElementById('summaryFields').innerHTML = keys
+    .map(k => `<dt>${labels[k]}</dt><dd>${safe(state.summary[k])}</dd>`)
+    .join('');
+
+  if(save) sessionStorage.setItem('medi_hana_chat', JSON.stringify(state));
+}
 function normalizeSummary(summary){
   if(!summary || typeof summary !== 'object') return {};
+
+  function keep(oldValue, newValue){
+    if(Array.isArray(newValue)) return newValue.length ? newValue : (Array.isArray(oldValue) ? oldValue : []);
+    if(newValue === undefined || newValue === null || String(newValue).trim() === '') return oldValue || '';
+    return newValue;
+  }
+
   return {
-    inquiryType: summary.inquiryType || summary.consultType || state.summary.inquiryType || '',
-    language: summary.language || state.lang,
-    country: summary.country || '',
-    city: summary.city || '',
-    field: summary.field || summary.product || '',
-    timeline: summary.timeline || '',
-    supportNeeded: Array.isArray(summary.supportNeeded) ? summary.supportNeeded : (summary.supportNeeded ? [summary.supportNeeded] : []),
-    keyConcern: summary.keyConcern || summary.needs || summary.missingInfo || '',
-    needsHumanReview: summary.needsHumanReview !== undefined ? summary.needsHumanReview : true
+    inquiryType: keep(state.summary.inquiryType, summary.inquiryType || summary.consultType),
+    customerName: keep(state.summary.customerName, summary.customerName || summary.name),
+    email: keep(state.summary.email, summary.email),
+    phone: keep(state.summary.phone, summary.phone || summary.messenger || summary.contactMethod),
+    language: keep(state.summary.language, summary.language || state.lang),
+    country: keep(state.summary.country, summary.country || summary.shippingCountry),
+    city: keep(state.summary.city, summary.city || summary.shippingAddress || summary.currentLocation),
+    field: keep(state.summary.field, summary.field || summary.product || summary.service),
+    product: keep(state.summary.product, summary.product || summary.field || summary.service),
+    quantity: keep(state.summary.quantity, summary.quantity),
+    timeline: keep(state.summary.timeline, summary.timeline || summary.travelDate || summary.visitTimeline),
+    supportNeeded: Array.isArray(summary.supportNeeded)
+      ? summary.supportNeeded
+      : (summary.supportNeeded ? [summary.supportNeeded] : (state.summary.supportNeeded || [])),
+    keyConcern: keep(state.summary.keyConcern, summary.keyConcern || summary.needs),
+    missingInfo: keep(state.summary.missingInfo, summary.missingInfo),
+    status: keep(state.summary.status, summary.status),
+    needsHumanReview: summary.needsHumanReview !== undefined
+      ? summary.needsHumanReview
+      : (state.summary.needsHumanReview ?? true)
   };
 }
-
 async function askMediHana(message, historyForApi){
   const res = await fetch('/.netlify/functions/medi-hana-chat', {
     method: 'POST',
@@ -44,7 +117,8 @@ async function askMediHana(message, historyForApi){
       message,
       history: historyForApi,
       language: state.lang,
-      source
+      source,
+      summary: state.summary
     })
   });
 
@@ -56,7 +130,6 @@ async function askMediHana(message, historyForApi){
 
   return data;
 }
-
 function replaceLastAssistant(text){
   for(let i=state.messages.length-1;i>=0;i--){
     if(state.messages[i].role === 'assistant'){
