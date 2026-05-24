@@ -18,11 +18,21 @@ Your role:
 Tone:
 - Warm, professional, calm, respectful.
 - Use the user’s selected language when possible.
+- Support multilingual responses for Korean, English, Vietnamese, Japanese, and Chinese.
 - Keep answers concise but helpful.
 - Avoid frightening the user.
 - Do not overpromise.
 
 Always return a compact JSON object with keys: reply, summary, safetyNotice, handoffRecommended.`;
+
+function sourceGuide(source=''){
+  const v=String(source||'').toLowerCase();
+  if(v==='amis-travel-lounge') return 'Source mode: AMIS Travel Lounge (medical tourism preparation, itinerary, interpreter, accommodation, transportation, K-beauty and goods inquiry coordination).';
+  if(v==='store'||v==='store-passport-case') return 'Source mode: Store (AMIS goods inquiry support, pre-order coordination, shipping country and quantity confirmation).';
+  if(v==='ai-skin') return 'Source mode: AI Skin (AI skin check preparation and K-beauty consultation intake support; never diagnose).';
+  if(v==='medical') return 'Source mode: Medical (medical tourism pre-consultation preparation with non-diagnostic guidance and coordinator handoff).';
+  return 'Source mode: General Medi Hana consultation.';
+}
 
 function json(statusCode, body, origin=''){return {statusCode,headers:{'Content-Type':'application/json','Access-Control-Allow-Origin':origin||CORS_ORIGIN,'Vary':'Origin'},body:JSON.stringify(body)};}
 
@@ -63,6 +73,7 @@ exports.handler = async (event) => {
   let payload = {};
   try { payload = JSON.parse(event.body || '{}'); } catch { return json(400,{error:'Invalid JSON'},origin); }
   const message = String(payload.message || '').trim();
+  const source = String(payload.source || '').trim();
   const history = Array.isArray(payload.history) ? payload.history.slice(-12) : [];
   if (!message) return json(400,{error:'Empty message'},origin);
   if (message.length > 1200) return json(400,{error:'Message too long. Please summarize your request.'},origin);
@@ -76,7 +87,7 @@ exports.handler = async (event) => {
   }
 
   try {
-    const resp = await fetch('https://api.openai.com/v1/chat/completions',{method:'POST',headers:{'Authorization':`Bearer ${MEDI_HANA_OPENAI_API_KEY}`,'Content-Type':'application/json'},body:JSON.stringify({model:MODEL,temperature:0.2,max_tokens:450,response_format:{type:'json_object'},messages:[{role:'system',content:SYSTEM_PROMPT},...history.map(m=>({role:m.role==='user'?'user':'assistant',content:String(m.text||'').slice(0,800)})),{role:'user',content:`User language: ${payload.language||'en'}\nUser message: ${message}\nReturn JSON schema {reply, summary:{inquiryType,language,country,city,field,timeline,supportNeeded,keyConcern,needsHumanReview}, safetyNotice, handoffRecommended}.`}]})});
+    const resp = await fetch('https://api.openai.com/v1/chat/completions',{method:'POST',headers:{'Authorization':`Bearer ${MEDI_HANA_OPENAI_API_KEY}`,'Content-Type':'application/json'},body:JSON.stringify({model:MODEL,temperature:0.2,max_tokens:450,response_format:{type:'json_object'},messages:[{role:'system',content:SYSTEM_PROMPT},...history.map(m=>({role:m.role==='user'?'user':'assistant',content:String(m.text||'').slice(0,800)})),{role:'user',content:`${sourceGuide(source)}\nUser language: ${payload.language||'en'}\nUser message: ${message}\nReturn JSON schema {reply, summary:{inquiryType,language,country,city,field,timeline,supportNeeded,keyConcern,needsHumanReview}, safetyNotice, handoffRecommended}.`}]})});
 
     if (!resp.ok) {
       console.error(`[medi-hana-chat] status=${resp.status} error_type=upstream_api_error`);
