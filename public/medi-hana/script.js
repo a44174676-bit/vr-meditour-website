@@ -21,8 +21,102 @@ function renderLang(){const b=document.getElementById('langSwitch');b.innerHTML=
 function applyI18n(){document.documentElement.lang=state.lang;const d=i18n[state.lang]||i18n.en;document.querySelectorAll('[data-i18n]').forEach(el=>el.textContent=d[el.dataset.i18n]||'');document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>el.placeholder=d[el.dataset.i18nPlaceholder]||'');updateSummary(state.summary,false)}
 function pickReplyKey(msg){const s=msg.toLowerCase();if(/passport case|여권|사전예약|pre-?order|구매/.test(s))return 'replyPassportCaseInquiry';if(/itinerary|일정|travel plan|여행/.test(s))return 'replyTravelItineraryInquiry';if(/medical|의료관광|hospital|clinic/.test(s))return 'replyMedicalTravelInquiry';if(/k-beauty|beauty|뷰티|스킨케어/.test(s))return 'replyKBeautyInquiry';if(/ai skin|피부|skin/.test(s))return 'replyAiSkinInquiry';return 'replyGeneralInquiry'}
 function updateSummary(s,save=true){state.summary={...state.summary,...s,language:state.lang};const map=[['inquiryType','sumInquiryType'],['language','sumLanguage'],['field','sumField'],['country','sumCountry'],['city','sumCity'],['timeline','sumTimeline'],['supportNeeded','sumSupportNeeded'],['keyConcern','sumKeyConcern'],['needsHumanReview','sumNeedsHumanReview']];document.getElementById('summaryFields').innerHTML=map.map(([k,l])=>`<dt>${tr(l)}</dt><dd>${Array.isArray(state.summary[k])?state.summary[k].join(', '):(state.summary[k]??'')}</dd>`).join('');if(save)sessionStorage.setItem('medi_hana_chat',JSON.stringify(state));}
-function init(){if(!langs.includes(state.lang))state.lang='ko';renderLang();applyI18n();addByKey(getInitialMessageKey(source));document.getElementById('chatForm').addEventListener('submit',e=>{e.preventDefault();const i=document.getElementById('chatInput');const m=i.value.trim();if(!m)return;add('user',m);i.value='';addByKey(pickReplyKey(m));});}
+function normalizeSummary(summary){
+  if(!summary || typeof summary !== 'object') return {};
+  return {
+    inquiryType: summary.inquiryType || summary.consultType || state.summary.inquiryType || '',
+    language: summary.language || state.lang,
+    country: summary.country || '',
+    city: summary.city || '',
+    field: summary.field || summary.product || '',
+    timeline: summary.timeline || '',
+    supportNeeded: Array.isArray(summary.supportNeeded) ? summary.supportNeeded : (summary.supportNeeded ? [summary.supportNeeded] : []),
+    keyConcern: summary.keyConcern || summary.needs || summary.missingInfo || '',
+    needsHumanReview: summary.needsHumanReview !== undefined ? summary.needsHumanReview : true
+  };
+}
 
+async function askMediHana(message, historyForApi){
+  const res = await fetch('/.netlify/functions/medi-hana-chat', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({
+      message,
+      history: historyForApi,
+      language: state.lang,
+      source
+    })
+  });
+
+  const data = await res.json();
+
+  if(!res.ok){
+    throw new Error(data.error || data.errorType || 'AI connection error');
+  }
+
+  return data;
+}
+
+function replaceLastAssistant(text){
+  for(let i=state.messages.length-1;i>=0;i--){
+    if(state.messages[i].role === 'assistant'){
+      state.messages[i].text = text;
+      state.messages[i].key = '';
+      break;
+    }
+  }
+  renderMessages();
+  sessionStorage.setItem('medi_hana_chat', JSON.stringify(state));
+}
+
+function loadingText(){
+  if(state.lang === 'ko') return '메디하나가 상담 내용을 확인하고 있습니다...';
+  if(state.lang === 'vi') return 'Medi Hana đang kiểm tra nội dung tư vấn...';
+  if(state.lang === 'jp') return 'メディハナが相談内容を確認しています...';
+  if(state.lang === 'cn') return 'Medi Hana 正在确认咨询内容...';
+  return 'Medi Hana is reviewing your request...';
+}
+
+function errorText(){
+  if(state.lang === 'ko') return '죄송합니다. 현재 AI 상담 연결을 확인 중입니다. 입력하신 상담 내용은 접수용으로 정리할 수 있습니다.';
+  if(state.lang === 'vi') return 'Xin lỗi. Chúng tôi đang kiểm tra kết nối tư vấn AI. Nội dung của bạn vẫn có thể được ghi nhận để tư vấn.';
+  if(state.lang === 'jp') return '申し訳ありません。現在AI相談接続を確認しています。入力内容は相談受付用に整理できます。';
+  if(state.lang === 'cn') return '抱歉，目前正在确认AI咨询连接。您输入的内容仍可用于咨询受理整理。';
+  return 'Sorry. We are checking the AI consultation connection. Your inquiry can still be organized for consultation intake.';
+}
+
+function init(){
+  if(!langs.includes(state.lang)) state.lang='ko';
+
+  renderLang();
+  applyI18n();
+  addByKey(getInitialMessageKey(source));
+
+  document.getElementById('chatForm').addEventListener('submit', async e=>{
+    e.preventDefault();
+
+    const i=document.getElementById('chatInput');
+    const m=i.value.trim();
+
+    if(!m) return;
+
+    add('user',m);
+    i.value='';
+
+    const historyForApi = state.messages.slice(-12);
+
+    add('assistant', loadingText());
+
+    try{
+      const data = await askMediHana(m, historyForApi);
+      replaceLastAssistant(data.reply || tr('replyGeneralInquiry'));
+      updateSummary(normalizeSummary(data.summary || {}));
+    }catch(error){
+      console.error('[Medi Hana AI error]', error);
+      replaceLastAssistant(errorText());
+    }
+  });
+}
 function setStatus(msg){const el=document.getElementById('submitStatus');if(el)el.textContent=msg}
 document.getElementById('submitLead')?.addEventListener('click',()=>{const form=document.getElementById('mediHanaLeadForm');if(!form)return;document.getElementById('lead_language').value=state.lang;document.getElementById('lead_summary').value=JSON.stringify(state.summary);document.getElementById('lead_transcript').value=state.messages.map(m=>`${m.role}: ${m.key?tr(m.key):m.text}`).join('\n');setStatus(tr('submitSuccess'));form.submit();});
 
