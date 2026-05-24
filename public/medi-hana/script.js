@@ -1,6 +1,6 @@
 const params=new URLSearchParams(window.location.search);
 const source=params.get('source')||'';
-const state={lang:(({ja:'jp',zh:'cn'})[(localStorage.getItem('lang')||'ko').toLowerCase()]||(localStorage.getItem('lang')||'ko').toLowerCase()),messages:[],summary:{inquiryType:'',language:'',country:'',city:'',field:'',timeline:'',supportNeeded:[],keyConcern:'',needsHumanReview:true}};
+const state={lang:(({ja:'jp',zh:'cn'})[(localStorage.getItem('lang')||'ko').toLowerCase()]||(localStorage.getItem('lang')||'ko').toLowerCase()),messages:[],summary:{inquiryType:'',language:'',country:'',city:'',field:'',timeline:'',supportNeeded:[],keyConcern:'',needsHumanReview:true},customerState:{name:'',email:'',country:'',quantity:'',product:'',service:''}};
 const langs=['ko','en','vi','jp','cn'];
 const langImgs={ko:'/assets/images/language/medi-hana-ko.png',en:'/assets/images/language/medi-hana-en.png',vi:'/assets/images/language/medi-hana-vi.png',jp:'/assets/images/language/medi-hana-jp.png',cn:'/assets/images/language/medi-hana-cn.png'};
 const i18n={
@@ -19,18 +19,28 @@ function addByKey(key){add('assistant',tr(key),key)}
 function renderMessages(){const c=document.getElementById('chatMessages');c.innerHTML='';state.messages.forEach(m=>{const k=m.key?` data-message-key="${m.key}"`:'';c.insertAdjacentHTML('beforeend',`<div class="msg ${m.role==='user'?'u':'a'}"${k}>${(m.key?tr(m.key):m.text).replace(/</g,'&lt;')}</div>`)})}
 function renderLang(){const b=document.getElementById('langSwitch');b.innerHTML=langs.map(l=>`<button class="lang-btn lang-character-btn ${state.lang===l?'active':''}" data-l="${l}" aria-pressed="${state.lang===l}"><img class="lang-character-img" src="${langImgs[l]}" alt="${l} language"/></button>`).join('');b.onclick=e=>{const t=e.target.closest('button[data-l]');if(!t)return;state.lang=t.dataset.l;localStorage.setItem('lang',state.lang);applyI18n();renderLang();renderMessages();};}
 function applyI18n(){document.documentElement.lang=state.lang;const d=i18n[state.lang]||i18n.en;document.querySelectorAll('[data-i18n]').forEach(el=>el.textContent=d[el.dataset.i18n]||'');document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>el.placeholder=d[el.dataset.i18nPlaceholder]||'');updateSummary(state.summary,false)}
-function pickReplyKey(msg){const s=msg.toLowerCase();if(/passport case|여권|사전예약|pre-?order|구매/.test(s))return 'replyPassportCaseInquiry';if(/itinerary|일정|travel plan|여행/.test(s))return 'replyTravelItineraryInquiry';if(/medical|의료관광|hospital|clinic/.test(s))return 'replyMedicalTravelInquiry';if(/k-beauty|beauty|뷰티|스킨케어/.test(s))return 'replyKBeautyInquiry';if(/ai skin|피부|skin/.test(s))return 'replyAiSkinInquiry';return 'replyGeneralInquiry'}
 function updateSummary(s,save=true){state.summary={...state.summary,...s,language:state.lang};const map=[['inquiryType','sumInquiryType'],['language','sumLanguage'],['field','sumField'],['country','sumCountry'],['city','sumCity'],['timeline','sumTimeline'],['supportNeeded','sumSupportNeeded'],['keyConcern','sumKeyConcern'],['needsHumanReview','sumNeedsHumanReview']];document.getElementById('summaryFields').innerHTML=map.map(([k,l])=>`<dt>${tr(l)}</dt><dd>${Array.isArray(state.summary[k])?state.summary[k].join(', '):(state.summary[k]??'')}</dd>`).join('');if(save)sessionStorage.setItem('medi_hana_chat',JSON.stringify(state));}
+function updateCustomerStateFromMessage(message){
+  const m=String(message||'');
+  const q=m.match(/(\d+)\s*(개|ea|pcs|piece|pieces)?/i); if(q&&!state.customerState.quantity)state.customerState.quantity=q[1];
+  if(/passport|패스포트|여권\s*케이스/i.test(m))state.customerState.product='AMIS Busan Medi Passport Case';
+  if(/ai skin|피부|qr/i.test(m))state.customerState.service='AI Skin Check';
+  if(/medical|의료관광|피부과|dermatology/i.test(m))state.customerState.service=state.customerState.service||'Medical Tourism Pre-consultation';
+  const country=m.match(/한국|korea|베트남|vietnam|japan|일본|china|중국/i); if(country&&!state.customerState.country)state.customerState.country=country[0];
+}
+function syncCustomerStateFromForm(){const name=document.getElementById('contact_name')?.value?.trim()||'';const email=document.getElementById('contact_email')?.value?.trim()||'';if(name)state.customerState.name=name;if(email)state.customerState.email=email;}
 async function requestAiReply(message){
-  const res=await fetch('/.netlify/functions/medi-hana-chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message,language:state.lang,source:source||'default',history:state.messages.slice(-12).map(m=>({role:m.role,text:m.key?tr(m.key):m.text}))})});
+  syncCustomerStateFromForm();
+  updateCustomerStateFromMessage(message);
+  const res=await fetch('/.netlify/functions/medi-hana-ai',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({latestMessage:message,lang:state.lang,source:source||'default',customerState:state.customerState,history:state.messages.slice(-12).map(m=>({role:m.role,text:m.key?tr(m.key):m.text}))})});
   let body={};
   try{body=await res.json();}catch{body={};}
   return {ok:res.ok,status:res.status,body};
 }
 function transparentFallback(){
   return state.lang==='ko'
-    ? '상담 접수는 가능하나 AI 응답 연결을 확인 중입니다. 문의 내용을 남겨주시면 담당자가 확인해 안내드리겠습니다.'
-    : 'Consultation intake is available, but we are currently verifying the AI response connection. Please leave your inquiry and a coordinator will follow up.';
+    ? 'AI 상담 연결을 확인 중입니다. 상담 내용은 접수할 수 있습니다.'
+    : 'We are checking the AI consultation connection. Your consultation details can still be received.';
 }
 function init(){if(!langs.includes(state.lang))state.lang='ko';renderLang();applyI18n();addByKey(getInitialMessageKey(source));document.getElementById('chatForm').addEventListener('submit',async e=>{e.preventDefault();const i=document.getElementById('chatInput');const m=i.value.trim();if(!m)return;add('user',m);i.value='';try{const r=await requestAiReply(m);if(r.ok&&r.body.reply){add('assistant',String(r.body.reply));if(r.body.summary&&typeof r.body.summary==='object')updateSummary(r.body.summary);return;}console.warn('[medi-hana-chat]',{status:r.status,body:r.body});add('assistant',r.body.reply||transparentFallback());}catch(err){console.warn('[medi-hana-chat] network_error',err);add('assistant',transparentFallback());}});}
 
