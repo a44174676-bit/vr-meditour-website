@@ -159,20 +159,4 @@
   from = "/amis-travel-lounge/"
   to = "/public/amis-travel-lounge/index.html"
   status = 200
-
-[[redirects]]
-  from = "/public/amis-travel-lounge"
-  to = "/amis-travel-lounge/"
-  status = 301
   force = true
-
-[[redirects]]
-  from = "/public/amis-travel-lounge/"
-  to = "/amis-travel-lounge/"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/public/amis-travel-lounge/*"
-  to = "/amis-travel-lounge/:splat"
-  status = 301
