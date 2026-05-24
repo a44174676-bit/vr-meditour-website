@@ -1,6 +1,6 @@
 :root {
   --lang-avatar-size: 64px;
-  --lang-avatar-image-size: 58px;
+  --lang-avatar-image-size: 60px;
   --lang-avatar-gap: 14px;
   --lang-avatar-border: rgba(120, 200, 255, 0.45);
   --lang-avatar-active: rgba(99, 230, 255, 0.95);
@@ -40,7 +40,7 @@
   max-width: var(--lang-avatar-size);
   max-height: var(--lang-avatar-size);
   border-radius: 50%;
-  padding: 3px;
+  padding: 2px;
   box-sizing: border-box;
   display: inline-flex;
   align-items: center;
@@ -144,4 +144,18 @@
     --lang-avatar-image-size: 48px;
     --lang-avatar-gap: 10px;
   }
+}
+
+.language-icon span,
+.lang-icon span,
+.lang-avatar span,
+.agent-avatar span,
+.avatar-button span,
+.language-avatar-button span,
+.lang-btn span,
+.lang-character-btn span,
+.language-icon-button span,
+.amis-lang-button span,
+.store-lang-btn span {
+  display: none !important;
 }
