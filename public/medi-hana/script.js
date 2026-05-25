@@ -191,6 +191,31 @@ function init(){
   });
 }
 function setStatus(msg){const el=document.getElementById('submitStatus');if(el)el.textContent=msg}
-document.getElementById('submitLead')?.addEventListener('click',()=>{const form=document.getElementById('mediHanaLeadForm');if(!form)return;document.getElementById('lead_language').value=state.lang;document.getElementById('lead_summary').value=JSON.stringify(state.summary);document.getElementById('lead_transcript').value=state.messages.map(m=>`${m.role}: ${m.key?tr(m.key):m.text}`).join('\n');setStatus(tr('submitSuccess'));form.submit();});
+document.getElementById('submitLead')?.addEventListener('click',()=>{
+  const form=document.getElementById('mediHanaLeadForm');
+  if(!form)return;
+
+  const consent1=document.getElementById('consent1');
+  const consent2=document.getElementById('consent2');
+
+  if(!consent1?.checked || !consent2?.checked){
+    setStatus(tr('vConsent') || '개인정보 수집 및 상담 준비 목적 이용 동의가 필요합니다.');
+    return;
+  }
+
+  document.getElementById('lead_language').value=state.lang;
+  document.getElementById('lead_summary').value=JSON.stringify(state.summary);
+  document.getElementById('lead_transcript').value=state.messages.map(m=>`${m.role}: ${m.key?tr(m.key):m.text}`).join('\n');
+  document.getElementById('lead_privacy').value='agreed';
+
+  document.getElementById('lead_inquiry_type').value=state.summary.inquiryType||'';
+  document.getElementById('lead_field').value=state.summary.field||state.summary.product||'';
+  document.getElementById('lead_country').value=state.summary.country||'';
+  document.getElementById('lead_location').value=state.summary.city||'';
+  document.getElementById('lead_support').value=Array.isArray(state.summary.supportNeeded)?state.summary.supportNeeded.join(', '):(state.summary.supportNeeded||'');
+
+  setStatus(tr('submitSuccess'));
+  form.submit();
+});
 
 init();
