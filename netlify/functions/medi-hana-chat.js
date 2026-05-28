@@ -1,11 +1,38 @@
 const ENNOIA_API_URL = process.env.ENNOIA_API_URL;
 const ENNOIA_PROJECT = process.env.ENNOIA_PROJECT;
 const ENNOIA_API_KEY = process.env.ENNOIA_API_KEY;
-const CORS_ORIGIN = process.env.URL || '';
 const MAX_INPUT_CHARS = 500;
 const MIN_INTERVAL_MS = 10 * 1000;
 const MAX_REQUESTS_PER_DAY = 120;
 const ipRequestState = new Map();
+
+function isAllowedOrigin(origin) {
+  if (!origin) return false;
+  if (origin === 'https://vr-meditour.com') return true;
+  if (/^https:\/\/deploy-preview-\d+--[a-z0-9-]+\.netlify\.app$/i.test(origin)) return true;
+  if (/^http:\/\/localhost(:\d+)?$/i.test(origin)) return true;
+  if (/^http:\/\/127\.0\.0\.1(:\d+)?$/i.test(origin)) return true;
+  return false;
+}
+
+function baseHeaders(origin) {
+  const allowOrigin = isAllowedOrigin(origin) ? origin : 'https://vr-meditour.com';
+  return {
+    'Content-Type': 'application/json; charset=utf-8',
+    'Access-Control-Allow-Origin': allowOrigin,
+    'Access-Control-Allow-Headers': 'Content-Type, x-requested-with',
+    'Access-Control-Allow-Methods': 'POST,OPTIONS',
+    Vary: 'Origin'
+  };
+}
+
+function json(statusCode, body, origin) {
+  return {
+    statusCode,
+    headers: baseHeaders(origin),
+    body: JSON.stringify(body)
+  };
+}
 
 function getClientIp(event) {
   const forwarded = event.headers?.['x-forwarded-for'] || event.headers?.['X-Forwarded-For'] || '';
@@ -34,32 +61,18 @@ function checkAndUpdateRateLimit(ip) {
   return { ok: true };
 }
 
-function json(statusCode, body) {
-  return {
-    statusCode,
-    headers: {
-      'Content-Type': 'application/json; charset=utf-8',
-      'Access-Control-Allow-Origin': CORS_ORIGIN || '*',
-      'Access-Control-Allow-Headers': 'Content-Type',
-      'Access-Control-Allow-Methods': 'POST,OPTIONS'
-    },
-    body: JSON.stringify(body)
-  };
-}
-
-function pickFinalReply(payload) {
+function pickFinalAnswer(payload) {
   if (!payload || typeof payload !== 'object') return '';
-
   const candidates = [
+    payload.answer,
     payload.finalAnswer,
     payload.final_answer,
-    payload.answer,
     payload.reply,
     payload.output,
     payload.result,
     payload.message,
-    payload?.data?.finalAnswer,
     payload?.data?.answer,
+    payload?.data?.finalAnswer,
     payload?.data?.reply
   ];
 
@@ -69,13 +82,6 @@ function pickFinalReply(payload) {
 
   const fromArray = (arr) => {
     if (!Array.isArray(arr)) return '';
-    for (let i = arr.length - 1; i >= 0; i -= 1) {
-      const item = arr[i];
-      const role = (item?.agent || item?.name || item?.role || '').toString().toLowerCase();
-      const content = item?.content || item?.text || item?.message || item?.answer;
-      if (typeof content !== 'string' || !content.trim()) continue;
-      if (/medi\s*hana|customer|guide|안내/.test(role)) return content.trim();
-    }
     for (let i = arr.length - 1; i >= 0; i -= 1) {
       const content = arr[i]?.content || arr[i]?.text || arr[i]?.message || arr[i]?.answer;
       if (typeof content === 'string' && content.trim()) return content.trim();
@@ -87,34 +93,28 @@ function pickFinalReply(payload) {
 }
 
 exports.handler = async (event) => {
-  if (event.httpMethod === 'OPTIONS') return json(200, { ok: true });
-  if (event.httpMethod !== 'POST') return json(405, { error: 'method_not_allowed' });
+  const origin = event.headers?.origin || event.headers?.Origin || '';
 
-  if (!ENNOIA_API_URL || !ENNOIA_PROJECT || !ENNOIA_API_KEY) {
-    return json(500, { error: 'ennoia_env_missing' });
+  if (event.httpMethod === 'OPTIONS') {
+    return { statusCode: 204, headers: baseHeaders(origin), body: '' };
   }
 
+  if (event.httpMethod !== 'POST') return json(405, { error: 'method_not_allowed' }, origin);
+
   try {
+    if (!ENNOIA_API_URL || !ENNOIA_PROJECT || !ENNOIA_API_KEY) {
+      return json(500, { error: 'ennoia_env_missing' }, origin);
+    }
+
     const ip = getClientIp(event);
     const rate = checkAndUpdateRateLimit(ip);
-    if (!rate.ok) {
-      return json(429, { error: rate.error, retryAfterMs: rate.retryAfterMs || null });
-    }
+    if (!rate.ok) return json(429, { error: rate.error, retryAfterMs: rate.retryAfterMs || null }, origin);
 
     const body = JSON.parse(event.body || '{}');
     const message = String(body.message || '').trim();
-    if (!message) return json(400, { error: 'message_required' });
-    if (message.length > MAX_INPUT_CHARS) return json(400, { error: 'message_too_long', maxChars: MAX_INPUT_CHARS });
 
-    const upstreamPayload = {
-      project: ENNOIA_PROJECT,
-      message,
-      history: Array.isArray(body.history) ? body.history : [],
-      language: body.language || 'ko',
-      metadata: {
-        source: body.source || 'medi-hana-page'
-      }
-    };
+    if (!message) return json(400, { error: 'message_required' }, origin);
+    if (message.length > MAX_INPUT_CHARS) return json(400, { error: 'message_too_long', maxChars: MAX_INPUT_CHARS }, origin);
 
     const upstream = await fetch(ENNOIA_API_URL, {
       method: 'POST',
@@ -123,11 +123,17 @@ exports.handler = async (event) => {
         Authorization: `Bearer ${ENNOIA_API_KEY}`,
         'x-api-key': ENNOIA_API_KEY
       },
-      body: JSON.stringify(upstreamPayload)
+      body: JSON.stringify({
+        project: ENNOIA_PROJECT,
+        message,
+        history: Array.isArray(body.history) ? body.history : [],
+        language: body.language || 'ko',
+        metadata: { source: body.source || 'medi-hana-page' }
+      })
     });
 
     const raw = await upstream.text();
-    let parsed;
+    let parsed = {};
     try {
       parsed = raw ? JSON.parse(raw) : {};
     } catch {
@@ -135,17 +141,13 @@ exports.handler = async (event) => {
     }
 
     if (!upstream.ok) {
-      return json(502, { error: 'ennoia_upstream_error' });
+      return json(500, { error: 'ennoia_upstream_error', status: upstream.status }, origin);
     }
 
-    const replyRaw = pickFinalReply(parsed) || '죄송합니다. 현재 상담 결과를 정리 중입니다. 다시 시도해 주세요.';
-    const reply = replyRaw.length > 700 ? `${replyRaw.slice(0, 700)}...` : replyRaw;
-
-    return json(200, {
-      reply,
-      summary: parsed.summary || parsed.data?.summary || {}
-    });
+    const answerRaw = pickFinalAnswer(parsed) || '죄송합니다. 현재 상담 결과를 정리 중입니다. 다시 시도해 주세요.';
+    const answer = answerRaw.length > 700 ? `${answerRaw.slice(0, 700)}...` : answerRaw;
+    return json(200, { answer }, origin);
   } catch (error) {
-    return json(500, { error: 'server_error' });
+    return json(500, { error: 'server_error' }, origin);
   }
 };

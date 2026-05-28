@@ -217,7 +217,7 @@ function init(){
 
     try{
       const data = await askMediHana(m, historyForApi);
-      replaceLastAssistant(data.reply || tr('replyGeneralInquiry'));
+      replaceLastAssistant(data.answer || data.reply || tr('replyGeneralInquiry'));
       updateSummary(normalizeSummary(data.summary || {}));
     }catch(error){
       const errCode=error?.message||'';
