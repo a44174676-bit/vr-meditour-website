@@ -1,4 +1,8 @@
 const params=new URLSearchParams(window.location.search);
+const MAX_INPUT_CHARS=500;
+const CLIENT_MIN_INTERVAL_MS=10000;
+let isAwaitingReply=false;
+let lastSubmitAt=0;
 const source=params.get('source')||'';
 const state={lang:(({ja:'jp',zh:'cn'})[(localStorage.getItem('lang')||'ko').toLowerCase()]||(localStorage.getItem('lang')||'ko').toLowerCase()),messages:[],summary:{inquiryType:'',language:'',country:'',city:'',field:'',timeline:'',supportNeeded:[],keyConcern:'',needsHumanReview:true}};
 const langs=['ko','en','vi','jp','cn'];
@@ -164,6 +168,23 @@ function errorText(){
   return 'Sorry. We are checking the AI consultation connection. Your inquiry can still be organized for consultation intake.';
 }
 
+function setChatControlsDisabled(disabled){
+  const submitBtn=document.querySelector('#chatForm button[type="submit"]');
+  const input=document.getElementById('chatInput');
+  const suggestBtns=document.querySelectorAll('[data-suggest]');
+  if(submitBtn) submitBtn.disabled=disabled;
+  if(input) input.disabled=disabled;
+  suggestBtns.forEach(btn=>{btn.disabled=disabled;});
+}
+
+function shortGuideText(){
+  if(state.lang==='ko') return '요청이 많아 잠시 후 다시 시도해 주세요. 핵심 질문 1개 위주로 입력해 주세요.';
+  if(state.lang==='vi') return 'Đang có nhiều yêu cầu. Vui lòng thử lại sau và gửi 1 câu hỏi ngắn.';
+  if(state.lang==='jp') return 'リクエストが集中しています。少し待ってから短い質問を1つ送信してください。';
+  if(state.lang==='cn') return '请求较多，请稍后再试，并尽量只发送1个简短问题。';
+  return 'High traffic now. Please wait and send one short question.';
+}
+
 function init(){
   if(!langs.includes(state.lang)) state.lang='ko';
 
@@ -180,6 +201,9 @@ function init(){
     const m=i.value.trim();
 
     if(!m) return;
+    if(m.length>MAX_INPUT_CHARS){ add('assistant',`입력은 최대 ${MAX_INPUT_CHARS}자까지 가능합니다.`); return; }
+    if(isAwaitingReply) return;
+    if(Date.now()-lastSubmitAt<CLIENT_MIN_INTERVAL_MS){ add('assistant',shortGuideText()); return; }
 
     add('user',m);
     i.value='';
@@ -187,14 +211,21 @@ function init(){
     const historyForApi = state.messages.slice(-12);
 
     add('assistant', loadingText());
+    isAwaitingReply=true;
+    lastSubmitAt=Date.now();
+    setChatControlsDisabled(true);
 
     try{
       const data = await askMediHana(m, historyForApi);
       replaceLastAssistant(data.reply || tr('replyGeneralInquiry'));
       updateSummary(normalizeSummary(data.summary || {}));
     }catch(error){
-      console.error('[Medi Hana AI error]', error);
+      const errCode=error?.message||'';
+      console.warn('[Medi Hana AI error]', errCode);
       replaceLastAssistant(errorText());
+    }finally{
+      isAwaitingReply=false;
+      setChatControlsDisabled(false);
     }
   });
 }

@@ -2,6 +2,37 @@ const ENNOIA_API_URL = process.env.ENNOIA_API_URL;
 const ENNOIA_PROJECT = process.env.ENNOIA_PROJECT;
 const ENNOIA_API_KEY = process.env.ENNOIA_API_KEY;
 const CORS_ORIGIN = process.env.URL || '';
+const MAX_INPUT_CHARS = 500;
+const MIN_INTERVAL_MS = 10 * 1000;
+const MAX_REQUESTS_PER_DAY = 120;
+const ipRequestState = new Map();
+
+function getClientIp(event) {
+  const forwarded = event.headers?.['x-forwarded-for'] || event.headers?.['X-Forwarded-For'] || '';
+  return String(forwarded).split(',')[0].trim() || event.headers?.['client-ip'] || 'unknown';
+}
+
+function getTodayKey() {
+  return new Date().toISOString().slice(0, 10);
+}
+
+function checkAndUpdateRateLimit(ip) {
+  const now = Date.now();
+  const today = getTodayKey();
+  const prev = ipRequestState.get(ip) || { lastRequestAt: 0, dayKey: today, dayCount: 0 };
+
+  const sameDayCount = prev.dayKey === today ? prev.dayCount : 0;
+  if (sameDayCount >= MAX_REQUESTS_PER_DAY) {
+    return { ok: false, error: 'daily_limit_exceeded' };
+  }
+
+  if (prev.lastRequestAt && now - prev.lastRequestAt < MIN_INTERVAL_MS) {
+    return { ok: false, error: 'too_many_requests', retryAfterMs: MIN_INTERVAL_MS - (now - prev.lastRequestAt) };
+  }
+
+  ipRequestState.set(ip, { lastRequestAt: now, dayKey: today, dayCount: sameDayCount + 1 });
+  return { ok: true };
+}
 
 function json(statusCode, body) {
   return {
@@ -64,9 +95,16 @@ exports.handler = async (event) => {
   }
 
   try {
+    const ip = getClientIp(event);
+    const rate = checkAndUpdateRateLimit(ip);
+    if (!rate.ok) {
+      return json(429, { error: rate.error, retryAfterMs: rate.retryAfterMs || null });
+    }
+
     const body = JSON.parse(event.body || '{}');
     const message = String(body.message || '').trim();
     if (!message) return json(400, { error: 'message_required' });
+    if (message.length > MAX_INPUT_CHARS) return json(400, { error: 'message_too_long', maxChars: MAX_INPUT_CHARS });
 
     const upstreamPayload = {
       project: ENNOIA_PROJECT,
@@ -100,7 +138,8 @@ exports.handler = async (event) => {
       return json(502, { error: 'ennoia_upstream_error' });
     }
 
-    const reply = pickFinalReply(parsed) || '죄송합니다. 현재 상담 결과를 정리 중입니다. 다시 시도해 주세요.';
+    const replyRaw = pickFinalReply(parsed) || '죄송합니다. 현재 상담 결과를 정리 중입니다. 다시 시도해 주세요.';
+    const reply = replyRaw.length > 700 ? `${replyRaw.slice(0, 700)}...` : replyRaw;
 
     return json(200, {
       reply,
