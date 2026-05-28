@@ -61,6 +61,15 @@ function checkAndUpdateRateLimit(ip) {
   return { ok: true };
 }
 
+
+function envDebugInfo() {
+  return {
+    hasKey: Boolean(ENNOIA_API_KEY),
+    keyLength: ENNOIA_API_KEY ? ENNOIA_API_KEY.length : 0,
+    project: ENNOIA_PROJECT || ''
+  };
+}
+
 function pickFinalAnswer(payload) {
   if (!payload || typeof payload !== 'object') return '';
   const candidates = [
@@ -103,7 +112,7 @@ exports.handler = async (event) => {
 
   try {
     if (!ENNOIA_API_URL || !ENNOIA_PROJECT || !ENNOIA_API_KEY) {
-      return json(500, { error: 'ennoia_env_missing' }, origin);
+      return json(500, { error: 'ennoia_env_missing', debug: envDebugInfo() }, origin);
     }
 
     const ip = getClientIp(event);
@@ -119,9 +128,9 @@ exports.handler = async (event) => {
     const upstream = await fetch(ENNOIA_API_URL, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${ENNOIA_API_KEY}`,
-        'x-api-key': ENNOIA_API_KEY
+        'Content-Type': 'application/json; charset=utf-8',
+        project: ENNOIA_PROJECT,
+        apiKey: ENNOIA_API_KEY
       },
       body: JSON.stringify({
         project: ENNOIA_PROJECT,
@@ -141,13 +150,14 @@ exports.handler = async (event) => {
     }
 
     if (!upstream.ok) {
-      return json(500, { error: 'ennoia_upstream_error', status: upstream.status }, origin);
+      const detail = typeof raw === 'string' ? raw.slice(0, 500) : '';
+      return json(500, { error: 'ennoia_upstream_error', status: upstream.status, detail, debug: envDebugInfo() }, origin);
     }
 
     const answerRaw = pickFinalAnswer(parsed) || '죄송합니다. 현재 상담 결과를 정리 중입니다. 다시 시도해 주세요.';
     const answer = answerRaw.length > 700 ? `${answerRaw.slice(0, 700)}...` : answerRaw;
     return json(200, { answer }, origin);
   } catch (error) {
-    return json(500, { error: 'server_error' }, origin);
+    return json(500, { error: 'server_error', debug: envDebugInfo() }, origin);
   }
 };
