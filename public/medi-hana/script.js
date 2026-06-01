@@ -1,4 +1,8 @@
 const params=new URLSearchParams(window.location.search);
+const MAX_INPUT_CHARS=500;
+const CLIENT_MIN_INTERVAL_MS=10000;
+let isAwaitingReply=false;
+let lastSubmitAt=0;
 const source=params.get('source')||'';
 const state={lang:(({ja:'jp',zh:'cn'})[(localStorage.getItem('lang')||'ko').toLowerCase()]||(localStorage.getItem('lang')||'ko').toLowerCase()),messages:[],summary:{inquiryType:'',language:'',country:'',city:'',field:'',timeline:'',supportNeeded:[],keyConcern:'',needsHumanReview:true}};
 const langs=['ko','en','vi','jp','cn'];
@@ -16,7 +20,13 @@ function tr(k){return (i18n[state.lang]&&i18n[state.lang][k])||i18n.en[k]||k}
 function getInitialMessageKey(s){if(s==='store-passport-case')return 'initialStorePassportCase';if(s==='ai-skin')return 'initialAiSkin';if(s==='amis-travel-lounge')return 'initialAmisTravelLounge';return 'initialDefault'}
 function add(role,text,key=''){state.messages.push({role,text,key});renderMessages();sessionStorage.setItem('medi_hana_chat',JSON.stringify(state));}
 function addByKey(key){add('assistant',tr(key),key)}
-function renderMessages(){const c=document.getElementById('chatMessages');c.innerHTML='';state.messages.forEach(m=>{const k=m.key?` data-message-key="${m.key}"`:'';c.insertAdjacentHTML('beforeend',`<div class="msg ${m.role==='user'?'u':'a'}"${k}>${(m.key?tr(m.key):m.text).replace(/</g,'&lt;')}</div>`)})}
+function formatAssistantMessage(text){
+  const escaped=(text||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const withImages=escaped.replace(/!\[([^\]]*)\]\((https?:\/\/[^)]+)\)/g,'<img class="reply-image" src="$2" alt="$1" loading="lazy" />');
+  const withMapButtons=withImages.replace(/(https?:\/\/(?:map\.naver\.com|maps\.app\.goo\.gl|www\.google\.com\/maps|maps\.google\.com)[^\s<]*)/g,'<a class="map-link-btn" href="$1" target="_blank" rel="noopener noreferrer">지도 열기</a>');
+  return withMapButtons.replace(/\n/g,'<br/>');
+}
+function renderMessages(){const c=document.getElementById('chatMessages');c.innerHTML='';state.messages.forEach(m=>{const k=m.key?` data-message-key="${m.key}"`:'';const body=(m.key?tr(m.key):m.text);if(m.role==='assistant'){c.insertAdjacentHTML('beforeend',`<div class="msg a"${k}>${formatAssistantMessage(body)}</div>`)}else{c.insertAdjacentHTML('beforeend',`<div class="msg u"${k}>${String(body).replace(/</g,'&lt;')}</div>`)}})}
 function renderLang(){const b=document.getElementById('langSwitch');b.innerHTML=langs.map(l=>`<button class="lang-btn lang-character-btn ${state.lang===l?'active':''}" data-l="${l}" aria-pressed="${state.lang===l}"><img class="lang-character-img" src="${langImgs[l]}" alt="${l} language"/></button>`).join('');b.onclick=e=>{const t=e.target.closest('button[data-l]');if(!t)return;state.lang=t.dataset.l;localStorage.setItem('lang',state.lang);applyI18n();renderLang();renderMessages();};}
 function applyI18n(){document.documentElement.lang=state.lang;const d=i18n[state.lang]||i18n.en;document.querySelectorAll('[data-i18n]').forEach(el=>el.textContent=d[el.dataset.i18n]||'');document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>el.placeholder=d[el.dataset.i18nPlaceholder]||'');updateSummary(state.summary,false)}
 function pickReplyKey(msg){const s=msg.toLowerCase();if(/passport case|여권|사전예약|pre-?order|구매/.test(s))return 'replyPassportCaseInquiry';if(/itinerary|일정|travel plan|여행/.test(s))return 'replyTravelItineraryInquiry';if(/medical|의료관광|hospital|clinic/.test(s))return 'replyMedicalTravelInquiry';if(/k-beauty|beauty|뷰티|스킨케어/.test(s))return 'replyKBeautyInquiry';if(/ai skin|피부|skin/.test(s))return 'replyAiSkinInquiry';return 'replyGeneralInquiry'}
@@ -158,12 +168,31 @@ function errorText(){
   return 'Sorry. We are checking the AI consultation connection. Your inquiry can still be organized for consultation intake.';
 }
 
+function setChatControlsDisabled(disabled){
+  const submitBtn=document.querySelector('#chatForm button[type="submit"]');
+  const input=document.getElementById('chatInput');
+  const suggestBtns=document.querySelectorAll('[data-suggest]');
+  if(submitBtn) submitBtn.disabled=disabled;
+  if(input) input.disabled=disabled;
+  suggestBtns.forEach(btn=>{btn.disabled=disabled;});
+}
+
+function shortGuideText(){
+  if(state.lang==='ko') return '요청이 많아 잠시 후 다시 시도해 주세요. 핵심 질문 1개 위주로 입력해 주세요.';
+  if(state.lang==='vi') return 'Đang có nhiều yêu cầu. Vui lòng thử lại sau và gửi 1 câu hỏi ngắn.';
+  if(state.lang==='jp') return 'リクエストが集中しています。少し待ってから短い質問を1つ送信してください。';
+  if(state.lang==='cn') return '请求较多，请稍后再试，并尽量只发送1个简短问题。';
+  return 'High traffic now. Please wait and send one short question.';
+}
+
 function init(){
   if(!langs.includes(state.lang)) state.lang='ko';
 
   renderLang();
   applyI18n();
   addByKey(getInitialMessageKey(source));
+
+  document.querySelectorAll('[data-suggest]').forEach(btn=>btn.addEventListener('click',()=>{const i=document.getElementById('chatInput');i.value=btn.dataset.suggest||'';i.focus();}));
 
   document.getElementById('chatForm').addEventListener('submit', async e=>{
     e.preventDefault();
@@ -172,6 +201,9 @@ function init(){
     const m=i.value.trim();
 
     if(!m) return;
+    if(m.length>MAX_INPUT_CHARS){ add('assistant',`입력은 최대 ${MAX_INPUT_CHARS}자까지 가능합니다.`); return; }
+    if(isAwaitingReply) return;
+    if(Date.now()-lastSubmitAt<CLIENT_MIN_INTERVAL_MS){ add('assistant',shortGuideText()); return; }
 
     add('user',m);
     i.value='';
@@ -179,14 +211,21 @@ function init(){
     const historyForApi = state.messages.slice(-12);
 
     add('assistant', loadingText());
+    isAwaitingReply=true;
+    lastSubmitAt=Date.now();
+    setChatControlsDisabled(true);
 
     try{
       const data = await askMediHana(m, historyForApi);
-      replaceLastAssistant(data.reply || tr('replyGeneralInquiry'));
+      replaceLastAssistant(data.answer || data.reply || tr('replyGeneralInquiry'));
       updateSummary(normalizeSummary(data.summary || {}));
     }catch(error){
-      console.error('[Medi Hana AI error]', error);
+      const errCode=error?.message||'';
+      console.warn('[Medi Hana AI error]', errCode);
       replaceLastAssistant(errorText());
+    }finally{
+      isAwaitingReply=false;
+      setChatControlsDisabled(false);
     }
   });
 }
