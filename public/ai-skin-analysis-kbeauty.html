@@ -22,6 +22,249 @@
   <meta name="twitter:description" content="A guide for visitors using AI Skin Analysis as a non-diagnostic K-beauty reference before asking a human coordinator about skin-care or dermatology-related interests." />
   <meta name="twitter:image" content="https://vr-meditour.com/assets/hero-medical-travel.jpg" />
   <link rel="stylesheet" href="/public/seo-landing.css" />
+  <style>
+    .ai-skin-experience {
+      border-color: rgba(214, 176, 90, 0.42);
+      background:
+        linear-gradient(145deg, rgba(18, 31, 49, 0.94), rgba(7, 13, 25, 0.9)),
+        radial-gradient(circle at 15% 0%, rgba(214, 176, 90, 0.18), transparent 36%);
+    }
+
+    .skin-tool-head {
+      display: grid;
+      gap: 10px;
+      max-width: 820px;
+      margin-bottom: 18px;
+    }
+
+    .skin-tool-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.95fr);
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    .skin-panel {
+      border: 1px solid rgba(214, 176, 90, 0.28);
+      border-radius: 16px;
+      background: rgba(8, 17, 31, 0.72);
+      padding: 16px;
+      min-width: 0;
+    }
+
+    .skin-upload-control {
+      position: relative;
+      display: grid;
+      place-items: center;
+      min-height: 168px;
+      border: 1px dashed rgba(214, 176, 90, 0.58);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.04);
+      cursor: pointer;
+      text-align: center;
+      padding: 18px;
+      transition: border-color 0.18s ease, background 0.18s ease;
+    }
+
+    .skin-upload-control:hover,
+    .skin-upload-control:focus-within {
+      border-color: rgba(247, 217, 139, 0.95);
+      background: rgba(214, 176, 90, 0.08);
+    }
+
+    .skin-upload-control input {
+      position: absolute;
+      inline-size: 1px;
+      block-size: 1px;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .skin-upload-icon {
+      display: inline-grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+      background: rgba(214, 176, 90, 0.16);
+      color: #f7d98b;
+      font-weight: 900;
+      font-size: 1.4rem;
+    }
+
+    .skin-preview-frame {
+      display: grid;
+      place-items: center;
+      min-height: 250px;
+      aspect-ratio: 4 / 3;
+      border-radius: 16px;
+      border: 1px solid rgba(182, 204, 230, 0.24);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+      overflow: hidden;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .skin-preview-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: rgba(2, 8, 23, 0.62);
+    }
+
+    .skin-consent-list {
+      display: grid;
+      gap: 10px;
+      margin: 14px 0 0;
+    }
+
+    .skin-consent-list label {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 10px;
+      align-items: start;
+      color: var(--muted);
+    }
+
+    .skin-consent-list input {
+      width: 18px;
+      height: 18px;
+      margin-top: 4px;
+      accent-color: #d6b05a;
+    }
+
+    .skin-status {
+      min-height: 28px;
+      margin: 12px 0 0;
+      color: #f7d98b;
+      font-weight: 800;
+    }
+
+    .skin-action-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .skin-action-row .btn {
+      min-height: 46px;
+    }
+
+    .skin-camera-frame {
+      position: relative;
+      display: grid;
+      place-items: center;
+      min-height: 250px;
+      aspect-ratio: 4 / 3;
+      border-radius: 16px;
+      border: 1px solid rgba(182, 204, 230, 0.24);
+      background: #020817;
+      overflow: hidden;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .skin-camera-frame video {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      background: #020817;
+      transform: scaleX(-1);
+    }
+
+    .skin-camera-placeholder {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      margin: 0;
+      padding: 18px;
+      background: rgba(2, 8, 23, 0.72);
+      color: var(--muted);
+    }
+
+    .skin-camera-frame.has-stream .skin-camera-placeholder {
+      display: none;
+    }
+
+    .skin-face-guide {
+      position: absolute;
+      inset: 12% 18%;
+      border: 2px solid rgba(247, 217, 139, 0.78);
+      border-radius: 48% 48% 44% 44%;
+      box-shadow: 0 0 0 999px rgba(2, 8, 23, 0.18);
+      pointer-events: none;
+    }
+
+    .skin-capture-preview {
+      min-height: 180px;
+      margin-top: 12px;
+    }
+
+    .skin-capture-preview canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+      background: rgba(2, 8, 23, 0.62);
+    }
+
+    .skin-capture-preview canvas[hidden] {
+      display: none;
+    }
+
+    .skin-result {
+      margin-top: 16px;
+    }
+
+    .skin-result-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .skin-result-card {
+      border: 1px solid rgba(214, 176, 90, 0.24);
+      border-radius: 14px;
+      padding: 14px;
+      background: rgba(255, 255, 255, 0.045);
+    }
+
+    .skin-result-card strong {
+      display: block;
+      color: #fff6d6;
+      margin-bottom: 6px;
+    }
+
+    .skin-medical-notice {
+      display: grid;
+      gap: 6px;
+      margin-top: 16px;
+      padding: 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(92, 200, 213, 0.3);
+      background: rgba(92, 200, 213, 0.08);
+    }
+
+    .skin-medical-notice p {
+      margin: 0;
+    }
+
+    @media (max-width: 820px) {
+      .skin-tool-grid,
+      .skin-result-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .skin-preview-frame {
+        min-height: 210px;
+      }
+    }
+  </style>
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Service","name":"AI Skin Analysis and K-Beauty Consultation Guide","url":"https://vr-meditour.com/ai-skin-analysis-kbeauty.html","provider":{"@type":"Organization","name":"VR MEDI TOUR & HOME Co., Ltd.","url":"https://vr-meditour.com/"},"areaServed":["Korea","Vietnam","Busan","Gangnam","International"],"serviceType":"Medical tourism pre-consultation and coordination","description":"A guide for visitors using AI Skin Analysis as a non-diagnostic K-beauty reference before asking a human coordinator about skin-care or dermatology-related interests."},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is AI Skin Analysis a medical diagnosis?","acceptedAnswer":{"@type":"Answer","text":"No. It is a non-diagnostic K-beauty reference tool for organizing questions before consultation."}},{"@type":"Question","name":"Can I use the AI result in a consultation request?","acceptedAnswer":{"@type":"Answer","text":"Yes. You may share it as reference context, along with your concerns, history, and language preference."}},{"@type":"Question","name":"Do I have to upload a photo?","acceptedAnswer":{"@type":"Answer","text":"Only upload a photo if you understand the purpose and agree to use it for the reference experience."}},{"@type":"Question","name":"Why can later K-beauty costs vary?","acceptedAnswer":{"@type":"Answer","text":"Costs may depend on clinic review, program scope, products, devices, interpreter time, and visit needs."}},{"@type":"Question","name":"What is the next step after AI analysis?","acceptedAnswer":{"@type":"Answer","text":"You can continue to the consultation form or ask for human coordination if you want organized guidance."}}]}]}</script>
   <script>window.VRMT_LANDING_PAGE = {"translations":{"en":{"title":"AI Skin Analysis and K-Beauty Consultation Guide","intro":"A guide for visitors using AI Skin Analysis as a non-diagnostic K-beauty reference before asking a human coordinator about skin-care or dermatology-related interests.","audience":"K-beauty curious visitors who want to try an easy reference tool before deciding what questions to ask in a consultation request."},"ko":{"title":"K-뷰티 참고용 AI 피부 분석","intro":"K-뷰티 참고용 AI 피부 분석 안내는 상담 전 부담 없이 K-뷰티 관심사를 정리해 보고 싶은 방문자을 대상으로 비진단 AI 참고, 피부 관심사 정리, 사진 동의, 다음 상담 질문를 중심으로 사전 상담 정보를 정리합니다.","audience":"상담 전 부담 없이 K-뷰티 관심사를 정리해 보고 싶은 방문자에게 필요한 페이지입니다."},"vi":{"title":"AI phân tích da tham khảo cho K-beauty","intro":"Hướng dẫn AI phân tích da tham khảo cho K-beauty dành cho khách muốn trải nghiệm nhẹ trước khi gửi yêu cầu tư vấn K-beauty, tập trung vào tham khảo không chẩn đoán, sắp xếp quan tâm da, đồng ý ảnh và câu hỏi tiếp theo trước khi liên hệ cơ sở y tế được cấp phép.","audience":"Trang này phù hợp với khách muốn trải nghiệm nhẹ trước khi gửi yêu cầu tư vấn K-beauty."},"ja":{"title":"Kビューティー参考用AI肌分析","intro":"Kビューティー参考用AI肌分析ガイドは、人による相談前に気軽にKビューティー関心を整理したい訪問者に向けて、非診断AI参考、肌ケア関心整理、写真同意、次の相談質問を中心に事前相談情報を整理します。","audience":"人による相談前に気軽にKビューティー関心を整理したい訪問者のためのページです。"},"zh":{"title":"K-Beauty参考用AI皮肤分析","intro":"K-Beauty参考用AI皮肤分析指南面向在人工咨询前想轻松整理K-Beauty关注点的访客，重点整理非诊断AI参考、皮肤兴趣整理、照片同意和下一步咨询问题等预咨询信息。","audience":"本页适合在人工咨询前想轻松整理K-Beauty关注点的访客。"}},"common":{"en":{"languageLabel":"Language","navHome":"Main Homepage","landingEyebrow":"Korea-based medical tourism coordination company · Busan HQ · Gangnam branch","ctaFree":"Free Pre-Consultation","ctaSafe":"Start Safe Medical Travel Consultation","ctaAi":"Try AI Skin Analysis","ctaAsk":"Ask in Korean / English / Vietnamese","whoTitle":"Who this page is for","whoSuffix":"Use this page to prepare questions, documents, language needs, and timing details for AI skin analysis for K-beauty reference.","processTitle":"Consultation or service process","process1":"Use AI Skin Analysis only as a reference experience and read the non-diagnostic notice before uploading anything.","process2":"Review the output as a way to organize skin-care interests, not as medical confirmation.","process3":"If you want human support, send the reference result with your goals, history, and language preference.","process4":"A coordinator can help turn the reference into consultation questions for licensed professionals or relevant clinics.","prepareTitle":"Information to prepare","prepare1":"A clear photo only if you consent to using it for the AI reference experience.","prepare2":"Your main K-beauty interests such as moisture, tone, texture, acne concern, redness, or product guidance.","prepare3":"Past skin reactions, current products, medication, and whether you want clinic consultation or general K-beauty guidance.","prepare4":"Preferred language, country, travel timeline, and whether you want to continue to a consultation form.","costTitle":"Why costs can vary","costBody":"AI Skin Analysis may be a starting reference, but costs after consultation can vary by clinic review, skin-care program, device or product discussion, interpreter time, and whether an in-person visit is needed.","cautionTitle":"Important cautions","caution1":"AI output is not a diagnosis and should not replace licensed medical advice.","caution2":"Do not make medical or travel decisions based only on an AI reference.","caution3":"Use only photos you are comfortable sharing for the stated purpose.","caution4":"If symptoms are severe, painful, or rapidly changing, seek licensed medical care directly.","legalTitle":"Legal notice","legalBody":"VR MEDI TOUR & HOME is not a hospital or medical institution. This service provides pre-consultation, interpretation, coordination, travel support, and information guidance. AI Skin Analysis is not a medical diagnosis. Final diagnosis, treatment plan, and price must be confirmed by licensed medical professionals and medical institutions.","faqTitle":"FAQ","faq1Q":"Is AI Skin Analysis a medical diagnosis?","faq1A":"No. It is a non-diagnostic K-beauty reference tool for organizing questions before consultation.","faq2Q":"Can I use the AI result in a consultation request?","faq2A":"Yes. You may share it as reference context, along with your concerns, history, and language preference.","faq3Q":"Do I have to upload a photo?","faq3A":"Only upload a photo if you understand the purpose and agree to use it for the reference experience.","faq4Q":"Why can later K-beauty costs vary?","faq4A":"Costs may depend on clinic review, program scope, products, devices, interpreter time, and visit needs.","faq5Q":"What is the next step after AI analysis?","faq5A":"You can continue to the consultation form or ask for human coordination if you want organized guidance.","contactTitle":"Contact VR MEDI TOUR & HOME","contactBody":"Try the AI reference first, then send a consultation request if you want a human coordinator to organize K-beauty questions.","ctaContact":"Contact VR MEDI TOUR & HOME","relatedTitle":"Related Korea medical travel guides","backHome":"Back to main homepage","footerTrust":"Busan headquarters · Seoul Gangnam branch · Multilingual consultation · AI-assisted pre-consultation · K-beauty and medical travel coordination.","footerNotice":"Not a hospital · not a medical institution · final medical decisions are made by licensed medical professionals and medical institutions.","topic":"AI skin analysis for K-beauty reference","customer":"visitors who want a low-friction K-beauty entry point before requesting a human consultation","focus":"non-diagnostic AI reference, skin-care interest sorting, photo consent, and next-step consultation questions"},"ko":{"languageLabel":"언어","navHome":"메인 홈페이지","landingEyebrow":"한국 기반 의료관광 코디네이션 회사 · 부산 본사 · 강남 지점","ctaFree":"무료 사전 상담","ctaSafe":"안전한 의료여행 상담 시작","ctaAi":"AI 피부 분석 체험","ctaAsk":"한국어 / 영어 / 베트남어로 문의","whoTitle":"이 페이지가 필요한 고객","whoSuffix":"특히 비진단 AI 참고, 피부 관심사 정리, 사진 동의, 다음 상담 질문를 상담 전에 확인하려는 고객에게 적합합니다.","processTitle":"상담 또는 이용 절차","process1":"K-뷰티 참고용 AI 피부 분석의 목적, 희망 언어, 방문 시기, 연락 방법을 먼저 확인합니다.","process2":"비진단 AI 참고, 피부 관심사 정리, 사진 동의, 다음 상담 질문와 관련된 누락 정보를 코디네이터가 정리합니다.","process3":"K-뷰티 참고용 AI 피부 분석 관련 정보는 환자 동의가 있을 때만 면허 의료기관 문의 준비에 활용합니다.","process4":"K-뷰티 참고용 AI 피부 분석에 맞춰 통역, 예약 가능 시간, 이동, 후속 문의를 단계적으로 조율합니다.","prepareTitle":"준비해야 할 정보","prepare1":"K-뷰티 참고용 AI 피부 분석 상담을 위해 여권 이름, 국적, 연락처, 선호 언어, 한국 방문 희망 시기를 준비합니다.","prepare2":"K-뷰티 참고용 AI 피부 분석과 관련된 현재 고민, 과거 상담·치료 이력, 복용 약, 알레르기를 정리합니다.","prepare3":"K-뷰티 참고용 AI 피부 분석 사진이나 문서는 목적을 이해하고 동의할 때만 공유합니다.","prepare4":"비진단 AI 참고, 피부 관심사 정리, 사진 동의, 다음 상담 질문에 대해 꼭 확인하고 싶은 질문과 예산 범위를 메모합니다.","costTitle":"비용이 달라지는 이유","costBody":"K-뷰티 참고용 AI 피부 분석 비용은 검토 결과, 검사 또는 상담 범위, 통역 시간, 이동·숙박, 기관 정책에 따라 달라질 수 있습니다. 최종 비용은 면허 의료기관 확인이 필요합니다.","cautionTitle":"주의사항","caution1":"K-뷰티 참고용 AI 피부 분석에서는 온라인 정보만으로 의료 결정을 내리지 마세요.","caution2":"비진단 AI 참고, 피부 관심사 정리, 사진 동의, 다음 상담 질문와 관련된 개인정보와 의료자료는 목적과 동의 범위를 확인한 뒤 공유하세요.","caution3":"K-뷰티 참고용 AI 피부 분석 일정은 통역, 이동, 회복, 추가 확인 시간을 고려해 여유 있게 잡으세요.","caution4":"K-뷰티 참고용 AI 피부 분석의 진단, 치료 계획, 결과 판단은 면허 의료진에게 확인해야 합니다.","legalTitle":"법적 고지","legalBody":"VR MEDI TOUR & HOME은 병원 또는 의료기관이 아닙니다. 본 서비스는 사전 상담, 통역, 코디네이션, 여행 지원, 정보 안내를 제공합니다. AI Skin Analysis는 의료 진단이 아닙니다. 최종 진단, 치료 계획, 가격은 면허 의료진과 의료기관이 확인해야 합니다.","faqTitle":"자주 묻는 질문","faq1Q":"K-뷰티 참고용 AI 피부 분석 상담을 온라인으로 시작할 수 있나요?","faq1A":"네. K-뷰티 참고용 AI 피부 분석 목적, 언어, 일정, 준비 정보를 먼저 정리하는 사전 상담으로 시작할 수 있습니다.","faq2Q":"K-뷰티 참고용 AI 피부 분석에서 사진이나 문서를 반드시 보내야 하나요?","faq2A":"아닙니다. K-뷰티 참고용 AI 피부 분석에 필요한 목적을 이해하고 동의할 때만 공유하면 됩니다.","faq3Q":"K-뷰티 참고용 AI 피부 분석에서 통역이나 일정 조율도 함께 문의할 수 있나요?","faq3A":"네. 비진단 AI 참고, 피부 관심사 정리, 사진 동의, 다음 상담 질문를 기준으로 언어 지원, 예약 가능 시간, 이동과 동행 정보를 함께 검토할 수 있습니다.","faq4Q":"K-뷰티 참고용 AI 피부 분석 비용이 달라지는 이유는 무엇인가요?","faq4A":"K-뷰티 참고용 AI 피부 분석은 검토 결과, 검사, 범위, 기관 정책, 통역, 숙박, 이동, 사후관리 필요가 다를 수 있기 때문입니다.","faq5Q":"K-뷰티 참고용 AI 피부 분석에서 이 서비스가 의료 진단을 하나요?","faq5A":"아닙니다. K-뷰티 참고용 AI 피부 분석에서는 VR MEDI TOUR & HOME이 사전 상담과 코디네이션을 지원하며 의료 판단은 면허 의료진이 합니다.","contactTitle":"VR MEDI TOUR & HOME에 문의","contactBody":"K-뷰티 참고용 AI 피부 분석 관련 문의를 보내면 비진단 AI 참고, 피부 관심사 정리, 사진 동의, 다음 상담 질문를 중심으로 안전하게 정리해 드립니다.","ctaContact":"VR MEDI TOUR & HOME 문의","relatedTitle":"관련 한국 의료여행 가이드","backHome":"메인 홈페이지로 돌아가기","footerTrust":"부산 본사 · 서울 강남 지점 · 다국어 상담 · AI 보조 사전 상담 · K-뷰티 및 의료여행 코디네이션.","footerNotice":"병원이 아님 · 의료기관이 아님 · 최종 의료 결정은 면허 의료진과 의료기관이 진행합니다."},"vi":{"languageLabel":"Ngôn ngữ","navHome":"Trang chủ","landingEyebrow":"Công ty điều phối du lịch y tế tại Hàn Quốc · Trụ sở Busan · Chi nhánh Gangnam","ctaFree":"Tư vấn trước miễn phí","ctaSafe":"Bắt đầu tư vấn du lịch y tế an toàn","ctaAi":"Thử AI Skin Analysis","ctaAsk":"Hỏi bằng tiếng Hàn / Anh / Việt","whoTitle":"Ai nên đọc trang này","whoSuffix":"Nội dung giúp chuẩn bị tham khảo không chẩn đoán, sắp xếp quan tâm da, đồng ý ảnh và câu hỏi tiếp theo trước khi gửi yêu cầu tư vấn.","processTitle":"Quy trình tư vấn hoặc sử dụng","process1":"Xác nhận mục tiêu AI phân tích da tham khảo cho K-beauty, ngôn ngữ ưu tiên, thời gian đến Hàn Quốc và kênh liên hệ.","process2":"Điều phối viên sắp xếp thông tin còn thiếu liên quan đến tham khảo không chẩn đoán, sắp xếp quan tâm da, đồng ý ảnh và câu hỏi tiếp theo.","process3":"Thông tin về AI phân tích da tham khảo cho K-beauty chỉ được chuẩn bị để liên hệ cơ sở y tế khi có sự đồng ý của khách.","process4":"Có thể trao đổi từng bước về phiên dịch, lịch hẹn, di chuyển và câu hỏi tiếp theo cho AI phân tích da tham khảo cho K-beauty.","prepareTitle":"Thông tin cần chuẩn bị","prepare1":"Chuẩn bị tên theo hộ chiếu, quốc tịch, liên hệ, ngôn ngữ ưu tiên và thời gian đến Hàn Quốc cho AI phân tích da tham khảo cho K-beauty.","prepare2":"Vấn đề hiện tại, lịch sử tư vấn hoặc điều trị, thuốc, dị ứng liên quan đến AI phân tích da tham khảo cho K-beauty.","prepare3":"Chỉ chia sẻ ảnh hoặc tài liệu cho AI phân tích da tham khảo cho K-beauty khi hiểu mục đích và đồng ý.","prepare4":"Ghi lại câu hỏi muốn xác nhận về tham khảo không chẩn đoán, sắp xếp quan tâm da, đồng ý ảnh và câu hỏi tiếp theo và khoảng ngân sách dự kiến.","costTitle":"Vì sao chi phí có thể thay đổi","costBody":"Chi phí AI phân tích da tham khảo cho K-beauty có thể thay đổi theo kết quả xem xét, phạm vi tư vấn hoặc xét nghiệm, thời gian phiên dịch, di chuyển, lưu trú và chính sách từng cơ sở. Giá cuối cùng phải do cơ sở y tế được cấp phép xác nhận.","cautionTitle":"Lưu ý quan trọng","caution1":"Không quyết định y tế về AI phân tích da tham khảo cho K-beauty chỉ dựa trên thông tin trực tuyến.","caution2":"Chỉ chia sẻ dữ liệu liên quan đến tham khảo không chẩn đoán, sắp xếp quan tâm da, đồng ý ảnh và câu hỏi tiếp theo khi rõ mục đích và đồng ý.","caution3":"Lịch AI phân tích da tham khảo cho K-beauty nên có thời gian cho phiên dịch, di chuyển, nghỉ ngơi và xác nhận thêm.","caution4":"Chẩn đoán, kế hoạch và đánh giá kết quả của AI phân tích da tham khảo cho K-beauty phải do chuyên môn được cấp phép xác nhận.","legalTitle":"Thông báo pháp lý","legalBody":"VR MEDI TOUR & HOME không phải là bệnh viện hoặc cơ sở y tế. Dịch vụ này cung cấp tư vấn trước, phiên dịch, điều phối, hỗ trợ du lịch và hướng dẫn thông tin. AI Skin Analysis không phải là chẩn đoán y khoa. Chẩn đoán cuối cùng, kế hoạch điều trị và giá phải được xác nhận bởi chuyên gia y tế và cơ sở y tế được cấp phép.","faqTitle":"Câu hỏi thường gặp","faq1Q":"Có thể bắt đầu tư vấn AI phân tích da tham khảo cho K-beauty trực tuyến không?","faq1A":"Có. Có thể bắt đầu AI phân tích da tham khảo cho K-beauty bằng tư vấn trước để sắp xếp mục tiêu, ngôn ngữ, lịch trình và thông tin cần chuẩn bị.","faq2Q":"AI phân tích da tham khảo cho K-beauty có bắt buộc gửi ảnh hoặc tài liệu không?","faq2A":"Không. Với AI phân tích da tham khảo cho K-beauty, chỉ nên chia sẻ khi hiểu mục đích và đồng ý.","faq3Q":"Có thể hỏi phiên dịch và lịch hẹn cho AI phân tích da tham khảo cho K-beauty cùng lúc không?","faq3A":"Có. tham khảo không chẩn đoán, sắp xếp quan tâm da, đồng ý ảnh và câu hỏi tiếp theo sẽ được xem cùng nhu cầu ngôn ngữ, thời gian hẹn, di chuyển và người đi cùng.","faq4Q":"Vì sao chi phí AI phân tích da tham khảo cho K-beauty có thể khác nhau?","faq4A":"Với AI phân tích da tham khảo cho K-beauty, kết quả xem xét, xét nghiệm, phạm vi, chính sách cơ sở, phiên dịch, lưu trú, di chuyển và chăm sóc sau có thể khác nhau.","faq5Q":"Dịch vụ AI phân tích da tham khảo cho K-beauty này có chẩn đoán y khoa không?","faq5A":"Không. Với AI phân tích da tham khảo cho K-beauty, VR MEDI TOUR & HOME hỗ trợ tư vấn trước và điều phối; quyết định y khoa thuộc về chuyên môn được cấp phép.","contactTitle":"Liên hệ VR MEDI TOUR & HOME","contactBody":"Gửi yêu cầu về AI phân tích da tham khảo cho K-beauty để được sắp xếp thông tin xoay quanh tham khảo không chẩn đoán, sắp xếp quan tâm da, đồng ý ảnh và câu hỏi tiếp theo một cách cẩn trọng.","ctaContact":"Liên hệ VR MEDI TOUR & HOME","relatedTitle":"Hướng dẫn du lịch y tế Hàn Quốc liên quan","backHome":"Quay lại trang chủ","footerTrust":"Trụ sở Busan · Chi nhánh Seoul Gangnam · Tư vấn đa ngôn ngữ · Tư vấn trước hỗ trợ AI · Điều phối K-beauty và du lịch y tế.","footerNotice":"Không phải bệnh viện · không phải cơ sở y tế · quyết định y tế cuối cùng do chuyên gia y tế và cơ sở y tế được cấp phép thực hiện."},"ja":{"languageLabel":"言語","navHome":"メインホームページ","landingEyebrow":"韓国拠点の医療観光コーディネーション会社 · 釜山本社 · 江南支店","ctaFree":"無料事前相談","ctaSafe":"安全な医療旅行相談を始める","ctaAi":"AI Skin Analysisを試す","ctaAsk":"韓国語 / 英語 / ベトナム語で問い合わせ","whoTitle":"このページが必要なお客様","whoSuffix":"特に非診断AI参考、肌ケア関心整理、写真同意、次の相談質問を相談前に確認したい方に役立ちます。","processTitle":"相談または利用の流れ","process1":"Kビューティー参考用AI肌分析の目的、希望言語、訪問時期、連絡方法を確認します。","process2":"非診断AI参考、肌ケア関心整理、写真同意、次の相談質問に関する不足情報をコーディネーターが整理します。","process3":"Kビューティー参考用AI肌分析の情報は、同意がある場合のみ認可医療機関への問い合わせ準備に使用します。","process4":"Kビューティー参考用AI肌分析に合わせて通訳、予約時間、移動、追加質問を段階的に調整します。","prepareTitle":"準備する情報","prepare1":"Kビューティー参考用AI肌分析のために、パスポート名、国籍、連絡先、希望言語、韓国訪問予定時期を準備します。","prepare2":"Kビューティー参考用AI肌分析に関する現在の悩み、過去の相談・治療歴、薬、アレルギーを整理します。","prepare3":"Kビューティー参考用AI肌分析の写真や資料は目的を理解し、同意した場合のみ共有します。","prepare4":"非診断AI参考、肌ケア関心整理、写真同意、次の相談質問について確認したい質問と予算目安をメモします。","costTitle":"費用が変わる理由","costBody":"Kビューティー参考用AI肌分析の費用は、確認結果、検査または相談範囲、通訳時間、移動・宿泊、機関方針により変わる場合があります。最終費用は認可医療機関の確認が必要です。","cautionTitle":"注意事項","caution1":"Kビューティー参考用AI肌分析についてオンライン情報だけで医療判断をしないでください。","caution2":"非診断AI参考、肌ケア関心整理、写真同意、次の相談質問に関する個人情報や医療資料は目的と同意範囲を確認してから共有してください。","caution3":"Kビューティー参考用AI肌分析の日程には通訳、移動、回復、追加確認の時間を含めて余裕を持たせてください。","caution4":"Kビューティー参考用AI肌分析の診断、治療計画、結果判断は認可医療者に確認してください。","legalTitle":"法的告知","legalBody":"VR MEDI TOUR & HOMEは病院または医療機関ではありません。本サービスは事前相談、通訳、コーディネーション、旅行サポート、情報案内を提供します。AI Skin Analysisは医療診断ではありません。最終診断、治療計画、価格は認可医療者と医療機関が確認する必要があります。","faqTitle":"FAQ","faq1Q":"Kビューティー参考用AI肌分析をオンラインで相談開始できますか？","faq1A":"はい。Kビューティー参考用AI肌分析の目的、言語、日程、準備情報を整理する事前相談から始められます。","faq2Q":"Kビューティー参考用AI肌分析で写真や資料の送付は必須ですか？","faq2A":"いいえ。Kビューティー参考用AI肌分析で必要性と目的を理解し、同意した場合のみ共有します。","faq3Q":"Kビューティー参考用AI肌分析で通訳や日程調整も一緒に相談できますか？","faq3A":"はい。非診断AI参考、肌ケア関心整理、写真同意、次の相談質問を基準に、言語支援、予約可能時間、移動、同行者情報を一緒に確認できます。","faq4Q":"Kビューティー参考用AI肌分析の費用が変わる理由は何ですか？","faq4A":"Kビューティー参考用AI肌分析では確認結果、検査、範囲、機関方針、通訳、宿泊、移動、アフターケアの必要性が異なるためです。","faq5Q":"Kビューティー参考用AI肌分析でこのサービスは医療診断をしますか？","faq5A":"いいえ。Kビューティー参考用AI肌分析ではVR MEDI TOUR & HOMEが事前相談と調整を支援し、医療判断は認可医療者が行います。","contactTitle":"VR MEDI TOUR & HOMEへ問い合わせ","contactBody":"Kビューティー参考用AI肌分析について問い合わせると、非診断AI参考、肌ケア関心整理、写真同意、次の相談質問を中心に安全に整理できます。","ctaContact":"VR MEDI TOUR & HOMEに連絡","relatedTitle":"関連する韓国医療旅行ガイド","backHome":"メインホームページへ戻る","footerTrust":"釜山本社 · ソウル江南支店 · 多言語相談 · AI支援事前相談 · Kビューティーと医療旅行コーディネーション。","footerNotice":"病院ではありません · 医療機関ではありません · 最終医療判断は認可医療者と医療機関が行います。"},"zh":{"languageLabel":"语言","navHome":"主页","landingEyebrow":"韩国医疗旅游协调公司 · 釜山总部 · 江南分部","ctaFree":"免费预咨询","ctaSafe":"开始安全医疗旅行咨询","ctaAi":"体验 AI Skin Analysis","ctaAsk":"用韩语 / 英语 / 越南语咨询","whoTitle":"适合阅读本页的客户","whoSuffix":"尤其适合想在咨询前确认非诊断AI参考、皮肤兴趣整理、照片同意和下一步咨询问题的客户。","processTitle":"咨询或使用流程","process1":"先确认K-Beauty参考用AI皮肤分析的目的、偏好语言、赴韩时间和联系方式。","process2":"协调员会整理与非诊断AI参考、皮肤兴趣整理、照片同意和下一步咨询问题相关的缺失信息。","process3":"只有在客户同意后，K-Beauty参考用AI皮肤分析相关信息才会用于准备向持证医疗机构咨询。","process4":"可围绕K-Beauty参考用AI皮肤分析逐步协调翻译、预约时间、移动路线和后续问题。","prepareTitle":"需要准备的信息","prepare1":"为K-Beauty参考用AI皮肤分析准备护照姓名、国籍、联系方式、偏好语言和预计赴韩时间。","prepare2":"整理与K-Beauty参考用AI皮肤分析相关的当前困扰、既往咨询或治疗、用药和过敏信息。","prepare3":"K-Beauty参考用AI皮肤分析照片或资料仅在理解用途并同意后分享。","prepare4":"记录关于非诊断AI参考、皮肤兴趣整理、照片同意和下一步咨询问题想确认的问题和预算范围。","costTitle":"费用为何会变化","costBody":"K-Beauty参考用AI皮肤分析费用可能因评估结果、检查或咨询范围、翻译时间、交通住宿和机构政策而变化。最终费用需由持证医疗机构确认。","cautionTitle":"注意事项","caution1":"不要只根据线上信息作出K-Beauty参考用AI皮肤分析医疗决定。","caution2":"分享与非诊断AI参考、皮肤兴趣整理、照片同意和下一步咨询问题有关的信息前，请确认目的和同意范围。","caution3":"K-Beauty参考用AI皮肤分析行程应为翻译、移动、恢复和追加确认预留时间。","caution4":"K-Beauty参考用AI皮肤分析的诊断、治疗计划和结果判断应由持证医疗人员确认。","legalTitle":"法律声明","legalBody":"VR MEDI TOUR & HOME不是医院或医疗机构。本服务提供预咨询、翻译、协调、旅行支持和信息指导。AI Skin Analysis不是医疗诊断。最终诊断、治疗计划和价格必须由持证医疗专业人员和医疗机构确认。","faqTitle":"常见问题","faq1Q":"可以在线开始K-Beauty参考用AI皮肤分析咨询吗？","faq1A":"可以。可先通过预咨询整理K-Beauty参考用AI皮肤分析的目的、语言、日程和准备信息。","faq2Q":"K-Beauty参考用AI皮肤分析必须发送照片或资料吗？","faq2A":"不是。K-Beauty参考用AI皮肤分析资料只有在理解必要性和用途并同意后才分享。","faq3Q":"K-Beauty参考用AI皮肤分析可以同时咨询翻译和日程安排吗？","faq3A":"可以。可围绕非诊断AI参考、皮肤兴趣整理、照片同意和下一步咨询问题一起确认语言支持、可预约时间、移动和同行信息。","faq4Q":"K-Beauty参考用AI皮肤分析费用为什么会不同？","faq4A":"K-Beauty参考用AI皮肤分析的评估结果、检查、范围、机构政策、翻译、住宿、交通和后续护理需求可能不同。","faq5Q":"K-Beauty参考用AI皮肤分析这项服务提供医疗诊断吗？","faq5A":"不提供。K-Beauty参考用AI皮肤分析中VR MEDI TOUR & HOME支持预咨询和协调，医疗判断由持证医疗人员作出。","contactTitle":"联系 VR MEDI TOUR & HOME","contactBody":"发送K-Beauty参考用AI皮肤分析咨询后，可围绕非诊断AI参考、皮肤兴趣整理、照片同意和下一步咨询问题进行安全整理。","ctaContact":"联系 VR MEDI TOUR & HOME","relatedTitle":"相关韩国医疗旅行指南","backHome":"返回主页","footerTrust":"釜山总部 · 首尔江南分部 · 多语言咨询 · AI辅助预咨询 · K-Beauty与医疗旅行协调。","footerNotice":"不是医院 · 不是医疗机构 · 最终医疗决定由持证医疗专业人员和医疗机构作出。"}},"pageTitles":{"en":{"vietnam-korea-medical-tourism.html":"Vietnam to Korea Medical Tourism Consultation","korea-dermatology-medical-tourism.html":"Korea Dermatology Medical Tourism for Foreign Patients","busan-medical-tourism-itinerary.html":"Busan Medical Tourism 1 Night 2 Days Itinerary","gangnam-kbeauty-consultation.html":"Gangnam K-Beauty and Skin Consultation Guide","ai-skin-analysis-kbeauty.html":"AI Skin Analysis and K-Beauty Consultation Guide","foreign-patient-consultation-process.html":"Foreign Patient Consultation Process in Korea","medical-tourism-cost-guide.html":"Korea Medical Tourism Cost Guide","korea-health-checkup-for-foreigners.html":"Korea Health Check-up for Foreigners Consultation","korean-hospital-appointment-guide.html":"Korean Hospital Appointment Guide for Foreign Patients","kbeauty-tour-korea.html":"K-Beauty Tour Korea and Medical Travel Coordination","vietnamese-patient-korea-skin-clinic.html":"Vietnamese Patient Guide to Korea Skin Clinic Consultation","safe-medical-travel-korea.html":"Safe Medical Travel Korea Preparation Guide"},"ko":{"vietnam-korea-medical-tourism.html":"베트남 고객을 위한 한국 의료관광 상담","korea-dermatology-medical-tourism.html":"외국인을 위한 한국 피부과 의료관광 상담","busan-medical-tourism-itinerary.html":"부산 의료관광 1박 2일 추천 일정","gangnam-kbeauty-consultation.html":"강남 K-뷰티 및 피부 상담 안내","ai-skin-analysis-kbeauty.html":"AI 피부 분석과 K-뷰티 상담 안내","foreign-patient-consultation-process.html":"외국인 환자 상담 절차와 준비서류","medical-tourism-cost-guide.html":"한국 의료관광 비용이 달라지는 이유","korea-health-checkup-for-foreigners.html":"외국인을 위한 한국 건강검진 상담","korean-hospital-appointment-guide.html":"외국인 환자의 한국 병원 예약 절차","kbeauty-tour-korea.html":"K-뷰티 체험과 한국 의료관광 연계 안내","vietnamese-patient-korea-skin-clinic.html":"베트남 고객을 위한 한국 피부과 상담 가이드","safe-medical-travel-korea.html":"안전한 한국 의료관광 준비 가이드"},"vi":{"vietnam-korea-medical-tourism.html":"Tư vấn du lịch y tế Hàn Quốc cho khách Việt Nam","korea-dermatology-medical-tourism.html":"Du lịch y tế da liễu Hàn Quốc cho người nước ngoài","busan-medical-tourism-itinerary.html":"Lịch trình du lịch y tế Busan 2 ngày 1 đêm","gangnam-kbeauty-consultation.html":"Hướng dẫn tư vấn K-Beauty và da tại Gangnam","ai-skin-analysis-kbeauty.html":"Phân tích da AI và tư vấn K-Beauty","foreign-patient-consultation-process.html":"Quy trình tư vấn cho bệnh nhân quốc tế tại Hàn Quốc","medical-tourism-cost-guide.html":"Hướng dẫn chi phí du lịch y tế Hàn Quốc","korea-health-checkup-for-foreigners.html":"Tư vấn khám sức khỏe Hàn Quốc cho người nước ngoài","korean-hospital-appointment-guide.html":"Hướng dẫn đặt lịch bệnh viện Hàn Quốc cho bệnh nhân quốc tế","kbeauty-tour-korea.html":"Tour K-Beauty Hàn Quốc và điều phối du lịch y tế","vietnamese-patient-korea-skin-clinic.html":"Hướng dẫn tư vấn phòng khám da Hàn Quốc cho khách Việt Nam","safe-medical-travel-korea.html":"Hướng dẫn chuẩn bị du lịch y tế Hàn Quốc an toàn"},"ja":{"vietnam-korea-medical-tourism.html":"ベトナムのお客様向け韓国医療観光相談","korea-dermatology-medical-tourism.html":"外国人向け韓国皮膚科医療観光相談","busan-medical-tourism-itinerary.html":"釜山医療観光 1泊2日モデル日程","gangnam-kbeauty-consultation.html":"江南Kビューティー・肌相談ガイド","ai-skin-analysis-kbeauty.html":"AI肌分析とKビューティー相談ガイド","foreign-patient-consultation-process.html":"外国人患者の韓国相談プロセス","medical-tourism-cost-guide.html":"韓国医療観光の費用ガイド","korea-health-checkup-for-foreigners.html":"外国人向け韓国健康診断相談","korean-hospital-appointment-guide.html":"外国人患者向け韓国病院予約ガイド","kbeauty-tour-korea.html":"韓国Kビューティーツアーと医療旅行調整","vietnamese-patient-korea-skin-clinic.html":"ベトナムのお客様向け韓国皮膚科相談ガイド","safe-medical-travel-korea.html":"安全な韓国医療旅行準備ガイド"},"zh":{"vietnam-korea-medical-tourism.html":"面向越南客户的韩国医疗旅游咨询","korea-dermatology-medical-tourism.html":"面向外国患者的韩国皮肤科医疗旅游","busan-medical-tourism-itinerary.html":"釜山医疗旅游两天一夜建议行程","gangnam-kbeauty-consultation.html":"江南K-Beauty与皮肤咨询指南","ai-skin-analysis-kbeauty.html":"AI皮肤分析与K-Beauty咨询指南","foreign-patient-consultation-process.html":"外国患者在韩国的咨询流程","medical-tourism-cost-guide.html":"韩国医疗旅游费用指南","korea-health-checkup-for-foreigners.html":"面向外国人的韩国健康体检咨询","korean-hospital-appointment-guide.html":"外国患者韩国医院预约指南","kbeauty-tour-korea.html":"韩国K-Beauty体验与医疗旅行协调","vietnamese-patient-korea-skin-clinic.html":"越南客户韩国皮肤诊所咨询指南","safe-medical-travel-korea.html":"安全韩国医疗旅行准备指南"}}};</script>
   <script src="/public/seo-landing-i18n.js" defer></script>
@@ -33,23 +276,31 @@
         <a class="brand" href="/" aria-label="VR MEDI TOUR & HOME main homepage"><img src="/assets/logo.jpg" alt="VR MEDI TOUR & HOME Korea medical tourism coordination logo" /><strong>VR MEDI TOUR<span>&amp; HOME</span></strong></a>
         <div class="topbar-actions">
           <a class="btn secondary" href="/" data-i18n="navHome">Main Homepage</a>
+          <a class="btn secondary" href="/public/company-profile.html" data-i18n="navCompanyProfile">Company Profile</a>
+          <a class="btn secondary" href="/public/company-profile.html#agent-trust" data-i18n="navTrustCenter">Trust Center</a>
+          <a class="btn secondary" href="/public/faq.html" data-i18n="navFaq">FAQ</a>
+          <a class="btn secondary" href="/public/medi-hana/" data-i18n="navContact">Contact</a>
+          <a class="btn secondary" href="/public/ai-skin-analysis-kbeauty.html" data-i18n="navAiSkinMenu">AI Skin Analysis</a>
+          <a class="btn secondary" href="/public/medi-hana/" data-i18n="navAiConsult">AI Consultation</a>
+          <a class="btn secondary" href="/public/amis-travel-lounge/" data-i18n="navAmisTour">AMIS Travel Lounge</a>
+          <a class="btn secondary" href="/public/store/" data-i18n="navAmisStore">AMIS Goods Store</a>
           <div class="language-select">
-            <span data-i18n="languageLabel">Language</span>
+            <span data-i18n="languageLabel">언어</span>
             <div class="language-buttons" id="languageButtons" aria-label="Language selector">
             <button type="button" class="lang-btn" data-lang="en" aria-label="English" aria-pressed="false">
-              <img src="/assets/images/language/lang-en.png" alt="Medi Hana English language guide" onerror="this.hidden=true" />
+              <img src="/public/assets/images/language/lang-en.png" alt="Medi Hana English language guide" onerror="this.hidden=true" />
             </button>
             <button type="button" class="lang-btn" data-lang="ko" aria-label="한국어" aria-pressed="false">
-              <img src="/assets/images/language/lang-ko.png" alt="Medi Hana 한국어 language guide" onerror="this.hidden=true" />
+              <img src="/public/assets/images/language/lang-ko.png" alt="Medi Hana Korean language guide" onerror="this.hidden=true" />
             </button>
             <button type="button" class="lang-btn" data-lang="vi" aria-label="Tiếng Việt" aria-pressed="false">
-              <img src="/assets/images/language/lang-vi.png" alt="Medi Hana Tiếng Việt language guide" onerror="this.hidden=true" />
+              <img src="/public/assets/images/language/lang-vi.png" alt="Medi Hana Vietnamese language guide" onerror="this.hidden=true" />
             </button>
             <button type="button" class="lang-btn" data-lang="ja" aria-label="日本語" aria-pressed="false">
-              <img src="/assets/images/language/lang-ja.png" alt="Medi Hana 日本語 language guide" onerror="this.hidden=true" />
+              <img src="/public/assets/images/language/lang-ja.png" alt="Medi Hana Japanese language guide" onerror="this.hidden=true" />
             </button>
             <button type="button" class="lang-btn" data-lang="zh" aria-label="中文" aria-pressed="false">
-              <img src="/assets/images/language/lang-zh.png" alt="Medi Hana 中文 language guide" onerror="this.hidden=true" />
+              <img src="/public/assets/images/language/lang-zh.png" alt="Medi Hana Chinese language guide" onerror="this.hidden=true" />
             </button>
             </div>
           </div>
@@ -59,10 +310,70 @@
       <h1 data-i18n="title">AI Skin Analysis and K-Beauty Consultation Guide</h1>
       <p class="lead" data-i18n="intro">A guide for visitors using AI Skin Analysis as a non-diagnostic K-beauty reference before asking a human coordinator about skin-care or dermatology-related interests.</p>
       <div class="cta-row" aria-label="Primary calls to action">
-        <a class="btn primary" href="/#consult-form" data-i18n="ctaFree">Free Pre-Consultation</a>
-        <a class="btn secondary" href="/#consult-form" data-i18n="ctaSafe">Start Safe Medical Travel Consultation</a>
-        <a class="btn ai" href="/ai-skin/" data-i18n="ctaAi">Try AI Skin Analysis</a>
-        <a class="btn secondary" href="/#consult-form" data-i18n="ctaAsk">Ask in Korean / English / Vietnamese</a>
+        <a class="btn primary" href="/public/medi-hana/?source=ai-skin" data-i18n="ctaFree">Free Pre-Consultation</a>
+        <a class="btn secondary" href="/public/medi-hana/?source=ai-skin" data-i18n="ctaSafe">Start Safe Medical Travel Consultation</a>
+        <a class="btn ai" href="#ai-skin-experience" data-i18n="ctaAi">Try AI Skin Analysis</a>
+        <a class="btn secondary" href="/public/medi-hana/?source=ai-skin" data-i18n="ctaAsk">Ask in Korean / English / Vietnamese</a>
+      </div>
+    </section>
+
+    <section class="section-card ai-skin-experience" id="ai-skin-experience" aria-labelledby="skin-tool-title">
+      <div class="skin-tool-head">
+        <p class="eyebrow" data-i18n="skinToolEyebrow">AI Skin Reference Tool</p>
+        <h2 id="skin-tool-title" data-i18n="skinToolTitle">AI 피부 참고 분석</h2>
+        <p class="lead" data-i18n="skinToolDesc">카메라로 촬영한 이미지를 기준으로 K-뷰티 상담 준비를 위한 피부 관심 포인트를 참고용으로 정리합니다.</p>
+      </div>
+
+      <div class="skin-tool-grid">
+        <div class="skin-panel">
+          <h3 data-i18n="skinCameraControlsTitle">AI 피부 분석 촬영</h3>
+          <p class="muted" data-i18n="skinCameraHelp">카메라 권한을 허용한 뒤 얼굴을 가이드 안에 맞추고 AI 판별 촬영을 눌러 주세요.</p>
+
+          <div class="skin-consent-list" aria-label="Consent checklist">
+            <label>
+              <input type="checkbox" data-skin-consent />
+              <span data-i18n="skinConsentMedical">이 서비스는 의료 진단이 아니라 참고용 피부 관심도 분석임을 확인합니다.</span>
+            </label>
+            <label>
+              <input type="checkbox" data-skin-consent />
+              <span data-i18n="skinConsentPhoto">사진은 상담 목적의 참고 자료로만 사용되는 것에 동의합니다.</span>
+            </label>
+            <label>
+              <input type="checkbox" data-skin-consent />
+              <span data-i18n="skinConsentFinal">최종 판단은 의료기관 또는 전문가 상담을 통해 이루어짐을 확인합니다.</span>
+            </label>
+          </div>
+
+          <div class="skin-action-row">
+            <button id="vrmtStartCameraBtn" class="btn primary" type="button" data-i18n="startCameraButton">카메라 시작</button>
+            <button id="vrmtCaptureBtn" class="btn ai" type="button" data-i18n="captureButton">AI 판별 촬영</button>
+          </div>
+          <p id="skinAnalysisStatus" class="skin-status" role="status" aria-live="polite" data-i18n="skinStatusIdle">카메라 시작 버튼을 눌러 촬영을 준비해 주세요.</p>
+        </div>
+
+        <div class="skin-panel">
+          <h3 data-i18n="skinPreviewTitle">카메라 및 촬영 미리보기</h3>
+          <div id="skinCameraFrame" class="skin-camera-frame">
+            <video id="vrmtCameraVideo" autoplay playsinline muted></video>
+            <div id="vrmtFaceGuide" class="skin-face-guide" aria-hidden="true"></div>
+            <p id="skinCameraPlaceholder" class="skin-camera-placeholder" data-i18n="skinCameraPlaceholder">카메라 시작을 누르면 이 영역에 영상이 표시됩니다.</p>
+          </div>
+          <div class="skin-preview-frame skin-capture-preview">
+            <p id="skinPreviewPlaceholder" data-i18n="skinPreviewPlaceholder">촬영한 이미지가 여기에 표시됩니다.</p>
+            <canvas id="vrmtSnapshotCanvas" class="skin-snapshot" hidden aria-label="Captured skin analysis image"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div id="vrmtAnalysis" class="skin-result" hidden>
+        <div id="skinAnalysisResult"></div>
+      </div>
+
+      <div class="skin-medical-notice" aria-label="Medical legal notice">
+        <p data-i18n="skinLegal1">VR MEDI TOUR &amp; HOME은 병원이 아닙니다.</p>
+        <p data-i18n="skinLegal2">AI 피부 분석은 진단이 아닙니다.</p>
+        <p data-i18n="skinLegal3">AI 결과는 상담 준비를 위한 참고 자료입니다.</p>
+        <p data-i18n="skinLegal4">최종 의료 판단과 진료는 한국 면허 의료기관이 수행합니다.</p>
       </div>
     </section>
 
@@ -96,18 +407,18 @@
       <h2 data-i18n="contactTitle">Contact VR MEDI TOUR &amp; HOME</h2>
       <p class="muted" data-i18n="contactBody">Try the AI reference first, then send a consultation request if you want a human coordinator to organize K-beauty questions.</p>
       <div class="cta-row">
-        <a class="btn primary" href="/#consult-form" data-i18n="ctaContact">Contact VR MEDI TOUR &amp; HOME</a>
-        <a class="btn secondary" href="/#consult-form" data-i18n="ctaFree">Free Pre-Consultation</a>
-        <a class="btn ai" href="/ai-skin/" data-i18n="ctaAi">Try AI Skin Analysis</a>
+        <a class="btn primary" href="/public/medi-hana/?source=ai-skin" data-i18n="ctaContact">Contact VR MEDI TOUR &amp; HOME</a>
+        <a class="btn secondary" href="/public/medi-hana/?source=ai-skin" data-i18n="ctaFree">Free Pre-Consultation</a>
+        <a class="btn ai" href="#ai-skin-experience" data-i18n="ctaAi">Try AI Skin Analysis</a>
       </div>
     </section>
 
     <section class="section-card">
       <h2 data-i18n="relatedTitle">Related Korea medical travel guides</h2>
       <nav class="related" aria-label="Related pages">
-        <a href="/foreign-patient-consultation-process.html" data-related-slug="foreign-patient-consultation-process.html">Foreign Patient Consultation Process in Korea</a>
-        <a href="/kbeauty-tour-korea.html" data-related-slug="kbeauty-tour-korea.html">K-Beauty Tour Korea and Medical Travel Coordination</a>
-        <a href="/korea-dermatology-medical-tourism.html" data-related-slug="korea-dermatology-medical-tourism.html">Korea Dermatology Medical Tourism for Foreign Patients</a>
+        <a href="/public/foreign-patient-consultation-process.html" data-related-slug="foreign-patient-consultation-process.html">Foreign Patient Consultation Process in Korea</a>
+        <a href="/public/kbeauty-tour-korea.html" data-related-slug="kbeauty-tour-korea.html">K-Beauty Tour Korea and Medical Travel Coordination</a>
+        <a href="/public/korea-dermatology-medical-tourism.html" data-related-slug="korea-dermatology-medical-tourism.html">Korea Dermatology Medical Tourism for Foreign Patients</a>
       </nav>
       <p><a class="btn secondary" href="/" data-i18n="backHome">Back to main homepage</a></p>
     </section>
@@ -118,5 +429,530 @@
       <p data-i18n="footerNotice">Not a hospital · not a medical institution · final medical decisions are made by licensed medical professionals and medical institutions.</p>
     </footer>
   </main>
+  <script>
+    (() => {
+      const skinAnalysisCopy = {
+        ko: {
+          skinToolEyebrow: "AI 피부 참고 도구",
+          skinToolTitle: "AI 피부 참고 분석",
+          skinToolDesc: "사진을 업로드하면 K-뷰티 상담 준비를 위한 피부 관심 포인트를 참고용으로 정리합니다.",
+          skinUploadTitle: "사진 업로드 / 촬영",
+          skinChooseFile: "얼굴 또는 피부 사진 선택",
+          skinUploadHelp: "모바일에서는 카메라 촬영을 선택할 수 있습니다.",
+          skinConsentMedical: "이 서비스는 의료 진단이 아니라 참고용 피부 관심도 분석임을 확인합니다.",
+          skinConsentPhoto: "사진은 상담 목적의 참고 자료로만 사용되는 것에 동의합니다.",
+          skinConsentFinal: "최종 판단은 의료기관 또는 전문가 상담을 통해 이루어짐을 확인합니다.",
+          skinAnalyzeButton: "AI 피부 참고 분석 시작",
+          skinStatusIdle: "사진을 선택하고 동의 항목을 확인해 주세요.",
+          skinStatusNoPhoto: "분석할 사진을 먼저 선택해 주세요.",
+          skinStatusNoConsent: "개인정보 및 의료 고지 동의 항목을 모두 확인해 주세요.",
+          skinStatusPhotoReady: "사진이 선택되었습니다. 동의 항목 확인 후 분석을 시작할 수 있습니다.",
+          skinStatusComplete: "AI 피부 참고 분석 결과가 준비되었습니다.",
+          skinPreviewTitle: "이미지 미리보기",
+          skinPreviewPlaceholder: "선택한 사진이 여기에 표시됩니다.",
+          skinResultTitle: "AI 피부 참고 분석 결과",
+          skinResultSummary: "선택한 사진을 기준으로 K-뷰티 상담 준비에 필요한 관심 포인트를 참고용으로 정리했습니다.",
+          skinResultPointsTitle: "피부 관심 포인트",
+          skinResultPointsDesc: "피부 상태를 확정하지 않고, 상담 시 확인하면 좋은 항목을 정리합니다.",
+          skinHydrationTitle: "수분/건조 관심",
+          skinHydrationDesc: "보습 루틴, 장벽 관리, 세안 후 당김 여부를 상담에서 확인해 보세요.",
+          skinPigmentTitle: "색소/잡티 관심",
+          skinPigmentDesc: "톤, 흔적, 자외선 노출 이력을 함께 정리하면 상담 준비에 도움이 됩니다.",
+          skinElasticityTitle: "탄력/주름 관심",
+          skinElasticityDesc: "탄력 저하, 잔주름, 표정 습관 관련 관심사를 참고 항목으로 기록하세요.",
+          skinPoreTitle: "모공/피지 관심",
+          skinPoreDesc: "피지, 모공, 트러블 반복 여부를 K-뷰티 상담 질문으로 정리해 보세요.",
+          skinRecommendTitle: "K-뷰티 상담 추천 문구",
+          skinRecommendDesc: "AI 결과는 진단이 아니므로, 사진과 관심사를 바탕으로 전문가 상담에서 적합한 관리 방향을 확인하세요.",
+          skinConsultButton: "K-뷰티 상담 신청하기",
+          skinLegal1: "VR MEDI TOUR & HOME은 병원이 아닙니다.",
+          skinLegal2: "AI 피부 분석은 진단이 아닙니다.",
+          skinLegal3: "AI 결과는 상담 준비를 위한 참고 자료입니다.",
+          skinLegal4: "최종 의료 판단과 진료는 한국 면허 의료기관이 수행합니다."
+        },
+        en: {
+          skinToolEyebrow: "AI Skin Reference Tool",
+          skinToolTitle: "AI Skin Reference Analysis",
+          skinToolDesc: "Upload a photo to organize skin-interest points for K-beauty consultation preparation.",
+          skinUploadTitle: "Photo Upload / Capture",
+          skinChooseFile: "Select a face or skin photo",
+          skinUploadHelp: "On mobile, you can choose camera capture.",
+          skinConsentMedical: "I understand this is a reference skin-interest analysis, not a medical diagnosis.",
+          skinConsentPhoto: "I agree that the photo is used only as consultation reference material.",
+          skinConsentFinal: "I understand final judgment is made through a medical institution or expert consultation.",
+          skinAnalyzeButton: "Start AI Skin Reference Analysis",
+          skinStatusIdle: "Please select a photo and review the consent items.",
+          skinStatusNoPhoto: "Please select a photo before starting analysis.",
+          skinStatusNoConsent: "Please confirm all privacy and medical notice consent items.",
+          skinStatusPhotoReady: "Photo selected. You can start after confirming the consent items.",
+          skinStatusComplete: "Your AI skin reference analysis is ready.",
+          skinPreviewTitle: "Image Preview",
+          skinPreviewPlaceholder: "Your selected photo will appear here.",
+          skinResultTitle: "AI Skin Reference Analysis Result",
+          skinResultSummary: "Based on the selected photo, we organized reference interest points for K-beauty consultation preparation.",
+          skinResultPointsTitle: "Skin Interest Points",
+          skinResultPointsDesc: "This does not confirm skin condition. It organizes topics worth checking during consultation.",
+          skinHydrationTitle: "Moisture / Dryness Interest",
+          skinHydrationDesc: "Ask about moisturizing routine, barrier care, and tightness after cleansing.",
+          skinPigmentTitle: "Pigment / Spot Interest",
+          skinPigmentDesc: "Prepare notes about tone, marks, and UV exposure history.",
+          skinElasticityTitle: "Elasticity / Wrinkle Interest",
+          skinElasticityDesc: "Record concerns about elasticity, fine lines, and expression habits as reference topics.",
+          skinPoreTitle: "Pore / Sebum Interest",
+          skinPoreDesc: "Organize sebum, pores, and recurring breakout concerns as K-beauty consultation questions.",
+          skinRecommendTitle: "K-beauty Consultation Recommendation",
+          skinRecommendDesc: "AI output is not a diagnosis. Use your photo and concerns to ask an expert about suitable care directions.",
+          skinConsultButton: "Request K-beauty Consultation",
+          skinLegal1: "VR MEDI TOUR & HOME is not a hospital.",
+          skinLegal2: "AI skin analysis is not a diagnosis.",
+          skinLegal3: "AI results are reference material for consultation preparation.",
+          skinLegal4: "Final medical judgment and treatment are performed by licensed Korean medical institutions."
+        },
+        vi: {
+          skinToolEyebrow: "Công cụ tham khảo da AI",
+          skinToolTitle: "Phân tích da AI tham khảo",
+          skinToolDesc: "Tải ảnh lên để sắp xếp các điểm quan tâm về da cho bước chuẩn bị tư vấn K-beauty.",
+          skinUploadTitle: "Tải ảnh / Chụp ảnh",
+          skinChooseFile: "Chọn ảnh khuôn mặt hoặc da",
+          skinUploadHelp: "Trên điện thoại, bạn có thể chọn chụp bằng camera.",
+          skinConsentMedical: "Tôi hiểu đây là phân tích mức độ quan tâm về da để tham khảo, không phải chẩn đoán y khoa.",
+          skinConsentPhoto: "Tôi đồng ý ảnh chỉ được dùng làm tài liệu tham khảo cho mục đích tư vấn.",
+          skinConsentFinal: "Tôi hiểu đánh giá cuối cùng được thực hiện qua cơ sở y tế hoặc tư vấn chuyên gia.",
+          skinAnalyzeButton: "Bắt đầu phân tích da AI tham khảo",
+          skinStatusIdle: "Vui lòng chọn ảnh và xác nhận các mục đồng ý.",
+          skinStatusNoPhoto: "Vui lòng chọn ảnh trước khi bắt đầu phân tích.",
+          skinStatusNoConsent: "Vui lòng xác nhận tất cả mục đồng ý về quyền riêng tư và thông báo y tế.",
+          skinStatusPhotoReady: "Đã chọn ảnh. Bạn có thể bắt đầu sau khi xác nhận các mục đồng ý.",
+          skinStatusComplete: "Kết quả phân tích da AI tham khảo đã sẵn sàng.",
+          skinPreviewTitle: "Xem trước ảnh",
+          skinPreviewPlaceholder: "Ảnh đã chọn sẽ hiển thị tại đây.",
+          skinResultTitle: "Kết quả phân tích da AI tham khảo",
+          skinResultSummary: "Dựa trên ảnh đã chọn, chúng tôi sắp xếp các điểm quan tâm tham khảo để chuẩn bị tư vấn K-beauty.",
+          skinResultPointsTitle: "Điểm quan tâm về da",
+          skinResultPointsDesc: "Không xác nhận tình trạng da; chỉ sắp xếp nội dung nên hỏi khi tư vấn.",
+          skinHydrationTitle: "Quan tâm về ẩm / khô",
+          skinHydrationDesc: "Hãy hỏi về quy trình dưỡng ẩm, chăm sóc hàng rào da và cảm giác căng sau rửa mặt.",
+          skinPigmentTitle: "Quan tâm về sắc tố / đốm",
+          skinPigmentDesc: "Chuẩn bị ghi chú về tông da, vết thâm và lịch sử tiếp xúc tia UV.",
+          skinElasticityTitle: "Quan tâm về đàn hồi / nếp nhăn",
+          skinElasticityDesc: "Ghi lại mối quan tâm về độ đàn hồi, nếp nhăn nhỏ và thói quen biểu cảm.",
+          skinPoreTitle: "Quan tâm về lỗ chân lông / bã nhờn",
+          skinPoreDesc: "Sắp xếp vấn đề bã nhờn, lỗ chân lông và mụn lặp lại thành câu hỏi tư vấn K-beauty.",
+          skinRecommendTitle: "Gợi ý tư vấn K-beauty",
+          skinRecommendDesc: "Kết quả AI không phải chẩn đoán. Hãy dùng ảnh và mối quan tâm để hỏi chuyên gia về hướng chăm sóc phù hợp.",
+          skinConsultButton: "Đăng ký tư vấn K-beauty",
+          skinLegal1: "VR MEDI TOUR & HOME không phải là bệnh viện.",
+          skinLegal2: "Phân tích da AI không phải là chẩn đoán.",
+          skinLegal3: "Kết quả AI là tài liệu tham khảo để chuẩn bị tư vấn.",
+          skinLegal4: "Đánh giá và điều trị y tế cuối cùng do cơ sở y tế Hàn Quốc được cấp phép thực hiện."
+        },
+        ja: {
+          skinToolEyebrow: "AI肌参考ツール",
+          skinToolTitle: "AI肌参考分析",
+          skinToolDesc: "写真をアップロードすると、Kビューティー相談準備のための肌の関心ポイントを参考用に整理します。",
+          skinUploadTitle: "写真アップロード / 撮影",
+          skinChooseFile: "顔または肌の写真を選択",
+          skinUploadHelp: "モバイルではカメラ撮影を選択できます。",
+          skinConsentMedical: "このサービスは医療診断ではなく、参考用の肌関心度分析であることを確認します。",
+          skinConsentPhoto: "写真は相談目的の参考資料としてのみ使用されることに同意します。",
+          skinConsentFinal: "最終判断は医療機関または専門家相談を通じて行われることを確認します。",
+          skinAnalyzeButton: "AI肌参考分析を開始",
+          skinStatusIdle: "写真を選択し、同意項目を確認してください。",
+          skinStatusNoPhoto: "分析する写真を先に選択してください。",
+          skinStatusNoConsent: "個人情報および医療告知の同意項目をすべて確認してください。",
+          skinStatusPhotoReady: "写真が選択されました。同意項目を確認後、分析を開始できます。",
+          skinStatusComplete: "AI肌参考分析結果が準備できました。",
+          skinPreviewTitle: "画像プレビュー",
+          skinPreviewPlaceholder: "選択した写真がここに表示されます。",
+          skinResultTitle: "AI肌参考分析結果",
+          skinResultSummary: "選択した写真をもとに、Kビューティー相談準備に必要な関心ポイントを参考用に整理しました。",
+          skinResultPointsTitle: "肌の関心ポイント",
+          skinResultPointsDesc: "肌状態を確定せず、相談時に確認するとよい項目を整理します。",
+          skinHydrationTitle: "水分 / 乾燥の関心",
+          skinHydrationDesc: "保湿ルーティン、バリアケア、洗顔後のつっぱり感を相談で確認してください。",
+          skinPigmentTitle: "色素 / シミの関心",
+          skinPigmentDesc: "トーン、跡、紫外線 exposure の履歴を整理すると相談準備に役立ちます。",
+          skinElasticityTitle: "弾力 / しわの関心",
+          skinElasticityDesc: "弾力低下、小じわ、表情習慣に関する関心を参考項目として記録してください。",
+          skinPoreTitle: "毛穴 / 皮脂の関心",
+          skinPoreDesc: "皮脂、毛穴、繰り返すトラブルをKビューティー相談の質問として整理してください。",
+          skinRecommendTitle: "Kビューティー相談おすすめ文",
+          skinRecommendDesc: "AI結果は診断ではありません。写真と関心事項をもとに、専門家相談で適したケア方向を確認してください。",
+          skinConsultButton: "Kビューティー相談を申し込む",
+          skinLegal1: "VR MEDI TOUR & HOMEは病院ではありません。",
+          skinLegal2: "AI肌分析は診断ではありません。",
+          skinLegal3: "AI結果は相談準備のための参考資料です。",
+          skinLegal4: "最終的な医療判断と診療は韓国の有資格医療機関が行います。"
+        },
+        zh: {
+          skinToolEyebrow: "AI皮肤参考工具",
+          skinToolTitle: "AI皮肤参考分析",
+          skinToolDesc: "上传照片后，将为K-Beauty咨询准备整理皮肤关注点，仅供参考。",
+          skinUploadTitle: "照片上传 / 拍摄",
+          skinChooseFile: "选择面部或皮肤照片",
+          skinUploadHelp: "在手机上可以选择相机拍摄。",
+          skinConsentMedical: "我确认本服务不是医疗诊断，而是参考用皮肤关注度分析。",
+          skinConsentPhoto: "我同意照片仅作为咨询目的的参考资料使用。",
+          skinConsentFinal: "我确认最终判断将通过医疗机构或专家咨询进行。",
+          skinAnalyzeButton: "开始AI皮肤参考分析",
+          skinStatusIdle: "请选择照片并确认同意项目。",
+          skinStatusNoPhoto: "请先选择要分析的照片。",
+          skinStatusNoConsent: "请确认所有个人信息和医疗告知同意项目。",
+          skinStatusPhotoReady: "照片已选择。确认同意项目后即可开始分析。",
+          skinStatusComplete: "AI皮肤参考分析结果已准备好。",
+          skinPreviewTitle: "图片预览",
+          skinPreviewPlaceholder: "选择的照片将在此显示。",
+          skinResultTitle: "AI皮肤参考分析结果",
+          skinResultSummary: "根据所选照片，已整理K-Beauty咨询准备所需的关注点，仅供参考。",
+          skinResultPointsTitle: "皮肤关注点",
+          skinResultPointsDesc: "不确认皮肤状态，仅整理咨询时可确认的项目。",
+          skinHydrationTitle: "水分 / 干燥关注",
+          skinHydrationDesc: "可在咨询中确认保湿流程、屏障护理和洁面后的紧绷感。",
+          skinPigmentTitle: "色素 / 斑点关注",
+          skinPigmentDesc: "整理肤色、痕迹和紫外线暴露经历，有助于咨询准备。",
+          skinElasticityTitle: "弹力 / 皱纹关注",
+          skinElasticityDesc: "将弹力下降、细纹和表情习惯相关关注记录为参考项目。",
+          skinPoreTitle: "毛孔 / 皮脂关注",
+          skinPoreDesc: "将皮脂、毛孔和反复问题整理为K-Beauty咨询问题。",
+          skinRecommendTitle: "K-Beauty咨询建议文案",
+          skinRecommendDesc: "AI结果不是诊断。请基于照片和关注点，在专家咨询中确认适合的护理方向。",
+          skinConsultButton: "申请K-Beauty咨询",
+          skinLegal1: "VR MEDI TOUR & HOME不是医院。",
+          skinLegal2: "AI皮肤分析不是诊断。",
+          skinLegal3: "AI结果是用于咨询准备的参考资料。",
+          skinLegal4: "最终医疗判断和诊疗由韩国持证医疗机构执行。"
+        }
+      };
+
+      const cameraCopy = {
+        ko: {
+          languageLabel: "언어",
+          LANGUAGE_LABEL: "언어",
+          skinToolDesc: "카메라로 촬영한 이미지를 기준으로 K-뷰티 상담 준비를 위한 피부 관심 포인트를 참고용으로 정리합니다.",
+          skinCameraControlsTitle: "AI 피부 분석 촬영",
+          skinCameraHelp: "카메라 권한을 허용한 뒤 얼굴을 가이드 안에 맞추고 AI 판별 촬영을 눌러 주세요.",
+          startCameraButton: "카메라 시작",
+          captureButton: "AI 판별 촬영",
+          skinStatusIdle: "카메라 시작 버튼을 눌러 촬영을 준비해 주세요.",
+          skinStatusCameraStarting: "카메라 권한을 요청하는 중입니다.",
+          skinStatusCameraReady: "카메라 영상이 연결되었습니다. 얼굴을 가이드 안에 맞춘 뒤 촬영해 주세요.",
+          skinStatusCameraUnsupported: "이 브라우저는 카메라 기능을 지원하지 않습니다.",
+          skinStatusCameraError: "카메라 권한을 허용하거나 브라우저 설정을 확인해 주세요.",
+          skinStatusNeedCamera: "먼저 카메라를 시작해 주세요.",
+          skinStatusCaptured: "촬영 이미지와 AI 피부 분석 리포트가 준비되었습니다.",
+          skinStatusAnalyzing: "AI가 촬영 이미지를 분석하는 중입니다.",
+          skinStatusServerError: "AI 분석 서버 연결에 실패했습니다. 잠시 후 다시 시도해 주세요.",
+          skinStatusFaceNotDetected: "얼굴이 명확하게 보이지 않습니다. 얼굴을 원형 가이드 안에 맞춰 다시 촬영해 주세요.",
+          skinPreviewTitle: "카메라 및 촬영 미리보기",
+          skinCameraPlaceholder: "카메라 시작을 누르면 이 영역에 영상이 표시됩니다.",
+          skinPreviewPlaceholder: "촬영한 이미지가 여기에 표시됩니다.",
+          skinResultSummary: "촬영한 이미지를 기준으로 K-뷰티 상담 준비에 필요한 관심 포인트를 참고용으로 정리했습니다."
+        },
+        en: {
+          languageLabel: "Language",
+          LANGUAGE_LABEL: "Language",
+          skinToolDesc: "Use a camera capture to organize skin-interest points for K-beauty consultation preparation.",
+          skinCameraControlsTitle: "AI Skin Analysis Capture",
+          skinCameraHelp: "Allow camera access, align your face inside the guide, then press AI capture.",
+          startCameraButton: "Start Camera",
+          captureButton: "AI Capture",
+          skinStatusIdle: "Press Start Camera to prepare the capture.",
+          skinStatusCameraStarting: "Requesting camera permission.",
+          skinStatusCameraReady: "Camera stream is connected. Align your face inside the guide and capture.",
+          skinStatusCameraUnsupported: "This browser does not support camera access.",
+          skinStatusCameraError: "Please allow camera access or check your browser settings.",
+          skinStatusNeedCamera: "Please start the camera first.",
+          skinStatusCaptured: "Captured image and AI skin analysis report are ready.",
+          skinStatusAnalyzing: "AI is analyzing the captured image.",
+          skinStatusServerError: "AI analysis server connection failed. Please try again later.",
+          skinStatusFaceNotDetected: "A face is not clearly visible. Please align your face inside the circular guide and capture again.",
+          skinPreviewTitle: "Camera and Capture Preview",
+          skinCameraPlaceholder: "Press Start Camera and the video will appear here.",
+          skinPreviewPlaceholder: "Your captured image will appear here.",
+          skinResultSummary: "Based on the captured image, we organized reference interest points for K-beauty consultation preparation."
+        },
+        vi: {
+          languageLabel: "Ngôn ngữ",
+          LANGUAGE_LABEL: "Ngôn ngữ",
+          skinToolDesc: "Dùng ảnh chụp từ camera để sắp xếp các điểm quan tâm về da trước khi tư vấn K-beauty.",
+          skinCameraControlsTitle: "Chụp phân tích da AI",
+          skinCameraHelp: "Cho phép truy cập camera, đặt khuôn mặt trong khung hướng dẫn rồi nhấn chụp AI.",
+          startCameraButton: "Bắt đầu camera",
+          captureButton: "Chụp AI",
+          skinStatusIdle: "Nhấn Bắt đầu camera để chuẩn bị chụp.",
+          skinStatusCameraStarting: "Đang yêu cầu quyền camera.",
+          skinStatusCameraReady: "Camera đã kết nối. Hãy đặt khuôn mặt trong khung và chụp.",
+          skinStatusCameraUnsupported: "Trình duyệt này không hỗ trợ truy cập camera.",
+          skinStatusCameraError: "Vui lòng cho phép camera hoặc kiểm tra cài đặt trình duyệt.",
+          skinStatusNeedCamera: "Vui lòng bắt đầu camera trước.",
+          skinStatusCaptured: "Ảnh chụp và báo cáo phân tích da AI đã sẵn sàng.",
+          skinStatusAnalyzing: "AI đang phân tích ảnh vừa chụp.",
+          skinStatusServerError: "Kết nối máy chủ phân tích AI thất bại. Vui lòng thử lại sau.",
+          skinStatusFaceNotDetected: "Khuôn mặt chưa hiển thị rõ. Vui lòng đặt mặt trong khung tròn và chụp lại.",
+          skinPreviewTitle: "Xem trước camera và ảnh chụp",
+          skinCameraPlaceholder: "Nhấn Bắt đầu camera để video hiển thị tại đây.",
+          skinPreviewPlaceholder: "Ảnh đã chụp sẽ hiển thị tại đây.",
+          skinResultSummary: "Dựa trên ảnh đã chụp, chúng tôi sắp xếp các điểm quan tâm tham khảo cho tư vấn K-beauty."
+        },
+        ja: {
+          languageLabel: "言語",
+          LANGUAGE_LABEL: "言語",
+          skinToolDesc: "カメラで撮影した画像をもとに、Kビューティー相談準備のための肌の関心ポイントを参考用に整理します。",
+          skinCameraControlsTitle: "AI肌分析撮影",
+          skinCameraHelp: "カメラ権限を許可し、顔をガイド内に合わせてからAI判定撮影を押してください。",
+          startCameraButton: "カメラ開始",
+          captureButton: "AI判定撮影",
+          skinStatusIdle: "カメラ開始ボタンを押して撮影を準備してください。",
+          skinStatusCameraStarting: "カメラ権限を要求しています。",
+          skinStatusCameraReady: "カメラ映像が接続されました。顔をガイド内に合わせて撮影してください。",
+          skinStatusCameraUnsupported: "このブラウザはカメラ機能に対応していません。",
+          skinStatusCameraError: "カメラ権限を許可するか、ブラウザ設定を確認してください。",
+          skinStatusNeedCamera: "先にカメラを開始してください。",
+          skinStatusCaptured: "撮影画像とAI肌分析レポートが準備できました。",
+          skinStatusAnalyzing: "AIが撮影画像を分析しています。",
+          skinStatusServerError: "AI分析サーバーへの接続に失敗しました。しばらくしてからもう一度お試しください。",
+          skinStatusFaceNotDetected: "顔がはっきり見えません。顔を円形ガイド内に合わせて再撮影してください。",
+          skinPreviewTitle: "カメラと撮影プレビュー",
+          skinCameraPlaceholder: "カメラ開始を押すと、この領域に映像が表示されます。",
+          skinPreviewPlaceholder: "撮影した画像がここに表示されます。",
+          skinResultSummary: "撮影した画像をもとに、Kビューティー相談準備に必要な関心ポイントを参考用に整理しました。"
+        },
+        zh: {
+          languageLabel: "语言",
+          LANGUAGE_LABEL: "语言",
+          skinToolDesc: "根据相机拍摄的图像，整理K-Beauty咨询准备所需的皮肤关注点，仅供参考。",
+          skinCameraControlsTitle: "AI皮肤分析拍摄",
+          skinCameraHelp: "允许相机权限后，将脸部对准引导框并点击AI判别拍摄。",
+          startCameraButton: "启动相机",
+          captureButton: "AI判别拍摄",
+          skinStatusIdle: "请点击启动相机准备拍摄。",
+          skinStatusCameraStarting: "正在请求相机权限。",
+          skinStatusCameraReady: "相机视频已连接。请将脸部对准引导框后拍摄。",
+          skinStatusCameraUnsupported: "此浏览器不支持相机功能。",
+          skinStatusCameraError: "请允许相机权限或检查浏览器设置。",
+          skinStatusNeedCamera: "请先启动相机。",
+          skinStatusCaptured: "拍摄图像和AI皮肤分析报告已准备好。",
+          skinStatusAnalyzing: "AI正在分析拍摄图像。",
+          skinStatusServerError: "AI分析服务器连接失败。请稍后重试。",
+          skinStatusFaceNotDetected: "脸部不够清晰。请将脸部对准圆形引导框后重新拍摄。",
+          skinPreviewTitle: "相机和拍摄预览",
+          skinCameraPlaceholder: "点击启动相机后，视频将在此显示。",
+          skinPreviewPlaceholder: "拍摄的图像将在此显示。",
+          skinResultSummary: "根据拍摄图像，已整理K-Beauty咨询准备所需的关注点，仅供参考。"
+        }
+      };
+
+      Object.entries(cameraCopy).forEach(([lang, copy]) => {
+        skinAnalysisCopy[lang] = {
+          ...(skinAnalysisCopy[lang] || {}),
+          ...copy
+        };
+      });
+
+      window.VRMT_SKIN_ANALYSIS_UI = skinAnalysisCopy;
+      window.VRMT_LANDING_PAGE = window.VRMT_LANDING_PAGE || {};
+      window.VRMT_LANDING_PAGE.common = window.VRMT_LANDING_PAGE.common || {};
+      Object.entries(skinAnalysisCopy).forEach(([lang, copy]) => {
+        window.VRMT_LANDING_PAGE.common[lang] = {
+          ...(window.VRMT_LANDING_PAGE.common[lang] || {}),
+          ...copy
+        };
+      });
+
+      const supported = ["ko", "en", "vi", "ja", "zh"];
+      const normalizeLang = (lang) => {
+        const value = String(lang || "").toLowerCase();
+        if (value === "jp") return "ja";
+        if (value === "cn") return "zh";
+        return supported.includes(value) ? value : "ko";
+      };
+      const currentLang = () => normalizeLang(localStorage.getItem("vrMediTourLang") || document.documentElement.lang);
+      const text = (key) => skinAnalysisCopy[currentLang()]?.[key] || skinAnalysisCopy.ko[key] || key;
+      const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (char) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      })[char]);
+
+      const renderResult = (apiResult, shouldScroll = true) => {
+        const analysis = document.getElementById("vrmtAnalysis");
+        const result = document.getElementById("skinAnalysisResult");
+        if (!analysis || !result) return;
+        const points = Array.isArray(apiResult?.skinInterestPoints)
+          ? apiResult.skinInterestPoints.filter(Boolean)
+          : [];
+        result.innerHTML = `
+          <div class="skin-panel">
+            <h3>${escapeHtml(text("skinResultTitle"))}</h3>
+            <p>${escapeHtml(apiResult?.summary || "")}</p>
+            <div class="skin-result-grid">
+              ${points.map((point) => `
+                <article class="skin-result-card">
+                  <strong>${escapeHtml(text("skinResultPointsTitle"))}</strong>
+                  <p>${escapeHtml(point)}</p>
+                </article>
+              `).join("")}
+              <article class="skin-result-card">
+                <strong>${escapeHtml(text("skinRecommendTitle"))}</strong>
+                <p>${escapeHtml(apiResult?.recommendation || "")}</p>
+              </article>
+            </div>
+            <div class="skin-medical-notice">
+              <p>${escapeHtml(apiResult?.disclaimer || "")}</p>
+            </div>
+            <div class="cta-row">
+              <a class="btn primary" href="/public/medi-hana/">${escapeHtml(text("skinConsultButton"))}</a>
+            </div>
+          </div>
+        `;
+        analysis.hidden = false;
+        if (shouldScroll) analysis.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      };
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const startButton = document.getElementById("vrmtStartCameraBtn");
+        const captureButton = document.getElementById("vrmtCaptureBtn");
+        const video = document.getElementById("vrmtCameraVideo");
+        const canvas = document.getElementById("vrmtSnapshotCanvas");
+        const cameraFrame = document.getElementById("skinCameraFrame");
+        const previewPlaceholder = document.getElementById("skinPreviewPlaceholder");
+        const status = document.getElementById("skinAnalysisStatus");
+        let lastStatusKey = "skinStatusIdle";
+        let stream = null;
+        let lastResult = null;
+
+        const setStatus = (key) => {
+          lastStatusKey = key;
+          if (status) status.textContent = text(key);
+        };
+
+        const hideResult = () => {
+          const analysis = document.getElementById("vrmtAnalysis");
+          if (analysis) analysis.hidden = true;
+          lastResult = null;
+        };
+
+        const setLoading = (loading) => {
+          if (captureButton) captureButton.disabled = loading;
+          if (startButton) startButton.disabled = loading;
+        };
+
+        const startCamera = async () => {
+          if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+            setStatus("skinStatusCameraUnsupported");
+            return;
+          }
+
+          setStatus("skinStatusCameraStarting");
+
+          try {
+            if (stream) {
+              stream.getTracks().forEach((track) => track.stop());
+            }
+            stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            if (video) {
+              video.srcObject = stream;
+              await video.play();
+            }
+            cameraFrame?.classList.add("has-stream");
+            setStatus("skinStatusCameraReady");
+          } catch (_) {
+            cameraFrame?.classList.remove("has-stream");
+            setStatus("skinStatusCameraError");
+          }
+        };
+
+        const analyzeCapturedImage = async (imageBase64) => {
+          hideResult();
+          setLoading(true);
+          setStatus("skinStatusAnalyzing");
+
+          try {
+            const response = await fetch("/.netlify/functions/analyze-skin", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                imageBase64,
+                image: imageBase64,
+                language: currentLang(),
+                responseFormat: "kbeauty_simple"
+              })
+            });
+            const payload = await response.json().catch(() => null);
+            const apiResult = payload?.analysis && typeof payload.analysis === "object" ? payload.analysis : payload;
+
+            if (!response.ok || !apiResult || apiResult.ok === false) {
+              setStatus("skinStatusServerError");
+              return;
+            }
+
+            if (apiResult.faceDetected === false || apiResult.canAnalyze === false) {
+              setStatus("skinStatusFaceNotDetected");
+              return;
+            }
+
+            if (apiResult.faceDetected !== true || apiResult.canAnalyze !== true) {
+              setStatus("skinStatusServerError");
+              return;
+            }
+
+            lastResult = apiResult;
+            renderResult(apiResult);
+            setStatus("skinStatusCaptured");
+          } catch (_) {
+            setStatus("skinStatusServerError");
+          } finally {
+            setLoading(false);
+          }
+        };
+
+        const captureFrame = async () => {
+          if (!stream || !video || !canvas || video.readyState < 2) {
+            setStatus("skinStatusNeedCamera");
+            return;
+          }
+
+          const sourceWidth = video.videoWidth || 640;
+          const sourceHeight = video.videoHeight || 480;
+          const targetWidth = Math.min(sourceWidth, 1024);
+          const targetHeight = Math.round((sourceHeight / sourceWidth) * targetWidth) || 768;
+          canvas.width = targetWidth;
+          canvas.height = targetHeight;
+
+          const context = canvas.getContext("2d");
+          if (!context) {
+            setStatus("skinStatusCameraError");
+            return;
+          }
+
+          context.save();
+          context.translate(targetWidth, 0);
+          context.scale(-1, 1);
+          context.drawImage(video, 0, 0, targetWidth, targetHeight);
+          context.restore();
+
+          canvas.hidden = false;
+          if (previewPlaceholder) previewPlaceholder.hidden = true;
+          const imageBase64 = canvas.toDataURL("image/jpeg", 0.82);
+          await analyzeCapturedImage(imageBase64);
+        };
+
+        startButton?.addEventListener("click", startCamera);
+        captureButton?.addEventListener("click", captureFrame);
+        hideResult();
+
+        document.querySelectorAll("#languageButtons button[data-lang]").forEach((button) => {
+          button.addEventListener("click", () => {
+            setTimeout(() => {
+              setStatus(lastStatusKey);
+              if (lastResult) renderResult(lastResult, false);
+            }, 0);
+          });
+        });
+      });
+    })();
+  </script>
 </body>
 </html>

@@ -11,8 +11,8 @@
   <meta property="og:description" content="AI-powered K-Beauty and medical travel concierge for international clients preparing Korean medical, beauty, wellness, and travel services." />
   <meta property="og:url" content="https://vr-meditour.com/company-profile.html" />
   <meta property="og:image" content="https://vr-meditour.com/assets/hero-medical-travel.jpg" />
-  <link rel="stylesheet" href="/company-profile.css" />
-  <link rel="stylesheet" href="/company-agent-trust.css" />
+  <link rel="stylesheet" href="/public/company-profile.css" />
+  <link rel="stylesheet" href="/public/company-agent-trust.css" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -116,26 +116,31 @@
     <div class="header-tools">
       <nav class="header-nav" aria-label="Primary navigation">
         <a href="/" data-i18n="navHome">Home</a>
-        <a href="/ai-skin/" data-i18n="navAiSkin">AI Skin Analysis</a>
-        <a href="/company-profile.html" aria-current="page" data-i18n="navCompany">Company Profile</a>
-        <a href="/faq.html">FAQ</a>
+        <a href="/public/company-profile.html" aria-current="page" data-i18n="navCompany">Company Profile</a>
+        <a href="/public/company-profile.html#agent-trust" data-i18n="navTrustCenter">Trust Center</a>
+        <a href="/public/faq.html" data-i18n="navFaq">FAQ</a>
+        <a href="/public/medi-hana/" data-i18n="navContact">Contact</a>
+        <a href="/public/ai-skin-analysis-kbeauty.html" data-i18n="navAiSkin">AI Skin Analysis</a>
+        <a href="/public/medi-hana/" data-i18n="navAiConsult">AI Consultation</a>
+        <a href="/public/amis-travel-lounge/" data-i18n="navAmisTour">AMIS Travel Lounge</a>
+        <a href="/public/store/" data-i18n="navAmisStore">AMIS Goods Store</a>
       </nav>
       <div class="language-switcher" aria-label="Language selector">
-        <span class="language-label">Language</span>
-        <button type="button" class="lang-btn lang-character-btn" data-profile-lang="ko" aria-label="한국어">
-          <img class="lang-character-img" src="/assets/images/language/medi-hana-ko.png" alt="메디하나 한국어 가이드" onerror="this.hidden=true" />
+        <span class="language-label" data-i18n="languageLabel">언어</span>
+        <button type="button" class="lang-btn lang-character-btn" data-profile-lang="ko" data-lang="ko" aria-label="한국어">
+          <img class="lang-character-img" src="/public/assets/images/language/lang-ko.png" alt="Korean language guide" onerror="this.hidden=true" />
         </button>
-        <button type="button" class="lang-btn lang-character-btn" data-profile-lang="en" aria-label="English">
-          <img class="lang-character-img" src="/assets/images/language/medi-hana-en.png" alt="Medi Hana English language guide" onerror="this.hidden=true" />
+        <button type="button" class="lang-btn lang-character-btn" data-profile-lang="en" data-lang="en" aria-label="English">
+          <img class="lang-character-img" src="/public/assets/images/language/lang-en.png" alt="English language guide" onerror="this.hidden=true" />
         </button>
-        <button type="button" class="lang-btn lang-character-btn" data-profile-lang="vi" aria-label="Tiếng Việt">
-          <img class="lang-character-img" src="/assets/images/language/medi-hana-vi.png" alt="Medi Hana Vietnamese language guide" onerror="this.hidden=true" />
+        <button type="button" class="lang-btn lang-character-btn" data-profile-lang="vi" data-lang="vi" aria-label="Tiếng Việt">
+          <img class="lang-character-img" src="/public/assets/images/language/lang-vi.png" alt="Vietnamese language guide" onerror="this.hidden=true" />
         </button>
-        <button type="button" class="lang-btn lang-character-btn" data-profile-lang="ja" aria-label="日本語">
-          <img class="lang-character-img" src="/assets/images/language/medi-hana-jp.png" alt="Medi Hana Japanese language guide" onerror="this.hidden=true" />
+        <button type="button" class="lang-btn lang-character-btn" data-profile-lang="ja" data-lang="ja" aria-label="日本語">
+          <img class="lang-character-img" src="/public/assets/images/language/lang-ja.png" alt="Japanese language guide" onerror="this.hidden=true" />
         </button>
-        <button type="button" class="lang-btn lang-character-btn" data-profile-lang="zh" aria-label="中文">
-          <img class="lang-character-img" src="/assets/images/language/medi-hana-cn.png" alt="Medi Hana Chinese language guide" onerror="this.hidden=true" />
+        <button type="button" class="lang-btn lang-character-btn" data-profile-lang="zh" data-lang="zh" aria-label="中文">
+          <img class="lang-character-img" src="/public/assets/images/language/lang-zh.png" alt="Chinese language guide" onerror="this.hidden=true" />
         </button>
       </div>
     </div>
@@ -151,9 +156,9 @@
           주식회사 브이알메디투어앤홈은 AI 기반 K-뷰티 관심도 체크, 의료관광 사전상담, 병원 연계, 통역·이동·체류 지원을 결합하여 외국인 고객의 한국 의료·웰니스 여행을 안전하게 연결하는 의료관광 컨시어지 기업입니다.
         </p>
         <div class="button-row" aria-label="Hero actions">
-          <a class="btn primary" href="/" data-i18n="ctaConsult">상담 신청하기</a>
-          <a class="btn secondary" href="/ai-skin/" data-i18n="ctaAiSkinView">AI Skin Analysis 보기</a>
-          <a class="btn secondary" href="/faq.html">FAQ</a>
+          <a class="btn primary" href="/public/medi-hana/" data-i18n="ctaConsult">상담 신청하기</a>
+          <a class="btn secondary" href="/public/ai-skin-analysis-kbeauty.html" data-i18n="ctaAiSkinView">AI Skin Analysis 보기</a>
+          <a class="btn secondary" href="/public/faq.html">FAQ</a>
         </div>
       </div>
       <figure class="hero-visual-card" aria-label="Representative company image">
@@ -401,10 +406,10 @@
         <p class="eyebrow" data-i18n="eyebrowContact">Contact</p>
         <h2 id="cta-title" data-i18n="contactTitle">한국 의료·K-뷰티 여정을 시작하세요</h2>
         <div class="button-row" aria-label="Contact actions">
-          <a class="btn primary" href="/" data-i18n="ctaConsult">상담 신청하기</a>
+          <a class="btn primary" href="/public/medi-hana/" data-i18n="ctaConsult">상담 신청하기</a>
           <a class="btn secondary" href="mailto:vrmeditour@naver.com" data-i18n="ctaEmail">이메일 문의</a>
-          <a class="btn secondary" href="/ai-skin/" data-i18n="ctaAiSkinTry">AI Skin Analysis 체험</a>
-          <a class="btn secondary" href="/faq.html">FAQ</a>
+          <a class="btn secondary" href="/public/ai-skin-analysis-kbeauty.html" data-i18n="ctaAiSkinTry">AI Skin Analysis 체험</a>
+          <a class="btn secondary" href="/public/faq.html">FAQ</a>
         </div>
       </div>
       <address class="company-info">
@@ -417,6 +422,6 @@
       </address>
     </section>
   </main>
-  <script src="/company-profile.js" defer></script>
+  <script src="/public/company-profile.js" defer></script>
 </body>
 </html>

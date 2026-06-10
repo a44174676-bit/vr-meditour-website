@@ -550,6 +550,78 @@
     }
   };
 
+  Object.assign(translations.ko, {
+    languageLabel: "언어",
+    navHome: "홈",
+    navCompany: "회사소개",
+    navTrustCenter: "Trust Center",
+    navFaq: "FAQ",
+    navContact: "문의",
+    navAiSkin: "AI 피부분석",
+    navAiConsult: "AI 상담",
+    navAmisTour: "AMIS Travel Lounge",
+    navAmisStore: "AMIS Goods Store"
+  });
+
+  Object.assign(translations.en, {
+    languageLabel: "Language",
+    navHome: "Home",
+    navCompany: "Company Profile",
+    navTrustCenter: "Trust Center",
+    navFaq: "FAQ",
+    navContact: "Contact",
+    navAiSkin: "AI Skin Analysis",
+    navAiConsult: "AI Consultation",
+    navAmisTour: "AMIS Travel Lounge",
+    navAmisStore: "AMIS Goods Store"
+  });
+
+  Object.assign(translations.vi, {
+    languageLabel: "Ngôn ngữ",
+    navHome: "Trang chủ",
+    navCompany: "Hồ sơ công ty",
+    navTrustCenter: "Trung tâm tin cậy",
+    navFaq: "FAQ",
+    navContact: "Liên hệ",
+    navAiSkin: "Phân tích da AI",
+    navAiConsult: "Tư vấn AI",
+    navAmisTour: "AMIS Travel Lounge",
+    navAmisStore: "AMIS Goods Store"
+  });
+
+  Object.assign(translations.ja, {
+    languageLabel: "言語",
+    navHome: "ホーム",
+    navCompany: "会社紹介",
+    navTrustCenter: "Trust Center",
+    navFaq: "FAQ",
+    navContact: "問い合わせ",
+    navAiSkin: "AI肌分析",
+    navAiConsult: "AI相談",
+    navAmisTour: "AMIS Travel Lounge",
+    navAmisStore: "AMIS Goods Store"
+  });
+
+  Object.assign(translations.zh, {
+    languageLabel: "语言",
+    navHome: "首页",
+    navCompany: "公司简介",
+    navTrustCenter: "信任中心",
+    navFaq: "FAQ",
+    navContact: "咨询",
+    navAiSkin: "AI皮肤分析",
+    navAiConsult: "AI咨询",
+    navAmisTour: "AMIS Travel Lounge",
+    navAmisStore: "AMIS Goods Store"
+  });
+
+  function normalizeLang(lang) {
+    const value = String(lang || "").toLowerCase();
+    if (value === "jp") return "ja";
+    if (value === "cn") return "zh";
+    return supportedLanguages.includes(value) ? value : "ko";
+  }
+
   const englishCoreExplanation = "VR MEDI TOUR & HOME is a registered Korean medical travel concierge and K-Beauty coordination company. We are not a hospital and do not provide diagnosis, treatment, prescription, surgery, or guaranteed medical outcomes. We help international clients prepare Korean medical, beauty, wellness, and travel consultations through human-reviewed inquiry handling, interpretation support, transportation and stay coordination, and case-by-case partner contact preparation after verification.";
   const vietnameseCoreExplanation = "VR MEDI TOUR & HOME là công ty concierge du lịch y tế và điều phối K-Beauty đã đăng ký tại Hàn Quốc. Chúng tôi không phải là bệnh viện và không cung cấp chẩn đoán, điều trị, kê đơn, phẫu thuật hoặc cam kết kết quả y tế. Chúng tôi hỗ trợ khách hàng quốc tế chuẩn bị tư vấn y tế, làm đẹp, wellness và du lịch tại Hàn Quốc thông qua quy trình có người phụ trách kiểm tra, hỗ trợ phiên dịch, điều phối di chuyển, lưu trú và chuẩn bị liên hệ đối tác theo từng trường hợp sau khi xác minh.";
 
@@ -612,7 +684,7 @@
   }
 
   function applyLanguage(lang) {
-    const safeLang = supportedLanguages.includes(lang) ? lang : "ko";
+    const safeLang = normalizeLang(lang);
     const config = languageConfig[safeLang] || languageConfig.ko;
 
     document.documentElement.lang = config.htmlLang;
@@ -627,14 +699,16 @@
 
     applyAgentTrustLanguage(safeLang);
 
-    document.querySelectorAll("[data-profile-lang]").forEach((button) => {
-      const isActive = button.getAttribute("data-profile-lang") === safeLang;
+    document.querySelectorAll("[data-profile-lang], [data-lang]").forEach((button) => {
+      const buttonLang = button.getAttribute("data-profile-lang") || button.getAttribute("data-lang");
+      const isActive = normalizeLang(buttonLang) === safeLang;
       button.classList.toggle("active", isActive);
       button.setAttribute("aria-pressed", isActive ? "true" : "false");
     });
 
     try {
       localStorage.setItem("vrMediTourCompanyLang", safeLang);
+      localStorage.setItem("vrMediTourLang", safeLang);
     } catch (_) {
       // Language switching must keep working even when storage is unavailable.
     }
@@ -642,8 +716,8 @@
 
   function getInitialLanguage() {
     try {
-      const stored = localStorage.getItem("vrMediTourCompanyLang");
-      if (stored && supportedLanguages.includes(stored)) return stored;
+      const stored = localStorage.getItem("vrMediTourLang") || localStorage.getItem("vrMediTourCompanyLang");
+      if (stored) return normalizeLang(stored);
     } catch (_) {
       // Ignore storage errors and keep Korean as the default.
     }
@@ -651,8 +725,8 @@
   }
 
   document.addEventListener("DOMContentLoaded", () => {
-    document.querySelectorAll("[data-profile-lang]").forEach((button) => {
-      button.addEventListener("click", () => applyLanguage(button.getAttribute("data-profile-lang")));
+    document.querySelectorAll("[data-profile-lang], [data-lang]").forEach((button) => {
+      button.addEventListener("click", () => applyLanguage(button.getAttribute("data-profile-lang") || button.getAttribute("data-lang")));
     });
 
     applyLanguage(getInitialLanguage());

@@ -1014,6 +1014,18 @@
     languageLabel: { ko: "LANGUAGE", en: "LANGUAGE", vi: "NGÔN NGỮ", ja: "言語", zh: "语言" },
   };
 
+  Object.assign(keyTranslations, {
+    "nav.home": { ko: "홈", en: "Home", vi: "Trang chủ", ja: "ホーム", zh: "首页" },
+    "nav.company": { ko: "회사소개", en: "Company Profile", vi: "Hồ sơ công ty", ja: "会社概要", zh: "公司简介" },
+    "nav.trust": { ko: "Trust Center", en: "Trust Center", vi: "Trung tâm tin cậy", ja: "Trust Center", zh: "信任中心" },
+    "nav.contact": { ko: "문의", en: "Contact", vi: "Liên hệ", ja: "問い合わせ", zh: "咨询" },
+    "nav.aiSkin": { ko: "AI 피부분석", en: "AI Skin Analysis", vi: "Phân tích da AI", ja: "AI肌分析", zh: "AI皮肤分析" },
+    "nav.aiConsult": { ko: "AI 상담", en: "AI Consultation", vi: "Tư vấn AI", ja: "AI相談", zh: "AI咨询" },
+    "nav.amisTour": { ko: "AMIS Travel Lounge", en: "AMIS Travel Lounge", vi: "AMIS Travel Lounge", ja: "AMIS Travel Lounge", zh: "AMIS Travel Lounge" },
+    "nav.store": { ko: "AMIS Goods Store", en: "AMIS Goods Store", vi: "AMIS Goods Store", ja: "AMIS Goods Store", zh: "AMIS Goods Store" },
+    languageLabel: { ko: "언어", en: "Language", vi: "Ngôn ngữ", ja: "言語", zh: "语言" },
+  });
+
   const fixedText = new Map([
     ["FAQ for Customers & AI Agents", { ko: "FAQ for Customers & AI Agents", en: "FAQ for Customers & AI Agents", vi: "FAQ cho khách hàng và AI", ja: "顧客とAI向けFAQ", zh: "面向客户与AI的FAQ" }],
     ["AI Agent Summary", { ko: "AI Agent Summary", en: "AI Agent Summary", vi: "Tóm tắt cho AI", ja: "AI向け要約", zh: "AI摘要" }],
@@ -1091,16 +1103,39 @@
   };
 
   const setActiveButton = (language) => {
-    document.querySelectorAll("[data-faq-lang]").forEach((button) => {
-      const isActive = button.dataset.faqLang === language;
+    document.querySelectorAll("[data-faq-lang], [data-lang]").forEach((button) => {
+      const buttonLanguage = button.dataset.faqLang || button.dataset.lang;
+      const isActive = buttonLanguage === language;
       button.classList.toggle("is-active", isActive);
       button.classList.toggle("active", isActive);
       button.setAttribute("aria-pressed", String(isActive));
     });
   };
 
+  const normalizeLanguage = (language) => {
+    const normalized = String(language || "").toLowerCase();
+    if (normalized === "jp") return "ja";
+    if (normalized === "cn") return "zh";
+    return LANGS.includes(normalized) ? normalized : "ko";
+  };
+
+  const getSavedLanguage = () => {
+    try {
+      return normalizeLanguage(localStorage.getItem("vrMediTourLang") || localStorage.getItem("faqLanguage"));
+    } catch (_) {
+      return "ko";
+    }
+  };
+
+  const saveLanguage = (language) => {
+    try {
+      localStorage.setItem("vrMediTourLang", language);
+      localStorage.setItem("faqLanguage", language);
+    } catch (_) {}
+  };
+
   const applyLanguage = (language) => {
-    const targetLanguage = LANGS.includes(language) ? language : "ko";
+    const targetLanguage = normalizeLanguage(language);
 
     document.querySelectorAll("[data-faq-key]").forEach((element) => {
       const key = element.dataset.faqKey;
@@ -1114,6 +1149,7 @@
 
     setMetadata(targetLanguage);
     setActiveButton(targetLanguage);
+    saveLanguage(targetLanguage);
   };
 
   const initialize = () => {
@@ -1125,11 +1161,11 @@
       element.dataset.faqSource = normalize(element.textContent);
     });
 
-    document.querySelectorAll("[data-faq-lang]").forEach((button) => {
-      button.addEventListener("click", () => applyLanguage(button.dataset.faqLang));
+    document.querySelectorAll("[data-faq-lang], [data-lang]").forEach((button) => {
+      button.addEventListener("click", () => applyLanguage(button.dataset.faqLang || button.dataset.lang));
     });
 
-    applyLanguage("ko");
+    applyLanguage(getSavedLanguage());
   };
 
   if (document.readyState === "loading") {

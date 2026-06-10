@@ -26,7 +26,7 @@
   <meta name="twitter:image" content="https://vr-meditour.com/assets/hero-medical-travel.jpg" />
   <meta name="twitter:url" content="https://vr-meditour.com/" />
   <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="/assets/css/language-icons.css" />
+  <link rel="stylesheet" href="/public/assets/css/language-icons.css" />
   <script type="application/ld+json">
 {
     "@context": "https://schema.org",
@@ -149,9 +149,9 @@
 <body>
   <a class="skip-link" href="#consult-form">Skip to consultation form</a>
   <main class="page" id="top">
-    <section class="hero section-card">
+    <section class="hero venture-landing">
       <header class="topbar">
-        <a href="#top" class="brand" aria-label="VR MEDI TOUR home">
+        <a href="/" class="brand" aria-label="VR MEDI TOUR home">
           <img src="assets/logo.jpg" alt="VR MEDI TOUR & HOME logo" class="brand-logo" />
           <div class="brand-text">
             <strong>VR MEDI TOUR</strong>
@@ -159,26 +159,26 @@
           </div>
         </a>
         <nav class="top-nav top-nav-main" aria-label="주요 메뉴">
-          <a href="/company-profile.html" data-i18n="navCompanyProfile">Company</a>
-          <a href="/company-profile.html#agent-trust" data-i18n="navTrustCenter">Trust Center</a>
-          <a href="/faq.html" data-i18n="navFaq">FAQ</a>
-          <a href="/#contact" data-i18n="navContact">Contact</a>
+          <a href="/public/company-profile.html" data-i18n="navCompanyProfile">Company</a>
+          <a href="/public/company-profile.html#agent-trust" data-i18n="navTrustCenter">Trust Center</a>
+          <a href="/public/faq.html" data-i18n="navFaq">FAQ</a>
+          <a href="/public/medi-hana/" data-i18n="navContact">Contact</a>
         </nav>
         <div class="top-tools">
           <nav class="top-nav top-nav-cta" aria-label="AI quick links">
-            <a class="nav-ai-link" href="/ai-skin/" aria-label="AI 피부 분석 체험하기">
+            <a class="nav-ai-link" href="/public/ai-skin-analysis-kbeauty.html" aria-label="AI 피부 분석 체험하기">
               <span aria-hidden="true">🧬</span>
-              <span data-i18n="navAiSkinMenu">AI Skin</span>
+              <span data-i18n="navAiSkinMenu">AI 피부분석</span>
             </a>
-            <a class="nav-ai-link" href="/medi-hana/" aria-label="AI 의료관광 상담 도우미에게 질문하기">
+            <a class="nav-ai-link" href="/public/medi-hana/" aria-label="AI 의료관광 상담 도우미에게 질문하기">
               <span aria-hidden="true">🤖</span>
-              <span data-i18n="navAiConsult">AI Consult</span>
+              <span data-i18n="navAiConsult">AI 상담</span>
             </a>
-            <a class="nav-ai-link" href="/amis-travel-lounge/" aria-label="AMIS Travel Lounge로 이동">
+            <a class="nav-ai-link" href="/public/amis-travel-lounge/" aria-label="AMIS Travel Lounge로 이동">
               <span aria-hidden="true">🧭</span>
               <span data-i18n="navAmisTour">AMIS Travel Lounge</span>
             </a>
-            <a class="nav-ai-link" href="/store/" aria-label="AMIS Goods Store">
+            <a class="nav-ai-link" href="/public/store/" aria-label="AMIS Goods Store">
               <span aria-hidden="true">🎁</span>
               <span data-i18n="navAmisStore">AMIS Goods Store</span>
             </a>
@@ -186,61 +186,109 @@
           <div class="language-select">
           <span data-i18n="languageLabel">언어</span>
           <div class="language-buttons language-character-group" id="languageButtons" aria-label="Language selector">
-            <button type="button" class="lang-btn lang-character-btn" data-lang="en" aria-label="English">
-              <img class="lang-character-img" src="/assets/images/language/medi-hana-en.png" alt="Medi Hana English language guide" onerror="this.hidden=true" />
+            <button type="button" class="lang-btn lang-character-btn" data-lang="ko" aria-label="한국어" aria-pressed="false">
+              <img class="lang-character-img" src="/public/assets/images/language/lang-ko.png" alt="한국어" onerror="this.hidden=true" />
             </button>
-            <button type="button" class="lang-btn lang-character-btn" data-lang="ko" aria-label="한국어">
-              <img class="lang-character-img" src="/assets/images/language/medi-hana-ko.png" alt="메디하나 한국어 가이드" onerror="this.hidden=true" />
+            <button type="button" class="lang-btn lang-character-btn" data-lang="en" aria-label="English" aria-pressed="false">
+              <img class="lang-character-img" src="/public/assets/images/language/lang-en.png" alt="English" onerror="this.hidden=true" />
             </button>
-            <button type="button" class="lang-btn lang-character-btn" data-lang="vi" aria-label="Tiếng Việt">
-              <img class="lang-character-img" src="/assets/images/language/medi-hana-vi.png" alt="Medi Hana Vietnamese language guide" onerror="this.hidden=true" />
+            <button type="button" class="lang-btn lang-character-btn" data-lang="vi" aria-label="Tiếng Việt" aria-pressed="false">
+              <img class="lang-character-img" src="/public/assets/images/language/lang-vi.png" alt="Tiếng Việt" onerror="this.hidden=true" />
             </button>
-            <button type="button" class="lang-btn lang-character-btn" data-lang="jp" aria-label="日本語">
-              <img class="lang-character-img" src="/assets/images/language/medi-hana-jp.png" alt="Medi Hana Japanese language guide" onerror="this.hidden=true" />
+            <button type="button" class="lang-btn lang-character-btn" data-lang="ja" aria-label="日本語" aria-pressed="false">
+              <img class="lang-character-img" src="/public/assets/images/language/lang-ja.png" alt="日本語" onerror="this.hidden=true" />
             </button>
-            <button type="button" class="lang-btn lang-character-btn" data-lang="cn" aria-label="中文">
-              <img class="lang-character-img" src="/assets/images/language/medi-hana-cn.png" alt="Medi Hana Chinese language guide" onerror="this.hidden=true" />
+            <button type="button" class="lang-btn lang-character-btn" data-lang="zh" aria-label="中文" aria-pressed="false">
+              <img class="lang-character-img" src="/public/assets/images/language/lang-zh.png" alt="中文" onerror="this.hidden=true" />
             </button>
           </div>
         </div>
         </div>
       </header>
 
-      <div class="hero-grid">
-        <article class="hero-copy">
-          <p class="eyebrow" data-i18n="heroEyebrow">Korea · Vietnam Medical Travel Coordination</p>
-          <h1 class="hero-title" data-i18n="heroTitle">Trusted Korean Medical Travel Coordination, Human-Reviewed.</h1>
-          <p class="hero-desc" data-i18n="heroDesc">We support consultation preparation, hospital communication, interpretation, travel logistics, stay support, and recovery coordination for international patients.</p>
+      <div class="hero-grid venture-hero-grid">
+        <article class="hero-copy venture-copy">
+          <p class="eyebrow venture-eyebrow" data-i18n="heroEyebrow">AI·VR 의료관광 벤처기업</p>
+          <h1 class="hero-title venture-title" data-i18n="heroTitle">AI·VR 의료관광 벤처기업,<br />한국 의료관광의 길을 설계합니다</h1>
+          <p class="hero-desc venture-desc" data-i18n="heroDesc">VR MEDI TOUR &amp; HOME은 외국인 환자 유치, AI 상담 정리, AI 피부 분석, 여행 라운지, 의료관광 여정을 하나의 신뢰 기반 경험으로 연결합니다.</p>
           <div class="hero-actions">
-            <a href="/medi-hana/" class="btn primary" data-i18n="heroCtaConsult" aria-label="Go to Medi Hana consultation">Request Consultation</a>
+            <a href="/public/medi-hana/" class="btn primary" data-i18n="heroCtaConsult" aria-label="Go to Medi Hana consultation">Request Consultation</a>
             <a href="#hospital-partnership" class="btn secondary" data-i18n="heroCtaPartner" aria-label="Go to hospital partnership">Hospital Partners</a>
-            <a href="/amis-travel-lounge/" class="btn secondary" data-i18n="heroCtaAmis" aria-label="Go to AMIS Travel Lounge">AMIS Travel Lounge</a>
+            <a href="#venture-certificate" class="btn secondary" data-i18n="heroCtaVenture" aria-label="View venture certificate">벤처기업 인증 보기</a>
+            <a href="/public/amis-travel-lounge/" class="btn secondary" data-i18n="heroCtaAmis" aria-label="Go to AMIS Travel Lounge">AI 관광 루트</a>
           </div>
-          <p class="ai-disclaimer" data-i18n="aiDisclaimer">AI assistant helps organize your inquiry. It does not diagnose, prescribe, or replace licensed medical professionals.</p>
+          <div class="medical-law-notice" aria-label="의료법상 고지">
+            <span data-i18n="legalNotice1">병원이 아닙니다.</span>
+            <span data-i18n="legalNotice2">진단하지 않습니다.</span>
+            <span data-i18n="legalNotice3">AI 상담은 문의 내용을 정리하는 역할입니다.</span>
+            <span data-i18n="legalNotice4">최종 의료 결정은 한국 면허 의료기관이 수행합니다.</span>
+          </div>
         </article>
-        <figure class="hero-image-wrap">
-          <iframe
-            class="hero-video"
-            src="https://www.youtube.com/embed/vztKesdxKTc?rel=0"
-            title="VR MEDI TOUR introduction video"
-            loading="lazy"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen
-          ></iframe>
-        </figure>
+        <aside class="venture-proof-panel" aria-label="벤처기업 인증 및 소개 영상">
+          <div class="venture-certificate-card" id="venture-certificate">
+            <p class="certificate-kicker" data-i18n="ventureCertificateKicker">Venture Company Certificate</p>
+            <h2 data-i18n="ventureCertificateTitle">벤처기업 인증</h2>
+            <dl class="certificate-list">
+              <div>
+                <dt data-i18n="ventureCompanyLabel">기업명</dt>
+                <dd data-i18n="ventureCompanyName">주식회사 브이알메디투어앤홈</dd>
+              </div>
+              <div>
+                <dt data-i18n="ventureTypeLabel">확인유형</dt>
+                <dd data-i18n="ventureTypeValue">혁신성장유형</dd>
+              </div>
+              <div>
+                <dt data-i18n="ventureValidLabel">유효기간</dt>
+                <dd data-i18n="ventureValidValue">2026.06.09 ~ 2029.06.08</dd>
+              </div>
+              <div>
+                <dt data-i18n="ventureIssueLabel">발급번호</dt>
+                <dd data-i18n="ventureIssueValue">제20260609030039호</dd>
+              </div>
+            </dl>
+          </div>
+          <figure class="hero-image-wrap venture-video-card">
+            <iframe
+              class="hero-video"
+              src="https://www.youtube.com/embed/vztKesdxKTc?rel=0"
+              title="VR MEDI TOUR introduction video"
+              loading="lazy"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+            ></iframe>
+          </figure>
+        </aside>
+      </div>
+      <div class="trust-badge-row" aria-label="신뢰 등록 배지">
+        <span data-i18n="trustBadgeForeign">외국인 환자 유치 등록</span>
+        <span data-i18n="trustBadgeTour">관광 사업 등록</span>
+        <span data-i18n="trustBadgeCommerce">통신 판매 등록</span>
+        <span data-i18n="trustBadgePrivacy">개인정보보호 관리체계</span>
       </div>
     </section>
 
     <section class="section-card verified-operator">
-      <h2 data-i18n="verifiedTitle">Verified Operator</h2>
-      <ul class="detail-list">
-        <li><strong data-i18n="verifiedCompanyLabel">Company:</strong> <span data-i18n="verifiedCompany">VR MEDI TOUR &amp; HOME Co., Ltd.</span></li>
-        <li><strong data-i18n="verifiedBrandLabel">Brand:</strong> <span data-i18n="verifiedBrand">VR MEDI TOUR</span></li>
-        <li><strong data-i18n="verifiedAreaLabel">Business Area:</strong> <span data-i18n="verifiedArea">Medical Travel Coordination / K-Beauty / Wellness / Travel Support</span></li>
-        <li><strong data-i18n="verifiedNetworkLabel">Network:</strong> <span data-i18n="verifiedNetwork">Korea · Vietnam</span></li>
-        <li><strong data-i18n="verifiedOfficeLabel">Office:</strong> <span data-i18n="verifiedOffice">Busan HQ / Seoul Gangnam Branch / Hanoi Network</span></li>
-      </ul>
+      <p class="eyebrow" data-i18n="verifiedEyebrow">Verified Venture Operator</p>
+      <h2 data-i18n="verifiedTitle">AI·VR 의료관광 신뢰 운영 정보</h2>
+      <div class="operator-proof-grid">
+        <article class="operator-proof-card">
+          <h3 data-i18n="operatorVentureTitle">벤처기업 인증</h3>
+          <p data-i18n="operatorVentureCompany">주식회사 브이알메디투어앤홈 · 혁신성장유형</p>
+          <p data-i18n="ventureValidValue">2026.06.09 ~ 2029.06.08</p>
+          <p data-i18n="ventureIssueValue">제20260609030039호</p>
+        </article>
+        <article class="operator-proof-card">
+          <h3 data-i18n="operatorRegistrationTitle">등록 기반 운영</h3>
+          <p data-i18n="trustBadgeForeign">외국인 환자 유치 등록</p>
+          <p data-i18n="trustBadgeTour">관광 사업 등록</p>
+          <p data-i18n="trustBadgeCommerce">통신 판매 등록</p>
+        </article>
+        <article class="operator-proof-card">
+          <h3 data-i18n="operatorPrivacyTitle">개인정보 보호</h3>
+          <p data-i18n="operatorPrivacyDesc">상담, 사진, 연락처, 일정 정보는 문의 정리와 병원 소통 준비 목적에 맞춰 관리합니다.</p>
+        </article>
+      </div>
     </section>
 
     <section class="section-card">
@@ -314,7 +362,7 @@
       <p class="eyebrow" data-i18n="guideEyebrow">SEO Medical Travel Guides</p>
       <h2 id="guide-title" data-i18n="guideTitle">Korea Medical Travel Guide</h2>
       <p class="guide-intro" data-i18n="guideIntro">Foreign patients, Vietnamese clients, K-beauty travelers, and Busan/Gangnam medical tourism visitors can explore focused guides before requesting consultation.</p>
-      <a class="btn secondary" href="/medical-travel-guide.html" data-i18n="guideHubCta">View Medical Travel Guides</a>
+      <a class="btn secondary" href="/public/medical-travel-guide.html" data-i18n="guideHubCta">View Medical Travel Guides</a>
     </section>
 
 
@@ -330,7 +378,7 @@
           <p data-i18n="consultCtaDesc">Medi Hana AI consultation assistant organizes your inquiry and delivers your customer information and consultation details to VR MEDI TOUR &amp; HOME coordinators.</p>
           <p class="ai-disclaimer" data-i18n="consultCtaNotice">The AI consultation assistant organizes inquiry details and does not replace diagnosis, prescriptions, or treatment decisions.</p>
           <p class="ai-disclaimer" data-i18n="consultCtaHospitalNotice">VR MEDI TOUR &amp; HOME is not a hospital. Final medical decisions must be made by licensed Korean medical institutions.</p>
-          <a href="/medi-hana/" class="btn primary" data-i18n="consultCtaButton">Start Consultation with Medi Hana</a>
+          <a href="/public/medi-hana/" class="btn primary" data-i18n="consultCtaButton">Start Consultation with Medi Hana</a>
         </div>
         <div class="consult-cta-visual" aria-hidden="true">
           <img src="/public/assets/medi-hana/medi-hana-ko.png?v=3" alt="Medi Hana consultation assistant character" />
@@ -409,8 +457,8 @@
       navCompanyProfile: "Company Profile",
       navTrustCenter: "Trust Center",
       navFaq: "FAQ",
-      navAiSkinMenu: "AI Skin",
-      navAiConsult: "AI Consult",
+      navAiSkinMenu: "AI 피부분석",
+      navAiConsult: "AI 상담",
       navAmisTour: "AMIS Travel Lounge",
       navAmisStore: "AMIS Goods Store",
       navContact: "Contact",
@@ -423,7 +471,7 @@
       ctaAiSkin: "Try AI Skin Analysis",
       ctaAiSkinNote: "A K-beauty reference analysis, not a medical diagnosis.",
       aiBtn: "Ask AI Medical Travel Assistant",
-      aiDisclaimer: "AI assistant helps organize your inquiry. It does not diagnose, prescribe, or replace licensed medical professionals.",
+      aiDisclaimer: "병원이 아닙니다. 진단하지 않습니다. AI 상담은 문의 내용을 정리하는 역할입니다. 최종 의료 결정은 한국 면허 의료기관이 수행합니다.",
       verifiedTitle: "Verified Operator",
       verifiedCompanyLabel: "Company:",
       verifiedCompany: "VR MEDI TOUR & HOME Co., Ltd.",
@@ -530,7 +578,7 @@
       footer1: "Busan HQ",
       footer2: "Seoul Gangnam Branch",
       footer3: "Hanoi Network",
-      footerNotice: "Not a hospital · does not diagnose · human-reviewed coordination · licensed Korean medical institutions make final decisions.",
+      footerNotice: "병원이 아닙니다 · 진단하지 않습니다 · AI 상담은 문의 내용을 정리하는 역할입니다 · 최종 의료 결정은 한국 면허 의료기관이 수행합니다.",
       licenseTitle: "Business Registration & License",
       licenseBusan: "Korea Busan HQ:",
       licenseSeoul: "Seoul Gangnam Branch:",
@@ -1548,6 +1596,238 @@
       if (translations[lang]) Object.assign(translations[lang], dictionary);
     });
 
+    const landingRefreshTranslations = {
+      ko: {
+        languageLabel: "언어",
+        navCompanyProfile: "회사소개",
+        navTrustCenter: "Trust Center",
+        navFaq: "FAQ",
+        navContact: "문의",
+        navAiSkinMenu: "AI 피부분석",
+        navAiConsult: "AI 상담",
+        navAmisTour: "AMIS Travel Lounge",
+        navAmisStore: "AMIS Goods Store",
+        heroEyebrow: "AI·VR 의료관광 벤처기업",
+        heroTitle: "AI·VR 의료관광 벤처기업,\n한국 의료관광의 길을 설계합니다",
+        heroDesc: "VR MEDI TOUR & HOME은 외국인 환자 유치, AI 상담 정리, AI 피부 분석, 여행 라운지, 의료관광 여정을 하나의 신뢰 기반 경험으로 연결합니다.",
+        heroCtaConsult: "상담 신청하기",
+        heroCtaPartner: "병원 파트너 문의",
+        heroCtaVenture: "벤처기업 인증 보기",
+        heroCtaAmis: "AI 관광 루트",
+        legalNotice1: "병원이 아닙니다.",
+        legalNotice2: "진단하지 않습니다.",
+        legalNotice3: "AI 상담은 문의 내용을 정리하는 역할입니다.",
+        legalNotice4: "최종 의료 결정은 한국 면허 의료기관이 수행합니다.",
+        aiDisclaimer: "병원이 아닙니다. 진단하지 않습니다. AI 상담은 문의 내용을 정리하는 역할입니다. 최종 의료 결정은 한국 면허 의료기관이 수행합니다.",
+        ventureCertificateKicker: "Venture Company Certificate",
+        ventureCertificateTitle: "벤처기업 인증",
+        ventureCompanyLabel: "기업명",
+        ventureCompanyName: "주식회사 브이알메디투어앤홈",
+        ventureTypeLabel: "확인유형",
+        ventureTypeValue: "혁신성장유형",
+        ventureValidLabel: "유효기간",
+        ventureValidValue: "2026.06.09 ~ 2029.06.08",
+        ventureIssueLabel: "발급번호",
+        ventureIssueValue: "제20260609030039호",
+        trustBadgeForeign: "외국인 환자 유치 등록",
+        trustBadgeTour: "관광 사업 등록",
+        trustBadgeCommerce: "통신 판매 등록",
+        trustBadgePrivacy: "개인정보보호 관리체계",
+        verifiedEyebrow: "Verified Venture Operator",
+        verifiedTitle: "AI·VR 의료관광 신뢰 운영 정보",
+        operatorVentureTitle: "벤처기업 인증",
+        operatorVentureCompany: "주식회사 브이알메디투어앤홈 · 혁신성장유형",
+        operatorRegistrationTitle: "등록 기반 운영",
+        operatorPrivacyTitle: "개인정보 보호",
+        operatorPrivacyDesc: "상담, 사진, 연락처, 일정 정보는 문의 정리와 병원 소통 준비 목적에 맞춰 관리합니다.",
+        footerNotice: "병원이 아닙니다 · 진단하지 않습니다 · AI 상담은 문의 내용을 정리하는 역할입니다 · 최종 의료 결정은 한국 면허 의료기관이 수행합니다."
+      },
+      en: {
+        languageLabel: "Language",
+        navCompanyProfile: "Company Profile",
+        navTrustCenter: "Trust Center",
+        navFaq: "FAQ",
+        navContact: "Contact",
+        navAiSkinMenu: "AI Skin Analysis",
+        navAiConsult: "AI Consult",
+        navAmisTour: "AMIS Travel Lounge",
+        navAmisStore: "AMIS Goods Store",
+        heroEyebrow: "AI·VR Medical Tourism Venture",
+        heroTitle: "AI·VR medical tourism venture,\ndesigning the path for Korea medical travel",
+        heroDesc: "VR MEDI TOUR & HOME connects foreign patient attraction, AI consultation organization, AI skin analysis, travel lounge services, and Korea medical travel into one trust-based experience.",
+        heroCtaConsult: "Request Consultation",
+        heroCtaPartner: "Hospital Partner Inquiry",
+        heroCtaVenture: "View Venture Certification",
+        heroCtaAmis: "AI Tour Route",
+        legalNotice1: "We are not a hospital.",
+        legalNotice2: "We do not diagnose.",
+        legalNotice3: "AI consultation organizes inquiry details.",
+        legalNotice4: "Final medical decisions are made by licensed Korean medical institutions.",
+        aiDisclaimer: "We are not a hospital. We do not diagnose. AI consultation organizes inquiry details. Final medical decisions are made by licensed Korean medical institutions.",
+        ventureCertificateKicker: "Venture Company Certificate",
+        ventureCertificateTitle: "Venture Company Certification",
+        ventureCompanyLabel: "Company",
+        ventureCompanyName: "VR MEDI TOUR & HOME Co., Ltd.",
+        ventureTypeLabel: "Certification Type",
+        ventureTypeValue: "Innovative Growth Type",
+        ventureValidLabel: "Valid Period",
+        ventureValidValue: "2026.06.09 ~ 2029.06.08",
+        ventureIssueLabel: "Certificate No.",
+        ventureIssueValue: "No. 20260609030039",
+        trustBadgeForeign: "Foreign Patient Attraction Registration",
+        trustBadgeTour: "Tourism Business Registration",
+        trustBadgeCommerce: "E-commerce Registration",
+        trustBadgePrivacy: "Personal Information Protection Management",
+        verifiedEyebrow: "Verified Venture Operator",
+        verifiedTitle: "AI·VR Medical Tourism Trust Information",
+        operatorVentureTitle: "Venture Company Certification",
+        operatorVentureCompany: "VR MEDI TOUR & HOME Co., Ltd. · Innovative Growth Type",
+        operatorRegistrationTitle: "Registered Operation",
+        operatorPrivacyTitle: "Privacy Protection",
+        operatorPrivacyDesc: "Consultation details, photos, contact information, and schedule data are managed for inquiry organization and hospital communication preparation.",
+        footerNotice: "Not a hospital · does not diagnose · AI consultation organizes inquiry details · licensed Korean medical institutions make final medical decisions"
+      },
+      vi: {
+        languageLabel: "Ngôn ngữ",
+        navCompanyProfile: "Hồ sơ công ty",
+        navTrustCenter: "Trung tâm tin cậy",
+        navFaq: "FAQ",
+        navContact: "Liên hệ",
+        navAiSkinMenu: "Phân tích da AI",
+        navAiConsult: "Tư vấn AI",
+        navAmisTour: "AMIS Travel Lounge",
+        navAmisStore: "AMIS Goods Store",
+        heroEyebrow: "Doanh nghiệp du lịch y tế AI·VR",
+        heroTitle: "Doanh nghiệp du lịch y tế AI·VR,\nthiết kế lộ trình du lịch y tế Hàn Quốc",
+        heroDesc: "VR MEDI TOUR & HOME kết nối đăng ký thu hút bệnh nhân quốc tế, sắp xếp tư vấn AI, phân tích da AI, lounge du lịch và hành trình y tế Hàn Quốc thành một trải nghiệm dựa trên niềm tin.",
+        heroCtaConsult: "Yêu cầu tư vấn",
+        heroCtaPartner: "Liên hệ đối tác bệnh viện",
+        heroCtaVenture: "Xem chứng nhận venture",
+        heroCtaAmis: "Lộ trình du lịch AI",
+        legalNotice1: "Chúng tôi không phải bệnh viện.",
+        legalNotice2: "Chúng tôi không chẩn đoán.",
+        legalNotice3: "Tư vấn AI chỉ sắp xếp nội dung yêu cầu.",
+        legalNotice4: "Quyết định y tế cuối cùng do cơ sở y tế Hàn Quốc có giấy phép thực hiện.",
+        aiDisclaimer: "Chúng tôi không phải bệnh viện. Chúng tôi không chẩn đoán. Tư vấn AI chỉ sắp xếp nội dung yêu cầu. Quyết định y tế cuối cùng do cơ sở y tế Hàn Quốc có giấy phép thực hiện.",
+        ventureCertificateKicker: "Venture Company Certificate",
+        ventureCertificateTitle: "Chứng nhận doanh nghiệp venture",
+        ventureCompanyLabel: "Tên công ty",
+        ventureCompanyName: "VR MEDI TOUR & HOME Co., Ltd.",
+        ventureTypeLabel: "Loại xác nhận",
+        ventureTypeValue: "Loại hình tăng trưởng đổi mới",
+        ventureValidLabel: "Thời hạn hiệu lực",
+        ventureValidValue: "2026.06.09 ~ 2029.06.08",
+        ventureIssueLabel: "Số cấp",
+        ventureIssueValue: "Số 20260609030039",
+        trustBadgeForeign: "Đăng ký thu hút bệnh nhân nước ngoài",
+        trustBadgeTour: "Đăng ký kinh doanh du lịch",
+        trustBadgeCommerce: "Đăng ký bán hàng trực tuyến",
+        trustBadgePrivacy: "Quản lý bảo vệ thông tin cá nhân",
+        verifiedEyebrow: "Verified Venture Operator",
+        verifiedTitle: "Thông tin tin cậy du lịch y tế AI·VR",
+        operatorVentureTitle: "Chứng nhận doanh nghiệp venture",
+        operatorVentureCompany: "VR MEDI TOUR & HOME Co., Ltd. · Loại hình tăng trưởng đổi mới",
+        operatorRegistrationTitle: "Vận hành dựa trên đăng ký",
+        operatorPrivacyTitle: "Bảo vệ thông tin cá nhân",
+        operatorPrivacyDesc: "Thông tin tư vấn, ảnh, liên hệ và lịch trình được quản lý để sắp xếp yêu cầu và chuẩn bị liên lạc với bệnh viện.",
+        footerNotice: "Không phải bệnh viện · không chẩn đoán · tư vấn AI sắp xếp nội dung yêu cầu · quyết định y tế cuối cùng do cơ sở y tế Hàn Quốc có giấy phép thực hiện"
+      },
+      ja: {
+        languageLabel: "言語",
+        navCompanyProfile: "会社紹介",
+        navTrustCenter: "Trust Center",
+        navFaq: "FAQ",
+        navContact: "お問い合わせ",
+        navAiSkinMenu: "AI肌分析",
+        navAiConsult: "AI相談",
+        navAmisTour: "AMIS Travel Lounge",
+        navAmisStore: "AMIS Goods Store",
+        heroEyebrow: "AI·VR医療観光ベンチャー企業",
+        heroTitle: "AI·VR医療観光ベンチャー企業、\n韓国医療観光の道を設計します",
+        heroDesc: "VR MEDI TOUR & HOMEは、外国人患者誘致、AI相談整理、AI肌分析、トラベルラウンジ、韓国医療観光の旅程を信頼に基づく体験としてつなぎます。",
+        heroCtaConsult: "相談を申し込む",
+        heroCtaPartner: "病院パートナー問い合わせ",
+        heroCtaVenture: "ベンチャー認証を見る",
+        heroCtaAmis: "AI観光ルート",
+        legalNotice1: "病院ではありません。",
+        legalNotice2: "診断は行いません。",
+        legalNotice3: "AI相談は問い合わせ内容を整理する役割です。",
+        legalNotice4: "最終的な医療判断は韓国の有資格医療機関が行います。",
+        aiDisclaimer: "病院ではありません。診断は行いません。AI相談は問い合わせ内容を整理する役割です。最終的な医療判断は韓国の有資格医療機関が行います。",
+        ventureCertificateKicker: "Venture Company Certificate",
+        ventureCertificateTitle: "ベンチャー企業認証",
+        ventureCompanyLabel: "企業名",
+        ventureCompanyName: "VR MEDI TOUR & HOME Co., Ltd.",
+        ventureTypeLabel: "確認類型",
+        ventureTypeValue: "革新成長類型",
+        ventureValidLabel: "有効期間",
+        ventureValidValue: "2026.06.09 ~ 2029.06.08",
+        ventureIssueLabel: "発行番号",
+        ventureIssueValue: "第20260609030039号",
+        trustBadgeForeign: "外国人患者誘致登録",
+        trustBadgeTour: "観光事業登録",
+        trustBadgeCommerce: "通信販売登録",
+        trustBadgePrivacy: "個人情報保護管理体制",
+        verifiedEyebrow: "Verified Venture Operator",
+        verifiedTitle: "AI·VR医療観光 信頼運営情報",
+        operatorVentureTitle: "ベンチャー企業認証",
+        operatorVentureCompany: "VR MEDI TOUR & HOME Co., Ltd. · 革新成長類型",
+        operatorRegistrationTitle: "登録基盤の運営",
+        operatorPrivacyTitle: "個人情報保護",
+        operatorPrivacyDesc: "相談、写真、連絡先、日程情報は、問い合わせ整理と病院連絡準備の目的に合わせて管理します。",
+        footerNotice: "病院ではありません · 診断は行いません · AI相談は問い合わせ内容を整理します · 最終的な医療判断は韓国の有資格医療機関が行います"
+      },
+      zh: {
+        languageLabel: "语言",
+        navCompanyProfile: "公司介绍",
+        navTrustCenter: "Trust Center",
+        navFaq: "FAQ",
+        navContact: "咨询",
+        navAiSkinMenu: "AI皮肤分析",
+        navAiConsult: "AI咨询",
+        navAmisTour: "AMIS Travel Lounge",
+        navAmisStore: "AMIS Goods Store",
+        heroEyebrow: "AI·VR医疗旅游创新企业",
+        heroTitle: "AI·VR医疗旅游创新企业，\n设计韩国医疗旅游之路",
+        heroDesc: "VR MEDI TOUR & HOME将外国患者招募、AI咨询整理、AI皮肤分析、旅行休息室和韩国医疗旅游行程连接为基于信任的一体化体验。",
+        heroCtaConsult: "申请咨询",
+        heroCtaPartner: "医院合作咨询",
+        heroCtaVenture: "查看创新企业认证",
+        heroCtaAmis: "AI旅游路线",
+        legalNotice1: "我们不是医院。",
+        legalNotice2: "我们不进行诊断。",
+        legalNotice3: "AI咨询仅用于整理咨询内容。",
+        legalNotice4: "最终医疗决定由韩国持证医疗机构作出。",
+        aiDisclaimer: "我们不是医院。我们不进行诊断。AI咨询仅用于整理咨询内容。最终医疗决定由韩国持证医疗机构作出。",
+        ventureCertificateKicker: "Venture Company Certificate",
+        ventureCertificateTitle: "创新企业认证",
+        ventureCompanyLabel: "企业名称",
+        ventureCompanyName: "VR MEDI TOUR & HOME Co., Ltd.",
+        ventureTypeLabel: "确认类型",
+        ventureTypeValue: "创新成长类型",
+        ventureValidLabel: "有效期",
+        ventureValidValue: "2026.06.09 ~ 2029.06.08",
+        ventureIssueLabel: "发放编号",
+        ventureIssueValue: "第20260609030039号",
+        trustBadgeForeign: "外国患者招募登记",
+        trustBadgeTour: "旅游业务登记",
+        trustBadgeCommerce: "通信销售登记",
+        trustBadgePrivacy: "个人信息保护管理体系",
+        verifiedEyebrow: "Verified Venture Operator",
+        verifiedTitle: "AI·VR医疗旅游信任运营信息",
+        operatorVentureTitle: "创新企业认证",
+        operatorVentureCompany: "VR MEDI TOUR & HOME Co., Ltd. · 创新成长类型",
+        operatorRegistrationTitle: "基于登记的运营",
+        operatorPrivacyTitle: "个人信息保护",
+        operatorPrivacyDesc: "咨询、照片、联系方式和日程信息仅用于整理咨询和准备医院沟通。",
+        footerNotice: "不是医院 · 不进行诊断 · AI咨询仅整理咨询内容 · 最终医疗决定由韩国持证医疗机构作出"
+      }
+    };
+
+    Object.entries(landingRefreshTranslations).forEach(([lang, dictionary]) => {
+      if (translations[lang]) Object.assign(translations[lang], dictionary);
+    });
+
     translations.jp = translations.ja;
     translations.cn = translations.zh;
 
@@ -1569,13 +1849,34 @@
       ar: "العربية"
     };
 
+    Object.assign(languageMap, {
+      ja: "Japanese",
+      zh: "Chinese",
+      jp: "Japanese",
+      cn: "Chinese"
+    });
+
+    Object.assign(preferredLanguageLabels, {
+      ko: "Korean",
+      vi: "Vietnamese",
+      ja: "Japanese",
+      zh: "Chinese",
+      jp: "Japanese",
+      cn: "Chinese"
+    });
+
+    function normalizeSiteLang(lang) {
+      const value = (lang || "").toString().toLowerCase();
+      return ({ jp: "ja", cn: "zh" }[value] || value);
+    }
+
     function t(lang, key) {
       return translations[lang]?.[key] ?? baseEn[key] ?? null;
     }
 
     function applyLanguage(lang) {
-      const normalizedLang = ({ ja: "jp", zh: "cn" }[lang] || lang);
-      const active = translations[normalizedLang] ? normalizedLang : "en";
+      const normalizedLang = normalizeSiteLang(lang);
+      const active = translations[normalizedLang] ? normalizedLang : "ko";
       document.documentElement.lang = active;
       document.documentElement.dir = "ltr";
       document.body.classList.toggle("lang-ar", active === "ar");
@@ -1596,7 +1897,7 @@
       });
 
       document.querySelectorAll(".language-buttons button").forEach((btn) => {
-        const selected = btn.dataset.lang === active;
+        const selected = normalizeSiteLang(btn.dataset.lang) === active;
         btn.classList.toggle("active", selected);
         btn.setAttribute("aria-pressed", selected ? "true" : "false");
       });
@@ -1711,9 +2012,9 @@
     }
 
     const supportedSiteLangs = ["ko", "en", "vi", "ja", "zh"];
-    const querySiteLang = getQueryLang();
-    const savedSiteLang = localStorage.getItem("vrMediTourLang");
-    applyLanguage(supportedSiteLangs.includes(querySiteLang) ? querySiteLang : (supportedSiteLangs.includes(savedSiteLang) ? savedSiteLang : "en"));
+    const querySiteLang = normalizeSiteLang(getQueryLang());
+    const savedSiteLang = normalizeSiteLang(localStorage.getItem("vrMediTourLang"));
+    applyLanguage(supportedSiteLangs.includes(querySiteLang) ? querySiteLang : (supportedSiteLangs.includes(savedSiteLang) ? savedSiteLang : "ko"));
   </script>
 </body>
 </html>

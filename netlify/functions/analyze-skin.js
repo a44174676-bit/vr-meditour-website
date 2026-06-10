@@ -16,6 +16,7 @@ exports.handler = async function (event) {
 
   const imageBase64 = body.imageBase64 || body.image;
   const mode = body.mode === 'premium' && body.premium === 'BUSANBLUE' ? 'premium' : 'free';
+  const simpleKbeauty = body.responseFormat === 'kbeauty_simple';
   if (!imageBase64 || typeof imageBase64 !== 'string' || !imageBase64.startsWith('data:image/')) {
     return response(400, { ok: false, error: t(lang, 'errImageFormat') });
   }
@@ -23,6 +24,7 @@ exports.handler = async function (event) {
 
   try {
     const langName = { ko:'Korean', en:'English', vi:'Vietnamese', ja:'Japanese', zh:'Chinese', ar:'Arabic' }[lang];
+    const simpleKbeautyPrompt = `You are an AI K-beauty skin image reviewer, not a medical service. Write values in ${langName}. Keep JSON keys in English exactly matching the schema. First decide whether a human face is clearly visible and sufficiently centered for non-medical skin-interest review. If no face is visible, if only a wall/object/body part is visible, if the face is too partial, too dark, too blurred, covered by a mask/sunglasses, or outside the guide area, set faceDetected:false and canAnalyze:false. In that case do not provide skin-interest analysis; use a short recapture summary, an empty skinInterestPoints array, and a recapture recommendation. If a face is clear enough, set faceDetected:true and canAnalyze:true, then provide a concise non-medical K-beauty reference summary, exactly four skinInterestPoints covering moisture/dryness interest, pigment/spot interest, elasticity/wrinkle interest, and pore/sebum interest when visually relevant, plus a K-beauty consultation recommendation. Do not identify disease, provide diagnosis, prescribe treatment, make medical judgments, or promise improvement. The disclaimer value must be exactly: 이 결과는 의료 진단이 아닌 상담 준비용 참고 분석입니다.`;
     const freeAnalysisContext = body.freeAnalysis
       ? `\nPrior free analysis context for the same photo, to be used only as supporting context and not copied verbatim: ${JSON.stringify(body.freeAnalysis).slice(0, 2500)}`
       : '';
@@ -31,8 +33,8 @@ exports.handler = async function (event) {
 
     const premiumPrompt = `You are an AI K-beauty condition report writer who does not provide medical diagnosis. Based on the user's face image, write a non-medical skin-condition reference report in ${langName}. Keep JSON keys in English exactly matching the schema. Do not identify disease, provide treatment, promise cure, make skin-disease determinations, prescribe drugs, or make medical judgments. Instead use expressions such as skin condition, hydration care, oil balance, skin texture, pore visibility, tone evenness, glow, K-beauty routine, product category, preparation before consultation, and medical-institution consultation guidance. This is a premium BUSANBLUE goods QR benefit: make it much deeper than the free analysis. For every score, concern, zone, routine, product category, and checklist item, provide concrete visual rationale and practical next direction in at least 1-2 complete sentences. Include photo-quality assessment, overall score, seven sub-scores with interpretations and care directions, Top 5 concerns, zone-by-zone observations, morning/evening/weekly routines, product categories, Korea K-beauty consultation checklist, medical-tourism preparation items, next-best actions, consultation CTA-friendly details, and the required disclaimer. Never use these prohibited expressions in generated result values except the exact non-medical disclaimer: diagnosis, treatment, cure, disease judgment, acne treatment, melasma treatment, inflammation treatment, guaranteed wrinkle improvement, skin disease determination, medical judgment, 진단, 치료, 완치, 질병 판단, 여드름 치료, 기미 치료, 염증 치료, 주름 개선 보장, 피부질환 판정, 의료적 판단.${freeAnalysisContext}`;
 
-    const prompt = mode === 'premium' ? premiumPrompt : freePrompt;
-    const schema = mode === 'premium' ? premiumSchema : freeSchema;
+    const prompt = simpleKbeauty ? simpleKbeautyPrompt : (mode === 'premium' ? premiumPrompt : freePrompt);
+    const schema = simpleKbeauty ? simpleKbeautySchema : (mode === 'premium' ? premiumSchema : freeSchema);
 
     const openaiRes = await fetch('https://api.openai.com/v1/responses', {
       method: 'POST',
@@ -57,6 +59,10 @@ exports.handler = async function (event) {
     let analysis;
     try { analysis = JSON.parse(outputText); } catch (_) { return response(502, { ok: false, error: t(lang, 'errAnalyze') }); }
     analysis = sanitizeAnalysisValues(analysis);
+    if (simpleKbeauty) {
+      analysis.disclaimer = '이 결과는 의료 진단이 아닌 상담 준비용 참고 분석입니다.';
+      return response(200, analysis);
+    }
     analysis.mode = mode;
     return response(200, { ok: true, mode, analysis });
   } catch (error) {
@@ -79,6 +85,24 @@ const freeSchema = {
     disclaimer: { type: 'string' },
   },
   required: ['mode','summary','confidence','observations','care_priority','recommended_product_direction','dermatology_consult_recommendation','disclaimer'],
+};
+
+const simpleKbeautySchema = {
+  type: 'object', additionalProperties: false,
+  properties: {
+    faceDetected: { type: 'boolean' },
+    canAnalyze: { type: 'boolean' },
+    summary: { type: 'string' },
+    skinInterestPoints: {
+      type: 'array',
+      minItems: 0,
+      maxItems: 4,
+      items: { type: 'string' },
+    },
+    recommendation: { type: 'string' },
+    disclaimer: { type: 'string' },
+  },
+  required: ['faceDetected','canAnalyze','summary','skinInterestPoints','recommendation','disclaimer'],
 };
 
 const scoreDetailSchema = {

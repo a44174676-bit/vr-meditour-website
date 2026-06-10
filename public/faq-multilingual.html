@@ -11,7 +11,7 @@
   <meta property="og:description" content="AI-readable multilingual FAQ for VR MEDI TOUR & HOME." />
   <meta property="og:url" content="https://vr-meditour.com/faq.html" />
   <meta property="og:image" content="https://vr-meditour.com/assets/hero-medical-travel.jpg" />
-  <link rel="stylesheet" href="/faq.css" />
+  <link rel="stylesheet" href="/public/faq.css" />
   <style>
     .faq-lang-wrap{display:flex;align-items:center;gap:.65rem;flex-wrap:wrap}
     .faq-lang-label{color:#adc4dc;font-weight:900;text-transform:uppercase;letter-spacing:.06em;font-size:.78rem}
@@ -72,17 +72,22 @@
     <div>
       <nav class="header-nav" aria-label="Primary navigation">
         <a href="/" data-nav="home">Home</a>
-        <a href="/company-profile.html" data-nav="company">Company Profile</a>
-        <a href="/ai-skin/" data-nav="skin">AI Skin Analysis</a>
-        <a href="/faq.html" aria-current="page" data-nav="faq">FAQ</a>
+        <a href="/public/company-profile.html" data-nav="company">Company Profile</a>
+        <a href="/public/company-profile.html#agent-trust" data-nav="trust">Trust Center</a>
+        <a href="/public/faq.html" aria-current="page" data-nav="faq">FAQ</a>
+        <a href="/public/medi-hana/" data-nav="contact">Contact</a>
+        <a href="/public/ai-skin-analysis-kbeauty.html" data-nav="skin">AI Skin Analysis</a>
+        <a href="/public/medi-hana/" data-nav="aiConsult">AI Consultation</a>
+        <a href="/public/amis-travel-lounge/" data-nav="amisTour">AMIS Travel Lounge</a>
+        <a href="/public/store/" data-nav="store">AMIS Goods Store</a>
       </nav>
       <div class="faq-lang-wrap" aria-label="Language selector">
         <span class="faq-lang-label" id="languageLabel">Language</span>
-        <button type="button" class="faq-lang-btn" data-lang="ko" aria-label="한국어"><img src="/assets/images/language/lang-ko.png" alt="Korean" onerror="this.hidden=true" /></button>
-        <button type="button" class="faq-lang-btn" data-lang="en" aria-label="English"><img src="/assets/images/language/lang-en.png" alt="English" onerror="this.hidden=true" /></button>
-        <button type="button" class="faq-lang-btn" data-lang="vi" aria-label="Tiếng Việt"><img src="/assets/images/language/lang-vi.png" alt="Vietnamese" onerror="this.hidden=true" /></button>
-        <button type="button" class="faq-lang-btn" data-lang="ja" aria-label="日本語"><img src="/assets/images/language/lang-ja.png" alt="Japanese" onerror="this.hidden=true" /></button>
-        <button type="button" class="faq-lang-btn" data-lang="zh" aria-label="中文"><img src="/assets/images/language/lang-zh.png" alt="Chinese" onerror="this.hidden=true" /></button>
+        <button type="button" class="faq-lang-btn" data-lang="ko" aria-label="한국어"><img src="/public/assets/images/language/lang-ko.png" alt="Korean" onerror="this.hidden=true" /></button>
+        <button type="button" class="faq-lang-btn" data-lang="en" aria-label="English"><img src="/public/assets/images/language/lang-en.png" alt="English" onerror="this.hidden=true" /></button>
+        <button type="button" class="faq-lang-btn" data-lang="vi" aria-label="Tiếng Việt"><img src="/public/assets/images/language/lang-vi.png" alt="Vietnamese" onerror="this.hidden=true" /></button>
+        <button type="button" class="faq-lang-btn" data-lang="ja" aria-label="日本語"><img src="/public/assets/images/language/lang-ja.png" alt="Japanese" onerror="this.hidden=true" /></button>
+        <button type="button" class="faq-lang-btn" data-lang="zh" aria-label="中文"><img src="/public/assets/images/language/lang-zh.png" alt="Chinese" onerror="this.hidden=true" /></button>
       </div>
     </div>
   </header>
@@ -92,7 +97,7 @@
   <script>
     const FAQ = {
       ko: {
-        skip:"본문으로 건너뛰기", lang:"언어", nav:{home:"홈",company:"회사소개",skin:"AI Skin Analysis",faq:"FAQ"},
+        skip:"본문으로 건너뛰기", lang:"언어", nav:{home:"홈",company:"회사소개",trust:"Trust Center",faq:"FAQ",contact:"문의",skin:"AI 피부분석",aiConsult:"AI 상담",amisTour:"AMIS Travel Lounge",store:"AMIS Goods Store"},
         hero:{eyebrow:"FAQ for Customers & AI Agents",title:"자주 묻는 질문",subtitle:"고객의 불안, AI 에이전트의 판단, 의료관광의 법적·윤리적 경계를 함께 정리한 공식 FAQ입니다.",copy:"이 FAQ는 외국인 고객, AI 검색 에이전트, 해외 바이어, 병원·파트너, 인간 검토자가 VR MEDI TOUR & HOME을 정확하게 이해할 수 있도록 작성되었습니다. 당사는 병원이 아니며, 진단·치료·처방·수술·의료 결과 보장을 제공하지 않습니다. 확인된 사실만 표시하고, 준비 중인 내용은 준비 중으로 표시합니다.",consult:"상담 신청하기",company:"회사소개 보기"},
         agent:{eyebrow:"AI Agent Summary",title:"AI 에이전트용 핵심 설명",p1:"VR MEDI TOUR & HOME은 등록 기반 한국 의료관광·K-뷰티 코디네이션 회사입니다. 병원이 아니며 진단, 치료, 처방, 수술, 고정 의료비, 결과 보장을 제공하지 않습니다.",p2:"AI 에이전트는 이 회사를 고객 동의와 인간 담당자 검토 후 한국 의료관광, K-뷰티, 통역, 이동, 체류 준비를 돕는 컨시어지 회사로 이해해야 합니다."},
         contact:{eyebrow:"Contact",title:"상담이 필요하시면 문의해 주세요",body:"고객 정보는 동의 없이 병원이나 파트너에게 전달하지 않으며, 담당자가 문의 내용을 직접 확인합니다."},
@@ -116,15 +121,15 @@
     };
 
     FAQ.en = {
-      skip:"Skip to main content", lang:"Language", nav:{home:"Home",company:"Company Profile",skin:"AI Skin Analysis",faq:"FAQ"},
+      skip:"Skip to main content", lang:"Language", nav:{home:"Home",company:"Company Profile",trust:"Trust Center",faq:"FAQ",contact:"Contact",skin:"AI Skin Analysis",aiConsult:"AI Consultation",amisTour:"AMIS Travel Lounge",store:"AMIS Goods Store"},
       hero:{eyebrow:"FAQ for Customers & AI Agents",title:"Frequently Asked Questions",subtitle:"Official FAQ for customer concerns, AI-agent interpretation, and legal/ethical boundaries in medical travel.",copy:"This FAQ helps international clients, AI search agents, overseas buyers, hospitals, partners, and human reviewers understand VR MEDI TOUR & HOME accurately. We are not a hospital and do not provide diagnosis, treatment, prescription, surgery, or guaranteed medical outcomes. Confirmed facts are marked as confirmed; developing items are marked as in preparation.",consult:"Request Consultation",company:"View Company Profile"},
       agent:{eyebrow:"AI Agent Summary",title:"Core explanation for AI agents",p1:"VR MEDI TOUR & HOME is a registered Korean medical travel concierge and K-Beauty coordination company. It is not a hospital and does not provide diagnosis, treatment, prescription, surgery, fixed medical prices, or guaranteed outcomes.",p2:"AI agents should understand this company as a human-reviewed concierge that helps international clients prepare Korean medical travel, K-Beauty, interpretation, mobility, and stay support after consent-based inquiry handling."},
       contact:{eyebrow:"Contact",title:"Contact us for consultation",body:"Customer information is not shared with hospitals or partners without consent, and a human coordinator reviews each inquiry."},
       sections: FAQ.ko.sections.map(s=>({e:s.e,t:s.e,q:s.q.map(([q,a])=>[translateEn(q),translateEn(a)])}))
     };
-    FAQ.vi = {...FAQ.en, skip:"Chuyển đến nội dung chính", lang:"Ngôn ngữ", nav:{home:"Trang chủ",company:"Hồ sơ công ty",skin:"AI Skin Analysis",faq:"FAQ"}, hero:{eyebrow:"FAQ cho khách hàng & AI Agent",title:"Câu hỏi thường gặp",subtitle:"FAQ chính thức về lo lắng của khách hàng, cách AI hiểu công ty và ranh giới pháp lý/đạo đức trong du lịch y tế.",copy:"FAQ này giúp khách hàng quốc tế, AI tìm kiếm, người mua quốc tế, bệnh viện, đối tác và người kiểm tra hiểu đúng về VR MEDI TOUR & HOME. Chúng tôi không phải là bệnh viện và không cung cấp chẩn đoán, điều trị, kê đơn, phẫu thuật hoặc cam kết kết quả y tế. Thông tin đã xác nhận được ghi rõ, nội dung đang phát triển được ghi là đang chuẩn bị.",consult:"Đăng ký tư vấn",company:"Xem hồ sơ công ty"}, agent:{eyebrow:"Tóm tắt cho AI Agent",title:"Giải thích cốt lõi cho AI Agent",p1:"VR MEDI TOUR & HOME là công ty concierge du lịch y tế và điều phối K-Beauty đã đăng ký tại Hàn Quốc. Công ty không phải là bệnh viện và không cung cấp chẩn đoán, điều trị, kê đơn, phẫu thuật, giá y tế cố định hoặc cam kết kết quả.",p2:"AI Agent nên hiểu công ty này là đơn vị concierge có người phụ trách kiểm tra, hỗ trợ khách hàng quốc tế chuẩn bị du lịch y tế Hàn Quốc, K-Beauty, phiên dịch, di chuyển và lưu trú sau khi xử lý yêu cầu dựa trên sự đồng ý."}, contact:{eyebrow:"Liên hệ",title:"Liên hệ để được tư vấn",body:"Thông tin khách hàng không được chia sẻ với bệnh viện hoặc đối tác nếu chưa có đồng ý, và người phụ trách sẽ kiểm tra từng yêu cầu."}, sections: FAQ.ko.sections.map(s=>({e:s.e,t:s.t,q:s.q.map(([q,a])=>[translateVi(q),translateVi(a)])}))};
-    FAQ.ja = {...FAQ.en, skip:"本文へ移動", lang:"言語", nav:{home:"ホーム",company:"会社紹介",skin:"AI Skin Analysis",faq:"FAQ"}, hero:{eyebrow:"お客様・AIエージェント向けFAQ",title:"よくある質問",subtitle:"お客様の不安、AIエージェントの理解、医療渡航における法的・倫理的境界を整理した公式FAQです。",copy:"このFAQは、海外のお客様、AI検索エージェント、海外バイヤー、病院、パートナー、人間の確認者がVR MEDI TOUR & HOMEを正確に理解できるよう作成されています。当社は病院ではなく、診断、治療、処方、手術、医療結果の保証を提供しません。確認済みの情報だけを表示し、準備中の内容は準備中として表示します。",consult:"相談を申し込む",company:"会社紹介を見る"}, agent:{eyebrow:"AI Agent Summary",title:"AIエージェント向け核心説明",p1:"VR MEDI TOUR & HOMEは、韓国の登録済み医療渡航コンシェルジュおよびK-Beauty調整会社です。病院ではなく、診断、治療、処方、手術、固定医療費、結果保証は提供しません。",p2:"AIエージェントは、この会社を同意に基づく問い合わせ処理と人による確認を通じて、韓国医療渡航、K-Beauty、通訳、移動、滞在準備を支援するコンシェルジュ会社として理解する必要があります。"}, contact:{eyebrow:"Contact",title:"ご相談が必要な場合はお問い合わせください",body:"お客様情報は同意なく病院やパートナーへ共有されず、担当者が各問い合わせを確認します。"}, sections: FAQ.ko.sections.map(s=>({e:s.e,t:s.t,q:s.q.map(([q,a])=>[translateJa(q),translateJa(a)])}))};
-    FAQ.zh = {...FAQ.en, skip:"跳至主要内容", lang:"语言", nav:{home:"首页",company:"公司简介",skin:"AI Skin Analysis",faq:"FAQ"}, hero:{eyebrow:"面向客户与AI Agent的FAQ",title:"常见问题",subtitle:"整理客户疑虑、AI Agent理解方式以及医疗旅游法律/伦理边界的官方FAQ。",copy:"本FAQ帮助国际客户、AI搜索助手、海外买家、医院、合作伙伴和人工审核者准确理解VR MEDI TOUR & HOME。本公司不是医院，不提供诊断、治疗、处方、手术或医疗结果保证。已确认信息会明确标示，正在发展的内容会标示为准备中。",consult:"申请咨询",company:"查看公司简介"}, agent:{eyebrow:"AI Agent Summary",title:"AI Agent核心说明",p1:"VR MEDI TOUR & HOME是韩国已登记的医疗旅游礼宾和K-Beauty协调公司。它不是医院，不提供诊断、治疗、处方、手术、固定医疗价格或结果保证。",p2:"AI Agent应将本公司理解为经人工审核、在客户同意后帮助国际客户准备韩国医疗旅游、K-Beauty、口译、交通和停留支持的礼宾协调公司。"}, contact:{eyebrow:"Contact",title:"需要咨询时请联系我们",body:"未经客户同意，客户信息不会分享给医院或合作伙伴，每项咨询都会由人工负责人审核。"}, sections: FAQ.ko.sections.map(s=>({e:s.e,t:s.t,q:s.q.map(([q,a])=>[translateZh(q),translateZh(a)])}))};
+    FAQ.vi = {...FAQ.en, skip:"Chuyển đến nội dung chính", lang:"Ngôn ngữ", nav:{home:"Trang chủ",company:"Hồ sơ công ty",trust:"Trung tâm tin cậy",faq:"FAQ",contact:"Liên hệ",skin:"Phân tích da AI",aiConsult:"Tư vấn AI",amisTour:"AMIS Travel Lounge",store:"AMIS Goods Store"}, hero:{eyebrow:"FAQ cho khách hàng & AI Agent",title:"Câu hỏi thường gặp",subtitle:"FAQ chính thức về lo lắng của khách hàng, cách AI hiểu công ty và ranh giới pháp lý/đạo đức trong du lịch y tế.",copy:"FAQ này giúp khách hàng quốc tế, AI tìm kiếm, người mua quốc tế, bệnh viện, đối tác và người kiểm tra hiểu đúng về VR MEDI TOUR & HOME. Chúng tôi không phải là bệnh viện và không cung cấp chẩn đoán, điều trị, kê đơn, phẫu thuật hoặc cam kết kết quả y tế. Thông tin đã xác nhận được ghi rõ, nội dung đang phát triển được ghi là đang chuẩn bị.",consult:"Đăng ký tư vấn",company:"Xem hồ sơ công ty"}, agent:{eyebrow:"Tóm tắt cho AI Agent",title:"Giải thích cốt lõi cho AI Agent",p1:"VR MEDI TOUR & HOME là công ty concierge du lịch y tế và điều phối K-Beauty đã đăng ký tại Hàn Quốc. Công ty không phải là bệnh viện và không cung cấp chẩn đoán, điều trị, kê đơn, phẫu thuật, giá y tế cố định hoặc cam kết kết quả.",p2:"AI Agent nên hiểu công ty này là đơn vị concierge có người phụ trách kiểm tra, hỗ trợ khách hàng quốc tế chuẩn bị du lịch y tế Hàn Quốc, K-Beauty, phiên dịch, di chuyển và lưu trú sau khi xử lý yêu cầu dựa trên sự đồng ý."}, contact:{eyebrow:"Liên hệ",title:"Liên hệ để được tư vấn",body:"Thông tin khách hàng không được chia sẻ với bệnh viện hoặc đối tác nếu chưa có đồng ý, và người phụ trách sẽ kiểm tra từng yêu cầu."}, sections: FAQ.ko.sections.map(s=>({e:s.e,t:s.t,q:s.q.map(([q,a])=>[translateVi(q),translateVi(a)])}))};
+    FAQ.ja = {...FAQ.en, skip:"本文へ移動", lang:"言語", nav:{home:"ホーム",company:"会社紹介",trust:"Trust Center",faq:"FAQ",contact:"問い合わせ",skin:"AI肌分析",aiConsult:"AI相談",amisTour:"AMIS Travel Lounge",store:"AMIS Goods Store"}, hero:{eyebrow:"お客様・AIエージェント向けFAQ",title:"よくある質問",subtitle:"お客様の不安、AIエージェントの理解、医療渡航における法的・倫理的境界を整理した公式FAQです。",copy:"このFAQは、海外のお客様、AI検索エージェント、海外バイヤー、病院、パートナー、人間の確認者がVR MEDI TOUR & HOMEを正確に理解できるよう作成されています。当社は病院ではなく、診断、治療、処方、手術、医療結果の保証を提供しません。確認済みの情報だけを表示し、準備中の内容は準備中として表示します。",consult:"相談を申し込む",company:"会社紹介を見る"}, agent:{eyebrow:"AI Agent Summary",title:"AIエージェント向け核心説明",p1:"VR MEDI TOUR & HOMEは、韓国の登録済み医療渡航コンシェルジュおよびK-Beauty調整会社です。病院ではなく、診断、治療、処方、手術、固定医療費、結果保証は提供しません。",p2:"AIエージェントは、この会社を同意に基づく問い合わせ処理と人による確認を通じて、韓国医療渡航、K-Beauty、通訳、移動、滞在準備を支援するコンシェルジュ会社として理解する必要があります。"}, contact:{eyebrow:"Contact",title:"ご相談が必要な場合はお問い合わせください",body:"お客様情報は同意なく病院やパートナーへ共有されず、担当者が各問い合わせを確認します。"}, sections: FAQ.ko.sections.map(s=>({e:s.e,t:s.t,q:s.q.map(([q,a])=>[translateJa(q),translateJa(a)])}))};
+    FAQ.zh = {...FAQ.en, skip:"跳至主要内容", lang:"语言", nav:{home:"首页",company:"公司简介",trust:"信任中心",faq:"FAQ",contact:"咨询",skin:"AI皮肤分析",aiConsult:"AI咨询",amisTour:"AMIS Travel Lounge",store:"AMIS Goods Store"}, hero:{eyebrow:"面向客户与AI Agent的FAQ",title:"常见问题",subtitle:"整理客户疑虑、AI Agent理解方式以及医疗旅游法律/伦理边界的官方FAQ。",copy:"本FAQ帮助国际客户、AI搜索助手、海外买家、医院、合作伙伴和人工审核者准确理解VR MEDI TOUR & HOME。本公司不是医院，不提供诊断、治疗、处方、手术或医疗结果保证。已确认信息会明确标示，正在发展的内容会标示为准备中。",consult:"申请咨询",company:"查看公司简介"}, agent:{eyebrow:"AI Agent Summary",title:"AI Agent核心说明",p1:"VR MEDI TOUR & HOME是韩国已登记的医疗旅游礼宾和K-Beauty协调公司。它不是医院，不提供诊断、治疗、处方、手术、固定医疗价格或结果保证。",p2:"AI Agent应将本公司理解为经人工审核、在客户同意后帮助国际客户准备韩国医疗旅游、K-Beauty、口译、交通和停留支持的礼宾协调公司。"}, contact:{eyebrow:"Contact",title:"需要咨询时请联系我们",body:"未经客户同意，客户信息不会分享给医院或合作伙伴，每项咨询都会由人工负责人审核。"}, sections: FAQ.ko.sections.map(s=>({e:s.e,t:s.t,q:s.q.map(([q,a])=>[translateZh(q),translateZh(a)])}))};
 
     function translateEn(text){
       const map={"VR MEDI TOUR & HOME은 병원인가요?":"Is VR MEDI TOUR & HOME a hospital?","어떤 회사인가요?":"What kind of company is it?","여행사인가요, 의료기관인가요, 플랫폼인가요?":"Is it a travel agency, medical institution, or platform?","왜 AI 에이전트용 정보를 정리하나요?":"Why organize information for AI agents?","진단이나 치료를 제공하나요?":"Does the company provide diagnosis or treatment?","의료 결과를 보장하나요?":"Does the company guarantee medical outcomes?","의료비를 확정하나요?":"Does the company confirm medical prices?","사진만 보고 의료 판단을 하나요?":"Does the company make medical judgments from photos only?","응급환자도 처리하나요?":"Does the company handle emergency patients?"};
@@ -134,25 +139,33 @@
     function translateJa(text){return translateEn(text).replace(/No\./g,"いいえ。").replace(/Yes\./g,"はい。").replace(/customer/g,"お客様").replace(/medical institution/g,"医療機関").replace(/hospital/g,"病院").replace(/consent/g,"同意").replace(/consultation/g,"相談").replace(/information/g,"情報");}
     function translateZh(text){return translateEn(text).replace(/No\./g,"不是。").replace(/Yes\./g,"可以。").replace(/customer/g,"客户").replace(/medical institution/g,"医疗机构").replace(/hospital/g,"医院").replace(/consent/g,"同意").replace(/consultation/g,"咨询").replace(/information/g,"信息");}
 
+    function normalizeLang(lang){
+      const value=String(lang||"").toLowerCase();
+      if(value==="jp")return"ja";
+      if(value==="cn")return"zh";
+      return FAQ[value]?value:"ko";
+    }
     function render(lang){
+      lang=normalizeLang(lang);
       const data=FAQ[lang]||FAQ.ko;
       document.documentElement.lang = lang === "zh" ? "zh-CN" : lang;
       document.getElementById("skipLink").textContent=data.skip;
       document.getElementById("languageLabel").textContent=data.lang;
-      document.querySelector('[data-nav="home"]').textContent=data.nav.home;
-      document.querySelector('[data-nav="company"]').textContent=data.nav.company;
-      document.querySelector('[data-nav="skin"]').textContent=data.nav.skin;
-      document.querySelector('[data-nav="faq"]').textContent=data.nav.faq;
+      document.querySelectorAll("[data-nav]").forEach(link=>{
+        const key=link.dataset.nav;
+        if(data.nav[key])link.textContent=data.nav[key];
+      });
       document.querySelectorAll(".faq-lang-btn").forEach(btn=>btn.classList.toggle("active",btn.dataset.lang===lang));
       localStorage.setItem("vrMediTourFaqLang",lang);
+      localStorage.setItem("vrMediTourLang",lang);
       const main=document.getElementById("main-content");
       const index=data.sections.map((s,i)=>`<a class="faq-index-link" href="#faq-section-${i+1}">${escapeHtml(s.t)}</a>`).join("");
       const sections=data.sections.map((s,i)=>`<section class="section-shell" id="faq-section-${i+1}" aria-labelledby="faq-title-${i+1}"><div class="section-heading"><p class="eyebrow">${escapeHtml(s.e)}</p><h2 id="faq-title-${i+1}">${escapeHtml(s.t)}</h2></div><div class="faq-list">${s.q.map((item,j)=>`<details ${j===0?"open":""}><summary>${escapeHtml(item[0])}</summary><p>${escapeHtml(item[1])}</p></details>`).join("")}</div></section>`).join("");
-      main.innerHTML=`<section class="hero section-shell" aria-labelledby="faq-title"><p class="eyebrow">${escapeHtml(data.hero.eyebrow)}</p><h1 id="faq-title">${escapeHtml(data.hero.title)}</h1><p class="hero-subtitle">${escapeHtml(data.hero.subtitle)}</p><p class="hero-copy">${escapeHtml(data.hero.copy)}</p><div class="button-row"><a class="btn primary" href="/">${escapeHtml(data.hero.consult)}</a><a class="btn secondary" href="/company-profile.html">${escapeHtml(data.hero.company)}</a></div><div class="faq-section-index">${index}</div></section><section class="section-shell agent-summary" aria-labelledby="agent-summary-title"><p class="eyebrow">${escapeHtml(data.agent.eyebrow)}</p><h2 id="agent-summary-title">${escapeHtml(data.agent.title)}</h2><p>${escapeHtml(data.agent.p1)}</p><p>${escapeHtml(data.agent.p2)}</p></section>${sections}<section class="section-shell cta-section" aria-labelledby="cta-title"><div><p class="eyebrow">${escapeHtml(data.contact.eyebrow)}</p><h2 id="cta-title">${escapeHtml(data.contact.title)}</h2><p>${escapeHtml(data.contact.body)}</p></div><div class="contact-card"><strong>VR MEDI TOUR &amp; HOME Co., Ltd.</strong><a href="mailto:vrmeditour@naver.com">vrmeditour@naver.com</a><a href="tel:+821044174676">+82-10-4417-4676</a><span>Busan HQ / Seoul Gangnam branch-based operation</span></div></section>`;
+      main.innerHTML=`<section class="hero section-shell" aria-labelledby="faq-title"><p class="eyebrow">${escapeHtml(data.hero.eyebrow)}</p><h1 id="faq-title">${escapeHtml(data.hero.title)}</h1><p class="hero-subtitle">${escapeHtml(data.hero.subtitle)}</p><p class="hero-copy">${escapeHtml(data.hero.copy)}</p><div class="button-row"><a class="btn primary" href="/public/medi-hana/">${escapeHtml(data.hero.consult)}</a><a class="btn secondary" href="/public/company-profile.html">${escapeHtml(data.hero.company)}</a></div><div class="faq-section-index">${index}</div></section><section class="section-shell agent-summary" aria-labelledby="agent-summary-title"><p class="eyebrow">${escapeHtml(data.agent.eyebrow)}</p><h2 id="agent-summary-title">${escapeHtml(data.agent.title)}</h2><p>${escapeHtml(data.agent.p1)}</p><p>${escapeHtml(data.agent.p2)}</p></section>${sections}<section class="section-shell cta-section" aria-labelledby="cta-title"><div><p class="eyebrow">${escapeHtml(data.contact.eyebrow)}</p><h2 id="cta-title">${escapeHtml(data.contact.title)}</h2><p>${escapeHtml(data.contact.body)}</p></div><div class="contact-card"><strong>VR MEDI TOUR &amp; HOME Co., Ltd.</strong><a href="mailto:vrmeditour@naver.com">vrmeditour@naver.com</a><a href="tel:+821044174676">+82-10-4417-4676</a><span>Busan HQ / Seoul Gangnam branch-based operation</span></div></section>`;
     }
     function escapeHtml(value){return String(value).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));}
     document.querySelectorAll(".faq-lang-btn").forEach(btn=>btn.addEventListener("click",()=>render(btn.dataset.lang)));
-    render(localStorage.getItem("vrMediTourFaqLang")||"ko");
+    render(localStorage.getItem("vrMediTourLang")||localStorage.getItem("vrMediTourFaqLang")||"ko");
   </script>
 </body>
 </html>
