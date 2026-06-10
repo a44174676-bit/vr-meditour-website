@@ -74,8 +74,8 @@
       konepsItemsValue: "동영상제작서비스, 회의기획및대행서비스, 전시회기획및대행서비스, 국제행사기획및대행서비스, 기타행사기획및대행서비스",
       registeredBusinessTypeLabel: "등록업종",
       konepsBusinessTypeValue: "종합여행업",
-      regVentureTitle: "벤처기업확인",
-      regVentureStatus: "벤처기업확인 신청 및 평가 진행 중",
+      regVentureTitle: "벤처기업 확인서",
+      regVentureStatus: "확인유형: 혁신성장유형",
       regEstablishedLabel: "회사 설립일",
       eyebrowNotice: "Compliance Notice",
       noticeTitle: "Important Notice",
@@ -91,7 +91,14 @@
       companyTelLabel: "Tel.",
       companyEmailLabel: "Email.",
       companyWebsiteLabel: "Website.",
-      companyOffice: "부산 본사 / 서울 강남 지점 기반 운영"
+      companyOffice: "부산 본사 / 서울 강남 지점 기반 운영",
+      ventureCardLabel: "벤처기업 확인",
+      ventureCardTitle: "혁신성장유형 벤처기업 확인",
+      ventureCardBody: "주식회사 브이알메디투어앤홈은 2026년 6월 9일 벤처기업확인기관으로부터 혁신성장유형 벤처기업으로 확인되었습니다.",
+      ventureCardCompany: "기업명: 주식회사 브이알메디투어앤홈",
+      ventureCardType: "확인유형: 혁신성장유형",
+      ventureCardPeriod: "유효기간: 2026.06.09 ~ 2029.06.08",
+      ventureCardNo: "발급번호: 제20260609030039호"
     },
     en: {
       skipLink: "Skip to main content",
@@ -157,8 +164,8 @@
       konepsItemsValue: "Video Production Service, Meeting Planning & Agency Service, Exhibition Planning & Agency Service, International Event Planning & Agency Service, Other Event Planning & Agency Service",
       registeredBusinessTypeLabel: "Registered Business Type:",
       konepsBusinessTypeValue: "General Travel Business",
-      regVentureTitle: "Venture Enterprise Confirmation",
-      regVentureStatus: "Venture Enterprise Confirmation: Application and evaluation in progress",
+      regVentureTitle: "Venture Enterprise Confirmation Certificate",
+      regVentureStatus: "Confirmation Type: Innovation Growth Type",
       regEstablishedLabel: "Established",
       eyebrowNotice: "Compliance Notice",
       noticeTitle: "Important Notice",
@@ -174,7 +181,14 @@
       companyTelLabel: "Tel.",
       companyEmailLabel: "Email.",
       companyWebsiteLabel: "Website.",
-      companyOffice: "Operated through Busan HQ / Seoul Gangnam branch"
+      companyOffice: "Operated through Busan HQ / Seoul Gangnam branch",
+      ventureCardLabel: "Venture Enterprise Confirmation",
+      ventureCardTitle: "Innovation Growth Type Venture Enterprise Confirmation",
+      ventureCardBody: "VR MEDI TOUR & HOME Co., Ltd. was confirmed as an Innovation Growth Type Venture Enterprise by the Venture Enterprise Confirmation Authority on June 9, 2026.",
+      ventureCardCompany: "Company: VR MEDI TOUR & HOME Co., Ltd.",
+      ventureCardType: "Confirmation Type: Innovation Growth Type",
+      ventureCardPeriod: "Valid Period: 2026.06.09 ~ 2029.06.08",
+      ventureCardNo: "Certificate No.: 제20260609030039호"
     },
     vi: {
       skipLink: "Chuyển đến nội dung chính",
@@ -240,8 +254,8 @@
       konepsItemsValue: "Dịch vụ sản xuất video, dịch vụ lập kế hoạch và đại diện hội nghị, dịch vụ lập kế hoạch và đại diện triển lãm, dịch vụ lập kế hoạch và đại diện sự kiện quốc tế, dịch vụ lập kế hoạch và đại diện sự kiện khác",
       registeredBusinessTypeLabel: "Ngành nghề đăng ký:",
       konepsBusinessTypeValue: "Kinh doanh du lịch tổng hợp",
-      regVentureTitle: "Xác nhận doanh nghiệp venture",
-      regVentureStatus: "Đang nộp hồ sơ và trong quá trình đánh giá xác nhận doanh nghiệp venture",
+      regVentureTitle: "Giấy xác nhận doanh nghiệp venture",
+      regVentureStatus: "Loại xác nhận: Tăng trưởng đổi mới",
       regEstablishedLabel: "Ngày thành lập công ty",
       eyebrowNotice: "Thông báo tuân thủ",
       noticeTitle: "Thông báo quan trọng",
@@ -257,7 +271,14 @@
       companyTelLabel: "Tel.",
       companyEmailLabel: "Email.",
       companyWebsiteLabel: "Website.",
-      companyOffice: "Vận hành dựa trên trụ sở Busan / chi nhánh Seoul Gangnam"
+      companyOffice: "Vận hành dựa trên trụ sở Busan / chi nhánh Seoul Gangnam",
+      ventureCardLabel: "Xác nhận doanh nghiệp venture",
+      ventureCardTitle: "Xác nhận doanh nghiệp venture loại hình tăng trưởng đổi mới",
+      ventureCardBody: "VR MEDI TOUR & HOME Co., Ltd. đã được cơ quan xác nhận doanh nghiệp venture xác nhận là doanh nghiệp venture loại hình tăng trưởng đổi mới vào ngày 9 tháng 6 năm 2026.",
+      ventureCardCompany: "Tên doanh nghiệp: VR MEDI TOUR & HOME Co., Ltd.",
+      ventureCardType: "Loại xác nhận: Tăng trưởng đổi mới",
+      ventureCardPeriod: "Thời hạn hiệu lực: 2026.06.09 ~ 2029.06.08",
+      ventureCardNo: "Số giấy xác nhận: 제20260609030039호"
     },
     ja: {
       skipLink: "本文へ移動",
@@ -323,8 +344,8 @@
       konepsItemsValue: "動画制作サービス、会議企画および代行サービス、展示会企画および代行サービス、国際行事企画および代行サービス、その他行事企画および代行サービス",
       registeredBusinessTypeLabel: "登録業種:",
       konepsBusinessTypeValue: "総合旅行業",
-      regVentureTitle: "ベンチャー企業確認",
-      regVentureStatus: "ベンチャー企業確認の申請および評価進行中",
+      regVentureTitle: "ベンチャー企業確認書",
+      regVentureStatus: "確認類型: 革新成長型",
       regEstablishedLabel: "会社設立日",
       eyebrowNotice: "コンプライアンス案内",
       noticeTitle: "重要なお知らせ",
@@ -340,7 +361,14 @@
       companyTelLabel: "Tel.",
       companyEmailLabel: "Email.",
       companyWebsiteLabel: "Website.",
-      companyOffice: "釜山本社 / ソウル江南支店を基盤に運営"
+      companyOffice: "釜山本社 / ソウル江南支店を基盤に運営",
+      ventureCardLabel: "ベンチャー企業確認",
+      ventureCardTitle: "革新成長型ベンチャー企業確認",
+      ventureCardBody: "VR MEDI TOUR & HOME Co., Ltd.は、2026年6月9日にベンチャー企業確認機関より革新成長型ベンチャー企業として確認されました。",
+      ventureCardCompany: "企業名: VR MEDI TOUR & HOME Co., Ltd.",
+      ventureCardType: "確認類型: 革新成長型",
+      ventureCardPeriod: "有効期間: 2026.06.09 ~ 2029.06.08",
+      ventureCardNo: "発給番号: 제20260609030039호"
     },
     zh: {
       skipLink: "跳至主要内容",
@@ -406,8 +434,8 @@
       konepsItemsValue: "视频制作服务、会议策划及代理服务、展览会策划及代理服务、国际活动策划及代理服务、其他活动策划及代理服务",
       registeredBusinessTypeLabel: "注册行业:",
       konepsBusinessTypeValue: "综合旅行社业务",
-      regVentureTitle: "创业企业确认",
-      regVentureStatus: "创业企业确认申请及评估进行中",
+      regVentureTitle: "创业企业确认书",
+      regVentureStatus: "确认类型: 创新成长型",
       regEstablishedLabel: "公司设立日",
       eyebrowNotice: "合规提示",
       noticeTitle: "重要提示",
@@ -423,7 +451,14 @@
       companyTelLabel: "Tel.",
       companyEmailLabel: "Email.",
       companyWebsiteLabel: "Website.",
-      companyOffice: "基于釜山总部 / 首尔江南分支运营"
+      companyOffice: "基于釜山总部 / 首尔江南分支运营",
+      ventureCardLabel: "风险企业确认",
+      ventureCardTitle: "创新成长型风险企业确认",
+      ventureCardBody: "VR MEDI TOUR & HOME Co., Ltd. 于2026年6月9日经风险企业确认机构确认为创新成长型风险企业。",
+      ventureCardCompany: "企业名称: VR MEDI TOUR & HOME Co., Ltd.",
+      ventureCardType: "确认类型: 创新成长型",
+      ventureCardPeriod: "有效期限: 2026.06.09 ~ 2029.06.08",
+      ventureCardNo: "签发编号: 제20260609030039호"
     }
   };
 
