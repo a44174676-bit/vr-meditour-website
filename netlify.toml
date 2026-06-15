@@ -93,6 +93,16 @@
   status = 200
 
 [[redirects]]
+  from = "/ai-skin-premium"
+  to = "/public/ai-skin-premium/"
+  status = 301
+
+[[redirects]]
+  from = "/ai-skin-premium/*"
+  to = "/public/ai-skin-premium/:splat"
+  status = 200
+
+[[redirects]]
   from = "/foreign-patient-consultation-process.html"
   to = "/public/foreign-patient-consultation-process.html"
   status = 200

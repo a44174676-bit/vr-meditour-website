@@ -190,13 +190,103 @@
       display: none;
     }
 
+    .skin-camera-overlay {
+      position: absolute;
+      inset: 0;
+      display: none;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .skin-camera-frame.has-stream .skin-camera-overlay {
+      display: block;
+    }
+
     .skin-face-guide {
       position: absolute;
-      inset: 12% 18%;
+      inset: 10% 22% 14%;
       border: 2px solid rgba(247, 217, 139, 0.78);
-      border-radius: 48% 48% 44% 44%;
+      border-radius: 48% 48% 44% 44% / 42% 42% 54% 54%;
       box-shadow: 0 0 0 999px rgba(2, 8, 23, 0.18);
-      pointer-events: none;
+    }
+
+    .skin-crosshair {
+      position: absolute;
+      background: rgba(247, 217, 139, 0.5);
+      box-shadow: 0 0 10px rgba(214, 176, 90, 0.28);
+    }
+
+    .skin-crosshair.horizontal {
+      top: 50%;
+      left: 8%;
+      right: 8%;
+      height: 1px;
+    }
+
+    .skin-crosshair.vertical {
+      top: 7%;
+      bottom: 9%;
+      left: 50%;
+      width: 1px;
+    }
+
+    .skin-guide-line {
+      position: absolute;
+      background: #f7d98b;
+      border-radius: 999px;
+      box-shadow: 0 0 8px rgba(247, 217, 139, 0.48);
+    }
+
+    .skin-guide-line.top,
+    .skin-guide-line.bottom {
+      left: calc(50% - 18px);
+      width: 36px;
+      height: 3px;
+    }
+
+    .skin-guide-line.top { top: 6%; }
+    .skin-guide-line.bottom { bottom: 10%; }
+
+    .skin-guide-line.left,
+    .skin-guide-line.right {
+      top: calc(50% - 18px);
+      width: 3px;
+      height: 36px;
+    }
+
+    .skin-guide-line.left { left: 17%; }
+    .skin-guide-line.right { right: 17%; }
+
+    .skin-guide-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 10px;
+      height: 10px;
+      border: 2px solid #fff6d6;
+      border-radius: 999px;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 10px rgba(247, 217, 139, 0.68);
+    }
+
+    .skin-guide-instruction {
+      position: absolute;
+      left: 50%;
+      bottom: 3%;
+      width: max-content;
+      max-width: calc(100% - 24px);
+      margin: 0;
+      padding: 8px 13px;
+      border: 1px solid rgba(247, 217, 139, 0.48);
+      border-radius: 999px;
+      background: rgba(2, 8, 23, 0.76);
+      color: #fff6d6;
+      font-size: clamp(0.72rem, 2.8vw, 0.9rem);
+      font-weight: 800;
+      line-height: 1.25;
+      text-align: center;
+      transform: translateX(-50%);
+      backdrop-filter: blur(5px);
     }
 
     .skin-capture-preview {
@@ -254,6 +344,43 @@
       margin: 0;
     }
 
+    .skin-premium-cta {
+      display: grid;
+      gap: 10px;
+      margin-top: 16px;
+      padding: 18px;
+      border: 1px solid rgba(214, 176, 90, 0.52);
+      border-radius: 16px;
+      background:
+        radial-gradient(circle at 90% 0%, rgba(214, 176, 90, 0.18), transparent 38%),
+        rgba(214, 176, 90, 0.07);
+    }
+
+    .skin-premium-cta strong {
+      color: #fff6d6;
+      font-size: 1.08rem;
+    }
+
+    .skin-premium-cta p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .skin-premium-cta .btn {
+      justify-self: start;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: flex-start;
+      line-height: 1.12;
+    }
+
+    .skin-premium-cta .btn small {
+      margin-top: 3px;
+      font-size: 0.73rem;
+      letter-spacing: 0.06em;
+      opacity: 0.78;
+    }
+
     @media (max-width: 820px) {
       .skin-tool-grid,
       .skin-result-grid {
@@ -263,6 +390,13 @@
       .skin-preview-frame {
         min-height: 210px;
       }
+
+      .skin-face-guide {
+        inset: 9% 19% 15%;
+      }
+
+      .skin-guide-line.left { left: 13%; }
+      .skin-guide-line.right { right: 13%; }
     }
   </style>
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Service","name":"AI Skin Analysis and K-Beauty Consultation Guide","url":"https://vr-meditour.com/ai-skin-analysis-kbeauty.html","provider":{"@type":"Organization","name":"VR MEDI TOUR & HOME Co., Ltd.","url":"https://vr-meditour.com/"},"areaServed":["Korea","Vietnam","Busan","Gangnam","International"],"serviceType":"Medical tourism pre-consultation and coordination","description":"A guide for visitors using AI Skin Analysis as a non-diagnostic K-beauty reference before asking a human coordinator about skin-care or dermatology-related interests."},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is AI Skin Analysis a medical diagnosis?","acceptedAnswer":{"@type":"Answer","text":"No. It is a non-diagnostic K-beauty reference tool for organizing questions before consultation."}},{"@type":"Question","name":"Can I use the AI result in a consultation request?","acceptedAnswer":{"@type":"Answer","text":"Yes. You may share it as reference context, along with your concerns, history, and language preference."}},{"@type":"Question","name":"Do I have to upload a photo?","acceptedAnswer":{"@type":"Answer","text":"Only upload a photo if you understand the purpose and agree to use it for the reference experience."}},{"@type":"Question","name":"Why can later K-beauty costs vary?","acceptedAnswer":{"@type":"Answer","text":"Costs may depend on clinic review, program scope, products, devices, interpreter time, and visit needs."}},{"@type":"Question","name":"What is the next step after AI analysis?","acceptedAnswer":{"@type":"Answer","text":"You can continue to the consultation form or ask for human coordination if you want organized guidance."}}]}]}</script>
@@ -355,7 +489,17 @@
           <h3 data-i18n="skinPreviewTitle">카메라 및 촬영 미리보기</h3>
           <div id="skinCameraFrame" class="skin-camera-frame">
             <video id="vrmtCameraVideo" autoplay playsinline muted></video>
-            <div id="vrmtFaceGuide" class="skin-face-guide" aria-hidden="true"></div>
+            <div id="vrmtFaceGuide" class="skin-camera-overlay" aria-hidden="true">
+              <span class="skin-crosshair horizontal"></span>
+              <span class="skin-crosshair vertical"></span>
+              <span class="skin-face-guide"></span>
+              <span class="skin-guide-line top"></span>
+              <span class="skin-guide-line right"></span>
+              <span class="skin-guide-line bottom"></span>
+              <span class="skin-guide-line left"></span>
+              <span class="skin-guide-center"></span>
+              <p class="skin-guide-instruction" data-i18n="skinFaceGuideInstruction">얼굴을 중앙 가이드 안에 맞춰 주세요.</p>
+            </div>
             <p id="skinCameraPlaceholder" class="skin-camera-placeholder" data-i18n="skinCameraPlaceholder">카메라 시작을 누르면 이 영역에 영상이 표시됩니다.</p>
           </div>
           <div class="skin-preview-frame skin-capture-preview">
@@ -631,6 +775,7 @@
           skinToolDesc: "카메라로 촬영한 이미지를 기준으로 K-뷰티 상담 준비를 위한 피부 관심 포인트를 참고용으로 정리합니다.",
           skinCameraControlsTitle: "AI 피부 분석 촬영",
           skinCameraHelp: "카메라 권한을 허용한 뒤 얼굴을 가이드 안에 맞추고 AI 판별 촬영을 눌러 주세요.",
+          skinFaceGuideInstruction: "얼굴을 중앙 가이드 안에 맞춰 주세요.",
           startCameraButton: "카메라 시작",
           captureButton: "AI 판별 촬영",
           skinStatusIdle: "카메라 시작 버튼을 눌러 촬영을 준비해 주세요.",
@@ -642,11 +787,17 @@
           skinStatusCaptured: "촬영 이미지와 AI 피부 분석 리포트가 준비되었습니다.",
           skinStatusAnalyzing: "AI가 촬영 이미지를 분석하는 중입니다.",
           skinStatusServerError: "AI 분석 서버 연결에 실패했습니다. 잠시 후 다시 시도해 주세요.",
+          skinStatusMissingApiKey: "OPENAI_API_KEY가 설정되지 않았습니다.",
+          skinStatusInvalidImagePayload: "촬영 이미지 데이터가 올바르지 않습니다. 다시 촬영해 주세요.",
+          skinStatusOpenAiFailed: "현재 AI 분석 서버 연결이 불안정합니다. 잠시 후 다시 시도해 주세요.",
           skinStatusFaceNotDetected: "얼굴이 명확하게 보이지 않습니다. 얼굴을 원형 가이드 안에 맞춰 다시 촬영해 주세요.",
           skinPreviewTitle: "카메라 및 촬영 미리보기",
           skinCameraPlaceholder: "카메라 시작을 누르면 이 영역에 영상이 표시됩니다.",
           skinPreviewPlaceholder: "촬영한 이미지가 여기에 표시됩니다.",
-          skinResultSummary: "촬영한 이미지를 기준으로 K-뷰티 상담 준비에 필요한 관심 포인트를 참고용으로 정리했습니다."
+          skinResultSummary: "촬영한 이미지를 기준으로 K-뷰티 상담 준비에 필요한 관심 포인트를 참고용으로 정리했습니다.",
+          skinPremiumCtaTitle: "더 자세한 K-뷰티 참고 리포트가 필요하신가요?",
+          skinPremiumCtaDesc: "여권케이스 또는 굿즈에 포함된 QR을 스캔하면 더 자세한 K-뷰티 리포트와 상담 안내를 확인할 수 있습니다.",
+          skinPremiumCtaButton: "프리미엄 QR 리포트 보기"
         },
         en: {
           languageLabel: "Language",
@@ -654,6 +805,7 @@
           skinToolDesc: "Use a camera capture to organize skin-interest points for K-beauty consultation preparation.",
           skinCameraControlsTitle: "AI Skin Analysis Capture",
           skinCameraHelp: "Allow camera access, align your face inside the guide, then press AI capture.",
+          skinFaceGuideInstruction: "Align your face inside the center guide.",
           startCameraButton: "Start Camera",
           captureButton: "AI Capture",
           skinStatusIdle: "Press Start Camera to prepare the capture.",
@@ -665,11 +817,17 @@
           skinStatusCaptured: "Captured image and AI skin analysis report are ready.",
           skinStatusAnalyzing: "AI is analyzing the captured image.",
           skinStatusServerError: "AI analysis server connection failed. Please try again later.",
+          skinStatusMissingApiKey: "OPENAI_API_KEY is not configured.",
+          skinStatusInvalidImagePayload: "The captured image payload is invalid. Please capture again.",
+          skinStatusOpenAiFailed: "The AI analysis server is currently unstable. Please try again later.",
           skinStatusFaceNotDetected: "A face is not clearly visible. Please align your face inside the circular guide and capture again.",
           skinPreviewTitle: "Camera and Capture Preview",
           skinCameraPlaceholder: "Press Start Camera and the video will appear here.",
           skinPreviewPlaceholder: "Your captured image will appear here.",
-          skinResultSummary: "Based on the captured image, we organized reference interest points for K-beauty consultation preparation."
+          skinResultSummary: "Based on the captured image, we organized reference interest points for K-beauty consultation preparation.",
+          skinPremiumCtaTitle: "Want a more detailed K-beauty reference report?",
+          skinPremiumCtaDesc: "Scan the QR included with the passport case or goods to view a more detailed K-beauty report and consultation guide.",
+          skinPremiumCtaButton: "View Premium QR Report"
         },
         vi: {
           languageLabel: "Ngôn ngữ",
@@ -677,6 +835,7 @@
           skinToolDesc: "Dùng ảnh chụp từ camera để sắp xếp các điểm quan tâm về da trước khi tư vấn K-beauty.",
           skinCameraControlsTitle: "Chụp phân tích da AI",
           skinCameraHelp: "Cho phép truy cập camera, đặt khuôn mặt trong khung hướng dẫn rồi nhấn chụp AI.",
+          skinFaceGuideInstruction: "Đặt khuôn mặt vào giữa khung hướng dẫn.",
           startCameraButton: "Bắt đầu camera",
           captureButton: "Chụp AI",
           skinStatusIdle: "Nhấn Bắt đầu camera để chuẩn bị chụp.",
@@ -688,11 +847,17 @@
           skinStatusCaptured: "Ảnh chụp và báo cáo phân tích da AI đã sẵn sàng.",
           skinStatusAnalyzing: "AI đang phân tích ảnh vừa chụp.",
           skinStatusServerError: "Kết nối máy chủ phân tích AI thất bại. Vui lòng thử lại sau.",
+          skinStatusMissingApiKey: "OPENAI_API_KEY chưa được thiết lập.",
+          skinStatusInvalidImagePayload: "Dữ liệu ảnh chụp không hợp lệ. Vui lòng chụp lại.",
+          skinStatusOpenAiFailed: "Máy chủ phân tích AI hiện không ổn định. Vui lòng thử lại sau.",
           skinStatusFaceNotDetected: "Khuôn mặt chưa hiển thị rõ. Vui lòng đặt mặt trong khung tròn và chụp lại.",
           skinPreviewTitle: "Xem trước camera và ảnh chụp",
           skinCameraPlaceholder: "Nhấn Bắt đầu camera để video hiển thị tại đây.",
           skinPreviewPlaceholder: "Ảnh đã chụp sẽ hiển thị tại đây.",
-          skinResultSummary: "Dựa trên ảnh đã chụp, chúng tôi sắp xếp các điểm quan tâm tham khảo cho tư vấn K-beauty."
+          skinResultSummary: "Dựa trên ảnh đã chụp, chúng tôi sắp xếp các điểm quan tâm tham khảo cho tư vấn K-beauty.",
+          skinPremiumCtaTitle: "Bạn muốn xem báo cáo K-beauty chi tiết hơn?",
+          skinPremiumCtaDesc: "Quét mã QR đi kèm hộp hộ chiếu hoặc sản phẩm để xem báo cáo K-beauty chi tiết hơn và hướng dẫn tư vấn.",
+          skinPremiumCtaButton: "Xem báo cáo QR Premium"
         },
         ja: {
           languageLabel: "言語",
@@ -700,6 +865,7 @@
           skinToolDesc: "カメラで撮影した画像をもとに、Kビューティー相談準備のための肌の関心ポイントを参考用に整理します。",
           skinCameraControlsTitle: "AI肌分析撮影",
           skinCameraHelp: "カメラ権限を許可し、顔をガイド内に合わせてからAI判定撮影を押してください。",
+          skinFaceGuideInstruction: "顔を中央ガイド内に合わせてください。",
           startCameraButton: "カメラ開始",
           captureButton: "AI判定撮影",
           skinStatusIdle: "カメラ開始ボタンを押して撮影を準備してください。",
@@ -711,11 +877,17 @@
           skinStatusCaptured: "撮影画像とAI肌分析レポートが準備できました。",
           skinStatusAnalyzing: "AIが撮影画像を分析しています。",
           skinStatusServerError: "AI分析サーバーへの接続に失敗しました。しばらくしてからもう一度お試しください。",
+          skinStatusMissingApiKey: "OPENAI_API_KEYが設定されていません。",
+          skinStatusInvalidImagePayload: "撮影画像データが正しくありません。再撮影してください。",
+          skinStatusOpenAiFailed: "現在AI分析サーバーへの接続が不安定です。後でもう一度お試しください。",
           skinStatusFaceNotDetected: "顔がはっきり見えません。顔を円形ガイド内に合わせて再撮影してください。",
           skinPreviewTitle: "カメラと撮影プレビュー",
           skinCameraPlaceholder: "カメラ開始を押すと、この領域に映像が表示されます。",
           skinPreviewPlaceholder: "撮影した画像がここに表示されます。",
-          skinResultSummary: "撮影した画像をもとに、Kビューティー相談準備に必要な関心ポイントを参考用に整理しました。"
+          skinResultSummary: "撮影した画像をもとに、Kビューティー相談準備に必要な関心ポイントを参考用に整理しました。",
+          skinPremiumCtaTitle: "より詳しいKビューティー参考レポートをご覧になりますか？",
+          skinPremiumCtaDesc: "パスポートケースまたはグッズに同梱されたQRを読み取ると、より詳しいKビューティーレポートと相談案内を確認できます。",
+          skinPremiumCtaButton: "プレミアムQRレポートを見る"
         },
         zh: {
           languageLabel: "语言",
@@ -723,6 +895,7 @@
           skinToolDesc: "根据相机拍摄的图像，整理K-Beauty咨询准备所需的皮肤关注点，仅供参考。",
           skinCameraControlsTitle: "AI皮肤分析拍摄",
           skinCameraHelp: "允许相机权限后，将脸部对准引导框并点击AI判别拍摄。",
+          skinFaceGuideInstruction: "请将脸部对准中央引导框。",
           startCameraButton: "启动相机",
           captureButton: "AI判别拍摄",
           skinStatusIdle: "请点击启动相机准备拍摄。",
@@ -734,11 +907,17 @@
           skinStatusCaptured: "拍摄图像和AI皮肤分析报告已准备好。",
           skinStatusAnalyzing: "AI正在分析拍摄图像。",
           skinStatusServerError: "AI分析服务器连接失败。请稍后重试。",
+          skinStatusMissingApiKey: "尚未设置 OPENAI_API_KEY。",
+          skinStatusInvalidImagePayload: "拍摄图像数据无效，请重新拍摄。",
+          skinStatusOpenAiFailed: "当前AI分析服务器连接不稳定，请稍后重试。",
           skinStatusFaceNotDetected: "脸部不够清晰。请将脸部对准圆形引导框后重新拍摄。",
           skinPreviewTitle: "相机和拍摄预览",
           skinCameraPlaceholder: "点击启动相机后，视频将在此显示。",
           skinPreviewPlaceholder: "拍摄的图像将在此显示。",
-          skinResultSummary: "根据拍摄图像，已整理K-Beauty咨询准备所需的关注点，仅供参考。"
+          skinResultSummary: "根据拍摄图像，已整理K-Beauty咨询准备所需的关注点，仅供参考。",
+          skinPremiumCtaTitle: "需要更详细的K-Beauty参考报告吗？",
+          skinPremiumCtaDesc: "扫描护照夹或商品中附带的二维码，即可查看更详细的K-Beauty报告和咨询指南。",
+          skinPremiumCtaButton: "查看高级二维码报告"
         }
       };
 
@@ -802,6 +981,14 @@
             <div class="skin-medical-notice">
               <p>${escapeHtml(apiResult?.disclaimer || "")}</p>
             </div>
+            <div class="skin-premium-cta">
+              <strong>${escapeHtml(text("skinPremiumCtaTitle"))}</strong>
+              <p>${escapeHtml(text("skinPremiumCtaDesc"))}</p>
+              <a class="btn ai" href="/ai-skin-premium/?lang=${encodeURIComponent(currentLang())}">
+                <span>${escapeHtml(text("skinPremiumCtaButton"))}</span>
+                <small>Premium QR Report</small>
+              </a>
+            </div>
             <div class="cta-row">
               <a class="btn primary" href="/public/medi-hana/">${escapeHtml(text("skinConsultButton"))}</a>
             </div>
@@ -838,6 +1025,13 @@
           if (captureButton) captureButton.disabled = loading;
           if (startButton) startButton.disabled = loading;
         };
+
+        const statusKeyForError = (code) => ({
+          missing_api_key: "skinStatusMissingApiKey",
+          invalid_image_payload: "skinStatusInvalidImagePayload",
+          openai_request_failed: "skinStatusOpenAiFailed",
+          unknown_error: "skinStatusServerError"
+        })[code] || "skinStatusServerError";
 
         const startCamera = async () => {
           if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
@@ -876,7 +1070,10 @@
               body: JSON.stringify({
                 imageBase64,
                 image: imageBase64,
+                imageData: imageBase64,
                 language: currentLang(),
+                lang: currentLang(),
+                mode: "free",
                 responseFormat: "kbeauty_simple"
               })
             });
@@ -884,7 +1081,14 @@
             const apiResult = payload?.analysis && typeof payload.analysis === "object" ? payload.analysis : payload;
 
             if (!response.ok || !apiResult || apiResult.ok === false) {
-              setStatus("skinStatusServerError");
+              const errorCode = payload?.code || "unknown_error";
+              console.error("Free skin analysis failed:", {
+                status: response.status,
+                code: errorCode,
+                message: payload?.message || payload?.error || null,
+                details: payload?.details || null
+              });
+              setStatus(statusKeyForError(errorCode));
               return;
             }
 
