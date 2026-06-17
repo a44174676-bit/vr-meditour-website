@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="ko" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>의료마이데이터 AI | VR MEDI TOUR &amp; HOME</title>
+  <meta name="description" content="의료마이데이터 AI는 의료관광 이후 의료자료 설명, 동의 기반 공유, 사후관리 문의 정리를 돕는 AI 보조 설명 서비스입니다. 의료진 확인이 필요합니다." />
+  <link rel="canonical" href="https://vr-meditour.com/medical-mydata-ai/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="의료마이데이터 AI | VR MEDI TOUR &amp; HOME" />
+  <meta property="og:description" content="AI 보조 설명, 사후관리 지원, 동의 기반 공유, 역할별 정보 접근을 중심으로 한 의료관광 애프터케어 안내입니다." />
+  <meta property="og:url" content="https://vr-meditour.com/medical-mydata-ai/" />
+  <meta property="og:image" content="https://vr-meditour.com/assets/ai-human-review.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="의료마이데이터 AI | VR MEDI TOUR &amp; HOME" />
+  <meta name="twitter:description" content="의료마이데이터 AI는 AI 보조 설명과 사후관리 문의 정리를 지원하며, 의료진 확인이 필요합니다." />
+  <meta name="twitter:image" content="https://vr-meditour.com/assets/ai-human-review.jpg" />
+  <link rel="icon" href="/assets/logo.jpg" />
+  <link rel="stylesheet" href="/public/seo-landing.css" />
+  <style>
+    .top-shell {
+      display: grid;
+      gap: 18px;
+    }
+
+    .top-shell .topbar {
+      align-items: flex-start;
+    }
+
+    .top-shell .topbar-actions {
+      align-items: center;
+    }
+
+    .mydata-language {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-left: auto;
+    }
+
+    .safety-banner,
+    .upload-notice {
+      display: grid;
+      gap: 10px;
+      border: 1px solid rgba(245, 158, 11, 0.5);
+      border-radius: 16px;
+      background: rgba(245, 158, 11, 0.1);
+      padding: 16px;
+    }
+
+    .safety-banner strong,
+    .upload-notice strong {
+      color: #fff4cc;
+      font-size: 1.02rem;
+    }
+
+    .safety-banner p,
+    .upload-notice p {
+      margin: 0;
+    }
+
+    .safety-list {
+      display: grid;
+      gap: 8px;
+      margin: 0;
+      padding-left: 1.1rem;
+    }
+
+    .mydata-hero {
+      min-height: 430px;
+      display: grid;
+      align-items: end;
+      overflow: hidden;
+      background:
+        linear-gradient(90deg, rgba(3, 10, 20, 0.96), rgba(7, 17, 32, 0.76) 56%, rgba(7, 17, 32, 0.24)),
+        url("/assets/ai-human-review.jpg") center / cover no-repeat;
+    }
+
+    .mydata-hero-copy {
+      max-width: 820px;
+    }
+
+    .mydata-hero h1 {
+      max-width: 13ch;
+    }
+
+    .hero-pills,
+    .mini-pills {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .hero-pills span,
+    .mini-pills span {
+      border: 1px solid rgba(126, 211, 224, 0.45);
+      border-radius: 999px;
+      background: rgba(92, 200, 213, 0.12);
+      color: #d8f8ff;
+      padding: 6px 10px;
+      font-size: 0.9rem;
+      font-weight: 750;
+    }
+
+    .split-grid,
+    .demo-record,
+    .upload-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    .feature-grid,
+    .guardrail-grid,
+    .sharing-grid,
+    .integration-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .feature-card,
+    .role-card,
+    .record-panel,
+    .mock-upload-card {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(18, 31, 49, 0.72);
+      padding: 16px;
+    }
+
+    .feature-card h3,
+    .role-card h3,
+    .record-panel h3,
+    .mock-upload-card h3 {
+      margin: 0 0 8px;
+      color: #edf5ff;
+      font-size: 1.05rem;
+    }
+
+    .feature-card p,
+    .role-card p,
+    .record-panel p,
+    .mock-upload-card p {
+      margin: 0;
+    }
+
+    .mock-upload-card {
+      position: relative;
+      background:
+        radial-gradient(circle at 100% 0%, rgba(92, 200, 213, 0.14), transparent 34%),
+        rgba(18, 31, 49, 0.72);
+    }
+
+    .mock-upload-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 16px;
+      border: 1px dashed rgba(245, 158, 11, 0.36);
+      pointer-events: none;
+    }
+
+    .mock-upload-subtitle {
+      color: #fff4cc;
+      font-weight: 800;
+      margin-bottom: 12px !important;
+    }
+
+    .mock-file-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin: 14px 0;
+    }
+
+    .mock-file-grid span {
+      border: 1px solid rgba(182, 204, 230, 0.28);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 12px;
+      color: #edf5ff;
+      font-weight: 800;
+    }
+
+    .mock-upload-warning {
+      color: #ffe9b0;
+      font-size: 0.92rem;
+    }
+
+    .mock-flow {
+      counter-reset: mock-flow;
+      display: grid;
+      gap: 10px;
+      margin: 14px 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .mock-flow li {
+      counter-increment: mock-flow;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 10px;
+      align-items: center;
+      min-width: 0;
+      border: 1px solid rgba(182, 204, 230, 0.22);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 10px;
+      color: #edf5ff;
+      font-weight: 800;
+    }
+
+    .mock-flow li::before {
+      content: counter(mock-flow);
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      background: rgba(126, 211, 224, 0.2);
+      color: #d8f8ff;
+      font-size: 0.82rem;
+      font-weight: 900;
+    }
+
+    .journey-timeline {
+      counter-reset: journey;
+      display: grid;
+      gap: 12px;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    .journey-timeline li {
+      counter-increment: journey;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 12px;
+      align-items: start;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 14px;
+    }
+
+    .journey-timeline li::before {
+      content: counter(journey);
+      display: grid;
+      place-items: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 999px;
+      background: linear-gradient(145deg, #7ed3e0, var(--primary-dark));
+      color: #06101c;
+      font-weight: 900;
+    }
+
+    .timeline-copy strong {
+      display: block;
+      color: #edf5ff;
+      margin-bottom: 4px;
+    }
+
+    .consent-list,
+    .record-list {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .consent-list li {
+      border-left: 3px solid var(--primary);
+      background: rgba(92, 200, 213, 0.08);
+      border-radius: 12px;
+      padding: 12px 14px;
+    }
+
+    .role-card strong {
+      display: block;
+      color: #d8f8ff;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .demo-record {
+      align-items: start;
+    }
+
+    .record-panel {
+      background:
+        radial-gradient(circle at 100% 0%, rgba(92, 200, 213, 0.12), transparent 34%),
+        rgba(18, 31, 49, 0.72);
+    }
+
+    .record-label {
+      display: inline-block;
+      border: 1px solid rgba(245, 158, 11, 0.45);
+      border-radius: 999px;
+      background: rgba(245, 158, 11, 0.1);
+      color: #fff4cc;
+      padding: 5px 9px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .record-list {
+      margin-top: 12px;
+    }
+
+    .record-list li {
+      border: 1px solid rgba(182, 204, 230, 0.22);
+      border-radius: 12px;
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .record-list strong {
+      display: block;
+      color: #edf5ff;
+      margin-bottom: 4px;
+    }
+
+    .sample-demo-record {
+      grid-template-columns: 1fr;
+    }
+
+    .sample-translation-card {
+      display: grid;
+      gap: 12px;
+    }
+
+    .translation-demo-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .translation-demo-list li {
+      border: 1px solid rgba(182, 204, 230, 0.22);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      padding: 12px;
+      min-width: 0;
+    }
+
+    .translation-demo-list strong {
+      display: block;
+      color: #d8f8ff;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+    }
+
+    .translation-demo-list span {
+      display: block;
+      color: #edf5ff;
+      overflow-wrap: anywhere;
+    }
+
+    .cta-band {
+      background:
+        linear-gradient(145deg, rgba(18, 31, 49, 0.94), rgba(7, 13, 25, 0.9)),
+        radial-gradient(circle at 16% 0%, rgba(92, 200, 213, 0.18), transparent 36%);
+    }
+
+    @media (max-width: 900px) {
+      .mydata-hero {
+        min-height: 390px;
+        background:
+          linear-gradient(180deg, rgba(3, 10, 20, 0.95), rgba(7, 17, 32, 0.82)),
+          url("/assets/ai-human-review.jpg") center / cover no-repeat;
+      }
+
+      .split-grid,
+      .demo-record,
+      .upload-grid,
+      .feature-grid,
+      .guardrail-grid,
+      .sharing-grid,
+      .integration-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .top-shell .topbar-actions {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+        width: 100%;
+      }
+
+      .top-shell .topbar-actions .btn {
+        width: auto;
+        min-height: 40px;
+        padding: 0 10px;
+        font-size: 0.86rem;
+      }
+
+      .mydata-language,
+      .mydata-language .language-buttons {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      .top-shell .brand img {
+        width: 44px;
+        height: 44px;
+      }
+
+      .safety-banner,
+      .upload-notice {
+        padding: 12px;
+      }
+
+      .mock-file-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .translation-demo-list {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "Medical MyData AI",
+      "url": "https://vr-meditour.com/medical-mydata-ai/",
+      "provider": {
+        "@type": "Organization",
+        "name": "VR MEDI TOUR & HOME Co., Ltd.",
+        "url": "https://vr-meditour.com/"
+      },
+      "serviceType": "AI-assisted medical travel aftercare explanation and follow-up support",
+      "description": "AI-assisted explanation, follow-up support, consent-based sharing, and medical tourism coordination support. Medical professional confirmation is required."
+    }
+  </script>
+</head>
+<body>
+  <main class="page">
+    <section class="section-card top-shell">
+      <header class="topbar">
+        <a class="brand" href="/" aria-label="VR MEDI TOUR & HOME main homepage">
+          <img src="/assets/logo.jpg" alt="VR MEDI TOUR & HOME logo" />
+          <strong>VR MEDI TOUR<span>&amp; HOME</span></strong>
+        </a>
+        <div class="topbar-actions">
+          <a class="btn secondary" href="/" data-i18n="navHome">메인 홈페이지</a>
+          <a class="btn secondary" href="/public/ai-skin-analysis-kbeauty.html" data-i18n="navSkin">AI 피부 분석</a>
+          <a class="btn secondary" href="/medi-hana/" data-i18n="navMedi">Medi Hana 상담</a>
+        </div>
+        <div class="language-select mydata-language">
+          <span data-i18n="languageLabel">언어</span>
+          <div class="language-buttons language-character-group" id="languageButtons" aria-label="Language selector">
+            <button type="button" class="lang-btn lang-character-btn" data-lang="ko" aria-label="KO" aria-pressed="true"><img class="lang-character-img" src="/public/assets/images/language/lang-ko.png" alt="KO" onerror="this.hidden=true" /></button>
+            <button type="button" class="lang-btn lang-character-btn" data-lang="en" aria-label="EN" aria-pressed="false"><img class="lang-character-img" src="/public/assets/images/language/lang-en.png" alt="EN" onerror="this.hidden=true" /></button>
+            <button type="button" class="lang-btn lang-character-btn" data-lang="vi" aria-label="VI" aria-pressed="false"><img class="lang-character-img" src="/public/assets/images/language/lang-vi.png" alt="VI" onerror="this.hidden=true" /></button>
+            <button type="button" class="lang-btn lang-character-btn" data-lang="ja" aria-label="JP" aria-pressed="false"><img class="lang-character-img" src="/public/assets/images/language/lang-ja.png" alt="JP" onerror="this.hidden=true" /></button>
+            <button type="button" class="lang-btn lang-character-btn" data-lang="zh" aria-label="CN" aria-pressed="false"><img class="lang-character-img" src="/public/assets/images/language/lang-zh.png" alt="CN" onerror="this.hidden=true" /></button>
+          </div>
+        </div>
+      </header>
+
+      <div class="safety-banner" role="note" aria-label="Medical MyData AI safety notice">
+        <strong data-i18n="safetyTitle">안전 고지</strong>
+        <p data-i18n="safetyBody">의료마이데이터 AI는 의료자료를 쉽게 이해하도록 돕는 AI 보조 설명 및 사후관리 지원 개념입니다. 실제 의료 판단은 반드시 의료 전문가 확인이 필요합니다.</p>
+        <ul class="safety-list">
+          <li data-i18n="safety1">AI는 진단하지 않습니다.</li>
+          <li data-i18n="safety2">AI는 처방하지 않습니다.</li>
+          <li data-i18n="safety3">AI는 치료 결정을 하지 않습니다.</li>
+          <li data-i18n="safety4">의료 전문가 확인이 필요합니다.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section-card mydata-hero" aria-labelledby="mydata-hero-title">
+      <div class="mydata-hero-copy">
+        <p class="eyebrow" data-i18n="heroEyebrow">의료관광 사후관리 지원</p>
+        <h1 id="mydata-hero-title" data-i18n="heroTitle">의료마이데이터 AI</h1>
+        <p class="lead" data-i18n="heroLead">AI 피부 분석, 한국 의료관광 코디네이션, 귀국 후 사후관리 문의를 연결합니다. 의료자료는 환자 동의와 의료진 확인을 전제로 이해하기 쉽게 정리됩니다.</p>
+        <div class="cta-row" aria-label="Medical MyData AI actions">
+          <a class="btn ai" href="#sample-demo" data-i18n="ctaSample">샘플 데모 보기</a>
+          <a class="btn primary" href="/medi-hana/?source=medical-mydata-ai" data-i18n="ctaMedi">Medi Hana에 문의하기</a>
+          <a class="btn secondary" href="/medi-hana/?source=secure-upload-consultation" data-i18n="ctaSecure">보안 업로드 상담 신청</a>
+        </div>
+        <div class="hero-pills" aria-label="Core principles">
+          <span data-i18n="pill1">AI 보조 설명</span>
+          <span data-i18n="pill2">사후관리 지원</span>
+          <span data-i18n="pill3">의료 전문가 확인 필요</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-card upload-grid" aria-labelledby="upload-title">
+      <article class="upload-notice">
+        <strong data-i18n="uploadEyebrow">업로드 기능 안내</strong>
+        <h2 id="upload-title" data-i18n="uploadTitle">사진 촬영 및 파일 업로드 번역은 계획 중입니다</h2>
+        <p data-i18n="uploadBody">사진 촬영과 파일 업로드 번역은 계획된 기능입니다. 개인정보보호와 보안 검토 후 제공될 예정입니다. 현재 페이지는 샘플 기반 번역 데모와 상담 신청만 제공합니다.</p>
+        <p data-i18n="uploadBody2">현재 페이지에서는 실제 의료자료, 사진, 파일을 업로드하거나 저장하지 않습니다.</p>
+      </article>
+      <article class="mock-upload-card" aria-labelledby="mock-upload-title">
+        <h3 id="mock-upload-title" data-i18n="mockUploadTitle">의료자료 업로드 준비중</h3>
+        <p class="mock-upload-subtitle" data-i18n="mockUploadSubtitle">사진 촬영 및 파일 업로드 번역 예정</p>
+        <ol class="mock-flow" aria-label="Planned medical document translation flow">
+          <li><span data-i18n="flow1">사진 촬영 또는 파일 업로드</span></li>
+          <li><span data-i18n="flow2">텍스트 추출</span></li>
+          <li><span data-i18n="flow3">선택한 언어로 번역</span></li>
+          <li><span data-i18n="flow4">쉬운 설명 생성</span></li>
+          <li><span data-i18n="flow5">후속 질문 생성</span></li>
+          <li><span data-i18n="flow6">처리 후 원본 파일 삭제</span></li>
+        </ol>
+        <p class="mock-upload-warning" data-i18n="mockUploadNotice">실제 파일 업로드 또는 카메라 촬영 기능은 아직 제공되지 않습니다. 의료자료를 저장하지 않습니다.</p>
+      </article>
+    </section>
+
+    <section class="section-card split-grid" aria-labelledby="problem-title">
+      <article>
+        <p class="eyebrow" data-i18n="problemEyebrow">문제</p>
+        <h2 id="problem-title" data-i18n="problemTitle">진료 후에도 환자는 설명이 필요합니다</h2>
+        <p class="lead" data-i18n="problemLead">외국인 환자는 진료 후 안내문, 통역 내용, 회복 일정, 추가 문의를 여러 채널에서 다시 확인해야 할 수 있습니다.</p>
+      </article>
+      <div class="grid">
+        <article class="card"><h3 data-i18n="problem1Title">언어 장벽</h3><p data-i18n="problem1Body">진료는 받았지만 사후관리 문장을 정확히 이해하기 어려울 수 있습니다.</p></article>
+        <article class="card"><h3 data-i18n="problem2Title">흩어진 자료</h3><p data-i18n="problem2Body">병원 안내, 코디네이터 메모, 여행 일정이 따로 흩어질 수 있습니다.</p></article>
+        <article class="card"><h3 data-i18n="problem3Title">동의 범위</h3><p data-i18n="problem3Body">누가 어떤 자료를 볼 수 있는지 환자가 명확히 선택해야 합니다.</p></article>
+        <article class="card"><h3 data-i18n="problem4Title">귀국 후 문의</h3><p data-i18n="problem4Body">귀국 후 생긴 질문은 의료기관 확인이 필요한지 먼저 정리해야 합니다.</p></article>
+      </div>
+    </section>
+
+    <section class="section-card" aria-labelledby="features-title">
+      <p class="eyebrow" data-i18n="featuresEyebrow">핵심 기능</p>
+      <h2 id="features-title" data-i18n="featuresTitle">설명, 동의, 전달을 위한 구조</h2>
+      <div class="feature-grid">
+        <article class="feature-card"><h3 data-i18n="feature1Title">쉬운 설명</h3><p data-i18n="feature1Body">확인된 의료자료의 의미를 환자가 이해하기 쉬운 문장으로 정리합니다.</p></article>
+        <article class="feature-card"><h3 data-i18n="feature2Title">후속 질문 정리</h3><p data-i18n="feature2Body">의료진에게 다시 확인해야 할 질문을 차분하게 모읍니다.</p></article>
+        <article class="feature-card"><h3 data-i18n="feature3Title">동의 체크</h3><p data-i18n="feature3Body">목적, 공유 대상, 기간, 자료 종류별로 동의 범위를 분리합니다.</p></article>
+        <article class="feature-card"><h3 data-i18n="feature4Title">역할별 공유</h3><p data-i18n="feature4Body">환자, 코디네이터, 통역, 의료진에게 필요한 정보만 보여줍니다.</p></article>
+        <article class="feature-card"><h3 data-i18n="feature5Title">사후관리 타임라인</h3><p data-i18n="feature5Body">방문 전, 진료, 회복, 귀국 후 문의 흐름을 연결합니다.</p></article>
+        <article class="feature-card"><h3 data-i18n="feature6Title">사람 검토</h3><p data-i18n="feature6Body">AI 설명은 보조이며 민감한 문의는 사람이 검토하는 흐름으로 전달합니다.</p></article>
+      </div>
+    </section>
+
+    <section class="section-card" aria-labelledby="journey-title">
+      <p class="eyebrow" data-i18n="journeyEyebrow">환자 여정</p>
+      <h2 id="journey-title" data-i18n="journeyTitle">AI 피부 참고에서 사후관리 문의까지</h2>
+      <ol class="journey-timeline">
+        <li><div class="timeline-copy"><strong data-i18n="journey1Title">방문 전</strong><span data-i18n="journey1Body">AI 피부 분석으로 K-뷰티 관심사를 참고용으로 정리합니다.</span></div></li>
+        <li><div class="timeline-copy"><strong data-i18n="journey2Title">의료기관 확인</strong><span data-i18n="journey2Body">진료 내용과 지시사항은 면허 의료진이 확인합니다.</span></div></li>
+        <li><div class="timeline-copy"><strong data-i18n="journey3Title">AI 보조 설명</strong><span data-i18n="journey3Body">확인된 자료를 환자 친화적인 설명과 질문 목록으로 정리합니다.</span></div></li>
+        <li><div class="timeline-copy"><strong data-i18n="journey4Title">동의 기반 공유</strong><span data-i18n="journey4Body">환자가 공유 대상, 목적, 기간을 선택합니다.</span></div></li>
+        <li><div class="timeline-copy"><strong data-i18n="journey5Title">사후관리 지원</strong><span data-i18n="journey5Body">필요한 질문은 코디네이터가 적절한 의료기관 확인 흐름으로 연결합니다.</span></div></li>
+      </ol>
+    </section>
+
+    <section class="section-card" aria-labelledby="guardrails-title">
+      <p class="eyebrow" data-i18n="guardrailsEyebrow">안전 가드레일</p>
+      <h2 id="guardrails-title" data-i18n="guardrailsTitle">AI가 넘지 않는 경계</h2>
+      <div class="guardrail-grid">
+        <article class="feature-card"><h3 data-i18n="guard1Title">의료진 확인</h3><p data-i18n="guard1Body">임상 의미, 치료 변경, 위험 신호는 의료 전문가 확인이 필요합니다.</p></article>
+        <article class="feature-card"><h3 data-i18n="guard2Title">자동 결정 없음</h3><p data-i18n="guard2Body">AI는 진단, 처방, 치료 결정, 응급 판단을 하지 않습니다.</p></article>
+        <article class="feature-card"><h3 data-i18n="guard3Title">출처 표시</h3><p data-i18n="guard3Body">설명은 어떤 자료와 날짜를 기준으로 했는지 표시해야 합니다.</p></article>
+        <article class="feature-card"><h3 data-i18n="guard4Title">불확실성 표시</h3><p data-i18n="guard4Body">자료가 불명확하면 확인이 필요하다고 안내합니다.</p></article>
+        <article class="feature-card"><h3 data-i18n="guard5Title">사람 검토</h3><p data-i18n="guard5Body">민감한 내용은 코디네이터 검토를 거쳐 전달합니다.</p></article>
+        <article class="feature-card"><h3 data-i18n="guard6Title">직접 진료 안내</h3><p data-i18n="guard6Body">통증, 급격한 변화, 심각한 증상은 의료기관에 직접 문의해야 합니다.</p></article>
+      </div>
+    </section>
+
+    <section class="section-card split-grid" aria-labelledby="privacy-title">
+      <article>
+        <p class="eyebrow" data-i18n="privacyEyebrow">개인정보와 동의</p>
+        <h2 id="privacy-title" data-i18n="privacyTitle">환자 통제가 먼저입니다</h2>
+        <p class="lead" data-i18n="privacyLead">의료마이데이터 AI는 어떤 자료를 어떤 목적으로 누구에게 공유할지 환자가 선택하는 구조를 전제로 합니다.</p>
+      </article>
+      <ul class="consent-list">
+        <li data-i18n="privacy1">목적 제한: 설명, 사후관리, 승인된 코디네이션 목적에만 사용합니다.</li>
+        <li data-i18n="privacy2">최소 공유: 각 역할은 필요한 정보만 확인합니다.</li>
+        <li data-i18n="privacy3">별도 전달 동의: 병원이나 의료진에게 자료를 전달하려면 별도 동의가 필요합니다.</li>
+        <li data-i18n="privacy4">철회 가능: 공유 기간과 중단 방법이 명확해야 합니다.</li>
+        <li data-i18n="privacy5">현재 페이지는 실제 의료자료를 수집하거나 저장하지 않습니다.</li>
+      </ul>
+    </section>
+
+    <section class="section-card" aria-labelledby="sharing-title">
+      <p class="eyebrow" data-i18n="sharingEyebrow">역할별 공유</p>
+      <h2 id="sharing-title" data-i18n="sharingTitle">역할마다 필요한 정보가 다릅니다</h2>
+      <div class="sharing-grid">
+        <article class="role-card"><strong data-i18n="role1Kicker">환자</strong><h3 data-i18n="role1Title">전체 설명 보기</h3><p data-i18n="role1Body">쉬운 설명, 출처, 동의 상태, 후속 질문을 확인합니다.</p></article>
+        <article class="role-card"><strong data-i18n="role2Kicker">코디네이터</strong><h3 data-i18n="role2Title">지원 요약</h3><p data-i18n="role2Body">언어, 일정, 승인된 질문, 공유 제한을 확인합니다.</p></article>
+        <article class="role-card"><strong data-i18n="role3Kicker">의료 전문가</strong><h3 data-i18n="role3Title">확인 필요 항목</h3><p data-i18n="role3Body">환자가 승인한 자료와 전문 확인이 필요한 질문을 확인합니다.</p></article>
+        <article class="role-card"><strong data-i18n="role4Kicker">통역</strong><h3 data-i18n="role4Title">언어 지원</h3><p data-i18n="role4Body">승인된 용어와 예약 맥락을 중심으로 돕습니다.</p></article>
+        <article class="role-card"><strong data-i18n="role5Kicker">여행 지원</strong><h3 data-i18n="role5Title">비의료 일정</h3><p data-i18n="role5Body">환자가 승인한 이동, 숙박, 일정 정보만 확인합니다.</p></article>
+        <article class="role-card"><strong data-i18n="role6Kicker">가족 또는 보호자</strong><h3 data-i18n="role6Title">제한된 동행자 보기</h3><p data-i18n="role6Body">환자가 선택한 안내와 일정 알림만 공유합니다.</p></article>
+      </div>
+    </section>
+
+    <section class="section-card" aria-labelledby="integration-title">
+      <p class="eyebrow" data-i18n="integrationEyebrow">의료관광 연계</p>
+      <h2 id="integration-title" data-i18n="integrationTitle">VR MEDI TOUR 코디네이션과 연결</h2>
+      <div class="integration-grid">
+        <article class="feature-card"><h3 data-i18n="integration1Title">사전 상담</h3><p data-i18n="integration1Body">AI 피부 분석 결과를 의료 확인이 아닌 상담 준비 참고로 연결합니다.</p></article>
+        <article class="feature-card"><h3 data-i18n="integration2Title">병원 소통</h3><p data-i18n="integration2Body">질문, 언어, 문서 체크리스트를 정리해 의료기관 검토를 준비합니다.</p></article>
+        <article class="feature-card"><h3 data-i18n="integration3Title">여행 일정</h3><p data-i18n="integration3Body">항공, 숙박, 통역, 회복 일정을 사후관리 흐름과 맞춥니다.</p></article>
+        <article class="feature-card"><h3 data-i18n="integration4Title">귀국 후 문의</h3><p data-i18n="integration4Body">후속 질문을 정리해 필요한 전문 확인 흐름으로 연결합니다.</p></article>
+        <article class="feature-card"><h3 data-i18n="integration5Title">다국어 지원</h3><p data-i18n="integration5Body">확인된 안내를 선호 언어로 이해하도록 돕습니다.</p></article>
+        <article class="feature-card"><h3 data-i18n="integration6Title">동의 추적</h3><p data-i18n="integration6Body">공유 전 환자 동의 여부를 명확히 확인합니다.</p></article>
+      </div>
+    </section>
+
+    <section class="section-card" id="sample-demo" aria-labelledby="demo-title">
+      <p class="eyebrow" data-i18n="demoEyebrow">샘플 번역 데모</p>
+      <h2 id="demo-title" data-i18n="demoTitle">샘플 문장 기반 번역과 쉬운 설명</h2>
+      <div class="demo-record sample-demo-record">
+        <article class="record-panel sample-translation-card">
+          <span class="record-label" data-i18n="demoLabel1">샘플 전용</span>
+          <h3 data-i18n="demoSourceTitle">복약 안내 문장 예시</h3>
+          <p data-i18n="demoSourceBody">실제 의료자료가 아닌 샘플 문장으로 번역, 쉬운 설명, 후속 질문 생성을 보여줍니다.</p>
+          <ul class="translation-demo-list">
+            <li><strong data-i18n="demoOutput1Title">원문</strong><span data-i18n="demoOutput1Body">1일 3회 식후 복용</span></li>
+            <li><strong data-i18n="demoOutput2Title">번역</strong><span data-i18n="demoOutput2Body">Take three times a day after meals.</span></li>
+            <li><strong data-i18n="demoOutput3Title">쉬운 설명</strong><span data-i18n="demoOutput3Body">하루 세 번, 식사 후에 약을 드시라는 뜻입니다.</span></li>
+            <li><strong data-i18n="demoOutput4Title">확인할 질문</strong><span data-i18n="demoOutput4Body">이 약은 며칠 동안 복용해야 하나요?</span></li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-card cta-band" aria-labelledby="cta-title">
+      <p class="eyebrow" data-i18n="finalEyebrow">다음 단계</p>
+      <h2 id="cta-title" data-i18n="finalTitle">AI 피부 분석과 의료마이데이터 AI 사후관리를 연결하세요</h2>
+      <p class="lead" data-i18n="finalLead">비진단 AI 피부 참고 결과에서 시작해, Medi Hana를 통해 후속 질문, 동의 범위, 의료진 확인 절차를 정리할 수 있습니다.</p>
+      <div class="cta-row">
+        <a class="btn ai" href="#sample-demo" data-i18n="ctaSample">샘플 데모 보기</a>
+        <a class="btn primary" href="/medi-hana/?source=medical-mydata-ai" data-i18n="ctaMedi">Medi Hana에 문의하기</a>
+        <a class="btn secondary" href="/medi-hana/?source=secure-upload-consultation" data-i18n="ctaSecure">보안 업로드 상담 신청</a>
+      </div>
+      <div class="mini-pills" aria-label="Safety summary">
+        <span data-i18n="mini1">실제 업로드 없음</span>
+        <span data-i18n="mini2">의료자료 저장 없음</span>
+        <span data-i18n="mini3">의료 전문가 확인 필요</span>
+      </div>
+    </section>
+
+    <footer class="section-card footer small">
+      <strong>VR MEDI TOUR &amp; HOME Co., Ltd.</strong>
+      <p data-i18n="footer1">AI 보조 설명과 사후관리 지원을 위한 의료관광 코디네이션 안내입니다.</p>
+      <p data-i18n="footer2">병원 또는 의료기관이 아니며, 의료 판단은 반드시 의료 전문가 확인이 필요합니다.</p>
+    </footer>
+  </main>
+
+  <script type="text/plain" data-legacy-i18n-disabled>
+    const translations = {
+      ko: {
+        navHome: "메인 홈페이지",
+        navSkin: "AI 피부 분석",
+        navMedi: "Medi Hana 상담",
+        languageLabel: "언어",
+        safetyTitle: "안전 고지",
+        safetyBody: "의료마이데이터 AI는 의료자료를 쉽게 이해하도록 돕는 AI 보조 설명 및 사후관리 지원 개념입니다. 실제 의료 판단은 반드시 의료 전문가 확인이 필요합니다.",
+        safety1: "AI는 진단하지 않습니다.",
+        safety2: "AI는 처방하지 않습니다.",
+        safety3: "AI는 치료 결정을 하지 않습니다.",
+        safety4: "의료 전문가 확인이 필요합니다.",
+        heroEyebrow: "의료관광 사후관리 지원",
+        heroTitle: "의료마이데이터 AI",
+        heroLead: "AI 피부 분석, 한국 의료관광 코디네이션, 귀국 후 사후관리 문의를 연결합니다. 의료자료는 환자 동의와 의료진 확인을 전제로 이해하기 쉽게 정리됩니다.",
+        ctaSample: "샘플 데모 보기",
+        ctaMedi: "Medi Hana에 문의하기",
+        ctaSecure: "보안 업로드 상담 신청",
+        pill1: "AI 보조 설명",
+        pill2: "사후관리 지원",
+        pill3: "의료 전문가 확인 필요",
+        uploadEyebrow: "업로드 기능 안내",
+        uploadTitle: "의료자료 업로드는 아직 제공되지 않습니다",
+        uploadBody: "의료자료 업로드 기능은 개인정보보호와 보안 검토 후 제공될 예정입니다. 현재 페이지에서는 실제 진료기록, 처방전, 검사결과지를 업로드하지 않습니다. 현재는 샘플 문서 기반 데모와 상담 신청만 가능합니다.",
+        mockUploadTitle: "의료자료 업로드 준비중",
+        mockUploadSubtitle: "Medical Document Upload Coming Soon",
+        mockItem1: "진료기록",
+        mockItem2: "처방전",
+        mockItem3: "검사결과지",
+        mockItem4: "퇴원안내문",
+        mockUploadNotice: "실제 의료자료 업로드는 아직 제공되지 않습니다.",
+        problemEyebrow: "문제",
+        problemTitle: "진료 후에도 환자는 설명이 필요합니다",
+        problemLead: "외국인 환자는 진료 후 안내문, 통역 내용, 회복 일정, 추가 문의를 여러 채널에서 다시 확인해야 할 수 있습니다.",
+        problem1Title: "언어 장벽",
+        problem1Body: "진료는 받았지만 사후관리 문장을 정확히 이해하기 어려울 수 있습니다.",
+        problem2Title: "흩어진 자료",
+        problem2Body: "병원 안내, 코디네이터 메모, 여행 일정이 따로 흩어질 수 있습니다.",
+        problem3Title: "동의 범위",
+        problem3Body: "누가 어떤 자료를 볼 수 있는지 환자가 명확히 선택해야 합니다.",
+        problem4Title: "귀국 후 문의",
+        problem4Body: "귀국 후 생긴 질문은 의료기관 확인이 필요한지 먼저 정리해야 합니다.",
+        featuresEyebrow: "핵심 기능",
+        featuresTitle: "설명, 동의, 전달을 위한 구조",
+        feature1Title: "쉬운 설명",
+        feature1Body: "확인된 의료자료의 의미를 환자가 이해하기 쉬운 문장으로 정리합니다.",
+        feature2Title: "후속 질문 정리",
+        feature2Body: "의료진에게 다시 확인해야 할 질문을 차분하게 모읍니다.",
+        feature3Title: "동의 체크",
+        feature3Body: "목적, 공유 대상, 기간, 자료 종류별로 동의 범위를 분리합니다.",
+        feature4Title: "역할별 공유",
+        feature4Body: "환자, 코디네이터, 통역, 의료진에게 필요한 정보만 보여줍니다.",
+        feature5Title: "사후관리 타임라인",
+        feature5Body: "방문 전, 진료, 회복, 귀국 후 문의 흐름을 연결합니다.",
+        feature6Title: "사람 검토",
+        feature6Body: "AI 설명은 보조이며 민감한 문의는 사람이 검토하는 흐름으로 전달합니다.",
+        journeyEyebrow: "환자 여정",
+        journeyTitle: "AI 피부 참고에서 사후관리 문의까지",
+        journey1Title: "방문 전",
+        journey1Body: "AI 피부 분석으로 K-뷰티 관심사를 참고용으로 정리합니다.",
+        journey2Title: "의료기관 확인",
+        journey2Body: "진료 내용과 지시사항은 면허 의료진이 확인합니다.",
+        journey3Title: "AI 보조 설명",
+        journey3Body: "확인된 자료를 환자 친화적인 설명과 질문 목록으로 정리합니다.",
+        journey4Title: "동의 기반 공유",
+        journey4Body: "환자가 공유 대상, 목적, 기간을 선택합니다.",
+        journey5Title: "사후관리 지원",
+        journey5Body: "필요한 질문은 코디네이터가 적절한 의료기관 확인 흐름으로 연결합니다.",
+        guardrailsEyebrow: "안전 가드레일",
+        guardrailsTitle: "AI가 넘지 않는 경계",
+        guard1Title: "의료진 확인",
+        guard1Body: "임상 의미, 치료 변경, 위험 신호는 의료 전문가 확인이 필요합니다.",
+        guard2Title: "자동 결정 없음",
+        guard2Body: "AI는 진단, 처방, 치료 결정, 응급 판단을 하지 않습니다.",
+        guard3Title: "출처 표시",
+        guard3Body: "설명은 어떤 자료와 날짜를 기준으로 했는지 표시해야 합니다.",
+        guard4Title: "불확실성 표시",
+        guard4Body: "자료가 불명확하면 확인이 필요하다고 안내합니다.",
+        guard5Title: "사람 검토",
+        guard5Body: "민감한 내용은 코디네이터 검토를 거쳐 전달합니다.",
+        guard6Title: "직접 진료 안내",
+        guard6Body: "통증, 급격한 변화, 심각한 증상은 의료기관에 직접 문의해야 합니다.",
+        privacyEyebrow: "개인정보와 동의",
+        privacyTitle: "환자 통제가 먼저입니다",
+        privacyLead: "의료마이데이터 AI는 어떤 자료를 어떤 목적으로 누구에게 공유할지 환자가 선택하는 구조를 전제로 합니다.",
+        privacy1: "목적 제한: 설명, 사후관리, 승인된 코디네이션 목적에만 사용합니다.",
+        privacy2: "최소 공유: 각 역할은 필요한 정보만 확인합니다.",
+        privacy3: "별도 전달 동의: 병원이나 의료진에게 자료를 전달하려면 별도 동의가 필요합니다.",
+        privacy4: "철회 가능: 공유 기간과 중단 방법이 명확해야 합니다.",
+        privacy5: "현재 페이지는 실제 의료자료를 수집하거나 저장하지 않습니다.",
+        sharingEyebrow: "역할별 공유",
+        sharingTitle: "역할마다 필요한 정보가 다릅니다",
+        role1Kicker: "환자",
+        role1Title: "전체 설명 보기",
+        role1Body: "쉬운 설명, 출처, 동의 상태, 후속 질문을 확인합니다.",
+        role2Kicker: "코디네이터",
+        role2Title: "지원 요약",
+        role2Body: "언어, 일정, 승인된 질문, 공유 제한을 확인합니다.",
+        role3Kicker: "의료 전문가",
+        role3Title: "확인 필요 항목",
+        role3Body: "환자가 승인한 자료와 전문 확인이 필요한 질문을 확인합니다.",
+        role4Kicker: "통역",
+        role4Title: "언어 지원",
+        role4Body: "승인된 용어와 예약 맥락을 중심으로 돕습니다.",
+        role5Kicker: "여행 지원",
+        role5Title: "비의료 일정",
+        role5Body: "환자가 승인한 이동, 숙박, 일정 정보만 확인합니다.",
+        role6Kicker: "가족 또는 보호자",
+        role6Title: "제한된 동행자 보기",
+        role6Body: "환자가 선택한 안내와 일정 알림만 공유합니다.",
+        integrationEyebrow: "의료관광 연계",
+        integrationTitle: "VR MEDI TOUR 코디네이션과 연결",
+        integration1Title: "사전 상담",
+        integration1Body: "AI 피부 분석 결과를 의료 확인이 아닌 상담 준비 참고로 연결합니다.",
+        integration2Title: "병원 소통",
+        integration2Body: "질문, 언어, 문서 체크리스트를 정리해 의료기관 검토를 준비합니다.",
+        integration3Title: "여행 일정",
+        integration3Body: "항공, 숙박, 통역, 회복 일정을 사후관리 흐름과 맞춥니다.",
+        integration4Title: "귀국 후 문의",
+        integration4Body: "후속 질문을 정리해 필요한 전문 확인 흐름으로 연결합니다.",
+        integration5Title: "다국어 지원",
+        integration5Body: "확인된 안내를 선호 언어로 이해하도록 돕습니다.",
+        integration6Title: "동의 추적",
+        integration6Body: "공유 전 환자 동의 여부를 명확히 확인합니다.",
+        demoEyebrow: "샘플 문서 데모",
+        demoTitle: "업로드가 아닌 샘플 기반 설명 카드",
+        demoLabel1: "샘플 전용",
+        demoSourceTitle: "가상 자료 요약",
+        demoSourceBody: "이 카드는 실제 환자 자료가 아니라, 확인된 방문 정보를 어떻게 정리할 수 있는지 보여주는 예시입니다.",
+        demoSource1Title: "방문 유형",
+        demoSource1Body: "K-뷰티 또는 피부 상담 이후 사후관리",
+        demoSource2Title: "자료 상태",
+        demoSource2Body: "사용 전 의료기관 또는 의료 전문가 확인 필요",
+        demoSource3Title: "환자 질문",
+        demoSource3Body: "주의사항, 활동 가능 시기, 재문의 기준 이해",
+        demoLabel2: "AI 보조 설명",
+        demoOutputTitle: "환자용 쉬운 설명",
+        demoOutput1Title: "무엇에 관한 자료인가요?",
+        demoOutput1Body: "환자가 기억할 내용과 다시 확인할 질문을 정리한 요약입니다.",
+        demoOutput2Title: "확인할 질문",
+        demoOutput2Body: "나에게 적용되는 안내, 연락해야 할 시점, 전문 확인이 필요한 변화는 무엇인가요?",
+        demoOutput3Title: "코디네이터 역할",
+        demoOutput3Body: "승인된 질문을 적절한 의료기관 연락 흐름으로 전달합니다.",
+        demoOutput4Title: "안전 상태",
+        demoOutput4Body: "의료 행동 전 의료 전문가 확인이 필요합니다.",
+        finalEyebrow: "다음 단계",
+        finalTitle: "AI 피부 분석과 의료마이데이터 AI 사후관리를 연결하세요",
+        finalLead: "비진단 AI 피부 참고 결과에서 시작해, Medi Hana를 통해 후속 질문, 동의 범위, 의료진 확인 절차를 정리할 수 있습니다.",
+        mini1: "실제 업로드 없음",
+        mini2: "의료자료 저장 없음",
+        mini3: "의료 전문가 확인 필요",
+        footer1: "AI 보조 설명과 사후관리 지원을 위한 의료관광 코디네이션 안내입니다.",
+        footer2: "병원 또는 의료기관이 아니며, 의료 판단은 반드시 의료 전문가 확인이 필요합니다."
+      }
+    };
+
+    translations.en = {
+      ...translations.ko,
+      navHome: "Main Homepage",
+      navSkin: "AI Skin Analysis",
+      navMedi: "Ask Medi Hana",
+      languageLabel: "Language",
+      safetyTitle: "Safety notice",
+      safetyBody: "Medical MyData AI is an AI-assisted explanation and follow-up support concept. It helps patients understand medical information more clearly, but medical professional confirmation is required.",
+      safety1: "AI does not diagnose.",
+      safety2: "AI does not prescribe.",
+      safety3: "AI does not make treatment decisions.",
+      safety4: "Medical professional confirmation is required.",
+      heroEyebrow: "Medical tourism aftercare support",
+      heroTitle: "Medical MyData AI",
+      heroLead: "Connect AI Skin Analysis, Korea medical tourism coordination, and post-visit follow-up. Medical information is organized only with patient consent and medical professional confirmation.",
+      ctaSample: "View Sample Demo",
+      ctaMedi: "Ask Medi Hana",
+      ctaSecure: "Request Secure Upload Consultation",
+      pill1: "AI-assisted explanation",
+      pill2: "Follow-up support",
+      pill3: "Medical professional confirmation required",
+      uploadEyebrow: "Upload notice",
+      uploadTitle: "Medical document upload is not available yet",
+      uploadBody: "Medical document upload will be provided only after privacy and security review. This page does not accept real medical records, prescriptions, or test results. Currently, only sample-based demo information and consultation requests are available.",
+      mockUploadTitle: "Medical Document Upload Coming Soon",
+      mockUploadSubtitle: "의료자료 업로드 준비중",
+      mockItem1: "Medical records",
+      mockItem2: "Prescriptions",
+      mockItem3: "Test results",
+      mockItem4: "Discharge instructions",
+      mockUploadNotice: "Real medical document upload is not provided yet.",
+      problemEyebrow: "Problem",
+      problemTitle: "Patients still need explanation after the clinic visit",
+      problemLead: "International patients may need to revisit instructions, interpretation notes, recovery timing, and follow-up questions after care.",
+      featuresEyebrow: "Core features",
+      featuresTitle: "A structure for explanation, consent, and handoff",
+      journeyEyebrow: "Patient journey",
+      journeyTitle: "From AI skin reference to follow-up support",
+      guardrailsEyebrow: "Safety guardrails",
+      guardrailsTitle: "Boundaries the AI does not cross",
+      guard2Body: "AI does not diagnose, prescribe, make treatment decisions, or make emergency judgments.",
+      privacyEyebrow: "Privacy and consent",
+      privacyTitle: "Patient control comes first",
+      sharingEyebrow: "Role-based sharing",
+      sharingTitle: "Different roles need different information",
+      integrationEyebrow: "Medical tourism integration",
+      integrationTitle: "Connected with VR MEDI TOUR coordination",
+      demoEyebrow: "Sample document demo",
+      demoTitle: "A sample-based explanation card, not an upload tool",
+      finalEyebrow: "Next step",
+      finalTitle: "Connect AI Skin Analysis with Medical MyData AI aftercare",
+      finalLead: "Start with a non-diagnostic AI skin reference, then use Medi Hana to organize follow-up questions, consent scope, and professional confirmation steps.",
+      mini1: "No real upload",
+      mini2: "No medical data storage",
+      mini3: "Professional confirmation required",
+      footer1: "Medical tourism coordination guidance for AI-assisted explanation and follow-up support.",
+      footer2: "Not a hospital or medical institution. Medical professional confirmation is required for clinical decisions."
+    };
+
+    translations.vi = {
+      ...translations.en,
+      navHome: "Trang chủ",
+      navSkin: "Phân tích da AI",
+      navMedi: "Hỏi Medi Hana",
+      languageLabel: "Ngôn ngữ",
+      safetyTitle: "Thông báo an toàn",
+      safetyBody: "Medical MyData AI là khái niệm giải thích có hỗ trợ AI và hỗ trợ theo dõi sau điều trị. Mọi ý nghĩa y khoa cần được chuyên gia y tế xác nhận.",
+      safety1: "AI không chẩn đoán.",
+      safety2: "AI không kê đơn.",
+      safety3: "AI không quyết định điều trị.",
+      safety4: "Cần xác nhận của chuyên gia y tế.",
+      heroEyebrow: "Hỗ trợ chăm sóc sau du lịch y tế",
+      heroTitle: "Medical MyData AI",
+      heroLead: "Kết nối phân tích da AI, điều phối du lịch y tế Hàn Quốc và câu hỏi theo dõi sau khi về nước với sự đồng ý của bệnh nhân và xác nhận chuyên môn.",
+      ctaSample: "Xem demo mẫu",
+      ctaMedi: "Hỏi Medi Hana",
+      ctaSecure: "Yêu cầu tư vấn tải lên bảo mật",
+      uploadTitle: "Chưa hỗ trợ tải tài liệu y tế",
+      uploadBody: "Tính năng tải tài liệu y tế chỉ được cung cấp sau khi rà soát quyền riêng tư và bảo mật. Trang này không nhận hồ sơ y tế, đơn thuốc hoặc kết quả xét nghiệm thật. Hiện chỉ có thông tin demo mẫu và yêu cầu tư vấn.",
+      mockUploadTitle: "Đang chuẩn bị tải tài liệu y tế",
+      mockUploadSubtitle: "Medical Document Upload Coming Soon",
+      mockItem1: "Hồ sơ khám",
+      mockItem2: "Đơn thuốc",
+      mockItem3: "Kết quả xét nghiệm",
+      mockItem4: "Hướng dẫn xuất viện",
+      mockUploadNotice: "Chưa cung cấp tải tài liệu y tế thật."
+    };
+
+    translations.ja = {
+      ...translations.en,
+      navHome: "メインページ",
+      navSkin: "AI肌分析",
+      navMedi: "Medi Hanaに相談",
+      languageLabel: "言語",
+      safetyTitle: "安全に関する注意",
+      safetyBody: "Medical MyData AIは、AI支援による説明とフォローアップ支援の概念です。医療上の意味は医療専門家の確認が必要です。",
+      safety1: "AIは診断しません。",
+      safety2: "AIは処方しません。",
+      safety3: "AIは治療を決定しません。",
+      safety4: "医療専門家の確認が必要です。",
+      heroEyebrow: "医療観光アフターケア支援",
+      heroTitle: "Medical MyData AI",
+      heroLead: "AI肌分析、韓国医療観光コーディネーション、帰国後のフォローアップ質問を、患者同意と専門家確認を前提に整理します。",
+      ctaSample: "サンプルデモを見る",
+      ctaMedi: "Medi Hanaに相談",
+      ctaSecure: "安全アップロード相談を申請",
+      uploadTitle: "医療資料アップロードはまだ提供していません",
+      uploadBody: "医療資料アップロード機能は、個人情報保護とセキュリティ確認後に提供予定です。このページでは実際の診療記録、処方箋、検査結果を受け付けません。現在はサンプルベースのデモと相談申請のみ可能です。",
+      mockUploadTitle: "医療資料アップロード準備中",
+      mockUploadSubtitle: "Medical Document Upload Coming Soon",
+      mockItem1: "診療記録",
+      mockItem2: "処方箋",
+      mockItem3: "検査結果",
+      mockItem4: "退院案内",
+      mockUploadNotice: "実際の医療資料アップロードはまだ提供されていません。"
+    };
+
+    translations.zh = {
+      ...translations.en,
+      navHome: "主页",
+      navSkin: "AI皮肤分析",
+      navMedi: "咨询 Medi Hana",
+      languageLabel: "语言",
+      safetyTitle: "安全提示",
+      safetyBody: "Medical MyData AI 是 AI 辅助说明和随访支持概念。任何医疗含义都需要医疗专业人员确认。",
+      safety1: "AI 不进行诊断。",
+      safety2: "AI 不开具处方。",
+      safety3: "AI 不做治疗决定。",
+      safety4: "需要医疗专业人员确认。",
+      heroEyebrow: "医疗旅游后续护理支持",
+      heroTitle: "Medical MyData AI",
+      heroLead: "连接 AI 皮肤分析、韩国医疗旅游协调和回国后的随访问题，并以患者同意和专业确认为前提进行整理。",
+      ctaSample: "查看样本演示",
+      ctaMedi: "咨询 Medi Hana",
+      ctaSecure: "申请安全上传咨询",
+      uploadTitle: "暂不提供医疗资料上传",
+      uploadBody: "医疗资料上传功能将在隐私和安全审查后提供。本页面不接收真实病历、处方或检查结果。目前仅提供样本演示信息和咨询申请。",
+      mockUploadTitle: "医疗资料上传准备中",
+      mockUploadSubtitle: "Medical Document Upload Coming Soon",
+      mockItem1: "诊疗记录",
+      mockItem2: "处方",
+      mockItem3: "检查结果",
+      mockItem4: "出院说明",
+      mockUploadNotice: "目前尚未提供真实医疗资料上传。"
+    };
+
+    function normalizeLang(lang) {
+      return ({ jp: "ja", cn: "zh" }[String(lang || "").toLowerCase()] || String(lang || "").toLowerCase());
+    }
+
+    function applyLanguage(lang) {
+      const active = translations[normalizeLang(lang)] ? normalizeLang(lang) : "ko";
+      document.documentElement.lang = active;
+      document.querySelectorAll("[data-i18n]").forEach((element) => {
+        const value = translations[active][element.dataset.i18n];
+        if (value) element.textContent = value;
+      });
+      document.querySelectorAll("[data-lang]").forEach((button) => {
+        const isActive = normalizeLang(button.dataset.lang) === active;
+        button.classList.toggle("active", isActive);
+        button.setAttribute("aria-pressed", String(isActive));
+      });
+    }
+
+    document.getElementById("languageButtons")?.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-lang]");
+      if (!button) return;
+      applyLanguage(button.dataset.lang);
+    });
+
+    const queryLang = new URLSearchParams(window.location.search).get("lang");
+    applyLanguage(queryLang || "ko");
+  </script>
+  <script src="/public/medical-mydata-ai/translations.js"></script>
+  <script>
+    (function () {
+      const i18n = window.medicalMyDataAiI18n;
+      if (!i18n) return;
+
+      function applySharedLanguage(lang) {
+        return i18n.applyLanguage(lang || "ko");
+      }
+
+      document.getElementById("languageButtons")?.addEventListener("click", (event) => {
+        const button = event.target.closest("[data-lang]");
+        if (!button) return;
+        applySharedLanguage(button.dataset.lang);
+      });
+
+      const queryLang = new URLSearchParams(window.location.search).get("lang");
+      applySharedLanguage(queryLang || "ko");
+    })();
+  </script>
+</body>
+</html>

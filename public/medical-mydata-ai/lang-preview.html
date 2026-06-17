@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Medical MyData AI Language QA Preview</title>
+  <link rel="icon" href="/assets/logo.jpg" />
+  <link rel="stylesheet" href="/public/seo-landing.css" />
+  <style>
+    body {
+      background: #07111f;
+      color: #edf5ff;
+    }
+
+    .qa-page {
+      width: min(1480px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 24px 0 44px;
+    }
+
+    .qa-header {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .qa-header p {
+      margin: 0;
+      color: #b9c8dc;
+    }
+
+    .qa-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .qa-summary {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin: 16px 0;
+    }
+
+    .qa-stat {
+      border: 1px solid rgba(182, 204, 230, 0.22);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.06);
+      padding: 12px;
+    }
+
+    .qa-stat strong {
+      display: block;
+      font-size: 1.15rem;
+      color: #7ed3e0;
+    }
+
+    .qa-table-wrap {
+      overflow-x: auto;
+      border: 1px solid rgba(182, 204, 230, 0.22);
+      border-radius: 14px;
+      background: rgba(5, 12, 23, 0.8);
+    }
+
+    table {
+      width: 100%;
+      min-width: 1180px;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      border-bottom: 1px solid rgba(182, 204, 230, 0.18);
+      border-right: 1px solid rgba(182, 204, 230, 0.14);
+      padding: 10px;
+      vertical-align: top;
+      text-align: left;
+      line-height: 1.45;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      background: #101c2d;
+      color: #ffffff;
+      font-size: 0.86rem;
+    }
+
+    td {
+      color: #d9e7f6;
+      font-size: 0.9rem;
+    }
+
+    td:first-child {
+      color: #9fe6f2;
+      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+      font-size: 0.82rem;
+      white-space: nowrap;
+    }
+
+    tr.missing td {
+      background: rgba(245, 158, 11, 0.08);
+    }
+
+    .missing-badge {
+      display: inline-flex;
+      border-radius: 999px;
+      background: rgba(245, 158, 11, 0.18);
+      color: #ffe9b0;
+      padding: 3px 8px;
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+
+    @media (max-width: 760px) {
+      .qa-summary {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="qa-page">
+    <section class="qa-header">
+      <p class="eyebrow">Development-only language QA</p>
+      <h1>Medical MyData AI Translation Preview</h1>
+      <p>This page is not linked from the public homepage. It renders all text from the same shared translation dictionary used by the live Medical MyData AI page.</p>
+      <div class="qa-actions">
+        <a class="btn secondary" href="/medical-mydata-ai/">Open Live Page</a>
+        <a class="btn secondary" href="/public/medical-mydata-ai/index.html">Open Source Page</a>
+      </div>
+    </section>
+
+    <section class="qa-summary" id="qaSummary" aria-label="Language QA summary"></section>
+
+    <section class="qa-table-wrap" aria-label="Medical MyData AI translations">
+      <table>
+        <thead>
+          <tr>
+            <th>Key</th>
+            <th>Korean</th>
+            <th>English</th>
+            <th>Vietnamese</th>
+            <th>Japanese</th>
+            <th>Chinese</th>
+          </tr>
+        </thead>
+        <tbody id="translationRows"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="/public/medical-mydata-ai/translations.js"></script>
+  <script>
+    const qa = window.medicalMyDataAiI18n;
+    const tbody = document.getElementById("translationRows");
+    const summary = document.getElementById("qaSummary");
+
+    const missing = [];
+    qa.rows.forEach((row) => {
+      const tr = document.createElement("tr");
+      const cells = [
+        row.key,
+        row.ko,
+        row.en,
+        row.vi,
+        row.ja,
+        row.zh,
+      ];
+
+      qa.languages.forEach(({ code }) => {
+        if (!row[code]) missing.push(`${row.key}:${code}`);
+      });
+
+      if (qa.languages.some(({ code }) => !row[code])) {
+        tr.classList.add("missing");
+      }
+
+      cells.forEach((value, index) => {
+        const cell = document.createElement(index === 0 ? "th" : "td");
+        if (index === 0) cell.scope = "row";
+        cell.textContent = value || "MISSING";
+        tr.appendChild(cell);
+      });
+      tbody.appendChild(tr);
+    });
+
+    [
+      ["Keys", qa.rows.length],
+      ["Languages", qa.languages.map((lang) => lang.shortLabel).join(" / ")],
+      ["Missing cells", missing.length],
+      ["Source", "translations.js"],
+    ].forEach(([label, value]) => {
+      const card = document.createElement("article");
+      card.className = "qa-stat";
+      card.innerHTML = `<strong>${value}</strong><span>${label}</span>`;
+      summary.appendChild(card);
+    });
+
+    if (missing.length) {
+      const warning = document.createElement("p");
+      warning.className = "missing-badge";
+      warning.textContent = `Missing: ${missing.join(", ")}`;
+      document.querySelector(".qa-header").appendChild(warning);
+    }
+  </script>
+</body>
+</html>

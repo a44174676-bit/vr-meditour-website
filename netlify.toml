@@ -92,6 +92,16 @@
   to = "/public/ai-skin-analysis-kbeauty.html"
   status = 200
 
+# Netlify's local redirect matcher treats trailing slash variants as the same
+# route. This shim preserves the public behavior without a self-redirect loop:
+# /medical-mydata-ai -> 301 /medical-mydata-ai/
+# /medical-mydata-ai/ -> 200 public/medical-mydata-ai/index.html
+[[redirects]]
+  from = "/medical-mydata-ai/*"
+  to = "/.netlify/functions/medical-mydata-ai-route"
+  status = 200
+  force = true
+
 [[redirects]]
   from = "/ai-skin-premium"
   to = "/public/ai-skin-premium/"
