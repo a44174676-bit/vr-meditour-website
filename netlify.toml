@@ -2,6 +2,9 @@
   publish = "."
   functions = "netlify/functions"
 
+  
+[functions]
+included_files = ["public/medical-mydata-ai/**"]
 # Language button images are stored under /public/assets in the repository, while
 # page markup intentionally references the public URL path /assets/images/language/*.
 [[redirects]]
