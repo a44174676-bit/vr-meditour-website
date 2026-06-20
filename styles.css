@@ -1213,6 +1213,16 @@ body.lang-ar .cta-button {
   word-break: keep-all;
 }
 
+.royal-roots-hero-cta {
+  margin-top: 16px;
+  max-width: 780px;
+}
+
+.royal-roots-hero-cta p:not(.certificate-kicker) {
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
 .verified-operator {
   border-color: rgba(229, 196, 121, 0.28);
 }
@@ -1309,12 +1319,18 @@ body.lang-ar .cta-button {
   }
 
   .venture-landing .top-nav-main,
-  .venture-landing .top-nav-cta,
   .venture-landing .language-buttons {
     justify-content: flex-start;
     overflow-x: auto;
     flex-wrap: nowrap;
     padding-bottom: 5px;
+  }
+
+  .venture-landing .top-nav-cta {
+    justify-content: flex-start;
+    overflow-x: visible;
+    flex-wrap: wrap;
+    padding-bottom: 0;
   }
 
   .venture-landing .top-tools {

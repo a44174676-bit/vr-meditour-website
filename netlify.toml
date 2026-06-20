@@ -13,6 +13,12 @@ included_files = ["public/medical-mydata-ai/**"]
   status = 200
   force = true
 
+[[redirects]]
+  from = "/assets/images/tours/*"
+  to = "/public/assets/images/tours/:splat"
+  status = 200
+  force = true
+
 # AI Skin is served as real static files from /ai-skin/ because publish = ".".
 # Keep this path free of redirects to avoid Deploy Preview redirect loops.
 [[redirects]]
@@ -148,6 +154,21 @@ included_files = ["public/medical-mydata-ai/**"]
 [[redirects]]
   from = "/safe-medical-travel-korea.html"
   to = "/public/safe-medical-travel-korea.html"
+  status = 200
+
+[[redirects]]
+  from = "/vietnam-royal-roots-tour.html"
+  to = "/public/vietnam-royal-roots-tour.html"
+  status = 200
+
+[[redirects]]
+  from = "/tours/vietnam-royal-roots"
+  to = "/public/vietnam-royal-roots-tour.html"
+  status = 200
+
+[[redirects]]
+  from = "/tours/vietnam-royal-roots/"
+  to = "/public/vietnam-royal-roots-tour.html"
   status = 200
 
 
