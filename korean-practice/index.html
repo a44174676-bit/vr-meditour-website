@@ -7,43 +7,147 @@
   <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
+  <header class="site-header" aria-label="VR MEDI TOUR & HOME common header">
+    <div class="site-header__inner">
+      <a class="site-brand" href="https://vr-meditour.com/" aria-label="VR MEDI TOUR & HOME home">
+        <img class="site-brand__logo" src="./assets/logo.png" alt="VR MEDI TOUR & HOME logo" />
+        <span class="site-brand__text">
+          <strong>VR MEDI TOUR</strong>
+          <span>&amp; HOME</span>
+        </span>
+      </a>
+
+      <nav class="site-nav site-nav--main" aria-label="Primary navigation">
+        <a href="https://vr-meditour.com/" data-i18n="navHome">홈</a>
+        <a href="https://vr-meditour.com/#about" data-i18n="navCompany">회사소개</a>
+        <a href="https://vr-meditour.com/#trust" data-i18n="navTrust">Trust Center</a>
+        <a href="https://vr-meditour.com/#faq" data-i18n="navFaq">FAQ</a>
+        <a href="https://vr-meditour.com/#contact" data-i18n="navContact">문의</a>
+      </nav>
+
+      <div class="site-header__tools">
+        <nav class="site-nav site-nav--services" aria-label="Service quick links">
+          <a class="site-service-link" href="https://vr-meditour.com/ai-skin/">
+            <span aria-hidden="true">🧬</span>
+            <span data-i18n="serviceAiSkin">AI 피부분석</span>
+          </a>
+          <a class="site-service-link" href="https://vr-meditour.com/medical-mydata-ai/">
+            <span aria-hidden="true">MD</span>
+            <span data-i18n="serviceMyData">의료마이데이터 AI</span>
+          </a>
+          <a class="site-service-link" href="https://vr-meditour.com/medi-hana/">
+            <span aria-hidden="true">🤖</span>
+            <span data-i18n="serviceAiConsult">AI 상담</span>
+          </a>
+          <a class="site-service-link" href="https://vr-meditour.com/amis-travel-lounge/">
+            <span aria-hidden="true">🧭</span>
+            <span data-i18n="serviceAmisTravel">AMIS Travel Lounge</span>
+          </a>
+          <a class="site-service-link" href="https://vr-meditour.com/store/">
+            <span aria-hidden="true">🎁</span>
+            <span data-i18n="serviceAmisStore">AMIS Goods Store</span>
+          </a>
+          <a class="site-service-link" href="https://vr-meditour.com/amis-travel-lounge/">
+            <span aria-hidden="true">🌏</span>
+            <span data-i18n="serviceRoyalRoots">베트남 리왕조 투어</span>
+          </a>
+          <a class="site-service-link is-current" href="/korean-practice/" aria-current="page">
+            <span data-i18n="serviceKoreanPractice">🇰🇷 한국어 연습</span>
+          </a>
+        </nav>
+
+        <nav class="language-switcher" aria-label="Language selector">
+          <a class="lang-character-btn" href="./?lang=ko" data-lang="ko" aria-label="한국어">
+            <img class="lang-character-img" src="../public/assets/images/language/lang-ko.png" alt="KO" onerror="this.hidden=true" />
+            <span>KO</span>
+          </a>
+          <a class="lang-character-btn" href="./?lang=en" data-lang="en" aria-label="English">
+            <img class="lang-character-img" src="../public/assets/images/language/lang-en.png" alt="EN" onerror="this.hidden=true" />
+            <span>EN</span>
+          </a>
+          <a class="lang-character-btn" href="./?lang=vi" data-lang="vi" aria-label="Tiếng Việt">
+            <img class="lang-character-img" src="../public/assets/images/language/lang-vi.png" alt="VI" onerror="this.hidden=true" />
+            <span>VI</span>
+          </a>
+          <a class="lang-character-btn" href="./?lang=jp" data-lang="jp" aria-label="日本語">
+            <img class="lang-character-img" src="../public/assets/images/language/lang-ja.png" alt="JP" onerror="this.hidden=true" />
+            <span>JP</span>
+          </a>
+          <a class="lang-character-btn" href="./?lang=cn" data-lang="cn" aria-label="中文">
+            <img class="lang-character-img" src="../public/assets/images/language/lang-zh.png" alt="CN" onerror="this.hidden=true" />
+            <span>CN</span>
+          </a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <section class="guide-video-section" aria-labelledby="guideVideoTitle">
+    <div class="guide-video-copy">
+      <p class="section-kicker" data-i18n="mainKicker">VR MEDI TOUR Korean Language Guide</p>
+      <h2 id="guideVideoTitle" data-i18n="guideVideoTitle">사용법 안내 영상</h2>
+      <p class="guide-video-subtitle" data-i18n="guideVideoSubtitle">Video hướng dẫn sử dụng</p>
+      <p data-i18n="guideVideoDescription1">
+        베트남어권 사용자를 위한 한국어 단어·의료관광 문장 학습 앱 사용법을 영상으로 안내합니다.
+        영상을 먼저 확인한 뒤, 아래에서 학습 모드를 선택하고 카드를 클릭해 한국어 MP3 발음을 들으며 학습할 수 있습니다.
+      </p>
+      <p lang="vi" data-i18n="guideVideoDescription2">
+        Video này hướng dẫn cách sử dụng ứng dụng học từ vựng và câu tiếng Hàn dành cho người Việt.
+        Sau khi xem video, bạn có thể chọn chế độ học, chọn cấp độ, bấm vào thẻ và nghe phát âm tiếng Hàn bằng MP3.
+      </p>
+      <a class="guide-video-link" href="https://youtu.be/K_tECOl5qPk" target="_blank" rel="noopener" data-i18n="watchVideo">
+        영상 새 창에서 보기
+      </a>
+    </div>
+
+    <div class="guide-video-frame">
+      <iframe
+        src="https://www.youtube-nocookie.com/embed/K_tECOl5qPk"
+        title="한국어 의료관광 단어·문장 학습 앱 사용법 안내 영상"
+        loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </section>
+
   <main class="app">
     <header class="app__header">
-      <a class="home-link" href="https://vr-meditour.com/">← VR MEDI TOUR &amp; HOME으로 돌아가기</a>
-      <p class="app__eyebrow">VR MEDI TOUR KOREAN LANGUAGE GUIDE</p>
-      <h1 class="app__title">한국어 의료관광 단어·문장 학습</h1>
-      <p id="mode-description" class="app__subtitle">베트남어권 학습자를 위한 한국어 기본 단어와 의료관광 실무 문장을 단계별로 학습합니다.</p>
+      <a class="home-link" href="https://vr-meditour.com/" data-i18n="backHome">← VR MEDI TOUR &amp; HOME으로 돌아가기</a>
+      <p class="app__eyebrow" data-i18n="mainKicker">VR MEDI TOUR KOREAN LANGUAGE GUIDE</p>
+      <h1 class="app__title" data-i18n="mainTitle">한국어 의료관광 단어·문장 학습</h1>
+      <p id="mode-description" class="app__subtitle" data-i18n="mainDescription">베트남어권 학습자를 위한 한국어 기본 단어와 의료관광 실무 문장을 단계별로 학습합니다.</p>
     </header>
 
     <section class="toolbar" aria-label="단계와 발음 조작">
       <label class="mode-picker" for="mode-select">
-        <span>학습 모드</span>
+        <span data-i18n="modeLabel">학습 모드</span>
         <select id="mode-select">
-          <option value="words">기본 단어</option>
-          <option value="sentences">의료관광 문장</option>
+          <option value="words" data-i18n="wordMode">기본 단어</option>
+          <option value="sentences" data-i18n="sentenceMode">의료관광 문장</option>
         </select>
       </label>
       <label class="stage-picker">
-        <span>단계 선택</span>
+        <span data-i18n="stageLabel">단계 선택</span>
         <select id="stage-select"></select>
       </label>
-      <button id="test-voice-btn" type="button" class="btn-mini">발음 테스트</button>
-      <button id="replay-btn" type="button" class="btn-mini" disabled>발음 다시 듣기</button>
+      <button id="test-voice-btn" type="button" class="btn-mini" data-i18n="testVoice">발음 테스트</button>
+      <button id="replay-btn" type="button" class="btn-mini" disabled data-i18n="replayVoice">발음 다시 듣기</button>
     </section>
 
     <p id="audio-status" class="audio-status" role="status">음성 파일을 준비하고 있습니다.</p>
 
     <section class="status" aria-label="게임 상태">
       <div class="status__item">
-        <span class="status__label">단계</span>
+        <span class="status__label" data-i18n="stage">단계</span>
         <span id="stage-label" class="status__value">1 / 20</span>
       </div>
       <div class="status__item">
-        <span class="status__label">성공</span>
+        <span class="status__label" data-i18n="success">성공</span>
         <span id="matched-pairs" class="status__value">0 / 5쌍</span>
       </div>
       <div class="status__item">
-        <span class="status__label">시도 횟수</span>
+        <span class="status__label" data-i18n="attempts">시도 횟수</span>
         <span id="attempts" class="status__value">0</span>
       </div>
     </section>
@@ -51,19 +155,19 @@
     <section id="board" class="board" aria-label="카드 영역"></section>
 
     <footer class="controls">
-      <button id="restart-btn" type="button" class="btn btn--primary">처음부터 다시</button>
+      <button id="restart-btn" type="button" class="btn btn--primary" data-i18n="restart">처음부터 다시</button>
     </footer>
 
-    <p class="medical-notice">이 학습 자료는 한국어 표현 학습용입니다. 실제 진단, 처방, 치료 판단은 반드시 의료진의 안내를 따라야 합니다.</p>
+    <p class="medical-notice" data-i18n="safetyNotice">이 학습 자료는 한국어 표현 학습용입니다. 실제 진단, 처방, 치료 판단은 반드시 의료진의 안내를 따라야 합니다.</p>
   </main>
 
   <div id="win-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="win-title" hidden>
     <div class="modal__content">
       <h2 id="win-title" class="modal__title">단계 완료</h2>
       <p id="win-message" class="modal__text">다음 단계로 이동합니다.</p>
-      <p class="modal__text">총 시도 횟수: <span id="final-attempts">0</span>회</p>
-      <button id="next-stage-btn" type="button" class="btn btn--primary">다음 단계</button>
-      <button id="modal-restart-btn" type="button" class="btn">처음부터 다시</button>
+      <p class="modal__text"><span data-i18n="finalAttempts">총 시도 횟수:</span> <span id="final-attempts">0</span><span data-i18n="attemptUnit">회</span></p>
+      <button id="next-stage-btn" type="button" class="btn btn--primary" data-i18n="nextStage">다음 단계</button>
+      <button id="modal-restart-btn" type="button" class="btn" data-i18n="restart">처음부터 다시</button>
     </div>
   </div>
 
