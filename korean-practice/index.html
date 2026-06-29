@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>한국어 의료관광 단어·문장 학습</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="app__header">
+      <a class="home-link" href="https://vr-meditour.com/">← VR MEDI TOUR &amp; HOME으로 돌아가기</a>
+      <p class="app__eyebrow">VR MEDI TOUR KOREAN LANGUAGE GUIDE</p>
+      <h1 class="app__title">한국어 의료관광 단어·문장 학습</h1>
+      <p id="mode-description" class="app__subtitle">베트남어권 학습자를 위한 한국어 기본 단어와 의료관광 실무 문장을 단계별로 학습합니다.</p>
+    </header>
+
+    <section class="toolbar" aria-label="단계와 발음 조작">
+      <label class="mode-picker" for="mode-select">
+        <span>학습 모드</span>
+        <select id="mode-select">
+          <option value="words">기본 단어</option>
+          <option value="sentences">의료관광 문장</option>
+        </select>
+      </label>
+      <label class="stage-picker">
+        <span>단계 선택</span>
+        <select id="stage-select"></select>
+      </label>
+      <button id="test-voice-btn" type="button" class="btn-mini">발음 테스트</button>
+      <button id="replay-btn" type="button" class="btn-mini" disabled>발음 다시 듣기</button>
+    </section>
+
+    <p id="audio-status" class="audio-status" role="status">음성 파일을 준비하고 있습니다.</p>
+
+    <section class="status" aria-label="게임 상태">
+      <div class="status__item">
+        <span class="status__label">단계</span>
+        <span id="stage-label" class="status__value">1 / 20</span>
+      </div>
+      <div class="status__item">
+        <span class="status__label">성공</span>
+        <span id="matched-pairs" class="status__value">0 / 5쌍</span>
+      </div>
+      <div class="status__item">
+        <span class="status__label">시도 횟수</span>
+        <span id="attempts" class="status__value">0</span>
+      </div>
+    </section>
+
+    <section id="board" class="board" aria-label="카드 영역"></section>
+
+    <footer class="controls">
+      <button id="restart-btn" type="button" class="btn btn--primary">처음부터 다시</button>
+    </footer>
+
+    <p class="medical-notice">이 학습 자료는 한국어 표현 학습용입니다. 실제 진단, 처방, 치료 판단은 반드시 의료진의 안내를 따라야 합니다.</p>
+  </main>
+
+  <div id="win-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="win-title" hidden>
+    <div class="modal__content">
+      <h2 id="win-title" class="modal__title">단계 완료</h2>
+      <p id="win-message" class="modal__text">다음 단계로 이동합니다.</p>
+      <p class="modal__text">총 시도 횟수: <span id="final-attempts">0</span>회</p>
+      <button id="next-stage-btn" type="button" class="btn btn--primary">다음 단계</button>
+      <button id="modal-restart-btn" type="button" class="btn">처음부터 다시</button>
+    </div>
+  </div>
+
+  <script src="./word-data.js"></script>
+  <script src="./sentence-data.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
