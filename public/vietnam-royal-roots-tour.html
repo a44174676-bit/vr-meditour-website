@@ -1076,7 +1076,7 @@
       "brand": "VR MEDI TOUR",
       "url": "https://vr-meditour.com/",
       "logo": "https://vr-meditour.com/assets/logo.jpg",
-      "email": "vrmeditour@naver.com",
+      "email": "info@vr-meditour.com",
       "telephone": "+82-10-4417-4676"
     },
     {
@@ -1525,7 +1525,7 @@
         </div>
         <div class="button-row">
           <button class="btn primary" type="submit" data-i18n="sendMail">Open email inquiry</button>
-          <a class="btn secondary" href="mailto:vrmeditour@naver.com?subject=Vietnam%20Royal%20Roots%20Tour%20B2B%20Inquiry">vrmeditour@naver.com</a>
+          <a class="btn secondary" href="mailto:info@vr-meditour.com?subject=Vietnam%20Royal%20Roots%20Tour%20B2B%20Inquiry">info@vr-meditour.com</a>
         </div>
         <p class="status" id="formStatus" aria-live="polite"></p>
       </form>
@@ -1566,7 +1566,7 @@
       <p class="muted" data-i18n="footerRole">Korea Inbound Travel &amp; Medical Wellness Partner</p>
       <div class="footer-links">
         <a href="https://vr-meditour.com/">https://vr-meditour.com/</a>
-        <a href="mailto:vrmeditour@naver.com">vrmeditour@naver.com</a>
+        <a href="mailto:info@vr-meditour.com">info@vr-meditour.com</a>
         <span>+82 10 4417 4676</span>
       </div>
     </footer>
@@ -2905,7 +2905,7 @@
         "Message:",
         data.get("message") || ""
       ];
-      const mailto = `mailto:vrmeditour@naver.com?subject=${encodeURIComponent("Vietnam Royal Roots Tour B2B Inquiry")}&body=${encodeURIComponent(lines.join("\n"))}`;
+      const mailto = `mailto:info@vr-meditour.com?subject=${encodeURIComponent("Vietnam Royal Roots Tour B2B Inquiry")}&body=${encodeURIComponent(lines.join("\n"))}`;
       const activeLang = document.documentElement.dataset.activeLang || "vi";
       document.getElementById("formStatus").textContent = dictionaries[activeLang]?.mailStatus || dictionaries.vi.mailStatus;
       window.location.href = mailto;
