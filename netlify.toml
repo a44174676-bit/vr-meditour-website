@@ -112,6 +112,76 @@ included_files = ["public/medical-mydata-ai/**"]
   force = true
 
 [[redirects]]
+  from = "/partners"
+  to = "/partners/"
+  status = 301
+
+[[redirects]]
+  from = "/partners/"
+  to = "/public/partners/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/partners/hospital"
+  to = "/partners/hospital/"
+  status = 301
+
+[[redirects]]
+  from = "/partners/hospital/"
+  to = "/public/partners/hospital/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/partners/hospital/*"
+  to = "/public/partners/hospital/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/public/partners/hospital"
+  to = "/partners/hospital/"
+  status = 301
+
+[[redirects]]
+  from = "/public/partners/hospital/*"
+  to = "/partners/hospital/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/partners/travel-agency"
+  to = "/partners/travel-agency/"
+  status = 301
+
+[[redirects]]
+  from = "/partners/travel-agency/"
+  to = "/public/partners/travel-agency/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/partners/travel-agency/*"
+  to = "/public/partners/travel-agency/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/public/partners"
+  to = "/partners/"
+  status = 301
+
+[[redirects]]
+  from = "/public/partners/"
+  to = "/partners/"
+  status = 301
+
+[[redirects]]
+  from = "/public/partners/travel-agency"
+  to = "/partners/travel-agency/"
+  status = 301
+
+[[redirects]]
+  from = "/public/partners/travel-agency/*"
+  to = "/partners/travel-agency/:splat"
+  status = 301
+
+[[redirects]]
   from = "/ai-skin-premium"
   to = "/public/ai-skin-premium/"
   status = 301

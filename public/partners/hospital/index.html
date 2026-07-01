@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>병원·의료기관 제휴 문의 | VR MEDI TOUR &amp; HOME</title>
+  <meta name="description" content="병원·의료기관이 VR MEDI TOUR & HOME과 외국인환자 유치, 의료관광, AI 상담 연계, 사후관리 협력을 문의하는 접수 페이지입니다." />
+  <link rel="canonical" href="https://vr-meditour.com/partners/hospital/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="병원·의료기관 제휴 문의 | VR MEDI TOUR & HOME" />
+  <meta property="og:description" content="외국인환자 유치, 의료관광, AI 상담 연계, 사후관리 협력을 위한 병원·의료기관 제휴 문의 접수 페이지입니다." />
+  <meta property="og:url" content="https://vr-meditour.com/partners/hospital/" />
+  <meta property="og:image" content="https://vr-meditour.com/assets/hospital-partnership.jpg" />
+  <link rel="icon" href="/assets/logo.jpg" />
+  <style>
+    :root {
+      --bg: #050b15;
+      --panel: #0c1524;
+      --panel-soft: rgba(18, 31, 49, 0.78);
+      --line: rgba(214, 184, 109, 0.34);
+      --gold: #d6b86d;
+      --gold-strong: #f1d98a;
+      --text: #edf5ff;
+      --muted: #b7c6d8;
+      --danger: #ffd4c7;
+      --max: 1120px;
+      --shadow: 0 22px 54px rgba(0, 0, 0, 0.36);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: "Inter", "Noto Sans KR", "Segoe UI", Arial, sans-serif;
+      background:
+        radial-gradient(circle at 18% 0%, rgba(35, 55, 91, 0.95) 0%, rgba(5, 11, 21, 0) 38%),
+        linear-gradient(180deg, #050b15 0%, #08111f 52%, #040812 100%);
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    input, select, textarea, button { font: inherit; }
+
+    .page {
+      width: min(100% - 28px, var(--max));
+      margin: 18px auto 44px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+    }
+
+    .brand img {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 0.94rem;
+    }
+
+    .nav a:hover { color: var(--gold-strong); }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(280px, 0.92fr);
+      gap: 20px;
+      align-items: stretch;
+      margin-bottom: 18px;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: linear-gradient(155deg, rgba(15, 28, 48, 0.94), rgba(8, 16, 30, 0.88));
+      box-shadow: var(--shadow);
+      padding: 24px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid rgba(214, 184, 109, 0.48);
+      border-radius: 999px;
+      color: var(--gold-strong);
+      padding: 6px 11px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+    }
+
+    h1, h2, h3 { line-height: 1.25; }
+    h1 {
+      margin: 16px 0 12px;
+      font-size: clamp(2rem, 4vw, 3.35rem);
+      letter-spacing: 0;
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: clamp(1.35rem, 2.3vw, 2rem);
+    }
+
+    h3 { margin: 0 0 8px; }
+
+    p { margin: 0; }
+    .lead { color: var(--muted); max-width: 68ch; font-size: 1.06rem; }
+
+    .notice-list {
+      display: grid;
+      gap: 10px;
+      margin: 16px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .notice-list li {
+      border: 1px solid rgba(214, 184, 109, 0.26);
+      border-radius: 12px;
+      background: rgba(214, 184, 109, 0.08);
+      padding: 10px 12px;
+      color: #f5eac5;
+      font-weight: 700;
+    }
+
+    .warning {
+      border-color: rgba(255, 178, 151, 0.42);
+      background: rgba(108, 39, 24, 0.22);
+      color: var(--danger);
+    }
+
+    .form-wrap {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 330px;
+      gap: 18px;
+      align-items: start;
+    }
+
+    form {
+      display: grid;
+      gap: 18px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    label {
+      display: grid;
+      gap: 7px;
+      color: #dbe8f7;
+      font-weight: 750;
+    }
+
+    label.full, .full { grid-column: 1 / -1; }
+
+    input, select, textarea {
+      width: 100%;
+      border: 1px solid rgba(202, 222, 255, 0.24);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.07);
+      color: var(--text);
+      padding: 12px 13px;
+      outline: none;
+    }
+
+    textarea { min-height: 132px; resize: vertical; }
+    select option { color: #07111f; }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--gold-strong);
+      box-shadow: 0 0 0 3px rgba(214, 184, 109, 0.16);
+    }
+
+    .field-help {
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .checkbox {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      border: 1px solid rgba(214, 184, 109, 0.28);
+      border-radius: 14px;
+      padding: 13px;
+      background: rgba(214, 184, 109, 0.07);
+    }
+
+    .checkbox input {
+      width: auto;
+      margin-top: 5px;
+      accent-color: var(--gold);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      border: 1px solid rgba(214, 184, 109, 0.58);
+      border-radius: 999px;
+      padding: 0 18px;
+      background: linear-gradient(145deg, #f1d98a, #b88e3b);
+      color: #06101c;
+      font-weight: 850;
+      cursor: pointer;
+    }
+
+    .btn.secondary {
+      background: rgba(255, 255, 255, 0.06);
+      color: #f7e7b3;
+    }
+
+    .side-stack {
+      display: grid;
+      gap: 14px;
+    }
+
+    .mini-list {
+      margin: 0;
+      padding-left: 1.1rem;
+      color: var(--muted);
+    }
+
+    .login-box {
+      margin-top: 18px;
+      display: grid;
+      gap: 10px;
+      text-align: center;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      justify-self: center;
+      border: 1px solid rgba(214, 184, 109, 0.4);
+      border-radius: 999px;
+      padding: 7px 12px;
+      color: var(--gold-strong);
+      background: rgba(214, 184, 109, 0.08);
+      font-weight: 850;
+    }
+
+    footer {
+      color: var(--muted);
+      margin-top: 18px;
+      text-align: center;
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 860px) {
+      .topbar, .hero, .form-wrap { grid-template-columns: 1fr; }
+      .topbar { align-items: flex-start; flex-direction: column; }
+      .form-grid { grid-template-columns: 1fr; }
+      .panel { padding: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="VR MEDI TOUR & HOME 홈">
+        <img src="/assets/logo.jpg" alt="VR MEDI TOUR & HOME 로고" />
+        <span>VR MEDI TOUR &amp; HOME</span>
+      </a>
+      <nav class="nav" aria-label="주요 메뉴">
+        <a href="/">홈</a>
+        <a href="/partners/">파트너 센터</a>
+        <a href="/partners/travel-agency/">여행사 파트너</a>
+        <a href="/company-profile.html">회사 소개</a>
+        <a href="/faq.html">FAQ</a>
+        <a href="/medi-hana/">상담</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <article class="panel">
+        <span class="eyebrow">Hospital Partner Inquiry</span>
+        <h1>병원·의료기관 제휴 문의</h1>
+        <p class="lead">병원·의료기관이 VR MEDI TOUR &amp; HOME과 외국인환자 유치, 의료관광, AI 상담 연계, 사후관리 협력을 문의하는 접수 페이지입니다. 신규 병원은 로그인 없이 제휴 문의를 접수할 수 있습니다.</p>
+        <ul class="notice-list" aria-label="필수 고지">
+          <li>VR MEDI TOUR &amp; HOME은 병원이 아닙니다.</li>
+          <li>본 페이지는 병원 제휴 검토를 위한 접수 페이지입니다.</li>
+          <li class="warning">환자 개인정보나 진료기록은 이 페이지에 입력하지 마십시오.</li>
+          <li>실제 환자 의뢰, 수수료, 정산, 개인정보 처리 기준은 별도 계약 후 진행됩니다.</li>
+          <li>MOU는 협력 의향 확인이며, 실제 환자 유치 및 정산은 별도 계약 체결 후 진행됩니다.</li>
+        </ul>
+      </article>
+
+      <aside class="panel">
+        <h2>협력 검토 범위</h2>
+        <ul class="mini-list">
+          <li>외국인환자 유치 및 의료관광 상담 연계</li>
+          <li>AI 상담을 통한 문의 정리와 병원 전달 준비</li>
+          <li>다국어 응대, 예약 전 확인, 사후관리 협력</li>
+          <li>계약 후 개인정보 처리 기준과 정산 구조 협의</li>
+        </ul>
+      </aside>
+    </section>
+
+    <section class="form-wrap">
+      <article class="panel">
+        <h2>제휴 문의 접수</h2>
+        <form name="hospital-partner-inquiry" method="POST" action="/thank-you.html" data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="hospital-partner-inquiry" />
+          <p hidden><label>작성하지 마세요: <input name="bot-field" /></label></p>
+
+          <div class="form-grid">
+            <label for="hospital_name">병원명
+              <input id="hospital_name" name="hospital_name" type="text" autocomplete="organization" required />
+            </label>
+
+            <label for="business_registration_number">사업자등록번호
+              <input id="business_registration_number" name="business_registration_number" type="text" inputmode="numeric" required />
+            </label>
+
+            <label for="institution_type">요양기관번호 또는 의료기관 구분
+              <input id="institution_type" name="institution_type" type="text" placeholder="예: 요양기관번호 또는 의원/병원/종합병원" required />
+            </label>
+
+            <label for="manager_name">담당자명
+              <input id="manager_name" name="manager_name" type="text" autocomplete="name" required />
+            </label>
+
+            <label for="manager_title">직책
+              <input id="manager_title" name="manager_title" type="text" autocomplete="organization-title" required />
+            </label>
+
+            <label for="phone">연락처
+              <input id="phone" name="phone" type="tel" autocomplete="tel" required />
+            </label>
+
+            <label for="email">이메일
+              <input id="email" name="email" type="email" autocomplete="email" required />
+            </label>
+
+            <label for="hospital_address">병원 주소
+              <input id="hospital_address" name="hospital_address" type="text" autocomplete="street-address" required />
+            </label>
+
+            <label class="full" for="medical_departments">주요 진료과목
+              <textarea id="medical_departments" name="medical_departments" placeholder="예: 피부과, 성형외과, 치과, 건강검진 등" required></textarea>
+            </label>
+
+            <label for="foreign_language_support">외국어 응대 가능 여부
+              <select id="foreign_language_support" name="foreign_language_support" required>
+                <option value="">선택해 주세요</option>
+                <option value="가능">가능</option>
+                <option value="일부 가능">일부 가능</option>
+                <option value="현재 불가">현재 불가</option>
+                <option value="협의 필요">협의 필요</option>
+              </select>
+            </label>
+
+            <label for="partnership_interest">제휴 희망 내용
+              <select id="partnership_interest" name="partnership_interest" required>
+                <option value="">선택해 주세요</option>
+                <option value="외국인환자 유치">외국인환자 유치</option>
+                <option value="의료관광 패키지 협력">의료관광 패키지 협력</option>
+                <option value="AI 상담 연계">AI 상담 연계</option>
+                <option value="사후관리 협력">사후관리 협력</option>
+                <option value="MOU 또는 전략 제휴">MOU 또는 전략 제휴</option>
+                <option value="기타 협력">기타 협력</option>
+              </select>
+            </label>
+
+            <label class="full" for="partnership_detail">제휴 희망 내용 상세
+              <textarea id="partnership_detail" name="partnership_detail" placeholder="협력 희망 지역, 진료 분야, 외국인환자 응대 경험, 상담 가능 방식 등을 적어 주세요." required></textarea>
+            </label>
+
+            <label class="full" for="attachment_note">첨부자료 안내
+              <textarea id="attachment_note" name="attachment_note" placeholder="회사소개서, 병원 소개서, 외국인환자 유치 등록 관련 자료 등 일반 제휴 검토 자료가 있다면 자료명만 적어 주세요. 실제 자료 전달은 담당자 확인 후 별도 채널로 진행합니다."></textarea>
+              <span class="field-help">이 페이지에는 파일 업로드 기능이 없습니다. 환자 개인정보, 진료기록, 주민등록번호, 여권번호, 검사결과, 처방전 정보는 입력하지 마세요.</span>
+            </label>
+          </div>
+
+          <label class="checkbox">
+            <input type="checkbox" name="privacy_agreement" value="동의" required />
+            <span><strong>개인정보 수집·이용 동의</strong><br />병원 제휴 문의 검토 및 회신을 위해 위 기관 및 담당자 정보를 수집·이용하는 데 동의합니다. 환자 개인정보나 진료기록을 입력하지 않아야 함을 확인했습니다.</span>
+          </label>
+
+          <button class="btn" type="submit">제휴 문의 접수</button>
+        </form>
+      </article>
+
+      <aside class="side-stack">
+        <section class="panel">
+          <h2>입력 금지 정보</h2>
+          <p class="lead">환자 개인정보, 진료기록, 주민등록번호, 여권번호, 검사결과, 처방전은 이 페이지에 입력하거나 전달하지 마십시오.</p>
+        </section>
+
+        <section class="panel login-box" aria-labelledby="partner-login-title">
+          <h2 id="partner-login-title">승인된 파트너 로그인</h2>
+          <p class="lead">계약 및 승인 절차가 완료된 파트너 병원을 위한 로그인 영역입니다.</p>
+          <span class="status-pill">준비 중</span>
+          <button class="btn secondary" type="button" disabled>로그인 기능 준비 중</button>
+        </section>
+      </aside>
+    </section>
+
+    <footer>
+      <p>VR MEDI TOUR &amp; HOME · 병원 제휴 검토 접수 페이지</p>
+    </footer>
+  </main>
+</body>
+</html>
