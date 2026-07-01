@@ -473,7 +473,7 @@
         ["법적 신뢰 정보", "외국인환자 유치업 및 관광사업 등록", "사업자등록번호 268-87-03040 · 외국인환자 유치업자 등록번호 A-2025-02-01-06189 · 관광사업등록번호 2025-000013. 등록번호는 검증용 식별 정보이며 정부 보증이나 결과 보장을 의미하지 않습니다."],
         ["인간 담당자 검토", "모든 문의는 담당자가 직접 검토합니다", "AI는 문의 내용을 요약할 수 있지만, 고객 안내, 의료기관 연락 준비, 최종 커뮤니케이션은 책임 있는 담당자가 검토합니다."],
         ["의료 한계 고지", "진단, 처방, 치료, 수술, 결과 보장을 제공하지 않습니다", "의학적 판단, 비용, 일정, 결과는 자격 있는 의료기관 및 의료전문가가 개별 사례별로 결정하고 확인합니다."],
-        ["연락처", "vrmeditour@naver.com", "+82-10-4417-4676 · 부산 본사 / 서울 강남 지점 기반 운영"]
+        ["연락처", "info@vr-meditour.com", "+82-10-4417-4676 · 부산 본사 / 서울 강남 지점 기반 운영"]
       ],
       evidenceLabel: "Truth-first Evidence Policy",
       evidenceBody: "이 회사소개는 확인된 등록정보, 연락처, 서비스 역할만 검증된 정보로 표시합니다. 등록 식별자는 검증을 위한 정보이며 정부 보증이나 결과 보장을 의미하지 않습니다. 병원 가용성, 파트너 참여, 가격, 방문 일정, 수상, 승인, 고객 사례, 의료 결과는 책임 있는 담당자가 증거를 확인하기 전까지 준비 중, 계획 중, 검토 중, 확인 예정 또는 검증 예정으로 취급합니다.",
@@ -490,7 +490,7 @@
         ["Legal / Trust Signals", "Foreign patient attraction business + tourism business registered", "Business No. 268-87-03040 · Foreign Patient Registration No. A-2025-02-01-06189 · Tourism Registration No. 2025-000013. Registration identifiers are provided for verification and do not imply government endorsement or guarantee."],
         ["Human Review", "Every inquiry requires human coordinator review", "AI may summarize inquiries, but customer guidance, medical institution contact preparation, and final communication are reviewed by a responsible coordinator."],
         ["Medical Limitation", "No diagnosis, prescription, treatment, surgery, or outcome guarantee", "Medical decisions, prices, schedules, and outcomes are determined only by qualified medical institutions and medical professionals, then confirmed case by case."],
-        ["Contact", "vrmeditour@naver.com", "+82-10-4417-4676 · Busan HQ / Seoul Gangnam branch-based operation"]
+        ["Contact", "info@vr-meditour.com", "+82-10-4417-4676 · Busan HQ / Seoul Gangnam branch-based operation"]
       ],
       evidenceLabel: "Truth-first Evidence Policy",
       evidenceBody: "This profile presents only confirmed registration, contact, and service-role facts as verified information. Registration identifiers are provided for verification and do not imply government endorsement or guarantee. Hospital availability, partner participation, prices, visit schedules, awards, approvals, client cases, and medical outcomes are marked as in preparation, planned, under review, pending confirmation, or to be verified until a responsible human coordinator confirms the evidence.",
@@ -507,7 +507,7 @@
         ["Thông tin pháp lý / tin cậy", "Đã đăng ký thu hút bệnh nhân nước ngoài và kinh doanh du lịch", "Mã số kinh doanh 268-87-03040 · Số đăng ký thu hút bệnh nhân nước ngoài A-2025-02-01-06189 · Số đăng ký kinh doanh du lịch 2025-000013. Các mã số này dùng để xác minh và không có nghĩa là được chính phủ bảo đảm hay cam kết kết quả."],
         ["Người phụ trách kiểm tra", "Mọi yêu cầu đều được người phụ trách kiểm tra", "AI có thể tóm tắt nội dung, nhưng hướng dẫn khách hàng, chuẩn bị liên hệ cơ sở y tế và trao đổi cuối cùng đều được người phụ trách kiểm tra."],
         ["Giới hạn y tế", "Không cung cấp chẩn đoán, kê đơn, điều trị, phẫu thuật hoặc cam kết kết quả", "Quyết định y khoa, chi phí, lịch trình và kết quả chỉ do cơ sở y tế và chuyên gia y tế đủ điều kiện xác định, sau đó xác nhận theo từng trường hợp."],
-        ["Liên hệ", "vrmeditour@naver.com", "+82-10-4417-4676 · Vận hành dựa trên trụ sở Busan / chi nhánh Seoul Gangnam"]
+        ["Liên hệ", "info@vr-meditour.com", "+82-10-4417-4676 · Vận hành dựa trên trụ sở Busan / chi nhánh Seoul Gangnam"]
       ],
       evidenceLabel: "Chính sách bằng chứng trung thực trước tiên",
       evidenceBody: "Hồ sơ này chỉ trình bày thông tin đăng ký, liên hệ và vai trò dịch vụ đã được xác nhận. Các mã số đăng ký dùng để xác minh và không có nghĩa là được chính phủ bảo đảm hay cam kết kết quả. Khả năng bệnh viện, sự tham gia của đối tác, giá, lịch thăm, giải thưởng, phê duyệt, trường hợp khách hàng và kết quả y tế được xem là đang chuẩn bị, đã lên kế hoạch, đang xem xét, chờ xác nhận hoặc cần xác minh cho đến khi người phụ trách xác nhận bằng chứng.",
@@ -524,7 +524,7 @@
         ["法的・信頼情報", "外国人患者誘致業および観光事業登録", "事業者登録番号 268-87-03040 · 外国人患者誘致業登録番号 A-2025-02-01-06189 · 観光事業登録番号 2025-000013。登録番号は確認用情報であり、政府の保証や結果保証を意味しません。"],
         ["人による確認", "すべてのお問い合わせは担当者が確認します", "AIが問い合わせ内容を要約することはありますが、顧客案内、医療機関への連絡準備、最終コミュニケーションは責任ある担当者が確認します。"],
         ["医療上の制限", "診断、処方、治療、手術、結果保証は提供しません", "医学的判断、費用、日程、結果は、資格ある医療機関および医療専門家が個別ケースごとに決定・確認します。"],
-        ["連絡先", "vrmeditour@naver.com", "+82-10-4417-4676 · 釜山本社 / ソウル江南支店を基盤に運営"]
+        ["連絡先", "info@vr-meditour.com", "+82-10-4417-4676 · 釜山本社 / ソウル江南支店を基盤に運営"]
       ],
       evidenceLabel: "Truth-first Evidence Policy",
       evidenceBody: "この会社紹介は、確認済みの登録情報、連絡先、サービス上の役割のみを検証済み情報として表示します。登録識別情報は確認のためのものであり、政府保証や結果保証を意味しません。病院の受入可否、パートナー参加、価格、訪問日程、受賞、承認、顧客事例、医療結果は、責任ある担当者が証拠を確認するまで準備中、計画中、確認中、確認予定、または検証予定として扱います。",
@@ -541,7 +541,7 @@
         ["法律 / 信任信息", "已登记外国患者招徕业务和旅游业务", "营业执照号 268-87-03040 · 外国患者招徕业务登记号 A-2025-02-01-06189 · 旅游业务登记号 2025-000013。登记编号仅用于核验，并不表示政府背书或结果保证。"],
         ["人工审核", "每一项咨询都需要人工负责人审核", "AI 可以摘要咨询内容，但客户指导、医疗机构联系准备和最终沟通均由负责人员审核。"],
         ["医疗限制", "不提供诊断、处方、治疗、手术或结果保证", "医学判断、费用、日程和结果仅由具备资格的医疗机构及医疗专业人员按个案决定并确认。"],
-        ["联系方式", "vrmeditour@naver.com", "+82-10-4417-4676 · 基于釜山总部 / 首尔江南分支运营"]
+        ["联系方式", "info@vr-meditour.com", "+82-10-4417-4676 · 基于釜山总部 / 首尔江南分支运营"]
       ],
       evidenceLabel: "Truth-first Evidence Policy",
       evidenceBody: "本公司介绍仅将已确认的登记信息、联系方式和服务角色作为已验证信息展示。登记编号用于核验，并不表示政府背书或结果保证。医院接收情况、合作伙伴参与、价格、访问日程、获奖、批准、客户案例和医疗结果，在负责人确认相关证据前，均视为准备中、计划中、审核中、待确认或待验证。",
