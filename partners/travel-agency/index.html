@@ -12,6 +12,7 @@
   <meta property="og:url" content="https://vr-meditour.com/partners/travel-agency/" />
   <meta property="og:image" content="https://vr-meditour.com/assets/hero-medical-travel.jpg" />
   <link rel="icon" href="/assets/logo.jpg" />
+  <link rel="stylesheet" href="/public/assets/css/language-icons.css" />
   <style>
     :root {
       --bg: #050b15;
@@ -44,6 +45,8 @@
     .brand img { width: 48px; height: 48px; border-radius: 12px; }
     .nav { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; color: var(--muted); font-weight: 700; font-size: 0.94rem; }
     .nav a:hover { color: var(--gold-strong); }
+    .top-tools { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; justify-content: flex-end; }
+    .language-select { display: grid; gap: 8px; justify-items: end; color: var(--muted); font-size: 0.88rem; font-weight: 800; }
     .hero { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(280px, 0.92fr); gap: 20px; align-items: stretch; margin-bottom: 18px; }
     .panel {
       border: 1px solid var(--line);
@@ -112,160 +115,193 @@
       font-weight: 850;
       cursor: pointer;
     }
+    .btn.secondary { background: rgba(255, 255, 255, 0.06); color: #f7e7b3; }
     .side-stack { display: grid; gap: 14px; }
     .mini-list { margin: 0; padding-left: 1.1rem; color: var(--muted); }
+    .login-box { display: grid; gap: 10px; text-align: center; }
+    .status-pill {
+      display: inline-flex;
+      justify-self: center;
+      border: 1px solid rgba(214, 184, 109, 0.4);
+      border-radius: 999px;
+      padding: 7px 12px;
+      color: var(--gold-strong);
+      background: rgba(214, 184, 109, 0.08);
+      font-weight: 850;
+    }
     footer { color: var(--muted); margin-top: 18px; text-align: center; font-size: 0.92rem; }
     @media (max-width: 860px) {
       .topbar, .hero, .form-wrap { grid-template-columns: 1fr; }
       .topbar { align-items: flex-start; flex-direction: column; }
+      .top-tools, .language-select { justify-content: flex-start; justify-items: start; }
       .form-grid { grid-template-columns: 1fr; }
       .panel { padding: 18px; }
     }
   </style>
 </head>
-<body>
+<body data-partner-page="travel">
   <main class="page">
     <header class="topbar">
-      <a class="brand" href="/" aria-label="VR MEDI TOUR & HOME 홈">
-        <img src="/assets/logo.jpg" alt="VR MEDI TOUR & HOME 로고" />
+      <a class="brand" href="/" aria-label="VR MEDI TOUR & HOME 홈" data-i18n-aria="brandHomeAria">
+        <img src="/assets/logo.jpg" alt="VR MEDI TOUR & HOME 로고" data-i18n-alt="logoAlt" />
         <span>VR MEDI TOUR &amp; HOME</span>
       </a>
-      <nav class="nav" aria-label="주요 메뉴">
-        <a href="/">홈</a>
-        <a href="/partners/">파트너 센터</a>
-        <a href="/partners/hospital/">병원 파트너</a>
-        <a href="/company-profile.html">회사 소개</a>
+      <div class="top-tools">
+      <nav class="nav" aria-label="주요 메뉴" data-i18n-aria="mainNavAria">
+        <a href="/" data-i18n="navHome">홈</a>
+        <a href="/partners/" data-i18n="navPartners">파트너 센터</a>
+        <a href="/partners/hospital/" data-i18n="navHospitalPartner">병원 파트너</a>
+        <a href="/company-profile.html" data-i18n="navCompany">회사 소개</a>
       </nav>
+      <div class="language-select">
+        <span data-i18n="languageLabel">언어</span>
+        <div class="language-buttons language-character-group" id="languageButtons" aria-label="Language selector">
+          <button type="button" class="lang-btn lang-character-btn" data-lang="ko" aria-label="KO" title="KO" aria-pressed="false"><img class="lang-character-img" src="/public/assets/images/language/lang-ko.png" alt="KO" onerror="this.hidden=true" /></button>
+          <button type="button" class="lang-btn lang-character-btn" data-lang="en" aria-label="EN" title="EN" aria-pressed="false"><img class="lang-character-img" src="/public/assets/images/language/lang-en.png" alt="EN" onerror="this.hidden=true" /></button>
+          <button type="button" class="lang-btn lang-character-btn" data-lang="vi" aria-label="VI" title="VI" aria-pressed="false"><img class="lang-character-img" src="/public/assets/images/language/lang-vi.png" alt="VI" onerror="this.hidden=true" /></button>
+          <button type="button" class="lang-btn lang-character-btn" data-lang="ja" aria-label="JP" title="JP" aria-pressed="false"><img class="lang-character-img" src="/public/assets/images/language/lang-ja.png" alt="JP" onerror="this.hidden=true" /></button>
+          <button type="button" class="lang-btn lang-character-btn" data-lang="zh" aria-label="CN" title="CN" aria-pressed="false"><img class="lang-character-img" src="/public/assets/images/language/lang-zh.png" alt="CN" onerror="this.hidden=true" /></button>
+        </div>
+      </div>
+      </div>
     </header>
 
     <section class="hero">
       <article class="panel">
-        <span class="eyebrow">Vietnam Travel Partner Inquiry</span>
-        <h1>베트남 여행사·송출 파트너 제휴 문의</h1>
-        <p class="lead">베트남 여행사·송출 파트너가 VR MEDI TOUR &amp; HOME과 방한관광, 의료관광, K-뷰티, 웰니스, 유학·연수, 교회·단체 협력을 문의하는 접수 페이지입니다. 신규 여행사는 로그인 없이 제휴 문의를 접수할 수 있습니다.</p>
-        <ul class="notice-list" aria-label="필수 고지">
-          <li>VR MEDI TOUR &amp; HOME은 병원이 아닙니다.</li>
-          <li>여행사 파트너는 고객 모집, 일정 안내, 사전 상담 연결을 지원할 수 있으나 의료적 판단을 할 수 없습니다.</li>
-          <li>진료 가능 여부와 최종 의료 결정은 한국의 면허 의료기관이 수행합니다.</li>
-          <li class="warning">환자 개인정보나 진료기록은 이 문의 페이지에 입력하지 마십시오.</li>
-          <li>실제 송객, 수수료, 정산, 환불, 개인정보 처리 기준은 별도 계약 후 진행됩니다.</li>
+        <span class="eyebrow" data-i18n="travelEyebrow">Vietnam Travel Partner Inquiry</span>
+        <h1 data-i18n="travelPartnerInquiry">베트남 여행사·송출 파트너 제휴 문의</h1>
+        <p class="lead" data-i18n="travelHeroDesc">베트남 여행사·송출 파트너가 VR MEDI TOUR &amp; HOME과 방한관광, 의료관광, K-뷰티, 웰니스, 유학·연수, 교회·단체 협력을 문의하는 접수 페이지입니다. 신규 여행사는 로그인 없이 제휴 문의를 접수할 수 있습니다.</p>
+        <ul class="notice-list" aria-label="필수 고지" data-i18n-aria="requiredNoticeAria">
+          <li data-i18n="notHospital">VR MEDI TOUR &amp; HOME은 병원이 아닙니다.</li>
+          <li data-i18n="travelNoMedicalJudgment">여행사 파트너는 의료적 판단을 할 수 없습니다</li>
+          <li data-i18n="finalMedicalDecision">진료 가능 여부와 최종 의료 결정은 한국의 면허 의료기관이 수행합니다</li>
+          <li class="warning" data-i18n="travelPatientInfoWarning">환자 개인정보나 진료기록은 이 문의 페이지에 입력하지 마십시오.</li>
+          <li data-i18n="travelContractNotice">실제 송객, 수수료, 정산, 환불, 개인정보 처리 기준은 별도 계약 후 진행됩니다.</li>
         </ul>
       </article>
 
       <aside class="panel">
-        <h2>협력 검토 범위</h2>
+        <h2 data-i18n="scope">협력 검토 범위</h2>
         <ul class="mini-list">
-          <li>베트남 현지 고객 모집 및 사전 일정 안내</li>
-          <li>방한관광, 의료관광, K-뷰티, 웰니스 연계</li>
-          <li>유학·연수, 교회·단체 방문 프로그램 협력</li>
-          <li>계약 후 송객, 수수료, 환불, 개인정보 기준 협의</li>
+          <li data-i18n="travelScope1">베트남 현지 고객 모집 및 사전 일정 안내</li>
+          <li data-i18n="travelScope2">방한관광, 의료관광, K-뷰티, 웰니스 연계</li>
+          <li data-i18n="travelScope3">유학·연수, 교회·단체 방문 프로그램 협력</li>
+          <li data-i18n="travelScope4">계약 후 송객, 수수료, 환불, 개인정보 기준 협의</li>
         </ul>
       </aside>
     </section>
 
     <section class="form-wrap">
       <article class="panel">
-        <h2>제휴 문의 접수</h2>
+        <h2 data-i18n="formTitle">제휴 문의 접수</h2>
         <form name="travel-agency-partner-inquiry" method="POST" action="/thank-you.html" data-netlify="true" netlify-honeypot="bot-field">
           <input type="hidden" name="form-name" value="travel-agency-partner-inquiry" />
           <p hidden><label>작성하지 마세요: <input name="bot-field" /></label></p>
 
           <div class="form-grid">
-            <label for="agency_name">여행사명
+            <label for="agency_name" data-i18n-label="agencyName">여행사명
               <input id="agency_name" name="agency_name" type="text" autocomplete="organization" required />
             </label>
 
-            <label for="representative_name">대표자명
+            <label for="representative_name" data-i18n-label="representativeName">대표자명
               <input id="representative_name" name="representative_name" type="text" required />
             </label>
 
-            <label for="country">국가
-              <input id="country" name="country" type="text" autocomplete="country-name" value="베트남" required />
+            <label for="country" data-i18n-label="country">국가
+              <input id="country" name="country" type="text" autocomplete="country-name" value="베트남" data-i18n-value="countryVietnam" required />
             </label>
 
-            <label for="city">도시
+            <label for="city" data-i18n-label="city">도시
               <input id="city" name="city" type="text" autocomplete="address-level2" required />
             </label>
 
-            <label for="registration_number">사업자등록번호 또는 현지 등록번호
+            <label for="registration_number" data-i18n-label="localRegistrationNumber">사업자등록번호 또는 현지 등록번호
               <input id="registration_number" name="registration_number" type="text" required />
             </label>
 
-            <label for="manager_name">담당자명
+            <label for="manager_name" data-i18n-label="managerName">담당자명
               <input id="manager_name" name="manager_name" type="text" autocomplete="name" required />
             </label>
 
-            <label for="manager_title">직책
+            <label for="manager_title" data-i18n-label="managerTitle">직책
               <input id="manager_title" name="manager_title" type="text" autocomplete="organization-title" required />
             </label>
 
-            <label for="phone">연락처
+            <label for="phone" data-i18n-label="phone">연락처
               <input id="phone" name="phone" type="tel" autocomplete="tel" required />
             </label>
 
-            <label for="email">이메일
+            <label for="email" data-i18n-label="email">이메일
               <input id="email" name="email" type="email" autocomplete="email" required />
             </label>
 
-            <label for="messenger">카카오톡 또는 Zalo
-              <input id="messenger" name="messenger" type="text" placeholder="카카오톡 ID 또는 Zalo 연락처" />
+            <label for="messenger" data-i18n-label="messenger">카카오톡 또는 Zalo
+              <input id="messenger" name="messenger" type="text" placeholder="카카오톡 ID 또는 Zalo 연락처" data-i18n-placeholder="phMessenger" />
             </label>
 
-            <label class="full" for="customer_segment">주요 고객층
-              <textarea id="customer_segment" name="customer_segment" placeholder="예: 베트남 가족 여행객, 의료관광 관심 고객, K-뷰티 고객, 교회·단체 등" required></textarea>
+            <label class="full" for="customer_segment" data-i18n-label="customerSegment">주요 고객층
+              <textarea id="customer_segment" name="customer_segment" placeholder="예: 베트남 가족 여행객, 의료관광 관심 고객, K-뷰티 고객, 교회·단체 등" data-i18n-placeholder="phCustomerSegment" required></textarea>
             </label>
 
-            <label for="monthly_volume">월 예상 송객 수
-              <input id="monthly_volume" name="monthly_volume" type="text" placeholder="예: 월 10~20명, 단체 월 1회 등" required />
+            <label for="monthly_volume" data-i18n-label="monthlyVolume">월 예상 송객 수
+              <input id="monthly_volume" name="monthly_volume" type="text" placeholder="예: 월 10~20명, 단체 월 1회 등" data-i18n-placeholder="phMonthlyVolume" required />
             </label>
 
-            <label for="interest_area">관심 분야
+            <label for="interest_area" data-i18n-label="interestArea">관심 분야
               <select id="interest_area" name="interest_area" required>
-                <option value="">선택해 주세요</option>
-                <option value="방한관광">방한관광</option>
-                <option value="의료관광">의료관광</option>
-                <option value="K-뷰티">K-뷰티</option>
-                <option value="웰니스">웰니스</option>
-                <option value="유학·연수">유학·연수</option>
-                <option value="교회·단체">교회·단체</option>
+                <option value="" data-i18n="selectPlaceholder">선택해 주세요</option>
+                <option value="방한관광" data-i18n="interestInboundTravel">방한관광</option>
+                <option value="의료관광" data-i18n="interestMedicalTourism">의료관광</option>
+                <option value="K-뷰티" data-i18n="interestKBeauty">K-뷰티</option>
+                <option value="웰니스" data-i18n="interestWellness">웰니스</option>
+                <option value="유학·연수" data-i18n="interestStudyTraining">유학·연수</option>
+                <option value="교회·단체" data-i18n="interestChurchGroup">교회·단체</option>
               </select>
             </label>
 
-            <label class="full" for="partnership_detail">제휴 희망 내용
-              <textarea id="partnership_detail" name="partnership_detail" placeholder="희망 상품, 고객 모집 방식, 일정 운영, 상담 연결 방식, 정산 협의 필요 사항 등을 적어 주세요." required></textarea>
+            <label class="full" for="partnership_detail" data-i18n-label="partnershipInterest">제휴 희망 내용
+              <textarea id="partnership_detail" name="partnership_detail" placeholder="베트남 현지 고객층, 송출 가능 지역, 관심 상품, 협력 희망 방식 등을 적어 주세요." data-i18n-placeholder="phTravelPartnershipDetail" required></textarea>
             </label>
 
-            <label class="full" for="attachment_note">회사소개서 또는 등록자료 첨부 안내
-              <textarea id="attachment_note" name="attachment_note" placeholder="회사소개서, 현지 등록자료, 기존 송객 실적 자료 등이 있다면 자료명만 적어 주세요. 실제 자료 전달은 담당자 확인 후 별도 채널로 진행합니다."></textarea>
-              <span class="field-help">이 페이지에는 파일 업로드 기능이 없습니다. 환자 개인정보, 진료기록, 여권번호, 주민등록번호, 검사결과, 처방전 정보는 입력하지 마세요.</span>
+            <label class="full" for="attachment_note" data-i18n-label="attachmentInfo">첨부자료 안내
+              <textarea id="attachment_note" name="attachment_note" placeholder="회사소개서, 여행업 등록자료, 기존 운영 상품 자료 등 일반 제휴 검토 자료가 있다면 자료명만 적어 주세요. 실제 자료 전달은 담당자 확인 후 별도 채널로 진행합니다." data-i18n-placeholder="phTravelAttachment"></textarea>
+              <span class="field-help" data-i18n="fileUploadNotice">이 페이지에는 파일 업로드 기능이 없습니다. 환자 개인정보, 진료기록, 주민등록번호, 여권번호, 검사결과, 처방전 정보는 입력하지 마세요.</span>
             </label>
           </div>
 
           <label class="checkbox">
             <input type="checkbox" name="privacy_agreement" value="동의" required />
-            <span><strong>개인정보 수집·이용 동의</strong><br />여행사·송출 파트너 제휴 문의 검토 및 회신을 위해 위 회사 및 담당자 정보를 수집·이용하는 데 동의합니다. 환자 개인정보나 진료기록을 입력하지 않아야 함을 확인했습니다.</span>
+            <span><strong data-i18n="privacyAgreement">개인정보 수집·이용 동의</strong><br /><span data-i18n="privacyTravelBody">여행사 제휴 문의 검토 및 회신을 위해 위 회사 및 담당자 정보를 수집·이용하는 데 동의합니다. 환자 개인정보나 진료기록을 입력하지 않아야 함을 확인했습니다.</span></span>
           </label>
 
-          <button class="btn" type="submit">여행사 제휴 문의 접수</button>
+          <button class="btn" type="submit" data-i18n="submit">제출하기</button>
         </form>
       </article>
 
       <aside class="side-stack">
         <section class="panel">
-          <h2>입력 금지 정보</h2>
-          <p class="lead">환자 개인정보, 진료기록, 여권번호, 주민등록번호, 검사결과, 처방전은 이 페이지에 입력하거나 전달하지 마십시오.</p>
+          <h2 data-i18n="forbiddenInfoTitle">입력 금지 정보</h2>
+          <p class="lead" data-i18n="patientInfoWarning">환자 개인정보나 진료기록은 이 페이지에 입력하지 마십시오.</p>
         </section>
 
         <section class="panel">
-          <h2>의료 판단 기준</h2>
-          <p class="lead">여행사 파트너는 고객 모집과 사전 상담 연결을 지원할 수 있지만, 진료 가능 여부와 최종 의료 결정은 한국의 면허 의료기관이 수행합니다.</p>
+          <h2 data-i18n="travelNoMedicalJudgment">여행사 파트너는 의료적 판단을 할 수 없습니다</h2>
+          <p class="lead" data-i18n="finalMedicalDecision">진료 가능 여부와 최종 의료 결정은 한국의 면허 의료기관이 수행합니다</p>
+        </section>
+
+        <section class="panel login-box" aria-labelledby="travel-partner-login-title">
+          <h2 id="travel-partner-login-title" data-i18n="approvedPartnerLogin">승인된 파트너 로그인</h2>
+          <p class="lead" data-i18n="approvedTravelLoginDesc">계약 및 승인 절차가 완료된 여행사 파트너를 위한 로그인 영역입니다.</p>
+          <span class="status-pill" data-i18n="preparing">준비 중</span>
+          <button class="btn secondary" type="button" disabled data-i18n="loginPreparing">로그인 기능 준비 중</button>
         </section>
       </aside>
     </section>
 
     <footer>
-      <p>VR MEDI TOUR &amp; HOME · 베트남 여행사·송출 파트너 제휴 문의</p>
+      <p data-i18n="travelFooter">VR MEDI TOUR &amp; HOME · 베트남 여행사·송출 파트너 제휴 문의</p>
     </footer>
   </main>
+  <script src="/partners/partner-i18n.js"></script>
 </body>
 </html>

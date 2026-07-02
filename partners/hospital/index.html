@@ -12,6 +12,7 @@
   <meta property="og:url" content="https://vr-meditour.com/partners/hospital/" />
   <meta property="og:image" content="https://vr-meditour.com/assets/hospital-partnership.jpg" />
   <link rel="icon" href="/assets/logo.jpg" />
+  <link rel="stylesheet" href="/public/assets/css/language-icons.css" />
   <style>
     :root {
       --bg: #050b15;
@@ -78,6 +79,8 @@
     }
 
     .nav a:hover { color: var(--gold-strong); }
+    .top-tools { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; justify-content: flex-end; }
+    .language-select { display: grid; gap: 8px; justify-items: end; color: var(--muted); font-size: 0.88rem; font-weight: 800; }
 
     .hero {
       display: grid;
@@ -272,156 +275,172 @@
     @media (max-width: 860px) {
       .topbar, .hero, .form-wrap { grid-template-columns: 1fr; }
       .topbar { align-items: flex-start; flex-direction: column; }
+      .top-tools, .language-select { justify-content: flex-start; justify-items: start; }
       .form-grid { grid-template-columns: 1fr; }
       .panel { padding: 18px; }
     }
   </style>
 </head>
-<body>
+<body data-partner-page="hospital">
   <main class="page">
     <header class="topbar">
-      <a class="brand" href="/" aria-label="VR MEDI TOUR & HOME 홈">
-        <img src="/assets/logo.jpg" alt="VR MEDI TOUR & HOME 로고" />
+      <a class="brand" href="/" aria-label="VR MEDI TOUR & HOME 홈" data-i18n-aria="brandHomeAria">
+        <img src="/assets/logo.jpg" alt="VR MEDI TOUR & HOME 로고" data-i18n-alt="logoAlt" />
         <span>VR MEDI TOUR &amp; HOME</span>
       </a>
-      <nav class="nav" aria-label="주요 메뉴">
-        <a href="/">홈</a>
-        <a href="/partners/">파트너 센터</a>
-        <a href="/partners/travel-agency/">여행사 파트너</a>
-        <a href="/company-profile.html">회사 소개</a>
+      <div class="top-tools">
+      <nav class="nav" aria-label="주요 메뉴" data-i18n-aria="mainNavAria">
+        <a href="/" data-i18n="navHome">홈</a>
+        <a href="/partners/" data-i18n="navPartners">파트너 센터</a>
+        <a href="/partners/travel-agency/" data-i18n="navTravelPartner">여행사 파트너</a>
+        <a href="/company-profile.html" data-i18n="navCompany">회사 소개</a>
         <a href="/faq.html">FAQ</a>
-        <a href="/medi-hana/">상담</a>
+        <a href="/medi-hana/" data-i18n="navContact">상담</a>
       </nav>
+      <div class="language-select">
+        <span data-i18n="languageLabel">언어</span>
+        <div class="language-buttons language-character-group" id="languageButtons" aria-label="Language selector">
+          <button type="button" class="lang-btn lang-character-btn" data-lang="ko" aria-label="KO" title="KO" aria-pressed="false"><img class="lang-character-img" src="/public/assets/images/language/lang-ko.png" alt="KO" onerror="this.hidden=true" /></button>
+          <button type="button" class="lang-btn lang-character-btn" data-lang="en" aria-label="EN" title="EN" aria-pressed="false"><img class="lang-character-img" src="/public/assets/images/language/lang-en.png" alt="EN" onerror="this.hidden=true" /></button>
+          <button type="button" class="lang-btn lang-character-btn" data-lang="vi" aria-label="VI" title="VI" aria-pressed="false"><img class="lang-character-img" src="/public/assets/images/language/lang-vi.png" alt="VI" onerror="this.hidden=true" /></button>
+          <button type="button" class="lang-btn lang-character-btn" data-lang="ja" aria-label="JP" title="JP" aria-pressed="false"><img class="lang-character-img" src="/public/assets/images/language/lang-ja.png" alt="JP" onerror="this.hidden=true" /></button>
+          <button type="button" class="lang-btn lang-character-btn" data-lang="zh" aria-label="CN" title="CN" aria-pressed="false"><img class="lang-character-img" src="/public/assets/images/language/lang-zh.png" alt="CN" onerror="this.hidden=true" /></button>
+        </div>
+      </div>
+      </div>
     </header>
 
     <section class="hero">
       <article class="panel">
-        <span class="eyebrow">Hospital Partner Inquiry</span>
-        <h1>병원·의료기관 제휴 문의</h1>
-        <p class="lead">병원·의료기관이 VR MEDI TOUR &amp; HOME과 외국인환자 유치, 의료관광, AI 상담 연계, 사후관리 협력을 문의하는 접수 페이지입니다. 신규 병원은 로그인 없이 제휴 문의를 접수할 수 있습니다.</p>
-        <ul class="notice-list" aria-label="필수 고지">
-          <li>VR MEDI TOUR &amp; HOME은 병원이 아닙니다.</li>
-          <li>본 페이지는 병원 제휴 검토를 위한 접수 페이지입니다.</li>
-          <li class="warning">환자 개인정보나 진료기록은 이 페이지에 입력하지 마십시오.</li>
-          <li>실제 환자 의뢰, 수수료, 정산, 개인정보 처리 기준은 별도 계약 후 진행됩니다.</li>
-          <li>MOU는 협력 의향 확인이며, 실제 환자 유치 및 정산은 별도 계약 체결 후 진행됩니다.</li>
+        <span class="eyebrow" data-i18n="hospitalEyebrow">Hospital Partner Inquiry</span>
+        <h1 data-i18n="hospitalInquiry">병원·의료기관 제휴 문의</h1>
+        <p class="lead" data-i18n="hospitalHeroDesc">병원·의료기관이 VR MEDI TOUR &amp; HOME과 외국인환자 유치, 의료관광, AI 상담 연계, 사후관리 협력을 문의하는 접수 페이지입니다. 신규 병원은 로그인 없이 제휴 문의를 접수할 수 있습니다.</p>
+        <ul class="notice-list" aria-label="필수 고지" data-i18n-aria="requiredNoticeAria">
+          <li data-i18n="notHospital">VR MEDI TOUR &amp; HOME은 병원이 아닙니다.</li>
+          <li data-i18n="hospitalPagePurpose">본 페이지는 병원 제휴 검토를 위한 접수 페이지입니다.</li>
+          <li class="warning" data-i18n="patientInfoWarning">환자 개인정보나 진료기록은 이 페이지에 입력하지 마십시오.</li>
+          <li data-i18n="contractNotice">실제 환자 의뢰, 수수료, 정산, 개인정보 처리 기준은 별도 계약 후 진행됩니다.</li>
+          <li data-i18n="hospitalMouNotice">MOU는 협력 의향 확인이며, 실제 환자 유치 및 정산은 별도 계약 체결 후 진행됩니다.</li>
         </ul>
       </article>
 
       <aside class="panel">
-        <h2>협력 검토 범위</h2>
+        <h2 data-i18n="scope">협력 검토 범위</h2>
         <ul class="mini-list">
-          <li>외국인환자 유치 및 의료관광 상담 연계</li>
-          <li>AI 상담을 통한 문의 정리와 병원 전달 준비</li>
-          <li>다국어 응대, 예약 전 확인, 사후관리 협력</li>
-          <li>계약 후 개인정보 처리 기준과 정산 구조 협의</li>
+          <li data-i18n="hospitalScope1">외국인환자 유치 및 의료관광 상담 연계</li>
+          <li data-i18n="hospitalScope2">AI 상담을 통한 문의 정리와 병원 전달 준비</li>
+          <li data-i18n="hospitalScope3">다국어 응대, 예약 전 확인, 사후관리 협력</li>
+          <li data-i18n="hospitalScope4">계약 후 개인정보 처리 기준과 정산 구조 협의</li>
         </ul>
       </aside>
     </section>
 
     <section class="form-wrap">
       <article class="panel">
-        <h2>제휴 문의 접수</h2>
+        <h2 data-i18n="formTitle">제휴 문의 접수</h2>
         <form name="hospital-partner-inquiry" method="POST" action="/thank-you.html" data-netlify="true" netlify-honeypot="bot-field">
           <input type="hidden" name="form-name" value="hospital-partner-inquiry" />
           <p hidden><label>작성하지 마세요: <input name="bot-field" /></label></p>
 
           <div class="form-grid">
-            <label for="hospital_name">병원명
+            <label for="hospital_name" data-i18n-label="hospitalName">병원명
               <input id="hospital_name" name="hospital_name" type="text" autocomplete="organization" required />
             </label>
 
-            <label for="business_registration_number">사업자등록번호
+            <label for="business_registration_number" data-i18n-label="businessRegistrationNumber">사업자등록번호
               <input id="business_registration_number" name="business_registration_number" type="text" inputmode="numeric" required />
             </label>
 
-            <label for="institution_type">요양기관번호 또는 의료기관 구분
-              <input id="institution_type" name="institution_type" type="text" placeholder="예: 요양기관번호 또는 의원/병원/종합병원" required />
+            <label for="institution_type" data-i18n-label="institutionType">요양기관번호 또는 의료기관 구분
+              <input id="institution_type" name="institution_type" type="text" placeholder="예: 요양기관번호 또는 의원/병원/종합병원" data-i18n-placeholder="phInstitutionType" required />
             </label>
 
-            <label for="manager_name">담당자명
+            <label for="manager_name" data-i18n-label="managerName">담당자명
               <input id="manager_name" name="manager_name" type="text" autocomplete="name" required />
             </label>
 
-            <label for="manager_title">직책
+            <label for="manager_title" data-i18n-label="managerTitle">직책
               <input id="manager_title" name="manager_title" type="text" autocomplete="organization-title" required />
             </label>
 
-            <label for="phone">연락처
+            <label for="phone" data-i18n-label="phone">연락처
               <input id="phone" name="phone" type="tel" autocomplete="tel" required />
             </label>
 
-            <label for="email">이메일
+            <label for="email" data-i18n-label="email">이메일
               <input id="email" name="email" type="email" autocomplete="email" required />
             </label>
 
-            <label for="hospital_address">병원 주소
+            <label for="hospital_address" data-i18n-label="hospitalAddress">병원 주소
               <input id="hospital_address" name="hospital_address" type="text" autocomplete="street-address" required />
             </label>
 
-            <label class="full" for="medical_departments">주요 진료과목
-              <textarea id="medical_departments" name="medical_departments" placeholder="예: 피부과, 성형외과, 치과, 건강검진 등" required></textarea>
+            <label class="full" for="medical_departments" data-i18n-label="medicalDepartments">주요 진료과목
+              <textarea id="medical_departments" name="medical_departments" placeholder="예: 피부과, 성형외과, 치과, 건강검진 등" data-i18n-placeholder="phMedicalDepartments" required></textarea>
             </label>
 
-            <label for="foreign_language_support">외국어 응대 가능 여부
+            <label for="foreign_language_support" data-i18n-label="foreignLanguageSupport">외국어 응대 가능 여부
               <select id="foreign_language_support" name="foreign_language_support" required>
-                <option value="">선택해 주세요</option>
-                <option value="가능">가능</option>
-                <option value="일부 가능">일부 가능</option>
-                <option value="현재 불가">현재 불가</option>
-                <option value="협의 필요">협의 필요</option>
+                <option value="" data-i18n="selectPlaceholder">선택해 주세요</option>
+                <option value="한국어" data-i18n="langKorean">한국어</option>
+                <option value="영어" data-i18n="langEnglish">영어</option>
+                <option value="베트남어" data-i18n="langVietnamese">베트남어</option>
+                <option value="일본어" data-i18n="langJapanese">일본어</option>
+                <option value="중국어" data-i18n="langChinese">중국어</option>
+                <option value="기타" data-i18n="optOther">기타</option>
               </select>
             </label>
 
-            <label for="partnership_interest">제휴 희망 내용
+            <label for="partnership_interest" data-i18n-label="partnershipInterest">제휴 희망 내용
               <select id="partnership_interest" name="partnership_interest" required>
-                <option value="">선택해 주세요</option>
-                <option value="외국인환자 유치">외국인환자 유치</option>
-                <option value="의료관광 패키지 협력">의료관광 패키지 협력</option>
-                <option value="AI 상담 연계">AI 상담 연계</option>
-                <option value="사후관리 협력">사후관리 협력</option>
-                <option value="MOU 또는 전략 제휴">MOU 또는 전략 제휴</option>
-                <option value="기타 협력">기타 협력</option>
+                <option value="" data-i18n="selectPlaceholder">선택해 주세요</option>
+                <option value="외국인환자 유치" data-i18n="hospitalInterestForeignPatients">외국인환자 유치</option>
+                <option value="의료관광 상담 연계" data-i18n="hospitalInterestMedicalTourism">의료관광 상담 연계</option>
+                <option value="AI 상담 정리" data-i18n="hospitalInterestAi">AI 상담 정리</option>
+                <option value="사후관리 협력" data-i18n="hospitalInterestAftercare">사후관리 협력</option>
+                <option value="병원 커뮤니케이션 협력" data-i18n="hospitalInterestCommunication">병원 커뮤니케이션 협력</option>
+                <option value="기타" data-i18n="optOther">기타</option>
               </select>
             </label>
 
-            <label class="full" for="partnership_detail">제휴 희망 내용 상세
-              <textarea id="partnership_detail" name="partnership_detail" placeholder="협력 희망 지역, 진료 분야, 외국인환자 응대 경험, 상담 가능 방식 등을 적어 주세요." required></textarea>
+            <label class="full" for="partnership_detail" data-i18n-label="partnershipInterest">제휴 희망 내용 상세
+              <textarea id="partnership_detail" name="partnership_detail" placeholder="협력 희망 지역, 진료 분야, 외국인환자 응대 경험, 상담 가능 방식 등을 적어 주세요." data-i18n-placeholder="phHospitalPartnershipDetail" required></textarea>
             </label>
 
-            <label class="full" for="attachment_note">첨부자료 안내
-              <textarea id="attachment_note" name="attachment_note" placeholder="회사소개서, 병원 소개서, 외국인환자 유치 등록 관련 자료 등 일반 제휴 검토 자료가 있다면 자료명만 적어 주세요. 실제 자료 전달은 담당자 확인 후 별도 채널로 진행합니다."></textarea>
-              <span class="field-help">이 페이지에는 파일 업로드 기능이 없습니다. 환자 개인정보, 진료기록, 주민등록번호, 여권번호, 검사결과, 처방전 정보는 입력하지 마세요.</span>
+            <label class="full" for="attachment_note" data-i18n-label="attachmentInfo">첨부자료 안내
+              <textarea id="attachment_note" name="attachment_note" placeholder="회사소개서, 병원 소개서, 외국인환자 유치 등록 관련 자료 등 일반 제휴 검토 자료가 있다면 자료명만 적어 주세요. 실제 자료 전달은 담당자 확인 후 별도 채널로 진행합니다." data-i18n-placeholder="phHospitalAttachment"></textarea>
+              <span class="field-help" data-i18n="fileUploadNotice">이 페이지에는 파일 업로드 기능이 없습니다. 환자 개인정보, 진료기록, 주민등록번호, 여권번호, 검사결과, 처방전 정보는 입력하지 마세요.</span>
             </label>
           </div>
 
           <label class="checkbox">
             <input type="checkbox" name="privacy_agreement" value="동의" required />
-            <span><strong>개인정보 수집·이용 동의</strong><br />병원 제휴 문의 검토 및 회신을 위해 위 기관 및 담당자 정보를 수집·이용하는 데 동의합니다. 환자 개인정보나 진료기록을 입력하지 않아야 함을 확인했습니다.</span>
+            <span><strong data-i18n="privacyAgreement">개인정보 수집·이용 동의</strong><br /><span data-i18n="privacyHospitalBody">병원 제휴 문의 검토 및 회신을 위해 위 기관 및 담당자 정보를 수집·이용하는 데 동의합니다. 환자 개인정보나 진료기록을 입력하지 않아야 함을 확인했습니다.</span></span>
           </label>
 
-          <button class="btn" type="submit">제휴 문의 접수</button>
+          <button class="btn" type="submit" data-i18n="submit">제출하기</button>
         </form>
       </article>
 
       <aside class="side-stack">
         <section class="panel">
-          <h2>입력 금지 정보</h2>
-          <p class="lead">환자 개인정보, 진료기록, 주민등록번호, 여권번호, 검사결과, 처방전은 이 페이지에 입력하거나 전달하지 마십시오.</p>
+          <h2 data-i18n="forbiddenInfoTitle">입력 금지 정보</h2>
+          <p class="lead" data-i18n="patientInfoWarning">환자 개인정보나 진료기록은 이 페이지에 입력하지 마십시오.</p>
         </section>
 
         <section class="panel login-box" aria-labelledby="partner-login-title">
-          <h2 id="partner-login-title">승인된 파트너 로그인</h2>
-          <p class="lead">계약 및 승인 절차가 완료된 파트너 병원을 위한 로그인 영역입니다.</p>
-          <span class="status-pill">준비 중</span>
-          <button class="btn secondary" type="button" disabled>로그인 기능 준비 중</button>
+          <h2 id="partner-login-title" data-i18n="approvedPartnerLogin">승인된 파트너 로그인</h2>
+          <p class="lead" data-i18n="approvedHospitalLoginDesc">계약 및 승인 절차가 완료된 파트너 병원을 위한 로그인 영역입니다.</p>
+          <span class="status-pill" data-i18n="preparing">준비 중</span>
+          <button class="btn secondary" type="button" disabled data-i18n="loginPreparing">로그인 기능 준비 중</button>
         </section>
       </aside>
     </section>
 
     <footer>
-      <p>VR MEDI TOUR &amp; HOME · 병원 제휴 검토 접수 페이지</p>
+      <p data-i18n="hospitalFooter">VR MEDI TOUR &amp; HOME · 병원 제휴 검토 접수 페이지</p>
     </footer>
   </main>
+  <script src="/partners/partner-i18n.js"></script>
 </body>
 </html>
