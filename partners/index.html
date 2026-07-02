@@ -12,6 +12,7 @@
   <meta property="og:url" content="https://vr-meditour.com/partners/" />
   <meta property="og:image" content="https://vr-meditour.com/assets/hospital-partnership.jpg" />
   <link rel="icon" href="/assets/logo.jpg" />
+  <link rel="stylesheet" href="/public/assets/css/language-icons.css" />
   <style>
     :root {
       --bg: #050b15;
@@ -42,6 +43,8 @@
     .brand img { width: 48px; height: 48px; border-radius: 12px; }
     .nav { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; color: var(--muted); font-weight: 700; font-size: 0.94rem; }
     .nav a:hover { color: var(--gold-strong); }
+    .top-tools { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; justify-content: flex-end; }
+    .language-select { display: grid; gap: 8px; justify-items: end; color: var(--muted); font-size: 0.88rem; font-weight: 800; }
     .panel {
       border: 1px solid var(--line);
       border-radius: 18px;
@@ -92,60 +95,74 @@
     footer { color: var(--muted); margin-top: 18px; text-align: center; font-size: 0.92rem; }
     @media (max-width: 800px) {
       .topbar { align-items: flex-start; flex-direction: column; }
+      .top-tools, .language-select { justify-content: flex-start; justify-items: start; }
       .partner-grid { grid-template-columns: 1fr; }
       .panel { padding: 18px; }
     }
   </style>
 </head>
-<body>
+<body data-partner-page="partners">
   <main class="page">
     <header class="topbar">
-      <a class="brand" href="/" aria-label="VR MEDI TOUR & HOME 홈">
-        <img src="/assets/logo.jpg" alt="VR MEDI TOUR & HOME 로고" />
+      <a class="brand" href="/" aria-label="VR MEDI TOUR & HOME 홈" data-i18n-aria="brandHomeAria">
+        <img src="/assets/logo.jpg" alt="VR MEDI TOUR & HOME 로고" data-i18n-alt="logoAlt" />
         <span>VR MEDI TOUR &amp; HOME</span>
       </a>
-      <nav class="nav" aria-label="주요 메뉴">
-        <a href="/">홈</a>
-        <a href="/company-profile.html">회사 소개</a>
+      <div class="top-tools">
+      <nav class="nav" aria-label="주요 메뉴" data-i18n-aria="mainNavAria">
+        <a href="/" data-i18n="navHome">홈</a>
+        <a href="/company-profile.html" data-i18n="navCompany">회사 소개</a>
         <a href="/faq.html">FAQ</a>
-        <a href="/medi-hana/">상담</a>
+        <a href="/medi-hana/" data-i18n="navContact">상담</a>
       </nav>
+      <div class="language-select">
+        <span data-i18n="languageLabel">언어</span>
+        <div class="language-buttons language-character-group" id="languageButtons" aria-label="Language selector">
+          <button type="button" class="lang-btn lang-character-btn" data-lang="ko" aria-label="KO" title="KO" aria-pressed="false"><img class="lang-character-img" src="/public/assets/images/language/lang-ko.png" alt="KO" onerror="this.hidden=true" /></button>
+          <button type="button" class="lang-btn lang-character-btn" data-lang="en" aria-label="EN" title="EN" aria-pressed="false"><img class="lang-character-img" src="/public/assets/images/language/lang-en.png" alt="EN" onerror="this.hidden=true" /></button>
+          <button type="button" class="lang-btn lang-character-btn" data-lang="vi" aria-label="VI" title="VI" aria-pressed="false"><img class="lang-character-img" src="/public/assets/images/language/lang-vi.png" alt="VI" onerror="this.hidden=true" /></button>
+          <button type="button" class="lang-btn lang-character-btn" data-lang="ja" aria-label="JP" title="JP" aria-pressed="false"><img class="lang-character-img" src="/public/assets/images/language/lang-ja.png" alt="JP" onerror="this.hidden=true" /></button>
+          <button type="button" class="lang-btn lang-character-btn" data-lang="zh" aria-label="CN" title="CN" aria-pressed="false"><img class="lang-character-img" src="/public/assets/images/language/lang-zh.png" alt="CN" onerror="this.hidden=true" /></button>
+        </div>
+      </div>
+      </div>
     </header>
 
     <section class="panel">
-      <span class="eyebrow">Partner Center</span>
-      <h1>파트너 제휴 센터</h1>
-      <p class="lead">VR MEDI TOUR &amp; HOME과 외국인환자 유치, 의료관광, 방한관광, K-뷰티, 웰니스, 사후관리 협력을 논의할 파트너 접수 센터입니다. 제휴 유형을 선택해 로그인 없이 문의를 접수할 수 있습니다.</p>
-      <p class="notice">VR MEDI TOUR &amp; HOME은 병원이 아닙니다. 의료적 판단과 최종 진료 결정은 한국의 면허 의료기관이 수행합니다.</p>
+      <span class="eyebrow" data-i18n="partnerCenterEyebrow">Partner Center</span>
+      <h1 data-i18n="partnersTitle">파트너 제휴 센터</h1>
+      <p class="lead"><span data-i18n="partnersIntro">VR MEDI TOUR &amp; HOME과 외국인환자 유치, 의료관광, 방한관광, K-뷰티, 웰니스, 사후관리 협력을 논의할 파트너 접수 센터입니다.</span> <span data-i18n="partnersLoginless">제휴 유형을 선택해 로그인 없이 문의 접수 가능</span></p>
+      <p class="notice" data-i18n="partnersNotice">VR MEDI TOUR &amp; HOME은 병원이 아닙니다. 의료적 판단과 최종 진료 결정은 한국의 면허 의료기관이 수행합니다.</p>
     </section>
 
-    <section class="partner-grid" aria-label="파트너 유형 선택">
+    <section class="partner-grid" aria-label="파트너 유형 선택" data-i18n-aria="partnerTypeAria">
       <article class="panel partner-card">
-        <h2>병원·의료기관 제휴 문의</h2>
-        <p class="lead">외국인환자 유치, 의료관광, AI 상담 연계, 사후관리 협력을 희망하는 병원·의료기관 접수 페이지입니다.</p>
+        <h2 data-i18n="hospitalInquiry">병원·의료기관 제휴 문의</h2>
+        <p class="lead" data-i18n="hospitalCardDesc">외국인환자 유치, 의료관광, AI 상담 연계, 사후관리 협력을 희망하는 병원·의료기관 접수 페이지입니다.</p>
         <ul class="mini-list">
-          <li>외국인환자 문의 정리 및 상담 연결</li>
-          <li>병원 커뮤니케이션 접점 협의</li>
-          <li>MOU 및 별도 계약 전 검토</li>
+          <li data-i18n="hospitalMini1">외국인환자 문의 정리 및 상담 연결</li>
+          <li data-i18n="hospitalMini2">병원 커뮤니케이션 접점 협의</li>
+          <li data-i18n="hospitalMini3">MOU 및 별도 계약 전 검토</li>
         </ul>
-        <a class="btn" href="/partners/hospital/">병원 파트너 문의</a>
+        <a class="btn" href="/partners/hospital/" data-i18n="hospitalButton">병원 파트너 문의</a>
       </article>
 
       <article class="panel partner-card">
-        <h2>베트남 여행사·송출 파트너 문의</h2>
-        <p class="lead">베트남 현지 고객 모집, 방한 일정 안내, 의료관광·K-뷰티·웰니스 사전 상담 연결 협력을 위한 접수 페이지입니다.</p>
+        <h2 data-i18n="travelInquiry">베트남 여행사·송출 파트너 문의</h2>
+        <p class="lead" data-i18n="travelCardDesc">베트남 현지 고객 모집, 방한 일정 안내, 의료관광·K-뷰티·웰니스 사전 상담 연결 협력을 위한 접수 페이지입니다.</p>
         <ul class="mini-list">
-          <li>방한관광 및 의료관광 송객 협력</li>
-          <li>K-뷰티, 웰니스, 단체 일정 연계</li>
-          <li>정산과 개인정보 기준은 계약 후 협의</li>
+          <li data-i18n="travelMini1">방한관광 및 의료관광 송객 협력</li>
+          <li data-i18n="travelMini2">K-뷰티, 웰니스, 단체 일정 연계</li>
+          <li data-i18n="travelMini3">정산과 개인정보 기준은 계약 후 협의</li>
         </ul>
-        <a class="btn" href="/partners/travel-agency/">여행사 파트너 문의</a>
+        <a class="btn" href="/partners/travel-agency/" data-i18n="travelButton">여행사 파트너 문의</a>
       </article>
     </section>
 
     <footer>
-      <p>VR MEDI TOUR &amp; HOME · 파트너 제휴 센터</p>
+      <p data-i18n="partnersFooter">VR MEDI TOUR &amp; HOME · 파트너 제휴 센터</p>
     </footer>
   </main>
+  <script src="/partners/partner-i18n.js"></script>
 </body>
 </html>
