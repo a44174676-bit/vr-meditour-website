@@ -551,7 +551,12 @@
       <p class="muted" data-i18n="formLead">Send group size, preferred month and partner needs. We will review the scope before suggesting route and land quotation options.</p>
       <form class="form-grid" name="k-beauty-wellness-tour-inquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/thank-you.html">
         <input type="hidden" name="form-name" value="k-beauty-wellness-tour-inquiry" />
-        <label class="hidden">Do not fill this field <input name="bot-field" /></label>
+        <p style="display:none !important;">
+          <label>
+            Do not fill this field
+            <input name="bot-field" />
+          </label>
+        </p>
         <label>
           <span data-i18n="companyLabel">Company / agency</span>
           <input name="company" autocomplete="organization" />
