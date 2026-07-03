@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>K-Beauty &amp; Wellness Korea Tour | VR MEDI TOUR &amp; HOME</title>
+  <meta name="description" content="A consultation-based K-beauty and wellness Korea group program for Vietnamese travelers and B2B travel partners, focused on non-medical skincare experiences, wellness, lifestyle and optional consultation support." />
+  <link rel="canonical" href="https://vr-meditour.com/tours/k-beauty-wellness" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="K-Beauty &amp; Wellness Korea Tour | VR MEDI TOUR &amp; HOME" />
+  <meta property="og:description" content="B2B inquiry and group program concept for Vietnamese travelers interested in K-beauty, wellness, lifestyle and non-medical skincare experiences in Korea." />
+  <meta property="og:url" content="https://vr-meditour.com/tours/k-beauty-wellness" />
+  <meta property="og:image" content="https://vr-meditour.com/assets/dermatology-consultation.webp" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="/assets/logo.jpg" />
+  <link rel="stylesheet" href="/public/assets/css/language-icons.css" />
+  <style>
+    :root {
+      --ivory: #fffaf1;
+      --warm-white: #fffdf8;
+      --beige: #ead8be;
+      --rose: #e8a8ae;
+      --rose-soft: rgba(232, 168, 174, 0.2);
+      --cocoa: #5b4038;
+      --muted: #816d65;
+      --line: rgba(131, 91, 77, 0.18);
+      --panel: rgba(255, 253, 248, 0.82);
+      --panel-strong: rgba(255, 250, 241, 0.94);
+      --shadow: 0 22px 60px rgba(91, 64, 56, 0.16);
+      --radius: 20px;
+      --max: 1160px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, "Noto Sans", "Noto Sans KR", "Segoe UI", Arial, sans-serif;
+      color: var(--cocoa);
+      background:
+        radial-gradient(circle at 12% 0%, rgba(232, 168, 174, 0.28), transparent 30rem),
+        radial-gradient(circle at 84% 8%, rgba(234, 216, 190, 0.46), transparent 32rem),
+        linear-gradient(180deg, var(--warm-white), var(--ivory) 54%, #f8eee1);
+      line-height: 1.65;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; object-fit: cover; }
+    button, input, textarea, select { font: inherit; color: inherit; }
+
+    .skip-link {
+      position: absolute;
+      left: -999px;
+      top: 12px;
+      z-index: 100;
+      padding: 0.6rem 0.8rem;
+      border-radius: 999px;
+      background: #2f211d;
+      color: #fff;
+    }
+
+    .skip-link:focus { left: 12px; }
+
+    .site-header,
+    .page {
+      width: min(100% - 28px, var(--max));
+      margin-inline: auto;
+    }
+
+    .site-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 16px 0 10px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 220px;
+    }
+
+    .brand img {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      border: 1px solid rgba(91, 64, 56, 0.16);
+    }
+
+    .brand strong,
+    .brand span { display: block; }
+    .brand span { color: var(--muted); font-size: 0.9rem; }
+
+    .header-actions,
+    .language-buttons,
+    .hero-cta-row,
+    .button-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .header-actions { justify-content: flex-end; }
+    .tour-language-buttons {
+      justify-content: flex-end;
+      --lang-avatar-size: 54px;
+      --lang-avatar-image-size: 50px;
+      --lang-avatar-gap: 8px;
+    }
+
+    .page {
+      display: grid;
+      gap: 18px;
+      padding: 6px 0 44px;
+    }
+
+    .section {
+      min-width: 0;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(155deg, var(--panel-strong), rgba(255, 255, 255, 0.74));
+      box-shadow: var(--shadow);
+      padding: clamp(18px, 3vw, 34px);
+    }
+
+    .hero {
+      overflow: hidden;
+      background:
+        linear-gradient(120deg, rgba(255, 250, 241, 0.98) 0%, rgba(255, 245, 238, 0.9) 56%, rgba(255, 250, 241, 0.74) 100%),
+        url("/assets/dermatology-consultation.webp") center / cover no-repeat;
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(300px, 0.72fr);
+      gap: clamp(18px, 3vw, 34px);
+      align-items: center;
+    }
+
+    .hero-copy { max-width: 760px; }
+
+    .eyebrow {
+      display: inline-flex;
+      width: fit-content;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 14px;
+      border: 1px solid rgba(232, 168, 174, 0.55);
+      border-radius: 999px;
+      padding: 6px 12px;
+      color: #8b4d54;
+      background: var(--rose-soft);
+      font-weight: 850;
+      font-size: 0.9rem;
+    }
+
+    h1,
+    h2,
+    h3,
+    p { margin-top: 0; }
+
+    h1 {
+      max-width: 17ch;
+      margin-bottom: 14px;
+      font-size: clamp(2.25rem, 4.7vw, 4.25rem);
+      line-height: 1.07;
+      letter-spacing: 0;
+      text-wrap: balance;
+      word-break: keep-all;
+    }
+
+    h2 {
+      margin-bottom: 12px;
+      font-size: clamp(1.5rem, 2.8vw, 2.45rem);
+      line-height: 1.16;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin-bottom: 8px;
+      font-size: 1.14rem;
+      line-height: 1.3;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      max-width: 70ch;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2vw, 1.24rem);
+    }
+
+    .muted { color: var(--muted); }
+
+    .btn {
+      display: inline-flex;
+      min-height: 46px;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      padding: 0 16px;
+      font-weight: 900;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, #e8a8ae, #f3d0c7);
+      color: #3a2520;
+      box-shadow: 0 14px 32px rgba(232, 168, 174, 0.24);
+    }
+
+    .btn.secondary {
+      border-color: rgba(131, 91, 77, 0.22);
+      background: rgba(255, 255, 255, 0.58);
+      color: var(--cocoa);
+    }
+
+    .btn:focus-visible,
+    .tour-language-buttons button:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible {
+      outline: 2px solid #8b4d54;
+      outline-offset: 3px;
+    }
+
+    .hero-visual {
+      border: 1px solid rgba(131, 91, 77, 0.18);
+      border-radius: 18px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 18px 44px rgba(91, 64, 56, 0.16);
+    }
+
+    .hero-visual img {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .pill {
+      border: 1px solid rgba(131, 91, 77, 0.16);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.6);
+      padding: 7px 11px;
+      color: #7c5c53;
+      font-size: 0.9rem;
+      font-weight: 820;
+    }
+
+    .video-section {
+      background:
+        radial-gradient(circle at 10% 0%, rgba(232, 168, 174, 0.14), transparent 20rem),
+        linear-gradient(155deg, rgba(255, 250, 241, 0.96), rgba(255, 255, 255, 0.82));
+    }
+
+    .video-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.72fr) minmax(360px, 1fr);
+      gap: clamp(18px, 3vw, 30px);
+      align-items: center;
+    }
+
+    .video-frame-wrap {
+      overflow: hidden;
+      border: 1px solid rgba(232, 168, 174, 0.34);
+      border-radius: 22px;
+      background: #fff8f3;
+      box-shadow: 0 22px 54px rgba(91, 64, 56, 0.16);
+    }
+
+    .video-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #2f211d;
+    }
+
+    .video-frame iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .grid-3,
+    .grid-2 {
+      display: grid;
+      gap: 14px;
+    }
+
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+    .card {
+      min-width: 0;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.58);
+      padding: 16px;
+    }
+
+    .card h3 { color: #8b4d54; }
+    .card p { color: var(--muted); margin-bottom: 0; }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .form-grid label {
+      display: grid;
+      gap: 6px;
+      color: #6f5048;
+      font-weight: 760;
+    }
+
+    .form-grid input,
+    .form-grid textarea {
+      width: 100%;
+      min-height: 46px;
+      border: 1px solid rgba(131, 91, 77, 0.2);
+      border-radius: 13px;
+      background: rgba(255, 255, 255, 0.84);
+      padding: 0 12px;
+    }
+
+    .form-grid textarea {
+      min-height: 132px;
+      padding-top: 10px;
+      resize: vertical;
+    }
+
+    .full { grid-column: 1 / -1; }
+    .hidden { display: none; }
+
+    .legal-list {
+      margin: 10px 0 0;
+      padding-left: 1.2rem;
+      color: var(--muted);
+    }
+
+    footer { text-align: center; }
+
+    @media (max-width: 920px) {
+      .hero-inner,
+      .video-layout,
+      .grid-2,
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-visual img {
+        aspect-ratio: 16 / 10;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .site-header,
+      .header-actions,
+      .tour-language-buttons,
+      .btn {
+        width: 100%;
+      }
+
+      .site-header,
+      .header-actions,
+      .tour-language-buttons {
+        justify-content: center;
+      }
+
+      .section { padding: 18px; }
+      h1 { font-size: 2.12rem; }
+      .form-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#inquiry">Skip to inquiry form</a>
+  <header class="site-header" aria-label="Site header">
+    <a class="brand" href="/" aria-label="VR MEDI TOUR & HOME home">
+      <img src="/assets/logo.jpg" alt="VR MEDI TOUR & HOME logo" />
+      <span>
+        <strong>VR MEDI TOUR</strong>
+        <span>&amp; HOME</span>
+      </span>
+    </a>
+    <div class="header-actions">
+      <a class="btn secondary" href="/tours/" data-i18n="tourCatalog">Korea Tours</a>
+      <a class="btn secondary" href="#inquiry" data-i18n="topInquiry">B2B Inquiry</a>
+      <div class="language-buttons language-character-group tour-language-buttons" aria-label="Language selector">
+        <button type="button" class="lang-btn lang-character-btn" data-lang="ko" aria-label="한국어" aria-pressed="false">
+          <img class="lang-character-img" src="/assets/images/language/lang-ko.png" alt="한국어" onerror="this.hidden=true" />
+        </button>
+        <button type="button" class="lang-btn lang-character-btn" data-lang="en" aria-label="English" aria-pressed="true">
+          <img class="lang-character-img" src="/assets/images/language/lang-en.png" alt="English" onerror="this.hidden=true" />
+        </button>
+        <button type="button" class="lang-btn lang-character-btn" data-lang="vi" aria-label="Tiếng Việt" aria-pressed="false">
+          <img class="lang-character-img" src="/assets/images/language/lang-vi.png" alt="Tiếng Việt" onerror="this.hidden=true" />
+        </button>
+        <button type="button" class="lang-btn lang-character-btn" data-lang="ja" aria-label="日本語" aria-pressed="false">
+          <img class="lang-character-img" src="/assets/images/language/lang-ja.png" alt="日本語" onerror="this.hidden=true" />
+        </button>
+        <button type="button" class="lang-btn lang-character-btn" data-lang="zh" aria-label="中文" aria-pressed="false">
+          <img class="lang-character-img" src="/assets/images/language/lang-zh.png" alt="中文" onerror="this.hidden=true" />
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="section hero" aria-labelledby="page-title">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow" data-i18n="heroEyebrow">B2B Inquiry / Group Program</p>
+          <h1 id="page-title" data-i18n="heroTitle">K-Beauty &amp; Wellness Korea Tour</h1>
+          <p class="lead" data-i18n="heroLead">A Korea group program for Vietnamese travelers interested in non-medical skincare experiences, wellness, shopping, lifestyle and optional consultation support.</p>
+          <div class="hero-cta-row">
+            <a class="btn primary" href="#inquiry" data-i18n="primaryCta">Request B2B Inquiry</a>
+            <a class="btn secondary" href="#video" data-i18n="videoCta">Watch Program Video</a>
+          </div>
+          <div class="pill-row" aria-label="Program scope">
+            <span class="pill" data-i18n="pillNonMedical">Non-medical skincare experience</span>
+            <span class="pill" data-i18n="pillWellness">Wellness and lifestyle</span>
+            <span class="pill" data-i18n="pillPartners">Vietnam travel partners</span>
+          </div>
+        </div>
+        <figure class="hero-visual">
+          <img src="/assets/dermatology-consultation.webp" alt="K-beauty skincare consultation and wellness travel mood" />
+        </figure>
+      </div>
+    </section>
+
+    <section class="section video-section" id="video" aria-labelledby="video-title">
+      <div class="video-layout">
+        <div>
+          <p class="eyebrow" data-i18n="videoLabel">Program Video</p>
+          <h2 id="video-title" data-i18n="videoTitle">Meet Hà, Vietnamese Presenter Model</h2>
+          <p class="lead" data-i18n="videoDesc">Hà introduces the K-Beauty & Wellness Korea Tour for Vietnamese travelers and travel partners interested in K-beauty, wellness, lifestyle and non-medical skincare experiences in Korea.</p>
+        </div>
+        <div class="video-frame-wrap">
+          <div class="video-frame">
+            <iframe
+              src="https://www.youtube.com/embed/wpEvw6wGcc0"
+              title="Meet Hà, Vietnamese Presenter Model - K-Beauty & Wellness Korea Tour"
+              loading="lazy"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="why-title">
+      <p class="eyebrow" data-i18n="whyEyebrow">Why This Tour</p>
+      <h2 id="why-title" data-i18n="whyTitle">A soft-entry K-beauty and wellness route for Vietnam groups</h2>
+      <div class="grid-3">
+        <article class="card">
+          <h3 data-i18n="why1Title">Easy to understand</h3>
+          <p data-i18n="why1Body">The program explains K-beauty, wellness and lifestyle experiences in a travel-friendly way for Vietnamese groups.</p>
+        </article>
+        <article class="card">
+          <h3 data-i18n="why2Title">Partner friendly</h3>
+          <p data-i18n="why2Body">Travel partners can request a land quote based on group size, month, hotel class, guide, interpreter and shopping or wellness scope.</p>
+        </article>
+        <article class="card">
+          <h3 data-i18n="why3Title">Compliance first</h3>
+          <p data-i18n="why3Body">The tour is positioned around non-medical skincare experiences, wellness, lifestyle and optional consultation support.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="program-title">
+      <p class="eyebrow" data-i18n="programEyebrow">Program scope</p>
+      <h2 id="program-title" data-i18n="programTitle">Possible program components</h2>
+      <div class="grid-2">
+        <article class="card">
+          <h3 data-i18n="component1Title">K-beauty experience</h3>
+          <p data-i18n="component1Body">Non-medical skincare experience, beauty retail, trend discovery, brand showroom or lifestyle content depending on partner scope.</p>
+        </article>
+        <article class="card">
+          <h3 data-i18n="component2Title">Wellness and lifestyle</h3>
+          <p data-i18n="component2Body">Wellness-friendly cafes, shopping, gentle recovery time, photo spots and Korean local culture can be arranged by consultation.</p>
+        </article>
+        <article class="card">
+          <h3 data-i18n="component3Title">Optional consultation support</h3>
+          <p data-i18n="component3Body">Optional consultation support may be coordinated only with clear consent and appropriate licensed institutions when needed.</p>
+        </article>
+        <article class="card">
+          <h3 data-i18n="component4Title">B2B land quote</h3>
+          <p data-i18n="component4Body">No fixed price is shown. Land quotation depends on final route, dates, hotel, vehicle, guide, interpreter and group needs.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="inquiry" aria-labelledby="inquiry-title">
+      <p class="eyebrow" data-i18n="formEyebrow">B2B Inquiry</p>
+      <h2 id="inquiry-title" data-i18n="formTitle">Request K-Beauty &amp; Wellness Korea Tour consultation</h2>
+      <p class="muted" data-i18n="formLead">Send group size, preferred month and partner needs. We will review the scope before suggesting route and land quotation options.</p>
+      <form class="form-grid" name="k-beauty-wellness-tour-inquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/thank-you.html">
+        <input type="hidden" name="form-name" value="k-beauty-wellness-tour-inquiry" />
+        <label class="hidden">Do not fill this field <input name="bot-field" /></label>
+        <label>
+          <span data-i18n="companyLabel">Company / agency</span>
+          <input name="company" autocomplete="organization" />
+        </label>
+        <label>
+          <span data-i18n="personLabel">Contact person</span>
+          <input name="person" autocomplete="name" required />
+        </label>
+        <label>
+          <span data-i18n="emailLabel">Email</span>
+          <input type="email" name="email" autocomplete="email" required />
+        </label>
+        <label>
+          <span data-i18n="phoneLabel">Phone / Zalo / WhatsApp</span>
+          <input name="phone" autocomplete="tel" />
+        </label>
+        <label>
+          <span data-i18n="groupLabel">Estimated group size</span>
+          <input name="groupSize" />
+        </label>
+        <label>
+          <span data-i18n="monthLabel">Preferred travel month</span>
+          <input name="month" />
+        </label>
+        <label class="full">
+          <span data-i18n="messageLabel">Message</span>
+          <textarea name="message" data-i18n-placeholder="messagePlaceholder" placeholder="Tell us your target travelers, route idea, hotel level, guide/interpreter needs and preferred K-beauty or wellness scope."></textarea>
+        </label>
+        <div class="full button-row">
+          <button class="btn primary" type="submit" data-i18n="submitButton">Send Inquiry</button>
+          <a class="btn secondary" href="/tours/" data-i18n="backCatalog">Back to Korea Tours</a>
+        </div>
+      </form>
+    </section>
+
+    <section class="section" aria-labelledby="legal-title">
+      <p class="eyebrow" data-i18n="legalEyebrow">Legal notice</p>
+      <h2 id="legal-title" data-i18n="legalTitle">Important compliance disclaimer</h2>
+      <ul class="legal-list">
+        <li data-i18n="legal1">This page presents a consultation-based B2B group program concept, not a confirmed retail package product.</li>
+        <li data-i18n="legal2">VR MEDI TOUR &amp; HOME is not a hospital or medical institution.</li>
+        <li data-i18n="legal3">K-beauty content is limited to non-medical skincare experience, wellness, lifestyle, shopping and optional consultation support.</li>
+        <li data-i18n="legal4">No fixed price is provided before scope review and partner consultation.</li>
+        <li data-i18n="legal5">Any medical decisions, if separately requested, must be made by licensed professionals and licensed institutions.</li>
+      </ul>
+    </section>
+
+    <footer class="section">
+      <p class="eyebrow">VR MEDI TOUR &amp; HOME</p>
+      <p class="muted" data-i18n="footerText">Korea K-beauty, wellness and lifestyle route coordination for Vietnamese travel partners and groups.</p>
+    </footer>
+  </main>
+
+  <script>
+    const dictionaries = {
+      en: {
+        tourCatalog: "Korea Tours",
+        topInquiry: "B2B Inquiry",
+        heroEyebrow: "B2B Inquiry / Group Program",
+        heroTitle: "K-Beauty & Wellness Korea Tour",
+        heroLead: "A Korea group program for Vietnamese travelers interested in non-medical skincare experiences, wellness, shopping, lifestyle and optional consultation support.",
+        primaryCta: "Request B2B Inquiry",
+        videoCta: "Watch Program Video",
+        pillNonMedical: "Non-medical skincare experience",
+        pillWellness: "Wellness and lifestyle",
+        pillPartners: "Vietnam travel partners",
+        videoLabel: "Program Video",
+        videoTitle: "Meet Hà, Vietnamese Presenter Model",
+        videoDesc: "Hà introduces the K-Beauty & Wellness Korea Tour for Vietnamese travelers and travel partners interested in K-beauty, wellness, lifestyle and non-medical skincare experiences in Korea.",
+        whyEyebrow: "Why This Tour",
+        whyTitle: "A soft-entry K-beauty and wellness route for Vietnam groups",
+        why1Title: "Easy to understand",
+        why1Body: "The program explains K-beauty, wellness and lifestyle experiences in a travel-friendly way for Vietnamese groups.",
+        why2Title: "Partner friendly",
+        why2Body: "Travel partners can request a land quote based on group size, month, hotel class, guide, interpreter and shopping or wellness scope.",
+        why3Title: "Compliance first",
+        why3Body: "The tour is positioned around non-medical skincare experiences, wellness, lifestyle and optional consultation support.",
+        programEyebrow: "Program scope",
+        programTitle: "Possible program components",
+        component1Title: "K-beauty experience",
+        component1Body: "Non-medical skincare experience, beauty retail, trend discovery, brand showroom or lifestyle content depending on partner scope.",
+        component2Title: "Wellness and lifestyle",
+        component2Body: "Wellness-friendly cafes, shopping, gentle recovery time, photo spots and Korean local culture can be arranged by consultation.",
+        component3Title: "Optional consultation support",
+        component3Body: "Optional consultation support may be coordinated only with clear consent and appropriate licensed institutions when needed.",
+        component4Title: "B2B land quote",
+        component4Body: "No fixed price is shown. Land quotation depends on final route, dates, hotel, vehicle, guide, interpreter and group needs.",
+        formEyebrow: "B2B Inquiry",
+        formTitle: "Request K-Beauty & Wellness Korea Tour consultation",
+        formLead: "Send group size, preferred month and partner needs. We will review the scope before suggesting route and land quotation options.",
+        companyLabel: "Company / agency",
+        personLabel: "Contact person",
+        emailLabel: "Email",
+        phoneLabel: "Phone / Zalo / WhatsApp",
+        groupLabel: "Estimated group size",
+        monthLabel: "Preferred travel month",
+        messageLabel: "Message",
+        messagePlaceholder: "Tell us your target travelers, route idea, hotel level, guide/interpreter needs and preferred K-beauty or wellness scope.",
+        submitButton: "Send Inquiry",
+        backCatalog: "Back to Korea Tours",
+        legalEyebrow: "Legal notice",
+        legalTitle: "Important compliance disclaimer",
+        legal1: "This page presents a consultation-based B2B group program concept, not a confirmed retail package product.",
+        legal2: "VR MEDI TOUR & HOME is not a hospital or medical institution.",
+        legal3: "K-beauty content is limited to non-medical skincare experience, wellness, lifestyle, shopping and optional consultation support.",
+        legal4: "No fixed price is provided before scope review and partner consultation.",
+        legal5: "Any medical decisions, if separately requested, must be made by licensed professionals and licensed institutions.",
+        footerText: "Korea K-beauty, wellness and lifestyle route coordination for Vietnamese travel partners and groups."
+      },
+      ko: {
+        tourCatalog: "방한상품",
+        topInquiry: "B2B 문의",
+        heroEyebrow: "B2B 문의 / 단체 프로그램",
+        heroTitle: "K-Beauty & Wellness Korea Tour",
+        heroLead: "비의료 스킨케어 체험, 웰니스, 쇼핑, 라이프스타일, 선택적 상담 지원에 관심 있는 베트남 여행객을 위한 한국 단체 프로그램입니다.",
+        primaryCta: "B2B 문의하기",
+        videoCta: "프로그램 영상 보기",
+        pillNonMedical: "비의료 스킨케어 체험",
+        pillWellness: "웰니스와 라이프스타일",
+        pillPartners: "베트남 여행 파트너",
+        videoLabel: "Program Video",
+        videoTitle: "Hà는 K-Beauty & Wellness Korea Tour를 소개하는 베트남 대표 모델입니다.",
+        videoDesc: "Hà는 한국의 K-뷰티, 웰니스, 라이프스타일, 비의료 스킨케어 체험에 관심 있는 베트남 여행객과 여행 파트너에게 K-Beauty & Wellness Korea Tour를 소개합니다.",
+        whyEyebrow: "Why This Tour",
+        whyTitle: "베트남 단체를 위한 부드러운 K-뷰티·웰니스 입문 루트",
+        why1Title: "이해하기 쉬운 구성",
+        why1Body: "베트남 단체가 K-뷰티, 웰니스, 라이프스타일 경험을 여행 친화적으로 이해할 수 있도록 구성합니다.",
+        why2Title: "파트너 친화형",
+        why2Body: "여행 파트너는 인원, 월, 호텔 등급, 가이드, 통역, 쇼핑 또는 웰니스 범위에 따라 랜드 견적을 요청할 수 있습니다.",
+        why3Title: "컴플라이언스 우선",
+        why3Body: "이 투어는 비의료 스킨케어 체험, 웰니스, 라이프스타일, 선택적 상담 지원 중심으로 안내됩니다.",
+        programEyebrow: "프로그램 범위",
+        programTitle: "구성 가능한 프로그램 요소",
+        component1Title: "K-뷰티 체험",
+        component1Body: "파트너 범위에 따라 비의료 스킨케어 체험, 뷰티 리테일, 트렌드 탐방, 브랜드 쇼룸 또는 라이프스타일 콘텐츠를 구성할 수 있습니다.",
+        component2Title: "웰니스와 라이프스타일",
+        component2Body: "웰니스 친화 카페, 쇼핑, 여유 시간, 포토 스팟, 한국 지역문화는 상담 후 조율할 수 있습니다.",
+        component3Title: "선택적 상담 지원",
+        component3Body: "선택적 상담 지원은 명확한 동의와 필요한 경우 적절한 면허 기관을 통해서만 조율됩니다.",
+        component4Title: "B2B 랜드 견적",
+        component4Body: "고정 가격은 표시하지 않습니다. 랜드 견적은 최종 루트, 날짜, 호텔, 차량, 가이드, 통역, 단체 요구에 따라 달라집니다.",
+        formEyebrow: "B2B 문의",
+        formTitle: "K-Beauty & Wellness Korea Tour 상담 요청",
+        formLead: "인원, 희망 월, 파트너 요구 사항을 보내 주세요. 범위 검토 후 루트와 랜드 견적 옵션을 제안합니다.",
+        companyLabel: "회사 / 여행사",
+        personLabel: "담당자",
+        emailLabel: "이메일",
+        phoneLabel: "전화 / Zalo / WhatsApp",
+        groupLabel: "예상 인원",
+        monthLabel: "희망 여행 월",
+        messageLabel: "메시지",
+        messagePlaceholder: "대상 고객, 루트 아이디어, 호텔 등급, 가이드/통역 필요, 선호 K-뷰티 또는 웰니스 범위를 알려 주세요.",
+        submitButton: "문의 보내기",
+        backCatalog: "방한상품으로 돌아가기",
+        legalEyebrow: "법적 고지",
+        legalTitle: "중요 컴플라이언스 고지",
+        legal1: "이 페이지는 확정 소매 패키지가 아닌 상담 기반 B2B 단체 프로그램 컨셉을 안내합니다.",
+        legal2: "VR MEDI TOUR & HOME은 병원 또는 의료기관이 아닙니다.",
+        legal3: "K-뷰티 콘텐츠는 비의료 스킨케어 체험, 웰니스, 라이프스타일, 쇼핑, 선택적 상담 지원으로 제한됩니다.",
+        legal4: "범위 검토와 파트너 상담 전 고정 가격은 제공하지 않습니다.",
+        legal5: "별도 요청이 있는 의료적 판단은 면허 전문가와 면허 기관이 수행해야 합니다.",
+        footerText: "베트남 여행 파트너와 단체를 위한 한국 K-뷰티, 웰니스, 라이프스타일 루트 조율."
+      },
+      vi: {
+        tourCatalog: "Tour Hàn Quốc",
+        topInquiry: "Liên hệ B2B",
+        heroEyebrow: "Liên hệ B2B / Chương trình đoàn",
+        heroTitle: "K-Beauty & Wellness Korea Tour",
+        heroLead: "Chương trình đoàn tại Hàn Quốc cho khách Việt quan tâm đến trải nghiệm chăm sóc da không y tế, wellness, mua sắm, lifestyle và hỗ trợ tư vấn tùy chọn.",
+        primaryCta: "Gửi liên hệ B2B",
+        videoCta: "Xem video chương trình",
+        pillNonMedical: "Trải nghiệm chăm sóc da không y tế",
+        pillWellness: "Wellness và lifestyle",
+        pillPartners: "Đối tác du lịch Việt Nam",
+        videoLabel: "Program Video",
+        videoTitle: "Gặp Hà – Gương mặt đại diện Việt Nam",
+        videoDesc: "Hà giới thiệu K-Beauty & Wellness Korea Tour cho khách Việt và đối tác du lịch quan tâm đến K-beauty, wellness, lifestyle và trải nghiệm chăm sóc da không y tế tại Hàn Quốc.",
+        whyEyebrow: "Why This Tour",
+        whyTitle: "Tuyến K-beauty và wellness dễ tiếp cận cho đoàn Việt Nam",
+        why1Title: "Dễ hiểu",
+        why1Body: "Chương trình giải thích trải nghiệm K-beauty, wellness và lifestyle theo cách thân thiện với đoàn khách Việt.",
+        why2Title: "Phù hợp đối tác",
+        why2Body: "Đối tác du lịch có thể yêu cầu báo giá land theo số khách, tháng đi, hạng khách sạn, hướng dẫn, phiên dịch và phạm vi mua sắm hoặc wellness.",
+        why3Title: "Ưu tiên tuân thủ",
+        why3Body: "Tour được định vị quanh trải nghiệm chăm sóc da không y tế, wellness, lifestyle và hỗ trợ tư vấn tùy chọn.",
+        programEyebrow: "Phạm vi chương trình",
+        programTitle: "Các hạng mục có thể sắp xếp",
+        component1Title: "Trải nghiệm K-beauty",
+        component1Body: "Có thể gồm chăm sóc da không y tế, mua sắm beauty, khám phá xu hướng, showroom thương hiệu hoặc nội dung lifestyle tùy phạm vi đối tác.",
+        component2Title: "Wellness và lifestyle",
+        component2Body: "Cafe phù hợp wellness, mua sắm, thời gian nghỉ nhẹ, điểm chụp ảnh và văn hóa địa phương Hàn Quốc có thể được sắp xếp sau tư vấn.",
+        component3Title: "Hỗ trợ tư vấn tùy chọn",
+        component3Body: "Hỗ trợ tư vấn tùy chọn chỉ được điều phối khi có đồng ý rõ ràng và qua cơ sở được cấp phép phù hợp nếu cần.",
+        component4Title: "Báo giá land B2B",
+        component4Body: "Không hiển thị giá cố định. Báo giá land phụ thuộc vào tuyến cuối cùng, ngày đi, khách sạn, xe, hướng dẫn, phiên dịch và nhu cầu đoàn.",
+        formEyebrow: "Liên hệ B2B",
+        formTitle: "Yêu cầu tư vấn K-Beauty & Wellness Korea Tour",
+        formLead: "Gửi số khách, tháng mong muốn và nhu cầu đối tác. Chúng tôi sẽ xem phạm vi trước khi gợi ý tuyến và báo giá land.",
+        companyLabel: "Công ty / đại lý",
+        personLabel: "Người liên hệ",
+        emailLabel: "Email",
+        phoneLabel: "Điện thoại / Zalo / WhatsApp",
+        groupLabel: "Số khách dự kiến",
+        monthLabel: "Tháng đi mong muốn",
+        messageLabel: "Tin nhắn",
+        messagePlaceholder: "Cho chúng tôi biết khách mục tiêu, ý tưởng tuyến, hạng khách sạn, nhu cầu hướng dẫn/phiên dịch và phạm vi K-beauty hoặc wellness mong muốn.",
+        submitButton: "Gửi yêu cầu",
+        backCatalog: "Quay lại Tour Hàn Quốc",
+        legalEyebrow: "Thông báo pháp lý",
+        legalTitle: "Lưu ý tuân thủ quan trọng",
+        legal1: "Trang này giới thiệu concept chương trình đoàn B2B theo tư vấn, không phải package bán lẻ đã xác nhận.",
+        legal2: "VR MEDI TOUR & HOME không phải là bệnh viện hoặc cơ sở y tế.",
+        legal3: "Nội dung K-beauty giới hạn ở trải nghiệm chăm sóc da không y tế, wellness, lifestyle, mua sắm và hỗ trợ tư vấn tùy chọn.",
+        legal4: "Không cung cấp giá cố định trước khi xem phạm vi và trao đổi với đối tác.",
+        legal5: "Mọi quyết định y tế, nếu được yêu cầu riêng, phải do chuyên gia và cơ sở được cấp phép thực hiện.",
+        footerText: "Điều phối tuyến K-beauty, wellness và lifestyle tại Hàn Quốc cho đối tác du lịch và đoàn khách Việt Nam."
+      },
+      ja: {
+        tourCatalog: "韓国ツアー",
+        topInquiry: "B2B問い合わせ",
+        heroEyebrow: "B2B問い合わせ / 団体プログラム",
+        heroTitle: "K-Beauty & Wellness Korea Tour",
+        heroLead: "非医療スキンケア体験、ウェルネス、ショッピング、ライフスタイル、任意の相談サポートに関心のあるベトナム旅行者向け韓国団体プログラムです。",
+        primaryCta: "B2B問い合わせ",
+        videoCta: "プログラム動画を見る",
+        pillNonMedical: "非医療スキンケア体験",
+        pillWellness: "ウェルネスとライフスタイル",
+        pillPartners: "ベトナム旅行パートナー",
+        videoLabel: "Program Video",
+        videoTitle: "ベトナム代表モデル Hà の紹介",
+        videoDesc: "Hà が、韓国のKビューティー、ウェルネス、ライフスタイル、非医療スキンケア体験に関心のあるベトナム旅行者と旅行パートナーにK-Beauty & Wellness Korea Tourを紹介します。",
+        whyEyebrow: "Why This Tour",
+        whyTitle: "ベトナム団体向けのやさしいKビューティー・ウェルネスルート",
+        why1Title: "理解しやすい",
+        why1Body: "ベトナム団体がKビューティー、ウェルネス、ライフスタイル体験を旅行向けに理解しやすい形で案内します。",
+        why2Title: "パートナー向け",
+        why2Body: "旅行パートナーは人数、旅行月、ホテル等級、ガイド、通訳、ショッピングまたはウェルネス範囲に基づきランド見積を依頼できます。",
+        why3Title: "コンプライアンス優先",
+        why3Body: "本ツアーは非医療スキンケア体験、ウェルネス、ライフスタイル、任意相談サポートを中心に位置づけています。",
+        programEyebrow: "プログラム範囲",
+        programTitle: "構成可能なプログラム要素",
+        component1Title: "Kビューティー体験",
+        component1Body: "パートナー範囲に応じて、非医療スキンケア体験、ビューティーリテール、トレンド探索、ブランドショールーム、ライフスタイル内容を構成できます。",
+        component2Title: "ウェルネスとライフスタイル",
+        component2Body: "ウェルネス向けカフェ、ショッピング、ゆとりある時間、フォトスポット、韓国地域文化は相談により調整できます。",
+        component3Title: "任意相談サポート",
+        component3Body: "任意相談サポートは明確な同意があり、必要な場合に適切な認可機関を通じてのみ調整されます。",
+        component4Title: "B2Bランド見積",
+        component4Body: "固定価格は表示しません。ランド見積は最終ルート、日程、ホテル、車両、ガイド、通訳、団体ニーズにより変わります。",
+        formEyebrow: "B2B問い合わせ",
+        formTitle: "K-Beauty & Wellness Korea Tour相談依頼",
+        formLead: "人数、希望月、パートナーニーズをお送りください。範囲確認後、ルートとランド見積オプションを提案します。",
+        companyLabel: "会社 / 旅行会社",
+        personLabel: "担当者",
+        emailLabel: "メール",
+        phoneLabel: "電話 / Zalo / WhatsApp",
+        groupLabel: "予定人数",
+        monthLabel: "希望旅行月",
+        messageLabel: "メッセージ",
+        messagePlaceholder: "対象旅行者、ルート案、ホテル等級、ガイド/通訳ニーズ、希望するKビューティーまたはウェルネス範囲をお知らせください。",
+        submitButton: "問い合わせ送信",
+        backCatalog: "韓国ツアーへ戻る",
+        legalEyebrow: "法的告知",
+        legalTitle: "重要なコンプライアンス告知",
+        legal1: "このページは確定済み小売パッケージではなく、相談ベースのB2B団体プログラムコンセプトです。",
+        legal2: "VR MEDI TOUR & HOMEは病院または医療機関ではありません。",
+        legal3: "Kビューティー内容は非医療スキンケア体験、ウェルネス、ライフスタイル、ショッピング、任意相談サポートに限定されます。",
+        legal4: "範囲確認とパートナー相談前に固定価格は提供しません。",
+        legal5: "別途依頼される医療判断は、認可専門家と認可機関が行う必要があります。",
+        footerText: "ベトナム旅行パートナーと団体向け韓国Kビューティー、ウェルネス、ライフスタイルルート調整。"
+      },
+      zh: {
+        tourCatalog: "韩国旅游产品",
+        topInquiry: "B2B咨询",
+        heroEyebrow: "B2B咨询 / 团体项目",
+        heroTitle: "K-Beauty & Wellness Korea Tour",
+        heroLead: "面向对非医疗皮肤护理体验、康养、购物、生活方式和可选咨询支持感兴趣的越南游客的韩国团体项目。",
+        primaryCta: "提交B2B咨询",
+        videoCta: "观看项目视频",
+        pillNonMedical: "非医疗皮肤护理体验",
+        pillWellness: "康养与生活方式",
+        pillPartners: "越南旅行合作伙伴",
+        videoLabel: "Program Video",
+        videoTitle: "越南代表模特 Hà 介绍",
+        videoDesc: "Hà 向对韩国K-beauty、康养、生活方式和非医疗皮肤护理体验感兴趣的越南游客及旅行合作伙伴介绍 K-Beauty & Wellness Korea Tour。",
+        whyEyebrow: "Why This Tour",
+        whyTitle: "面向越南团体的柔和K-beauty与康养路线",
+        why1Title: "易于理解",
+        why1Body: "项目以适合旅行团的方式说明K-beauty、康养和生活方式体验。",
+        why2Title: "适合合作伙伴",
+        why2Body: "旅行合作伙伴可根据人数、月份、酒店等级、导游、翻译、购物或康养范围请求地接报价。",
+        why3Title: "合规优先",
+        why3Body: "本旅游产品围绕非医疗皮肤护理体验、康养、生活方式和可选咨询支持进行定位。",
+        programEyebrow: "项目范围",
+        programTitle: "可配置的项目内容",
+        component1Title: "K-beauty体验",
+        component1Body: "可根据合作范围安排非医疗皮肤护理体验、美妆零售、趋势探索、品牌展厅或生活方式内容。",
+        component2Title: "康养与生活方式",
+        component2Body: "康养友好咖啡馆、购物、轻松休息时间、拍照点和韩国地方文化可通过咨询安排。",
+        component3Title: "可选咨询支持",
+        component3Body: "可选咨询支持仅在明确同意并需要时通过适当持证机构协调。",
+        component4Title: "B2B地接报价",
+        component4Body: "不显示固定价格。地接报价取决于最终路线、日期、酒店、车辆、导游、翻译和团体需求。",
+        formEyebrow: "B2B咨询",
+        formTitle: "请求 K-Beauty & Wellness Korea Tour 咨询",
+        formLead: "请发送人数、希望月份和合作需求。我们会先审查范围，再建议路线和地接报价选项。",
+        companyLabel: "公司 / 旅行社",
+        personLabel: "联系人",
+        emailLabel: "电子邮件",
+        phoneLabel: "电话 / Zalo / WhatsApp",
+        groupLabel: "预计人数",
+        monthLabel: "希望旅行月份",
+        messageLabel: "留言",
+        messagePlaceholder: "请告诉我们目标游客、路线想法、酒店等级、导游/翻译需求以及希望的K-beauty或康养范围。",
+        submitButton: "发送咨询",
+        backCatalog: "返回韩国旅游产品",
+        legalEyebrow: "法律声明",
+        legalTitle: "重要合规声明",
+        legal1: "本页展示的是咨询型B2B团体项目概念，并非已确认的零售套餐产品。",
+        legal2: "VR MEDI TOUR & HOME不是医院或医疗机构。",
+        legal3: "K-beauty内容仅限非医疗皮肤护理体验、康养、生活方式、购物和可选咨询支持。",
+        legal4: "在范围审查和合作咨询前不提供固定价格。",
+        legal5: "如另行请求任何医疗决定，必须由持证专业人士和持证机构作出。",
+        footerText: "面向越南旅行合作伙伴和团体的韩国K-beauty、康养与生活方式路线协调。"
+      }
+    };
+
+    const supportedLanguages = ["ko", "en", "vi", "ja", "zh"];
+    const htmlLangMap = { ko: "ko", en: "en", vi: "vi", ja: "ja", zh: "zh-CN" };
+    const normalizeLang = (lang) => ({ jp: "ja", cn: "zh" }[(lang || "").toLowerCase()] || (lang || "").toLowerCase());
+
+    function applyLanguage(lang) {
+      const active = supportedLanguages.includes(normalizeLang(lang)) ? normalizeLang(lang) : "en";
+      const dictionary = dictionaries[active] || dictionaries.en;
+      document.documentElement.lang = htmlLangMap[active] || active;
+      document.querySelectorAll("[data-i18n]").forEach((element) => {
+        const value = dictionary[element.dataset.i18n] || dictionaries.en[element.dataset.i18n];
+        if (value) element.textContent = value;
+      });
+      document.querySelectorAll("[data-i18n-placeholder]").forEach((element) => {
+        const value = dictionary[element.dataset.i18nPlaceholder] || dictionaries.en[element.dataset.i18nPlaceholder];
+        if (value) element.setAttribute("placeholder", value);
+      });
+      document.querySelectorAll("[data-lang]").forEach((button) => {
+        button.setAttribute("aria-pressed", normalizeLang(button.dataset.lang) === active ? "true" : "false");
+      });
+      try { localStorage.setItem("vrmtTourLang", active); } catch (_) {}
+    }
+
+    document.querySelectorAll("[data-lang]").forEach((button) => {
+      button.addEventListener("click", () => applyLanguage(button.dataset.lang));
+    });
+
+    let initialLang = "en";
+    try {
+      const queryLang = normalizeLang(new URLSearchParams(window.location.search).get("lang"));
+      const savedLang = normalizeLang(localStorage.getItem("vrmtTourLang"));
+      initialLang = supportedLanguages.includes(queryLang) ? queryLang : (supportedLanguages.includes(savedLang) ? savedLang : "en");
+    } catch (_) {}
+    applyLanguage(initialLang);
+  </script>
+</body>
+</html>

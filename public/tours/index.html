@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Korea Tours Catalog | VR MEDI TOUR &amp; HOME</title>
+  <meta name="description" content="Korea inbound tour product catalog for B2B partners and group inquiries. Consultation-based Korea tour programs by VR MEDI TOUR & HOME." />
+  <link rel="canonical" href="https://vr-meditour.com/tours/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Korea Tours Catalog | VR MEDI TOUR &amp; HOME" />
+  <meta property="og:description" content="Consultation-based Korea inbound tour catalog for B2B partners, agencies, institutions and groups." />
+  <meta property="og:url" content="https://vr-meditour.com/tours/" />
+  <meta property="og:image" content="https://vr-meditour.com/assets/images/tours/ly-thai-to-statue.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="/assets/logo.jpg" />
+  <link rel="stylesheet" href="/public/assets/css/language-icons.css" />
+  <style>
+    :root {
+      --bg: #06101f;
+      --bg-deep: #020713;
+      --panel-strong: rgba(14, 30, 52, 0.94);
+      --line: rgba(190, 214, 240, 0.24);
+      --text: #f4f8ff;
+      --muted: #b9cadc;
+      --gold: #d7b467;
+      --gold-soft: rgba(215, 180, 103, 0.16);
+      --sky: #68d4e7;
+      --shadow: 0 24px 70px rgba(0, 0, 0, 0.42);
+      --radius: 20px;
+      --max: 1160px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, "Noto Sans", "Noto Sans KR", "Segoe UI", Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 0%, rgba(104, 212, 231, 0.2), transparent 34rem),
+        radial-gradient(circle at 82% 4%, rgba(215, 180, 103, 0.18), transparent 30rem),
+        linear-gradient(180deg, #071326 0%, var(--bg) 52%, var(--bg-deep) 100%);
+      line-height: 1.65;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    button { font: inherit; }
+
+    .skip-link {
+      position: absolute;
+      left: -999px;
+      top: 12px;
+      z-index: 100;
+      padding: 0.6rem 0.8rem;
+      border-radius: 999px;
+      background: #fff;
+      color: #07101e;
+    }
+
+    .skip-link:focus { left: 12px; }
+
+    .site-header,
+    .page {
+      width: min(100% - 28px, var(--max));
+      margin-inline: auto;
+    }
+
+    .site-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 16px 0 10px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 220px;
+    }
+
+    .brand img {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      object-fit: cover;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    .brand strong,
+    .brand span { display: block; }
+    .brand span { color: var(--muted); font-size: 0.9rem; }
+
+    .header-actions,
+    .tour-language-buttons,
+    .hero-cta-row,
+    .catalog-actions,
+    .meta-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .header-actions { justify-content: flex-end; }
+
+    .tour-language-buttons {
+      justify-content: flex-end;
+      --lang-avatar-size: 54px;
+      --lang-avatar-image-size: 50px;
+      --lang-avatar-gap: 8px;
+    }
+
+    .page {
+      display: grid;
+      gap: 18px;
+      padding: 6px 0 44px;
+    }
+
+    .section {
+      min-width: 0;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(155deg, var(--panel-strong), rgba(5, 13, 25, 0.84));
+      box-shadow: var(--shadow);
+      padding: clamp(18px, 3vw, 34px);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(145deg, rgba(9, 24, 43, 0.94), rgba(3, 9, 19, 0.94)),
+        url("/assets/images/tours/ly-thai-to-statue.jpg") center / cover no-repeat;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(6, 16, 31, 0.92) 0%, rgba(6, 16, 31, 0.76) 54%, rgba(6, 16, 31, 0.5) 100%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 780px;
+      padding-block: clamp(22px, 5vw, 64px);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      width: fit-content;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 14px;
+      border: 1px solid rgba(215, 180, 103, 0.54);
+      border-radius: 999px;
+      padding: 6px 12px;
+      color: #f8e7bd;
+      background: rgba(215, 180, 103, 0.12);
+      font-weight: 850;
+      font-size: 0.9rem;
+    }
+
+    h1,
+    h2,
+    h3,
+    p { margin-top: 0; }
+
+    h1 {
+      max-width: 18ch;
+      margin-bottom: 14px;
+      font-size: clamp(2.35rem, 4.8vw, 4.45rem);
+      line-height: 1.07;
+      letter-spacing: 0;
+      text-wrap: balance;
+      word-break: keep-all;
+    }
+
+    h2 {
+      margin-bottom: 12px;
+      font-size: clamp(1.55rem, 3vw, 2.55rem);
+      line-height: 1.16;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin-bottom: 8px;
+      font-size: 1.16rem;
+      line-height: 1.3;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      max-width: 72ch;
+      color: #d6e5f5;
+      font-size: clamp(1.05rem, 2vw, 1.28rem);
+    }
+
+    .muted { color: var(--muted); }
+
+    .btn {
+      display: inline-flex;
+      min-height: 46px;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      padding: 0 16px;
+      font-weight: 900;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, var(--gold), #f2dfaa);
+      color: #07101e;
+    }
+
+    .btn.secondary {
+      border-color: rgba(210, 230, 250, 0.3);
+      background: rgba(255, 255, 255, 0.07);
+      color: #f5fbff;
+    }
+
+    .btn.sky {
+      border-color: rgba(104, 212, 231, 0.55);
+      background: rgba(104, 212, 231, 0.14);
+      color: #daf9ff;
+    }
+
+    .btn:focus-visible,
+    .tour-language-buttons button:focus-visible {
+      outline: 2px solid #fff;
+      outline-offset: 3px;
+    }
+
+    .meta-row {
+      margin-top: 18px;
+      gap: 8px;
+    }
+
+    .pill {
+      border: 1px solid rgba(210, 230, 250, 0.26);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #e7f2ff;
+      padding: 7px 11px;
+      font-size: 0.9rem;
+      font-weight: 800;
+    }
+
+    .catalog-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .tour-card {
+      display: flex;
+      min-width: 0;
+      min-height: 100%;
+      flex-direction: column;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background:
+        linear-gradient(155deg, rgba(9, 21, 38, 0.82), rgba(5, 13, 25, 0.74)),
+        radial-gradient(circle at 0 0, rgba(104, 212, 231, 0.12), transparent 18rem);
+      padding: 17px;
+    }
+
+    .tour-card.featured {
+      border-color: rgba(215, 180, 103, 0.42);
+      background:
+        linear-gradient(155deg, rgba(44, 35, 18, 0.64), rgba(9, 21, 38, 0.78)),
+        radial-gradient(circle at 0 0, rgba(215, 180, 103, 0.14), transparent 18rem);
+    }
+
+    .tour-card p { color: var(--muted); }
+
+    .status {
+      width: fit-content;
+      margin-bottom: 12px;
+      border: 1px solid rgba(215, 180, 103, 0.42);
+      border-radius: 999px;
+      background: var(--gold-soft);
+      color: #ffe8af;
+      padding: 6px 10px;
+      font-size: 0.82rem;
+      font-weight: 950;
+    }
+
+    .catalog-actions {
+      margin-top: auto;
+      padding-top: 14px;
+      align-items: stretch;
+    }
+
+    .catalog-actions .btn {
+      min-height: 42px;
+      padding-inline: 13px;
+      font-size: 0.9rem;
+    }
+
+    .notice-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .notice-card {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(9, 21, 38, 0.72);
+      padding: 16px;
+    }
+
+    .notice-card h3 { color: #f8e7bd; }
+    .notice-card p { margin-bottom: 0; color: var(--muted); }
+    footer { text-align: center; }
+
+    @media (max-width: 980px) {
+      .catalog-grid,
+      .notice-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 640px) {
+      .site-header,
+      .header-actions,
+      .tour-language-buttons,
+      .catalog-actions,
+      .btn { width: 100%; }
+
+      .site-header,
+      .header-actions,
+      .tour-language-buttons { justify-content: center; }
+
+      .catalog-grid,
+      .notice-grid { grid-template-columns: 1fr; }
+      h1 { font-size: 2.25rem; }
+      .section { padding: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#catalog">Skip to tour catalog</a>
+  <header class="site-header" aria-label="Site header">
+    <a class="brand" href="/" aria-label="VR MEDI TOUR & HOME home">
+      <img src="/assets/logo.jpg" alt="VR MEDI TOUR & HOME logo" />
+      <span>
+        <strong>VR MEDI TOUR</strong>
+        <span>&amp; HOME</span>
+      </span>
+    </a>
+    <div class="header-actions">
+      <a class="btn secondary" href="/" data-i18n="home">Home</a>
+      <a class="btn secondary" href="/public/medi-hana/" data-i18n="inquiry">B2B Inquiry</a>
+      <div class="language-buttons language-character-group tour-language-buttons" aria-label="Language selector">
+        <button type="button" class="lang-btn lang-character-btn" data-lang="ko" aria-label="한국어" aria-pressed="false">
+          <img class="lang-character-img" src="/assets/images/language/lang-ko.png" alt="한국어" onerror="this.hidden=true" />
+        </button>
+        <button type="button" class="lang-btn lang-character-btn" data-lang="en" aria-label="English" aria-pressed="true">
+          <img class="lang-character-img" src="/assets/images/language/lang-en.png" alt="English" onerror="this.hidden=true" />
+        </button>
+        <button type="button" class="lang-btn lang-character-btn" data-lang="vi" aria-label="Tiếng Việt" aria-pressed="false">
+          <img class="lang-character-img" src="/assets/images/language/lang-vi.png" alt="Tiếng Việt" onerror="this.hidden=true" />
+        </button>
+        <button type="button" class="lang-btn lang-character-btn" data-lang="ja" aria-label="日本語" aria-pressed="false">
+          <img class="lang-character-img" src="/assets/images/language/lang-ja.png" alt="日本語" onerror="this.hidden=true" />
+        </button>
+        <button type="button" class="lang-btn lang-character-btn" data-lang="zh" aria-label="中文" aria-pressed="false">
+          <img class="lang-character-img" src="/assets/images/language/lang-zh.png" alt="中文" onerror="this.hidden=true" />
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="section hero" aria-labelledby="page-title">
+      <div class="hero-inner">
+        <p class="eyebrow" data-i18n="eyebrow">Korea inbound tour catalog</p>
+        <h1 id="page-title" data-i18n="title">Korea Tours for B2B Partners and Groups</h1>
+        <p class="lead" data-i18n="lead">Consultation-based Korea inbound programs for travel agencies, institutions, companies and partner groups. Final routes, dates, inclusions and quotations are confirmed after partner consultation.</p>
+        <div class="hero-cta-row">
+          <a class="btn primary" href="#catalog" data-i18n="viewCatalog">View Programs</a>
+          <a class="btn sky" href="/public/medi-hana/" data-i18n="requestQuote">Request Land Quote</a>
+        </div>
+        <div class="meta-row" aria-label="Catalog notes">
+          <span class="pill" data-i18n="metaB2b">B2B / group inquiry</span>
+          <span class="pill" data-i18n="metaNoRetail">Not fixed retail packages</span>
+          <span class="pill" data-i18n="metaQuote">Quotation after scope review</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="catalog" aria-labelledby="catalog-title">
+      <p class="eyebrow" data-i18n="catalogEyebrow">Tour product catalog</p>
+      <h2 id="catalog-title" data-i18n="catalogTitle">Korea inbound tour programs</h2>
+      <p class="muted" data-i18n="catalogIntro">These programs are planning and partnership concepts. They are presented for B2B consultation, itinerary development and land quote requests, not as confirmed consumer package products.</p>
+
+      <div class="catalog-grid">
+        <article class="tour-card featured">
+          <span class="status" data-i18n="statusRoyal">Coming Soon / B2B Partnership</span>
+          <h3 data-i18n="royalTitle">Vietnam Royal Roots Tour</h3>
+          <p data-i18n="royalDesc">A Korea-Vietnam royal heritage route connecting the Ly Dynasty story, Bonghwa K-Vietnam Valley and Korean regional culture.</p>
+          <div class="catalog-actions">
+            <a class="btn primary" href="/tours/vietnam-royal-roots" data-i18n="viewProgram">View Program</a>
+            <a class="btn secondary" href="/public/medi-hana/" data-i18n="b2bInquiry">B2B Inquiry</a>
+            <a class="btn sky" href="/public/medi-hana/" data-i18n="landQuote">Request Land Quote</a>
+          </div>
+        </article>
+
+        <article class="tour-card">
+          <span class="status" data-i18n="statusBeauty">B2B Inquiry / Group Program</span>
+          <h3 data-i18n="beautyTitle">K-Beauty &amp; Wellness Korea Tour</h3>
+          <p data-i18n="beautyDesc">A K-beauty and wellness Korea program for Vietnamese travelers, including non-medical skincare experience, wellness, shopping, lifestyle and optional consultation support.</p>
+          <div class="catalog-actions">
+            <a class="btn primary" href="/tours/k-beauty-wellness" data-i18n="viewProgram">View Program</a>
+            <a class="btn secondary" href="/public/medi-hana/" data-i18n="b2bInquiry">B2B Inquiry</a>
+            <a class="btn sky" href="/public/medi-hana/" data-i18n="landQuote">Request Land Quote</a>
+          </div>
+        </article>
+
+        <article class="tour-card">
+          <span class="status" data-i18n="statusPlanning">Planning</span>
+          <h3 data-i18n="busanTitle">Busan-Gyeongju Heritage Tour</h3>
+          <p data-i18n="busanDesc">A Busan and Gyeongju route combining Korean heritage, coastal city experience, wellness and cultural programs.</p>
+          <div class="catalog-actions">
+            <a class="btn primary" href="/tours/busan-gyeongju-heritage" data-i18n="viewProgram">View Program</a>
+            <a class="btn secondary" href="/public/medi-hana/" data-i18n="b2bInquiry">B2B Inquiry</a>
+            <a class="btn sky" href="/public/medi-hana/" data-i18n="landQuote">Request Land Quote</a>
+          </div>
+        </article>
+
+        <article class="tour-card">
+          <span class="status" data-i18n="statusPlanning">Planning</span>
+          <h3 data-i18n="seoulTitle">Seoul K-Culture Trend Tour</h3>
+          <p data-i18n="seoulDesc">A Seoul trend route including Seongsu, Myeongdong, Hongdae, K-culture, shopping, cafe and lifestyle experiences.</p>
+          <div class="catalog-actions">
+            <a class="btn primary" href="/tours/seoul-k-culture" data-i18n="viewProgram">View Program</a>
+            <a class="btn secondary" href="/public/medi-hana/" data-i18n="b2bInquiry">B2B Inquiry</a>
+            <a class="btn sky" href="/public/medi-hana/" data-i18n="landQuote">Request Land Quote</a>
+          </div>
+        </article>
+
+        <article class="tour-card">
+          <span class="status" data-i18n="statusPlanning">Planning</span>
+          <h3 data-i18n="miceTitle">Corporate MICE Korea Tour</h3>
+          <p data-i18n="miceDesc">A Korea incentive and corporate group program for Vietnamese companies, institutions and travel partners.</p>
+          <div class="catalog-actions">
+            <a class="btn primary" href="/tours/corporate-mice-korea" data-i18n="viewProgram">View Program</a>
+            <a class="btn secondary" href="/public/medi-hana/" data-i18n="b2bInquiry">B2B Inquiry</a>
+            <a class="btn sky" href="/public/medi-hana/" data-i18n="landQuote">Request Land Quote</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="compliance-title">
+      <p class="eyebrow" data-i18n="complianceEyebrow">Consultation-based operation</p>
+      <h2 id="compliance-title" data-i18n="complianceTitle">Important notes for partners</h2>
+      <div class="notice-grid">
+        <article class="notice-card">
+          <h3 data-i18n="noticeRetailTitle">Not confirmed retail packages</h3>
+          <p data-i18n="noticeRetailBody">Program names and routes are catalog concepts. Final availability, schedule, inclusions and quotation require partner consultation.</p>
+        </article>
+        <article class="notice-card">
+          <h3 data-i18n="noticeQuoteTitle">No fixed price shown</h3>
+          <p data-i18n="noticeQuoteBody">Land costs can vary by group size, travel month, hotel class, vehicle, guide, interpreter, venue and requested support scope.</p>
+        </article>
+        <article class="notice-card">
+          <h3 data-i18n="noticeBeautyTitle">K-beauty wellness scope</h3>
+          <p data-i18n="noticeBeautyBody">K-beauty content is limited to non-medical skincare, wellness, lifestyle, shopping and optional consultation support. Medical decisions belong to licensed professionals and institutions.</p>
+        </article>
+      </div>
+    </section>
+
+    <footer class="section">
+      <p class="eyebrow" data-i18n="footerEyebrow">VR MEDI TOUR &amp; HOME</p>
+      <p class="muted" data-i18n="footerText">Korea inbound tour planning, B2B partnership coordination and group land quote support.</p>
+    </footer>
+  </main>
+
+  <script>
+    const dictionaries = {
+      en: {
+        home: "Home", inquiry: "B2B Inquiry", eyebrow: "Korea inbound tour catalog",
+        title: "Korea Tours for B2B Partners and Groups",
+        lead: "Consultation-based Korea inbound programs for travel agencies, institutions, companies and partner groups. Final routes, dates, inclusions and quotations are confirmed after partner consultation.",
+        viewCatalog: "View Programs", requestQuote: "Request Land Quote", metaB2b: "B2B / group inquiry", metaNoRetail: "Not fixed retail packages", metaQuote: "Quotation after scope review",
+        catalogEyebrow: "Tour product catalog", catalogTitle: "Korea inbound tour programs",
+        catalogIntro: "These programs are planning and partnership concepts. They are presented for B2B consultation, itinerary development and land quote requests, not as confirmed consumer package products.",
+        statusRoyal: "Coming Soon / B2B Partnership", statusBeauty: "B2B Inquiry / Group Program", statusPlanning: "Planning",
+        royalTitle: "Vietnam Royal Roots Tour", royalDesc: "A Korea-Vietnam royal heritage route connecting the Ly Dynasty story, Bonghwa K-Vietnam Valley and Korean regional culture.",
+        beautyTitle: "K-Beauty & Wellness Korea Tour", beautyDesc: "A K-beauty and wellness Korea program for Vietnamese travelers, including non-medical skincare experience, wellness, shopping, lifestyle and optional consultation support.",
+        busanTitle: "Busan-Gyeongju Heritage Tour", busanDesc: "A Busan and Gyeongju route combining Korean heritage, coastal city experience, wellness and cultural programs.",
+        seoulTitle: "Seoul K-Culture Trend Tour", seoulDesc: "A Seoul trend route including Seongsu, Myeongdong, Hongdae, K-culture, shopping, cafe and lifestyle experiences.",
+        miceTitle: "Corporate MICE Korea Tour", miceDesc: "A Korea incentive and corporate group program for Vietnamese companies, institutions and travel partners.",
+        viewProgram: "View Program", b2bInquiry: "B2B Inquiry", landQuote: "Request Land Quote",
+        complianceEyebrow: "Consultation-based operation", complianceTitle: "Important notes for partners",
+        noticeRetailTitle: "Not confirmed retail packages", noticeRetailBody: "Program names and routes are catalog concepts. Final availability, schedule, inclusions and quotation require partner consultation.",
+        noticeQuoteTitle: "No fixed price shown", noticeQuoteBody: "Land costs can vary by group size, travel month, hotel class, vehicle, guide, interpreter, venue and requested support scope.",
+        noticeBeautyTitle: "K-beauty wellness scope", noticeBeautyBody: "K-beauty content is limited to non-medical skincare, wellness, lifestyle, shopping and optional consultation support. Medical decisions belong to licensed professionals and institutions.",
+        footerEyebrow: "VR MEDI TOUR & HOME", footerText: "Korea inbound tour planning, B2B partnership coordination and group land quote support."
+      },
+      ko: {
+        home: "홈", inquiry: "B2B 문의", eyebrow: "방한상품 카탈로그", title: "B2B 파트너와 단체를 위한 방한상품",
+        lead: "여행사, 기관, 기업, 파트너 단체를 위한 상담 기반 방한 프로그램입니다. 최종 루트, 일정, 포함 사항, 견적은 파트너 상담 후 확정됩니다.",
+        viewCatalog: "프로그램 보기", requestQuote: "랜드 견적 요청", metaB2b: "B2B / 단체 문의", metaNoRetail: "확정 소매 패키지 아님", metaQuote: "범위 검토 후 견적",
+        catalogEyebrow: "방한상품", catalogTitle: "한국 인바운드 투어 프로그램",
+        catalogIntro: "아래 프로그램은 기획 및 파트너십 컨셉입니다. 확정된 소비자 패키지가 아니라 B2B 상담, 일정 개발, 랜드 견적 요청을 위한 자료입니다.",
+        statusRoyal: "Coming Soon / B2B Partnership", statusBeauty: "B2B Inquiry / Group Program", statusPlanning: "Planning",
+        royalTitle: "Vietnam Royal Roots Tour", royalDesc: "리 왕조 스토리, 봉화 K-베트남 밸리, 한국 지역문화를 연결하는 한-베 왕실 유산 루트입니다.",
+        beautyTitle: "K-Beauty & Wellness Korea Tour", beautyDesc: "베트남 여행객을 위한 K-뷰티 및 웰니스 방한 프로그램으로, 비의료 스킨케어 체험, 웰니스, 쇼핑, 라이프스타일, 선택적 상담 지원을 포함합니다.",
+        busanTitle: "Busan-Gyeongju Heritage Tour", busanDesc: "한국 유산, 해양도시 경험, 웰니스, 문화 프로그램을 결합한 부산·경주 루트입니다.",
+        seoulTitle: "Seoul K-Culture Trend Tour", seoulDesc: "성수, 명동, 홍대, K-컬처, 쇼핑, 카페, 라이프스타일 경험을 포함한 서울 트렌드 루트입니다.",
+        miceTitle: "Corporate MICE Korea Tour", miceDesc: "베트남 기업, 기관, 여행 파트너를 위한 한국 인센티브 및 기업 단체 프로그램입니다.",
+        viewProgram: "프로그램 보기", b2bInquiry: "B2B 문의", landQuote: "랜드 견적 요청",
+        complianceEyebrow: "상담 기반 운영", complianceTitle: "파트너 안내 사항",
+        noticeRetailTitle: "확정 소매 패키지가 아닙니다", noticeRetailBody: "프로그램명과 루트는 카탈로그 컨셉입니다. 최종 가능 여부, 일정, 포함 사항, 견적은 파트너 상담이 필요합니다.",
+        noticeQuoteTitle: "고정 가격을 표시하지 않습니다", noticeQuoteBody: "랜드 비용은 인원, 여행 월, 호텔 등급, 차량, 가이드, 통역, 장소, 요청 지원 범위에 따라 달라질 수 있습니다.",
+        noticeBeautyTitle: "K-뷰티 웰니스 범위", noticeBeautyBody: "K-뷰티 콘텐츠는 비의료 스킨케어, 웰니스, 라이프스타일, 쇼핑, 선택적 상담 지원으로 제한됩니다. 의료 판단은 면허 전문가와 기관이 수행합니다.",
+        footerEyebrow: "VR MEDI TOUR & HOME", footerText: "한국 인바운드 여행 기획, B2B 파트너십 조율, 단체 랜드 견적 지원."
+      },
+      vi: {
+        home: "Trang chủ", inquiry: "Liên hệ B2B", eyebrow: "Danh mục Tour Hàn Quốc", title: "Tour Hàn Quốc cho đối tác B2B và đoàn khách",
+        lead: "Các chương trình inbound Hàn Quốc theo hình thức tư vấn cho công ty du lịch, tổ chức, doanh nghiệp và đoàn đối tác. Lộ trình, ngày đi, hạng mục bao gồm và báo giá cuối cùng được xác nhận sau khi trao đổi với đối tác.",
+        viewCatalog: "Xem chương trình", requestQuote: "Yêu cầu báo giá land", metaB2b: "B2B / đoàn khách", metaNoRetail: "Không phải gói bán lẻ cố định", metaQuote: "Báo giá sau khi xem phạm vi",
+        catalogEyebrow: "Tour Hàn Quốc", catalogTitle: "Chương trình du lịch inbound Hàn Quốc",
+        catalogIntro: "Các chương trình dưới đây là concept lập kế hoạch và hợp tác. Nội dung dùng cho tư vấn B2B, phát triển lịch trình và yêu cầu báo giá land, không phải sản phẩm package bán lẻ đã xác nhận.",
+        statusRoyal: "Coming Soon / B2B Partnership", statusBeauty: "B2B Inquiry / Group Program", statusPlanning: "Planning",
+        royalTitle: "Vietnam Royal Roots Tour", royalDesc: "Tuyến di sản hoàng gia Hàn Quốc - Việt Nam kết nối câu chuyện triều Lý, Bonghwa K-Vietnam Valley và văn hóa địa phương Hàn Quốc.",
+        beautyTitle: "K-Beauty & Wellness Korea Tour", beautyDesc: "Chương trình K-beauty và wellness tại Hàn Quốc cho khách Việt, gồm trải nghiệm chăm sóc da không y tế, wellness, mua sắm, lifestyle và hỗ trợ tư vấn tùy chọn.",
+        busanTitle: "Busan-Gyeongju Heritage Tour", busanDesc: "Tuyến Busan và Gyeongju kết hợp di sản Hàn Quốc, trải nghiệm thành phố biển, wellness và chương trình văn hóa.",
+        seoulTitle: "Seoul K-Culture Trend Tour", seoulDesc: "Tuyến xu hướng Seoul gồm Seongsu, Myeongdong, Hongdae, K-culture, mua sắm, cafe và trải nghiệm lifestyle.",
+        miceTitle: "Corporate MICE Korea Tour", miceDesc: "Chương trình incentive và đoàn doanh nghiệp tại Hàn Quốc cho công ty, tổ chức và đối tác du lịch Việt Nam.",
+        viewProgram: "Xem chương trình", b2bInquiry: "Liên hệ B2B", landQuote: "Yêu cầu báo giá land",
+        complianceEyebrow: "Vận hành theo tư vấn", complianceTitle: "Lưu ý dành cho đối tác",
+        noticeRetailTitle: "Không phải package bán lẻ đã xác nhận", noticeRetailBody: "Tên chương trình và tuyến điểm là concept trong catalog. Tình trạng thực hiện, lịch trình, hạng mục bao gồm và báo giá cuối cùng cần trao đổi với đối tác.",
+        noticeQuoteTitle: "Không hiển thị giá cố định", noticeQuoteBody: "Chi phí land có thể thay đổi theo số khách, tháng đi, hạng khách sạn, xe, hướng dẫn, phiên dịch, địa điểm và phạm vi hỗ trợ yêu cầu.",
+        noticeBeautyTitle: "Phạm vi K-beauty wellness", noticeBeautyBody: "Nội dung K-beauty giới hạn ở chăm sóc da không y tế, wellness, lifestyle, mua sắm và hỗ trợ tư vấn tùy chọn. Quyết định y tế thuộc về chuyên gia và cơ sở được cấp phép.",
+        footerEyebrow: "VR MEDI TOUR & HOME", footerText: "Lập kế hoạch tour inbound Hàn Quốc, điều phối hợp tác B2B và hỗ trợ báo giá land cho đoàn."
+      },
+      ja: {
+        home: "ホーム", inquiry: "B2B問い合わせ", eyebrow: "韓国ツアーカタログ", title: "B2Bパートナーと団体向け韓国ツアー",
+        lead: "旅行会社、機関、企業、パートナー団体向けの相談ベース韓国インバウンドプログラムです。最終ルート、日程、含まれる内容、見積はパートナー相談後に確認されます。",
+        viewCatalog: "プログラムを見る", requestQuote: "ランド見積を依頼", metaB2b: "B2B / 団体問い合わせ", metaNoRetail: "固定小売パッケージではありません", metaQuote: "範囲確認後に見積",
+        catalogEyebrow: "韓国ツアー", catalogTitle: "韓国インバウンドツアープログラム",
+        catalogIntro: "以下のプログラムは企画およびパートナーシップのコンセプトです。確定済み消費者向けパッケージではなく、B2B相談、旅程開発、ランド見積依頼のための内容です。",
+        statusRoyal: "Coming Soon / B2B Partnership", statusBeauty: "B2B Inquiry / Group Program", statusPlanning: "Planning",
+        royalTitle: "Vietnam Royal Roots Tour", royalDesc: "李王朝の物語、奉化K-Vietnam Valley、韓国地域文化をつなぐ韓国・ベトナム王室遺産ルートです。",
+        beautyTitle: "K-Beauty & Wellness Korea Tour", beautyDesc: "ベトナム旅行者向けのKビューティーとウェルネス韓国プログラムです。非医療スキンケア体験、ウェルネス、ショッピング、ライフスタイル、任意の相談サポートを含みます。",
+        busanTitle: "Busan-Gyeongju Heritage Tour", busanDesc: "韓国遺産、海洋都市体験、ウェルネス、文化プログラムを組み合わせた釜山・慶州ルートです。",
+        seoulTitle: "Seoul K-Culture Trend Tour", seoulDesc: "聖水、明洞、弘大、Kカルチャー、ショッピング、カフェ、ライフスタイル体験を含むソウルトレンドルートです。",
+        miceTitle: "Corporate MICE Korea Tour", miceDesc: "ベトナム企業、機関、旅行パートナー向けの韓国インセンティブおよび企業団体プログラムです。",
+        viewProgram: "プログラムを見る", b2bInquiry: "B2B問い合わせ", landQuote: "ランド見積を依頼",
+        complianceEyebrow: "相談ベース運営", complianceTitle: "パートナー向け重要事項",
+        noticeRetailTitle: "確定済み小売パッケージではありません", noticeRetailBody: "プログラム名とルートはカタログコンセプトです。最終可否、日程、含まれる内容、見積にはパートナー相談が必要です。",
+        noticeQuoteTitle: "固定価格は表示しません", noticeQuoteBody: "ランド費用は人数、旅行月、ホテル等級、車両、ガイド、通訳、会場、依頼支援範囲により変わる場合があります。",
+        noticeBeautyTitle: "Kビューティー・ウェルネス範囲", noticeBeautyBody: "Kビューティー内容は非医療スキンケア、ウェルネス、ライフスタイル、ショッピング、任意相談サポートに限定されます。医療判断は認可専門家と機関が行います。",
+        footerEyebrow: "VR MEDI TOUR & HOME", footerText: "韓国インバウンドツアー企画、B2Bパートナーシップ調整、団体ランド見積サポート。"
+      },
+      zh: {
+        home: "主页", inquiry: "B2B咨询", eyebrow: "韩国旅游产品目录", title: "面向B2B伙伴和团体的韩国旅游产品",
+        lead: "面向旅行社、机构、企业和合作团体的咨询型韩国入境项目。最终路线、日期、包含项目和报价将在合作咨询后确认。",
+        viewCatalog: "查看项目", requestQuote: "请求地接报价", metaB2b: "B2B / 团体咨询", metaNoRetail: "非固定零售套餐", metaQuote: "范围确认后报价",
+        catalogEyebrow: "韩国旅游产品", catalogTitle: "韩国入境旅游项目",
+        catalogIntro: "以下项目为规划和合作概念，用于B2B咨询、行程开发和地接报价请求，并非已确认的消费者套餐产品。",
+        statusRoyal: "Coming Soon / B2B Partnership", statusBeauty: "B2B Inquiry / Group Program", statusPlanning: "Planning",
+        royalTitle: "Vietnam Royal Roots Tour", royalDesc: "连接李朝故事、奉化K-Vietnam Valley和韩国地方文化的韩越王室遗产路线。",
+        beautyTitle: "K-Beauty & Wellness Korea Tour", beautyDesc: "面向越南游客的K-Beauty与康养韩国项目，包括非医疗皮肤护理体验、康养、购物、生活方式和可选咨询支持。",
+        busanTitle: "Busan-Gyeongju Heritage Tour", busanDesc: "结合韩国遗产、海滨城市体验、康养和文化项目的釜山与庆州路线。",
+        seoulTitle: "Seoul K-Culture Trend Tour", seoulDesc: "包含圣水、明洞、弘大、K-culture、购物、咖啡馆和生活方式体验的首尔潮流路线。",
+        miceTitle: "Corporate MICE Korea Tour", miceDesc: "面向越南企业、机构和旅行合作伙伴的韩国奖励旅游和企业团体项目。",
+        viewProgram: "查看项目", b2bInquiry: "B2B咨询", landQuote: "请求地接报价",
+        complianceEyebrow: "咨询型运营", complianceTitle: "合作伙伴须知",
+        noticeRetailTitle: "不是已确认零售套餐", noticeRetailBody: "项目名称和路线是目录概念。最终可执行性、日程、包含项目和报价需要合作咨询确认。",
+        noticeQuoteTitle: "不显示固定价格", noticeQuoteBody: "地接费用可能因人数、旅行月份、酒店等级、车辆、导游、翻译、场地和所需支持范围而变化。",
+        noticeBeautyTitle: "K-Beauty康养范围", noticeBeautyBody: "K-Beauty内容仅限非医疗皮肤护理、康养、生活方式、购物和可选咨询支持。医疗决定由持证专业人士和机构作出。",
+        footerEyebrow: "VR MEDI TOUR & HOME", footerText: "韩国入境旅游规划、B2B合作协调和团体地接报价支持。"
+      }
+    };
+
+    const supported = ["ko", "en", "vi", "ja", "zh"];
+    const htmlLang = { ko: "ko", en: "en", vi: "vi", ja: "ja", zh: "zh-CN" };
+
+    function normalizeLang(lang) {
+      return ({ jp: "ja", cn: "zh" }[(lang || "").toLowerCase()] || (lang || "").toLowerCase());
+    }
+
+    function applyLanguage(lang) {
+      const active = supported.includes(normalizeLang(lang)) ? normalizeLang(lang) : "en";
+      const dictionary = dictionaries[active] || dictionaries.en;
+      document.documentElement.lang = htmlLang[active] || active;
+      document.querySelectorAll("[data-i18n]").forEach((element) => {
+        const value = dictionary[element.dataset.i18n] || dictionaries.en[element.dataset.i18n];
+        if (value) element.textContent = value;
+      });
+      document.querySelectorAll("[data-lang]").forEach((button) => {
+        button.setAttribute("aria-pressed", normalizeLang(button.dataset.lang) === active ? "true" : "false");
+      });
+      try { localStorage.setItem("vrmtTourLang", active); } catch (_) {}
+    }
+
+    document.querySelectorAll("[data-lang]").forEach((button) => {
+      button.addEventListener("click", () => applyLanguage(button.dataset.lang));
+    });
+
+    let initialLang = "en";
+    try {
+      const queryLang = normalizeLang(new URLSearchParams(window.location.search).get("lang"));
+      const savedLang = normalizeLang(localStorage.getItem("vrmtTourLang"));
+      initialLang = supported.includes(queryLang) ? queryLang : (supported.includes(savedLang) ? savedLang : "en");
+    } catch (_) {}
+    applyLanguage(initialLang);
+  </script>
+</body>
+</html>

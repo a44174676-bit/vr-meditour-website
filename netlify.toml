@@ -162,6 +162,16 @@ included_files = ["public/medical-mydata-ai/**"]
   status = 200
 
 [[redirects]]
+  from = "/tours"
+  to = "/public/tours/"
+  status = 301
+
+[[redirects]]
+  from = "/tours/"
+  to = "/public/tours/index.html"
+  status = 200
+
+[[redirects]]
   from = "/tours/vietnam-royal-roots"
   to = "/public/vietnam-royal-roots-tour.html"
   status = 200
@@ -169,6 +179,16 @@ included_files = ["public/medical-mydata-ai/**"]
 [[redirects]]
   from = "/tours/vietnam-royal-roots/"
   to = "/public/vietnam-royal-roots-tour.html"
+  status = 200
+
+[[redirects]]
+  from = "/tours/k-beauty-wellness"
+  to = "/public/tours/k-beauty-wellness/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/tours/k-beauty-wellness/"
+  to = "/public/tours/k-beauty-wellness/index.html"
   status = 200
 
 
