@@ -314,6 +314,33 @@
       gap: 14px;
     }
 
+    .coming-later-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .coming-later-card {
+      min-width: 0;
+      border: 1px dashed rgba(190, 214, 240, 0.26);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.045);
+      padding: 14px;
+    }
+
+    .coming-later-card h3 {
+      margin-bottom: 6px;
+      color: #eef6ff;
+      font-size: 1rem;
+    }
+
+    .coming-later-card p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
     .notice-card {
       border: 1px solid var(--line);
       border-radius: 16px;
@@ -327,6 +354,7 @@
 
     @media (max-width: 980px) {
       .catalog-grid,
+      .coming-later-grid,
       .notice-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
 
@@ -342,6 +370,7 @@
       .tour-language-buttons { justify-content: center; }
 
       .catalog-grid,
+      .coming-later-grid,
       .notice-grid { grid-template-columns: 1fr; }
       h1 { font-size: 2.25rem; }
       .section { padding: 18px; }
@@ -410,7 +439,7 @@
           <h3 data-i18n="royalTitle">Vietnam Royal Roots Tour</h3>
           <p data-i18n="royalDesc">A Korea-Vietnam royal heritage route connecting the Ly Dynasty story, Bonghwa K-Vietnam Valley and Korean regional culture.</p>
           <div class="catalog-actions">
-            <a class="btn primary" href="/tours/vietnam-royal-roots" data-i18n="viewProgram">View Program</a>
+            <a class="btn primary" href="/tours/vietnam-royal-roots/" data-i18n="viewProgram">View Program</a>
             <a class="btn secondary" href="/public/medi-hana/" data-i18n="b2bInquiry">B2B Inquiry</a>
             <a class="btn sky" href="/public/medi-hana/" data-i18n="landQuote">Request Land Quote</a>
           </div>
@@ -421,43 +450,33 @@
           <h3 data-i18n="beautyTitle">K-Beauty &amp; Wellness Korea Tour</h3>
           <p data-i18n="beautyDesc">A K-beauty and wellness Korea program for Vietnamese travelers, including non-medical skincare experience, wellness, shopping, lifestyle and optional consultation support.</p>
           <div class="catalog-actions">
-            <a class="btn primary" href="/tours/k-beauty-wellness" data-i18n="viewProgram">View Program</a>
+            <a class="btn primary" href="/tours/k-beauty-wellness/" data-i18n="viewProgram">View Program</a>
             <a class="btn secondary" href="/public/medi-hana/" data-i18n="b2bInquiry">B2B Inquiry</a>
             <a class="btn sky" href="/public/medi-hana/" data-i18n="landQuote">Request Land Quote</a>
           </div>
         </article>
+      </div>
+    </section>
 
-        <article class="tour-card">
+    <section class="section" aria-labelledby="coming-later-title">
+      <p class="eyebrow">Coming Later</p>
+      <h2 id="coming-later-title">Programs in planning</h2>
+      <p class="muted">These concepts are not yet available as detail pages. They are shown only as future planning themes and do not have active program links.</p>
+      <div class="coming-later-grid">
+        <article class="coming-later-card">
           <span class="status" data-i18n="statusPlanning">Planning</span>
           <h3 data-i18n="busanTitle">Busan-Gyeongju Heritage Tour</h3>
           <p data-i18n="busanDesc">A Busan and Gyeongju route combining Korean heritage, coastal city experience, wellness and cultural programs.</p>
-          <div class="catalog-actions">
-            <a class="btn primary" href="/tours/busan-gyeongju-heritage" data-i18n="viewProgram">View Program</a>
-            <a class="btn secondary" href="/public/medi-hana/" data-i18n="b2bInquiry">B2B Inquiry</a>
-            <a class="btn sky" href="/public/medi-hana/" data-i18n="landQuote">Request Land Quote</a>
-          </div>
         </article>
-
-        <article class="tour-card">
+        <article class="coming-later-card">
           <span class="status" data-i18n="statusPlanning">Planning</span>
           <h3 data-i18n="seoulTitle">Seoul K-Culture Trend Tour</h3>
           <p data-i18n="seoulDesc">A Seoul trend route including Seongsu, Myeongdong, Hongdae, K-culture, shopping, cafe and lifestyle experiences.</p>
-          <div class="catalog-actions">
-            <a class="btn primary" href="/tours/seoul-k-culture" data-i18n="viewProgram">View Program</a>
-            <a class="btn secondary" href="/public/medi-hana/" data-i18n="b2bInquiry">B2B Inquiry</a>
-            <a class="btn sky" href="/public/medi-hana/" data-i18n="landQuote">Request Land Quote</a>
-          </div>
         </article>
-
-        <article class="tour-card">
+        <article class="coming-later-card">
           <span class="status" data-i18n="statusPlanning">Planning</span>
           <h3 data-i18n="miceTitle">Corporate MICE Korea Tour</h3>
           <p data-i18n="miceDesc">A Korea incentive and corporate group program for Vietnamese companies, institutions and travel partners.</p>
-          <div class="catalog-actions">
-            <a class="btn primary" href="/tours/corporate-mice-korea" data-i18n="viewProgram">View Program</a>
-            <a class="btn secondary" href="/public/medi-hana/" data-i18n="b2bInquiry">B2B Inquiry</a>
-            <a class="btn sky" href="/public/medi-hana/" data-i18n="landQuote">Request Land Quote</a>
-          </div>
         </article>
       </div>
     </section>
