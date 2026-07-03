@@ -1470,7 +1470,9 @@
     <section class="section" id="inquiry" aria-labelledby="inquiry-title">
       <p class="eyebrow" data-i18n="formEyebrow">Inquiry Form</p>
       <h2 id="inquiry-title" data-i18n="formTitle">Vietnam Royal Roots Tour B2B Inquiry</h2>
-      <form class="form-card" id="b2bInquiryForm">
+      <form class="form-card" id="b2bInquiryForm" name="vietnam-royal-roots-tour-b2b-inquiry" method="POST" action="/thank-you.html" data-netlify="true" netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="vietnam-royal-roots-tour-b2b-inquiry" />
+        <p style="display:none !important;"><label>Do not fill this field <input name="bot-field" /></label></p>
         <div class="form-grid">
           <label>
             <span data-i18n="companyLabel">Company name</span>
@@ -1525,7 +1527,7 @@
           </label>
         </div>
         <div class="button-row">
-          <button class="btn primary" type="submit" data-i18n="sendMail">Open email inquiry</button>
+          <button class="btn primary" type="submit" data-i18n="sendMail">Send inquiry</button>
           <a class="btn secondary" href="mailto:info@vr-meditour.com?subject=Vietnam%20Royal%20Roots%20Tour%20B2B%20Inquiry">info@vr-meditour.com</a>
         </div>
         <p class="status" id="formStatus" aria-live="polite"></p>
@@ -1700,8 +1702,8 @@
         monthLabel: "Tháng dự kiến đi",
         messageLabel: "Nội dung",
         messagePlaceholder: "Vui lòng ghi nhóm khách mục tiêu, tuyến ưu tiên, hạng khách sạn và thành phố khởi hành dự kiến.",
-        sendMail: "Mở email yêu cầu",
-        mailStatus: "Đang mở email với nội dung yêu cầu đã điền.",
+        sendMail: "Gửi yêu cầu",
+        mailStatus: "Yêu cầu đã sẵn sàng để gửi.",
         legalEyebrow: "An toàn & pháp lý",
         legalTitle: "Sản phẩm đang lên kế hoạch, vận hành thận trọng",
         legal1: "Đây là sản phẩm dự kiến mùa thu 2026.",
@@ -1838,8 +1840,8 @@
         monthLabel: "Preferred travel month",
         messageLabel: "Message",
         messagePlaceholder: "Tell us target group, route preference, hotel level, and expected departure city.",
-        sendMail: "Open email inquiry",
-        mailStatus: "Opening your email app with the completed inquiry.",
+        sendMail: "Send inquiry",
+        mailStatus: "Your inquiry is ready to submit.",
         legalEyebrow: "Safety & Legal Notice",
         legalTitle: "Planned product, careful operation",
         legal1: "This is a planned 2026 autumn product.",
@@ -1976,8 +1978,8 @@
         monthLabel: "희망 여행 월",
         messageLabel: "메시지",
         messagePlaceholder: "타깃 고객, 선호 루트, 호텔 등급, 예상 출발 도시를 적어 주세요.",
-        sendMail: "이메일 문의 열기",
-        mailStatus: "작성된 문의 내용으로 이메일 앱을 여는 중입니다.",
+        sendMail: "문의 제출",
+        mailStatus: "문의 내용을 제출할 준비가 되었습니다.",
         legalEyebrow: "안전 및 법적 안내",
         legalTitle: "기획 상품, 신중한 운영",
         legal1: "본 상품은 2026년 가을 예정 상품입니다.",
@@ -2596,8 +2598,8 @@
         monthLabel: "希望旅行月",
         messageLabel: "メッセージ",
         messagePlaceholder: "対象顧客、希望ルート、ホテル等級、想定出発都市をご記入ください。",
-        sendMail: "メール問い合わせを開く",
-        mailStatus: "入力内容を含むメールアプリを開いています。",
+        sendMail: "問い合わせを送信",
+        mailStatus: "問い合わせを送信できます。",
         legalEyebrow: "安全・法務案内",
         legalTitle: "企画商品、慎重な運営",
         legal1: "本商品は2026年秋の運営を目標とした企画商品です。",
@@ -2789,8 +2791,8 @@
         monthLabel: "希望出行月份",
         messageLabel: "留言",
         messagePlaceholder: "请填写目标客群、偏好路线、酒店等级和预计出发城市。",
-        sendMail: "打开邮件咨询",
-        mailStatus: "正在打开包含咨询内容的邮件应用。",
+        sendMail: "提交咨询",
+        mailStatus: "咨询内容已准备提交。",
         legalEyebrow: "安全与法律说明",
         legalTitle: "策划产品，谨慎运营",
         legal1: "本产品是计划于2026年秋季运营的策划产品。",
@@ -2892,31 +2894,6 @@
       if (event.key === "Escape" && guideModal.classList.contains("is-open")) {
         closeGuideModal();
       }
-    });
-
-    document.getElementById("b2bInquiryForm").addEventListener("submit", (event) => {
-      event.preventDefault();
-      const form = event.currentTarget;
-      const data = new FormData(form);
-      const lines = [
-        "Vietnam Royal Roots Tour B2B Inquiry",
-        "",
-        `Company name: ${data.get("company") || ""}`,
-        `Contact person: ${data.get("person") || ""}`,
-        `Country / city: ${data.get("city") || ""}`,
-        `Email: ${data.get("email") || ""}`,
-        `Phone / Zalo / WhatsApp: ${data.get("phone") || ""}`,
-        `Interested route: ${data.get("route") || ""}`,
-        `Group size: ${data.get("groupSize") || ""}`,
-        `Preferred travel month: ${data.get("month") || ""}`,
-        "",
-        "Message:",
-        data.get("message") || ""
-      ];
-      const mailto = `mailto:info@vr-meditour.com?subject=${encodeURIComponent("Vietnam Royal Roots Tour B2B Inquiry")}&body=${encodeURIComponent(lines.join("\n"))}`;
-      const activeLang = document.documentElement.dataset.activeLang || "vi";
-      document.getElementById("formStatus").textContent = dictionaries[activeLang]?.mailStatus || dictionaries.vi.mailStatus;
-      window.location.href = mailto;
     });
 
     let initialLang = "vi";
