@@ -479,6 +479,7 @@
               <span data-i18n="skinConsentFinal">최종 판단은 의료기관 또는 전문가 상담을 통해 이루어짐을 확인합니다.</span>
             </label>
           </div>
+          <p class="skin-consent-links"><a href="/public/privacy-policy.html" target="_blank" rel="noopener">개인정보처리방침 보기</a></p>
 
           <div class="skin-action-row">
             <button id="vrmtStartCameraBtn" class="btn primary" type="button" data-i18n="startCameraButton">카메라 시작</button>
@@ -520,6 +521,7 @@
         <p data-i18n="skinLegal2">AI 피부 분석은 진단이 아닙니다.</p>
         <p data-i18n="skinLegal3">AI 결과는 상담 준비를 위한 참고 자료입니다.</p>
         <p data-i18n="skinLegal4">최종 의료 판단과 진료는 한국 면허 의료기관이 수행합니다.</p>
+        <p>입력한 이미지 또는 상담 내용의 일부가 AI 분석 처리를 위해 외부 AI 처리 시스템으로 전송될 수 있습니다. 민감한 진료기록, 주민등록번호, 여권번호, 결제정보는 입력하지 마십시오. 본 기능은 의료진의 진단이나 치료를 대체하지 않습니다.</p>
       </div>
     </section>
 
@@ -1127,6 +1129,18 @@
         };
 
         const captureFrame = async () => {
+          const consentCheckboxes = document.querySelectorAll('[data-skin-consent]');
+          const allConsentsChecked = Array.prototype.every.call(consentCheckboxes, (checkbox) => checkbox.checked);
+          if (!allConsentsChecked) {
+            const consentMessage = "동의 항목을 모두 확인해야 촬영을 진행할 수 있습니다.";
+            if (status) {
+              status.textContent = consentMessage;
+            } else {
+              alert(consentMessage);
+            }
+            return;
+          }
+
           if (!stream || !video || !canvas || video.readyState < 2) {
             setStatus("skinStatusNeedCamera");
             return;
