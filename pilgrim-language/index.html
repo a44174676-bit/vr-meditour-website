@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F5EFE2">
+  <meta name="description" content="천로역정을 바탕으로 한국어와 베트남어를 배우는 성장형 언어학습 시제품">
+  <title>순례자의 길 | Pilgrim Language Journey</title>
+  <link rel="icon" href="./assets/brand/pilgrim-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./pilgrim.css">
+  <script src="./pilgrim-data.js" defer></script>
+  <script src="./pilgrim-scenes.js" defer></script>
+  <script src="./pilgrim-app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#app-main">본문으로 건너뛰기</a>
+  <div id="app" class="app-shell">
+    <header class="site-header">
+      <button class="brand-button" type="button" data-route="journey" aria-label="순례 지도로 이동">
+        <img src="./assets/brand/pilgrim-mark.svg" width="36" height="36" alt="">
+        <span><strong>순례자의 길</strong><small>Pilgrim Language Journey</small></span>
+      </button>
+      <div class="header-progress" aria-label="현재 성장 정보">
+        <span>레벨 <strong id="header-level">1</strong> · 경험치 <strong id="header-xp">0</strong>/100</span>
+        <span class="header-progress-line" aria-hidden="true"><i id="header-progress-value"></i></span>
+      </div>
+    </header>
+
+    <main id="app-main" tabindex="-1">
+      <div id="screen" aria-live="polite"></div>
+    </main>
+
+    <nav class="bottom-nav" aria-label="주요 메뉴">
+      <button type="button" data-nav="journey"><span aria-hidden="true">⌁</span>여정</button>
+      <button type="button" data-nav="review"><span aria-hidden="true">↻</span>복습</button>
+      <button type="button" data-nav="records"><span aria-hidden="true">☷</span>기록</button>
+      <button type="button" data-nav="settings"><span aria-hidden="true">⚙</span>설정</button>
+    </nav>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <noscript>이 학습 앱을 사용하려면 JavaScript를 활성화해 주세요.</noscript>
+</body>
+</html>
