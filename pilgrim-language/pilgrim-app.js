@@ -94,7 +94,10 @@
   var diagnosticObjectUrl = "";
   var diagnosticTimer = 0;
   var diagnosticRequestToken = 0;
-  var diagnosticState = { status: "대기 중", lastErrorName: "", lastErrorMessage: "", durationMs: 0 };
+  var diagnosticTtsToken = 0;
+  var diagnosticState = { status: "대기 중", lastErrorName: "", lastErrorMessage: "", lastTtsErrorCode: "", durationMs: 0 };
+  var availableVoices = [];
+  var voiceInitializationStarted = false;
   var RECORDING_MIME_CANDIDATES = [
     "audio/webm;codecs=opus",
     "audio/webm",
@@ -823,8 +826,11 @@
     var getUserMedia = Boolean(mediaDevices && navigator.mediaDevices.getUserMedia);
     var mediaRecorderSupport = Boolean(window.MediaRecorder);
     var mimeType = selectedRecordingMimeType();
+    var totalVoiceCount = availableVoices.length;
     var koCount = getVoicesForLanguage("ko-KR").length;
     var viCount = getVoicesForLanguage("vi-VN").length;
+    var selectedKoVoice = selectedVoiceLabel("ko-KR");
+    var selectedViVoice = selectedVoiceLabel("vi-VN");
     var activeTracks = [diagnosticStream, mediaStream].reduce(function (count, stream) {
       return count + (stream ? stream.getAudioTracks().filter(function (track) { return track.readyState === "live"; }).length : 0);
     }, 0);
@@ -839,10 +845,14 @@
       item("녹음 형식", mimeType || (mediaRecorderSupport ? "브라우저 기본 형식" : "선택 불가"), mediaRecorderSupport ? "available" : "unsupported") +
       item("직접 말하기", recognitionSupported() ? "SpeechRecognition 감지" : "API 없음", recognitionSupported() ? "available" : "unsupported") +
       item("TTS", speechSupported() ? "speechSynthesis 감지" : "API 없음", speechSupported() ? "available" : "unsupported") +
+      item("전체 음성", totalVoiceCount + "개", totalVoiceCount ? "available" : "check") +
       item("한국어 음성", koCount + "개", koCount ? "available" : "check") +
       item("베트남어 음성", viCount + "개", viCount ? "available" : "check") +
+      item("선택된 한국어 음성", selectedKoVoice, getVoiceForLanguage("ko-KR") ? "available" : "check") +
+      item("선택된 베트남어 음성", selectedViVoice, getVoiceForLanguage("vi-VN") ? "available" : "check") +
       item("활성 마이크", activeTracks + "개 track", activeTracks ? "check" : "available") +
       item("마지막 녹음 오류", diagnosticState.lastErrorName ? diagnosticState.lastErrorName + ": " + diagnosticState.lastErrorMessage : "없음", diagnosticState.lastErrorName ? "check" : "available") +
+      item("마지막 TTS 오류", diagnosticState.lastTtsErrorCode || "없음", diagnosticState.lastTtsErrorCode ? "check" : "available") +
       '</dl><p class="diagnostic-status" role="status" aria-live="polite">' + escapeHtml(diagnosticState.status) + '</p><div class="diagnostic-actions">' +
       '<button class="button secondary" type="button" data-diagnostic="permission">마이크 권한 확인</button><button class="button secondary" type="button" data-diagnostic="record">3초 시험 녹음</button><button class="button secondary" type="button" data-diagnostic="play"' + (diagnosticObjectUrl ? "" : " disabled") + '>시험 녹음 듣기</button><button class="audio-button" type="button" data-diagnostic="tts-ko">한국어 TTS 시험</button><button class="audio-button" type="button" data-diagnostic="tts-vi">베트남어 TTS 시험</button><button class="button danger" type="button" data-diagnostic="stop">모든 음성·마이크 정지</button></div>' +
       '<details class="diagnostic-raw"><summary>개발자용 원시 정보</summary><pre>' + escapeHtml(JSON.stringify({
@@ -853,10 +863,14 @@
         selectedMimeType: mimeType || null,
         speechRecognition: recognitionSupported(),
         speechSynthesis: speechSupported(),
+        totalVoiceCount: totalVoiceCount,
         koKrVoiceCount: koCount,
         viVnVoiceCount: viCount,
+        selectedKoVoice: selectedKoVoice,
+        selectedViVoice: selectedViVoice,
         activeMicrophoneTracks: activeTracks,
         lastRecordingError: { name: diagnosticState.lastErrorName || null, message: diagnosticState.lastErrorMessage || null },
+        lastTtsErrorCode: diagnosticState.lastTtsErrorCode || null,
         userAgent: navigator.userAgent
       }, null, 2)) + '</pre></details></section>';
   }
@@ -879,10 +893,34 @@
   function speechSupported() {
     return "speechSynthesis" in window && typeof SpeechSynthesisUtterance !== "undefined";
   }
+  function refreshAvailableVoices() {
+    if (!speechSupported()) return [];
+    var voices = [];
+    try { voices = window.speechSynthesis.getVoices() || []; }
+    catch (error) { voices = []; }
+    var previousSignature = availableVoices.map(function (voice) { return voice.name + "|" + voice.lang; }).join(";");
+    var nextSignature = voices.map(function (voice) { return voice.name + "|" + voice.lang; }).join(";");
+    availableVoices = voices.slice();
+    if (previousSignature !== nextSignature && state.route === "settings") renderSettings();
+    return availableVoices;
+  }
+  function initializeSpeechVoices() {
+    if (!speechSupported() || voiceInitializationStarted) return;
+    voiceInitializationStarted = true;
+    refreshAvailableVoices();
+    if (typeof window.speechSynthesis.addEventListener === "function") {
+      window.speechSynthesis.addEventListener("voiceschanged", refreshAvailableVoices);
+    } else {
+      window.speechSynthesis.onvoiceschanged = refreshAvailableVoices;
+    }
+    [150, 500, 1500].forEach(function (delay) {
+      window.setTimeout(refreshAvailableVoices, delay);
+    });
+  }
   function getVoicesForLanguage(lang) {
     if (!speechSupported()) return [];
     var prefix = lang.split("-")[0].toLowerCase();
-    return window.speechSynthesis.getVoices().filter(function (voice) { return voice.lang.toLowerCase().split("-")[0] === prefix; });
+    return availableVoices.filter(function (voice) { return voice.lang.toLowerCase().split("-")[0] === prefix; });
   }
   function voiceOptionsMarkup(language) {
     var selected = language === "vi" ? state.selectedVoiceVi : state.selectedVoiceKo;
@@ -894,10 +932,45 @@
   function getVoiceForLanguage(lang) {
     var voices = getVoicesForLanguage(lang);
     var selected = lang.indexOf("vi") === 0 ? state.selectedVoiceVi : state.selectedVoiceKo;
-    return voices.find(function (voice) { return voice.name === selected; }) || voices.find(function (voice) { return voice.lang.toLowerCase() === lang.toLowerCase(); }) || voices[0] || null;
+    if (selected) return voices.find(function (voice) { return voice.name === selected; }) || null;
+    return voices.find(function (voice) { return voice.lang.toLowerCase() === lang.toLowerCase(); }) || voices[0] || null;
   }
   function speechNotice(lang) {
-    return lang.indexOf("vi") === 0 ? "이 기기에는 베트남어 음성이 설치되어 있지 않습니다. 기기의 음성 설정에서 베트남어 음성을 추가하거나 다른 브라우저에서 다시 시도해 주세요." : "이 기기에는 한국어 음성이 설치되어 있지 않습니다. 기기의 음성 설정에서 한국어 음성을 추가하거나 다른 브라우저에서 다시 시도해 주세요.";
+    return lang.indexOf("vi") === 0 ? "Không thể phát giọng đọc trên trình duyệt này. Hãy mở bằng Chrome hoặc kiểm tra cài đặt chuyển văn bản thành giọng nói." : "이 브라우저에서 음성을 재생하지 못했습니다. Chrome에서 열거나 휴대전화의 텍스트 음성 변환 설정을 확인해 주세요.";
+  }
+  function selectedVoiceLabel(lang) {
+    var voice = getVoiceForLanguage(lang);
+    return voice ? voice.name + " (" + voice.lang + ")" : "운영체제 기본 음성으로 재생 시도";
+  }
+  function resumeSpeechSynthesisIfPaused() {
+    if (speechSupported() && window.speechSynthesis.paused && typeof window.speechSynthesis.resume === "function") {
+      window.speechSynthesis.resume();
+    }
+  }
+  function configureUtterance(utterance, lang, rate, voice) {
+    utterance.lang = lang;
+    utterance.rate = rate || 1;
+    utterance.pitch = 1;
+    utterance.volume = 1;
+    if (voice) utterance.voice = voice;
+  }
+  function rememberTtsError(code) {
+    diagnosticState.lastTtsErrorCode = code || "unknown";
+  }
+  function startWatch(utterance, onFailure) {
+    var started = false;
+    var timer = window.setTimeout(function () {
+      if (!started) onFailure("start-timeout");
+    }, 2500);
+    return {
+      started: function () {
+        started = true;
+        window.clearTimeout(timer);
+      },
+      finished: function () {
+        window.clearTimeout(timer);
+      }
+    };
   }
   function findLine(lineId) {
     if (lineId.indexOf("practice.") === 0 && lineId.slice(-9) === ".response") {
@@ -1039,20 +1112,40 @@
       renderSettings();
       return;
     }
+    diagnosticTtsToken += 1;
+    var token = diagnosticTtsToken;
     window.speechSynthesis.cancel();
+    resumeSpeechSynthesisIfPaused();
     var lang = language === "vi" ? "vi-VN" : "ko-KR";
     var voice = getVoiceForLanguage(lang);
-    if (!voice) {
-      diagnosticState.status = language === "vi" ? "베트남어 음성을 찾지 못했습니다." : "한국어 음성을 찾지 못했습니다.";
-      renderSettings();
-      return;
-    }
     var utterance = new SpeechSynthesisUtterance(language === "vi" ? "Xin chào. Đây là bài kiểm tra giọng nói tiếng Việt." : "안녕하세요. 한국어 음성 환경 시험입니다.");
-    utterance.lang = lang;
-    utterance.voice = voice;
-    utterance.onstart = function () { diagnosticState.status = language === "vi" ? "베트남어 TTS를 재생하고 있습니다." : "한국어 TTS를 재생하고 있습니다."; renderSettings(); };
-    utterance.onend = function () { diagnosticState.status = "TTS 시험을 마쳤습니다."; renderSettings(); };
-    utterance.onerror = function (event) { setDiagnosticError({ name: event.error || "TtsError", message: "TTS 시험을 재생하지 못했습니다." }); };
+    configureUtterance(utterance, lang, 1, voice);
+    var watch = startWatch(utterance, function (code) {
+      if (token !== diagnosticTtsToken) return;
+      rememberTtsError(code);
+      diagnosticState.status = speechNotice(lang);
+      renderSettings();
+    });
+    utterance.onstart = function () {
+      if (token !== diagnosticTtsToken) return;
+      watch.started();
+      diagnosticState.lastTtsErrorCode = "";
+      diagnosticState.status = language === "vi" ? "베트남어 TTS를 재생하고 있습니다." : "한국어 TTS를 재생하고 있습니다.";
+      renderSettings();
+    };
+    utterance.onend = function () {
+      if (token !== diagnosticTtsToken) return;
+      watch.finished();
+      diagnosticState.status = "TTS 시험을 마쳤습니다.";
+      renderSettings();
+    };
+    utterance.onerror = function (event) {
+      if (token !== diagnosticTtsToken) return;
+      watch.finished();
+      rememberTtsError(event.error || "TtsError");
+      diagnosticState.status = speechNotice(lang);
+      renderSettings();
+    };
     window.speechSynthesis.speak(utterance);
   }
   function stopDiagnosticMedia(revokeRecording) {
@@ -1078,6 +1171,7 @@
     }
   }
   function stopAllVoiceAndMicrophone() {
+    diagnosticTtsToken += 1;
     stopDiagnosticMedia(false);
     cleanupRecordingSession({ keepRecordedBlob: true, discardPending: true });
     stopSpeech();
@@ -1255,12 +1349,23 @@
   function playReferenceTts(line, token, resolve) {
     if (!speechSupported() || token !== comparisonToken) { resolve(); return; }
     var voice = getVoiceForLanguage("ko-KR");
-    if (!voice) { showSpeechNotice(speechNotice("ko-KR")); resolve(); return; }
     var utterance = new SpeechSynthesisUtterance(line.ko);
-    utterance.lang = "ko-KR";
-    utterance.voice = voice;
-    utterance.onend = resolve;
-    utterance.onerror = resolve;
+    configureUtterance(utterance, "ko-KR", 1, voice);
+    var settled = false;
+    function finish(errorCode) {
+      if (settled) return;
+      settled = true;
+      if (errorCode && token === comparisonToken) {
+        rememberTtsError(errorCode);
+        showSpeechNotice(speechNotice("ko-KR"));
+      }
+      resolve();
+    }
+    var watch = startWatch(utterance, function (code) { finish(code); });
+    utterance.onstart = watch.started;
+    utterance.onend = function () { watch.finished(); finish(); };
+    utterance.onerror = function (event) { watch.finished(); finish(event.error || "TtsError"); };
+    resumeSpeechSynthesisIfPaused();
     window.speechSynthesis.speak(utterance);
   }
   async function compareRecording(lineId) {
@@ -1319,6 +1424,7 @@
     cleanupRecordingSession({ keepRecordedBlob: true });
     var token = ++state.playbackToken;
     stopCurrentAudio(false);
+    resumeSpeechSynthesisIfPaused();
     var audioSource = options.rate <= 0.7 ? options.audioSlow : options.audioNormal;
     if (audioSource) {
       recordedAudio = new Audio(audioSource);
@@ -1333,14 +1439,26 @@
   function speakWithBrowserVoice(options, token) {
     if (!speechSupported()) { showSpeechNotice(speechNotice(options.lang)); return; }
     var voice = getVoiceForLanguage(options.lang);
-    if (!voice) { showSpeechNotice(speechNotice(options.lang)); return; }
     var utterance = new SpeechSynthesisUtterance(options.text);
-    utterance.lang = options.lang;
-    utterance.rate = options.rate || 1;
-    utterance.voice = voice;
-    utterance.onstart = function () { if (token === state.playbackToken) setActiveSpeech(options.speechKey, options.lang); };
-    utterance.onend = function () { if (token === state.playbackToken) clearActiveSpeech(); };
-    utterance.onerror = function () { if (token === state.playbackToken) { clearActiveSpeech(); showSpeechNotice(speechNotice(options.lang)); } };
+    configureUtterance(utterance, options.lang, options.rate, voice);
+    var failed = false;
+    function fail(code) {
+      if (failed || token !== state.playbackToken) return;
+      failed = true;
+      rememberTtsError(code);
+      clearActiveSpeech();
+      showSpeechNotice(speechNotice(options.lang));
+    }
+    var watch = startWatch(utterance, fail);
+    utterance.onstart = function () {
+      watch.started();
+      if (token === state.playbackToken) {
+        diagnosticState.lastTtsErrorCode = "";
+        setActiveSpeech(options.speechKey, options.lang);
+      }
+    };
+    utterance.onend = function () { watch.finished(); if (token === state.playbackToken) clearActiveSpeech(); };
+    utterance.onerror = function (event) { watch.finished(); fail(event.error || "TtsError"); };
     window.speechSynthesis.speak(utterance);
   }
   function speakScene(language, slow) {
@@ -1349,19 +1467,27 @@
     var index = 0;
     var token = ++state.playbackToken;
     stopCurrentAudio(false);
+    resumeSpeechSynthesisIfPaused();
     function next() {
       if (token !== state.playbackToken || index >= scene.lines.length) { clearActiveSpeech(); return; }
       var line = scene.lines[index++];
       var vi = language === "vi";
-      var voice = getVoiceForLanguage(vi ? "vi-VN" : "ko-KR");
-      if (!voice) { showSpeechNotice(speechNotice(vi ? "vi-VN" : "ko-KR")); return; }
+      var lang = vi ? "vi-VN" : "ko-KR";
+      var voice = getVoiceForLanguage(lang);
       var utterance = new SpeechSynthesisUtterance(vi ? line.vi : line.ko);
-      utterance.lang = vi ? "vi-VN" : "ko-KR";
-      utterance.rate = slow ? 0.7 : (vi ? 0.9 : 1);
-      utterance.voice = voice;
-      utterance.onstart = function () { setActiveSpeech(line.id, utterance.lang); };
-      utterance.onend = next;
-      utterance.onerror = function () { clearActiveSpeech(); showSpeechNotice(speechNotice(utterance.lang)); };
+      configureUtterance(utterance, lang, slow ? 0.7 : (vi ? 0.9 : 1), voice);
+      var failed = false;
+      function fail(code) {
+        if (failed || token !== state.playbackToken) return;
+        failed = true;
+        rememberTtsError(code);
+        clearActiveSpeech();
+        showSpeechNotice(speechNotice(lang));
+      }
+      var watch = startWatch(utterance, fail);
+      utterance.onstart = function () { watch.started(); if (token === state.playbackToken) { diagnosticState.lastTtsErrorCode = ""; setActiveSpeech(line.id, lang); } };
+      utterance.onend = function () { watch.finished(); if (!failed) next(); };
+      utterance.onerror = function (event) { watch.finished(); fail(event.error || "TtsError"); };
       window.speechSynthesis.speak(utterance);
     }
     next();
@@ -1372,20 +1498,27 @@
     var index = 0;
     var token = ++state.playbackToken;
     stopCurrentAudio(false);
+    resumeSpeechSynthesisIfPaused();
     function next() {
       if (token !== state.playbackToken || index >= lines.length) { clearActiveSpeech(); return; }
       var line = lines[index++];
       var vi = language === "vi";
       var lang = vi ? "vi-VN" : "ko-KR";
       var voice = getVoiceForLanguage(lang);
-      if (!voice) { showSpeechNotice(speechNotice(lang)); return; }
       var utterance = new SpeechSynthesisUtterance(vi ? line.vi : line.ko);
-      utterance.lang = lang;
-      utterance.rate = slow ? .7 : (vi ? .9 : 1);
-      utterance.voice = voice;
-      utterance.onstart = function () { setActiveSpeech(line.id, lang); };
-      utterance.onend = next;
-      utterance.onerror = function () { clearActiveSpeech(); showSpeechNotice(speechNotice(lang)); };
+      configureUtterance(utterance, lang, slow ? .7 : (vi ? .9 : 1), voice);
+      var failed = false;
+      function fail(code) {
+        if (failed || token !== state.playbackToken) return;
+        failed = true;
+        rememberTtsError(code);
+        clearActiveSpeech();
+        showSpeechNotice(speechNotice(lang));
+      }
+      var watch = startWatch(utterance, fail);
+      utterance.onstart = function () { watch.started(); if (token === state.playbackToken) { diagnosticState.lastTtsErrorCode = ""; setActiveSpeech(line.id, lang); } };
+      utterance.onend = function () { watch.finished(); if (!failed) next(); };
+      utterance.onerror = function (event) { watch.finished(); fail(event.error || "TtsError"); };
       window.speechSynthesis.speak(utterance);
     }
     next();
@@ -1639,20 +1772,7 @@
     stopSpeech();
     stopRecognition();
   });
-  if (speechSupported()) {
-    window.speechSynthesis.getVoices();
-    window.speechSynthesis.onvoiceschanged = function () {
-      if (state.route === "settings") {
-        renderSettings();
-        return;
-      }
-      document.querySelectorAll("[data-voice-select]").forEach(function (select) {
-        var language = select.dataset.voiceSelect;
-        select.innerHTML = voiceOptionsMarkup(language);
-        select.value = language === "vi" ? state.selectedVoiceVi : state.selectedVoiceKo;
-      });
-    };
-  }
+  initializeSpeechVoices();
   migrateV1();
   migrateChapter02ContentV2();
   migrateChapterProgressV3();
