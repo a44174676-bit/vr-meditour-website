@@ -2,7 +2,7 @@
 
 ## 목적
 
-존 버니언의 《천로역정》 첫 장면을 자체 각색해, 사용자가 교재 탭을 공부하는 대신 여섯 장면을 통과하며 한국어를 듣고 읽고 사용하는 모바일 우선 웹앱입니다. 현재 구현 범위는 제1장 「멸망의 도시를 떠나다」입니다.
+존 버니언의 《천로역정》을 자체 각색해, 사용자가 교재 탭을 공부하는 대신 장면을 통과하며 한국어를 듣고 읽고 사용하는 모바일 우선 웹앱입니다. 현재 Chapter 01 「멸망의 도시를 떠나다」와 Chapter 02 「절망의 수렁」의 1차 학습 흐름을 구현합니다.
 
 ## 실행
 
@@ -21,6 +21,10 @@ pilgrim-language/
 ├── pilgrim-app.js
 ├── pilgrim-data.js
 ├── pilgrim-scenes.js
+├── pilgrim-chapters.js
+├── pilgrim-chapter-02-data.js
+├── pilgrim-chapter-02-scenes.js
+├── qa-chapter-02-smoke.js
 ├── README.md
 └── assets/
     ├── brand/
@@ -186,7 +190,120 @@ Unity에서는 `backgroundId`를 3D 환경 프리팹에, `characterId`를 NPC �
 
 ## 제외 범위
 
-챕터 2 이상, 회원가입, 서버 DB, 결제, 실제 AI 자유대화, 발음 점수, 감정 분석, WebXR/3D, Meta Quest APK와 CMS는 구현하지 않았습니다.
+Chapter 03 이상, 회원가입, 서버 DB, 결제, 실제 AI 자유대화, 발음 점수, 감정 분석, WebXR/3D, Meta Quest APK와 CMS는 구현하지 않았습니다.
+
+## Chapter 02 — 절망의 수렁
+
+Chapter 02 `chapter.slough_of_despond`의 콘텐츠 버전은 2입니다. John Bunyan 원전의 사건 순서에 따라 고집쟁이와 유순한 사람의 추격, 크리스천의 귀환 거절, 유순한 사람의 동행과 이탈, 절망의 수렁, 도움의 질문과 구조, 단단한 발판의 의미를 B1 수준 한·베 학습용 문장으로 새로 각색했습니다.
+
+장면 ID:
+
+1. `scene.slough.pursued_by_obstinate_and_pliable`
+2. `scene.slough.pliable_joins_the_journey`
+3. `scene.slough.fall_into_despond`
+4. `scene.slough.pliable_returns_home`
+5. `scene.slough.help_rescues_christian`
+6. `scene.slough.meaning_of_the_slough`
+
+등장인물은 `character.christian`, `character.obstinate`, `character.pliable`, `character.help`, `character.narrator`입니다. 베트남어 이름은 각각 Christian, Cứng Đầu, Dễ Thay Đổi, Người Trợ Giúp, Người kể chuyện으로 통일합니다.
+
+공식 핵심 표현:
+
+1. 저는 멸망의 도시로 돌아갈 수 없습니다.
+2. 저도 함께 가겠습니다.
+3. 등에 진 짐 때문에 빨리 갈 수 없습니다.
+4. 이것이 당신이 말한 행복입니까?
+5. 너무 두려워서 앞을 제대로 살피지 못했습니다.
+6. 다음에는 단단한 발판을 잘 살피겠습니다.
+
+어휘 ID:
+
+- `word.chase_after`, `word.return`, `word.go_together`, `word.inheritance`
+- `word.burden`, `word.slough`, `word.fall_into`, `word.sink`
+- `word.disappointed`, `word.struggle`, `word.foothold`, `word.solid`
+- `word.reach_out_hand`, `word.doubt`, `word.discouragement`
+
+문법 ID:
+
+- `grammar.daga_interruption`
+- `grammar.reason_aseo_eoseo`
+
+Chapter 01 완료 데이터에 `chapter.city_of_destruction`이 기록되면 Chapter 02가 자동으로 해금됩니다. 잠금 상태에서는 시작 버튼을 사용할 수 없으며 잠금 이유를 한국어와 베트남어로 표시합니다.
+
+### 챕터 레지스트리와 진행 저장
+
+`pilgrim-chapters.js`는 챕터 ID, 순서, 한·베·영 제목, 소개, 학습 시간, 핵심 표현·문법·대화 수, 장면 ID, 해금 조건과 시작·완료 이미지 경로를 보관합니다. `pilgrim-chapter-02-data.js`와 `pilgrim-chapter-02-scenes.js`도 JSON 직렬화 가능한 콘텐츠만 결과 데이터에 포함합니다.
+
+챕터별 진행 키:
+
+```text
+pilgrimLanguage.chapterProgress.v3
+pilgrimLanguage.activeChapter.v3
+```
+
+`chapterProgress.v3`는 챕터별 `currentSceneId`, `completedSceneIds`, `completed`를 저장합니다. 최초 실행 시 기존 v1/v2 Chapter 01 현재 장면, 완료 장면과 완료 여부를 v3에 복사합니다. 기존 v1/v2 키는 삭제하거나 덮어쓰지 않으며 Chapter 01을 플레이할 때 계속 동기화합니다. 마이그레이션 파싱에 실패해도 기존 키를 삭제하지 않습니다.
+
+Chapter 02 문법 완료는 `pilgrimLanguage.grammarCompleted.v1`, 도움과의 관계 지표는 `pilgrimLanguage.relationship.character_help.trust.v1`에 별도로 저장합니다.
+
+### 콘텐츠 버전 2 마이그레이션
+
+`pilgrimLanguage.chapter02ContentVersion`이 `2`가 아니면 한 번만 Chapter 02 v1 진행을 초기화합니다. Chapter 02의 현재 장면, 완료 장면, 완료 기록, 장면 응답, 음성 응답 시도, 두 문법 완료와 Help 임시 신뢰도를 새로 시작합니다. 기존 global XP는 안전한 Chapter 02 원장이 없으므로 차감하지 않습니다.
+
+Chapter 01의 현재 장면, 완료 여부, 저장 단어, 녹음 시도, 음성 설정과 v1/v2 키는 보존합니다. 완료 표시와 장면별 완료 목록을 새로 시작하므로 Chapter 02 v2 XP가 중복 지급되지 않습니다.
+
+### 개발용 Chapter 02 진입
+
+Chapter 01 완료 데이터를 변경하지 않고 Chapter 02를 직접 확인하려면 다음 URL을 사용합니다.
+
+```text
+http://127.0.0.1:5500/pilgrim-language/?devChapter=2
+```
+
+이 파라미터는 현재 브라우저 세션의 진입만 허용하며 Chapter 01 완료, 경험치 또는 해금 데이터를 위조하지 않습니다.
+
+### Chapter 02 장면 이미지
+
+기존 `assets/scenes/chapter-02/` 이미지는 삭제하지 않지만 콘텐츠 v2에서 사용하지 않습니다. 원작 장면 이미지 6장은 `assets/scenes/chapter-02-v2/`에 설치되어 있습니다.
+
+| 화면 | 이미지 |
+| --- | --- |
+| Chapter 02 시작·장면 1 | `assets/scenes/chapter-02-v2/scene-02-01-pursuit.png` |
+| 장면 2 | `assets/scenes/chapter-02-v2/scene-02-02-pliable-joins.png` |
+| 장면 3 | `assets/scenes/chapter-02-v2/scene-02-03-fall.png` |
+| 장면 4 | `assets/scenes/chapter-02-v2/scene-02-04-pliable-returns.png` |
+| 장면 5 | `assets/scenes/chapter-02-v2/scene-02-05-help-rescues.png` |
+| 장면 6·순례 기록 | `assets/scenes/chapter-02-v2/scene-02-06-meaning-of-slough.png` |
+
+설치된 이미지가 정상적으로 로드되면 fallback을 표시하지 않습니다. 파일 누락이나 로드 실패 시에는 깨진 이미지 대신 장면별 접근 가능한 fallback을 표시하며 학습은 계속 진행됩니다. Chapter 01 및 기존 Chapter 02 이미지는 재사용하지 않습니다.
+
+### 다음 장소
+
+Chapter 02 이후에는 곧바로 빛나는 문으로 가지 않습니다. 원작 순서에 따라 다음 장소는 `세속현자의 유혹 · The Worldly Wiseman’s Temptation · Sự cám dỗ của Nhà Thông Thái Thế Gian`으로 기록하며, Chapter 03은 구현하지 않고 미리 보기만 제공합니다.
+
+### QA
+
+로컬 정적 서버에서 다음을 확인합니다.
+
+Chapter 02 v2 데이터, v1 진행 초기화, Chapter 01 보존, 6개 장면 진행 및 완료 기록은 저장소 루트에서 다음 명령으로 스모크 테스트할 수 있습니다.
+
+```bash
+node pilgrim-language/qa-chapter-02-smoke.js
+```
+
+1. Chapter 01 미완료/완료에 따른 Chapter 02 잠금·해금
+2. `?devChapter=2` 직접 진입
+3. 새 원작 사건 기준 6개 장면, 번역, 한·베 TTS와 느린 듣기
+4. 어휘·문법 노트와 두 문법 문제
+5. 직접 말하기, 표현 도움, 선택형 대체 응답
+6. 문장별 임시 녹음과 순차 비교
+7. Chapter 02 완료 기록과 세속현자의 유혹 미리 보기
+8. Chapter 01 이미지·진행·저장 회귀
+9. 390×844 가로 스크롤·하단 내비게이션
+10. 1440×900 CTA 잘림, 콘솔 오류와 실패 요청
+
+Netlify 배포 전에는 Chapter 02 v2 이미지의 실제 크롭과 모든 이미지의 200 응답, fallback 전환, HTTPS 마이크 권한, 한·베 음성, 콘텐츠 버전 마이그레이션과 Chapter 01 회귀를 다시 확인합니다.
+
+아직 구현하지 않은 항목은 Chapter 02 녹음 음원, Chapter 03, 서버 저장, 계정 동기화, AI 발음 점수와 Meta Quest 앱입니다.
 
 ## 저작권
 
