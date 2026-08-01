@@ -17,22 +17,42 @@ const json = (statusCode, body, extraHeaders = {}) => ({
   body: JSON.stringify(body),
 });
 
-function allowedOrigins() {
-  return [process.env.URL, process.env.DEPLOY_URL, process.env.DEPLOY_PRIME_URL]
-    .filter(Boolean)
-    .map((value) => {
-      try { return new URL(value).origin; } catch { return null; }
-    })
-    .filter(Boolean);
+function invocationOrigin(event) {
+  if (event.rawUrl) {
+    try { return new URL(event.rawUrl).origin; } catch { /* use forwarded headers */ }
+  }
+
+  const headers = event.headers || {};
+  const host = headers["x-forwarded-host"] || headers["X-Forwarded-Host"] || headers.host || headers.Host;
+  const protocol = headers["x-forwarded-proto"] || headers["X-Forwarded-Proto"] || "https";
+  if (!host) return null;
+
+  try { return new URL(`${protocol}://${host}`).origin; } catch { return null; }
+}
+
+function allowedOrigins(event) {
+  const origins = new Set();
+  const currentOrigin = invocationOrigin(event);
+  if (currentOrigin) origins.add(currentOrigin);
+
+  if (process.env.URL) {
+    try { origins.add(new URL(process.env.URL).origin); } catch { /* ignore invalid configuration */ }
+  }
+
+  return origins;
 }
 
 exports.handler = async function handler(event) {
   if (event.httpMethod === "OPTIONS") return { statusCode: 204, headers: { Allow: "POST, OPTIONS" }, body: "" };
   if (event.httpMethod !== "POST") return json(405, { error: "method_not_allowed" }, { Allow: "POST, OPTIONS" });
 
-  const origin = event.headers.origin || event.headers.Origin;
-  const origins = allowedOrigins();
-  if (origin && origins.length && !origins.includes(origin)) return json(403, { error: "origin_not_allowed" });
+  const headers = event.headers || {};
+  const origin = headers.origin || headers.Origin;
+  const origins = allowedOrigins(event);
+  if (origin && !origins.has(origin)) {
+    console.error("[vr-medi-talk-session] origin_not_allowed status=403");
+    return json(403, { error: "origin_not_allowed" });
+  }
   if ((event.body || "").length > 1024) return json(413, { error: "request_too_large" });
 
   let request;
