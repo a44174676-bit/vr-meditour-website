@@ -4,7 +4,7 @@
     "locale": "ko-KR",
     "label": "Korean",
     "nativeLabel": "한국어",
-    "translationMode": "direct-realtime",
+    "translationMode": "staged-pipeline",
     "enabled": true,
     "medicallyVerified": true
   },
@@ -13,7 +13,7 @@
     "locale": "vi-VN",
     "label": "Vietnamese",
     "nativeLabel": "Tiếng Việt",
-    "translationMode": "direct-realtime",
+    "translationMode": "staged-pipeline",
     "enabled": true,
     "medicallyVerified": true
   }

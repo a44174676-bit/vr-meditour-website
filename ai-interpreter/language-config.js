@@ -12,7 +12,7 @@ export async function loadLanguageConfig() {
   ENABLED_LANGUAGES = Object.freeze(
     Object.values(LANGUAGE_CONFIG).filter(
       ({ enabled, medicallyVerified, translationMode }) =>
-        enabled && medicallyVerified && translationMode === "direct-realtime",
+        enabled && medicallyVerified && translationMode === "staged-pipeline",
     ),
   );
   if (ENABLED_LANGUAGES.length !== 2) throw new Error("MVP 언어 설정이 올바르지 않습니다.");
