@@ -27,6 +27,37 @@ const state = {
   ending: false,
 };
 
+const CONNECTION_ERROR_MESSAGES = Object.freeze({
+  FUNCTION_REQUEST_FAILED: "통역 연결 서버 요청에 실패했습니다. 잠시 후 다시 시도해 주세요.",
+  CLIENT_SECRET_MISSING: "통역 연결 정보가 발급되지 않았습니다. 서비스 상태를 확인해 주세요.",
+  OPENAI_TRANSLATIONS_CALLS_FAILED: "OpenAI 실시간 통역 연결에 실패했습니다. 네트워크 상태를 확인해 주세요.",
+  SDP_RESPONSE_FAILED: "실시간 오디오 연결 응답을 적용하지 못했습니다. 다시 연결해 주세요.",
+  MICROPHONE_PERMISSION_DENIED: "마이크 권한이 거부되었습니다. 브라우저 설정에서 마이크를 허용해 주세요.",
+});
+
+class ConnectionStageError extends Error {
+  constructor(name, status) {
+    super(CONNECTION_ERROR_MESSAGES[name]);
+    this.name = name;
+    this.status = Number.isInteger(status) ? status : null;
+  }
+}
+
+function reportConnectionError(error) {
+  const diagnostic = error?.name === "NotAllowedError"
+    ? new ConnectionStageError("MICROPHONE_PERMISSION_DENIED")
+    : error;
+  const name = CONNECTION_ERROR_MESSAGES[diagnostic?.name]
+    ? diagnostic.name
+    : "FUNCTION_REQUEST_FAILED";
+  if (diagnostic?.status !== null && Number.isInteger(diagnostic?.status)) {
+    console.error(name, diagnostic.status);
+  } else {
+    console.error(name);
+  }
+  showError(CONNECTION_ERROR_MESSAGES[name]);
+}
+
 function renderLanguageUI() {
   ui.badges.replaceChildren(...ENABLED_LANGUAGES.map((language) => {
     const badge = document.createElement("span");
@@ -132,22 +163,33 @@ async function startConversation() {
   } catch (error) {
     await endConversation(false);
     ui.start.disabled = false;
-    showError(error?.name === "NotAllowedError"
-      ? "마이크 권한이 필요합니다. 브라우저 설정에서 권한을 허용해 주세요."
-      : "통역 연결에 실패했습니다. 네트워크 상태를 확인한 뒤 다시 시도해 주세요.");
+    reportConnectionError(error);
     setStatus("연결 실패");
   }
 }
 
 async function createTranslationSession(direction) {
-  const tokenResponse = await fetch("/.netlify/functions/vr-medi-talk-session", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ targetLanguage: direction.target.code }),
-  });
-  if (!tokenResponse.ok) throw new Error("Client secret request failed");
-  const tokenData = await tokenResponse.json();
-  if (!tokenData.value) throw new Error("Missing client secret");
+  let tokenResponse;
+  try {
+    tokenResponse = await fetch("/.netlify/functions/vr-medi-talk-session", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ targetLanguage: direction.target.code }),
+    });
+  } catch {
+    throw new ConnectionStageError("FUNCTION_REQUEST_FAILED");
+  }
+  if (!tokenResponse.ok) {
+    throw new ConnectionStageError("FUNCTION_REQUEST_FAILED", tokenResponse.status);
+  }
+
+  let tokenData;
+  try {
+    tokenData = await tokenResponse.json();
+  } catch {
+    throw new ConnectionStageError("CLIENT_SECRET_MISSING");
+  }
+  if (!tokenData?.value) throw new ConnectionStageError("CLIENT_SECRET_MISSING");
 
   const peer = new RTCPeerConnection();
   const sourceTrack = state.microphone.getAudioTracks()[0].clone();
@@ -170,13 +212,28 @@ async function createTranslationSession(direction) {
 
   const offer = await peer.createOffer();
   await peer.setLocalDescription(offer);
-  const answerResponse = await fetch("https://api.openai.com/v1/realtime/translations/calls", {
-    method: "POST",
-    headers: { Authorization: `Bearer ${tokenData.value}`, "Content-Type": "application/sdp" },
-    body: offer.sdp,
-  });
-  if (!answerResponse.ok) throw new Error("Realtime connection failed");
-  await peer.setRemoteDescription({ type: "answer", sdp: await answerResponse.text() });
+  let answerResponse;
+  try {
+    answerResponse = await fetch("https://api.openai.com/v1/realtime/translations/calls", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${tokenData.value}`, "Content-Type": "application/sdp" },
+      body: offer.sdp,
+    });
+  } catch {
+    throw new ConnectionStageError("OPENAI_TRANSLATIONS_CALLS_FAILED");
+  }
+  if (!answerResponse.ok) {
+    throw new ConnectionStageError("OPENAI_TRANSLATIONS_CALLS_FAILED", answerResponse.status);
+  }
+
+  let answerSdp;
+  try {
+    answerSdp = await answerResponse.text();
+    if (!answerSdp.trim()) throw new Error("empty_sdp");
+    await peer.setRemoteDescription({ type: "answer", sdp: answerSdp });
+  } catch {
+    throw new ConnectionStageError("SDP_RESPONSE_FAILED");
+  }
   state.sessions.set(direction.source.code, session);
 }
 

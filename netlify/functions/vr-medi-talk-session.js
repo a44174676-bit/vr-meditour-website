@@ -41,7 +41,10 @@ exports.handler = async function handler(event) {
   if (!target || Object.keys(ALLOWED_TARGETS).length !== 2) return json(400, { error: "unsupported_language" });
 
   const apiKey = process.env.VR_MEDI_TALK_OPENAI_API_KEY;
-  if (!apiKey) return json(503, { error: "service_unavailable" });
+  if (!apiKey) {
+    console.error("[vr-medi-talk-session] missing_environment status=503");
+    return json(503, { error: "missing_environment" });
+  }
 
   try {
     const response = await fetch("https://api.openai.com/v1/realtime/translations/client_secrets", {
@@ -59,13 +62,26 @@ exports.handler = async function handler(event) {
     });
 
     if (!response.ok) {
-      console.error("[vr-medi-talk-session] client secret request failed", response.status);
-      return json(502, { error: "realtime_session_unavailable" });
+      console.error(`[vr-medi-talk-session] openai_client_secret_rejected status=${response.status}`);
+      return json(502, { error: "openai_client_secret_rejected" });
     }
-    const secret = await response.json();
+
+    let secret;
+    try {
+      secret = await response.json();
+    } catch {
+      console.error(`[vr-medi-talk-session] client_secret_missing status=${response.status}`);
+      return json(502, { error: "client_secret_missing" });
+    }
+    if (!secret?.value) {
+      console.error(`[vr-medi-talk-session] client_secret_missing status=${response.status}`);
+      return json(502, { error: "client_secret_missing" });
+    }
+
+    console.info(`[vr-medi-talk-session] client_secret_issued status=${response.status}`);
     return json(200, { value: secret.value, expires_at: secret.expires_at });
-  } catch (error) {
-    console.error("[vr-medi-talk-session] network failure", error?.name || "unknown");
-    return json(502, { error: "realtime_session_unavailable" });
+  } catch {
+    console.error("[vr-medi-talk-session] openai_client_secret_network_failure");
+    return json(502, { error: "openai_client_secret_network_failure" });
   }
 };
