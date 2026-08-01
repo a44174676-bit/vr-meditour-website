@@ -142,8 +142,9 @@ button:disabled { cursor: not-allowed; opacity: .48; }
 .safety-notice { margin-top: 14px; border: 1px solid var(--gold-line); border-radius: 16px; background: rgba(4, 13, 29, .72); color: #e9f1fb; }
 .safety-notice summary { min-height: 58px; display: flex; align-items: center; gap: 9px; padding: 13px 16px; cursor: pointer; font-size: .84rem; }
 .safety-notice summary::marker { content: ""; }
-.safety-notice summary > span { display: inline-grid; place-items: center; width: 25px; height: 25px; flex: 0 0 auto; border: 1px solid var(--gold-line); border-radius: 50%; color: var(--gold-bright); font-weight: 900; }
-.safety-notice summary strong { margin-left: auto; color: var(--gold-bright); text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
+.safety-notice summary > span[aria-hidden="true"] { display: inline-grid; place-items: center; width: 25px; height: 25px; flex: 0 0 auto; border: 1px solid var(--gold-line); border-radius: 50%; color: var(--gold-bright); font-weight: 900; }
+#safety-notice-text { min-width: 0; flex: 1 1 auto; overflow-wrap: anywhere; word-break: keep-all; }
+.safety-notice summary strong { flex: 0 0 auto; margin-left: auto; color: var(--gold-bright); text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
 .safety-detail { padding: 0 16px 15px 50px; border-top: 1px solid rgba(229, 196, 121, .18); color: var(--muted); }
 .safety-detail p { margin: 9px 0 0; font-size: .82rem; }
 
