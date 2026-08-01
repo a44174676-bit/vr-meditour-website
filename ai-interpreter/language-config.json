@@ -1,0 +1,62 @@
+{
+  "ko": {
+    "code": "ko",
+    "locale": "ko-KR",
+    "label": "Korean",
+    "nativeLabel": "한국어",
+    "characterImage": "/public/assets/images/language/lang-ko.png",
+    "translationMode": "staged-pipeline",
+    "enabled": true,
+    "medicallyVerified": true,
+    "transcriptionLanguage": "ko",
+    "ttsLanguage": "ko-KR"
+  },
+  "en": {
+    "code": "en",
+    "locale": "en-US",
+    "label": "English",
+    "nativeLabel": "English",
+    "characterImage": "/public/assets/images/language/lang-en.png",
+    "translationMode": "staged-pipeline",
+    "enabled": true,
+    "medicallyVerified": true,
+    "transcriptionLanguage": "en",
+    "ttsLanguage": "en-US"
+  },
+  "vi": {
+    "code": "vi",
+    "locale": "vi-VN",
+    "label": "Vietnamese",
+    "nativeLabel": "Tiếng Việt",
+    "characterImage": "/public/assets/images/language/lang-vi.png",
+    "translationMode": "staged-pipeline",
+    "enabled": true,
+    "medicallyVerified": true,
+    "transcriptionLanguage": "vi",
+    "ttsLanguage": "vi-VN"
+  },
+  "ja": {
+    "code": "ja",
+    "locale": "ja-JP",
+    "label": "Japanese",
+    "nativeLabel": "日本語",
+    "characterImage": "/public/assets/images/language/lang-ja.png",
+    "translationMode": "staged-pipeline",
+    "enabled": true,
+    "medicallyVerified": true,
+    "transcriptionLanguage": "ja",
+    "ttsLanguage": "ja-JP"
+  },
+  "zh": {
+    "code": "zh",
+    "locale": "zh-CN",
+    "label": "Simplified Chinese",
+    "nativeLabel": "中文",
+    "characterImage": "/public/assets/images/language/lang-zh.png",
+    "translationMode": "staged-pipeline",
+    "enabled": true,
+    "medicallyVerified": true,
+    "transcriptionLanguage": "zh",
+    "ttsLanguage": "zh-CN"
+  }
+}
