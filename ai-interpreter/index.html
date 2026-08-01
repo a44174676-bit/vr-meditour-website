@@ -4,27 +4,29 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#050b15" />
-    <meta name="description" content="한국어와 베트남어 간 실시간 음성 통역 서비스" />
+    <meta name="description" content="한국어와 영어·베트남어·일본어·중국어 간 정확도 우선 AI 음성 통역 서비스" />
     <title>VR MEDI TALK | 한·베 실시간 통역</title>
     <link rel="icon" href="/assets/logo.jpg" />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <a class="skip-link" href="#session-panel">통역 시작으로 바로가기</a>
+    <a id="skip-link" class="skip-link" href="#session-panel">통역 시작으로 바로가기</a>
 
     <header class="site-header">
       <div class="header-inner topbar">
-        <a class="brand" href="/" aria-label="VR MEDI TOUR & HOME 회사 홈페이지">
+        <a id="brand-link" class="brand" href="/" aria-label="VR MEDI TOUR & HOME 회사 홈페이지">
           <img class="brand-logo" src="/assets/logo.jpg" alt="VR MEDI TOUR & HOME 로고" />
           <span class="brand-copy">
             <strong>VR MEDI TOUR &amp; HOME</strong>
             <small>Global Medical Tourism &amp; AI Communication</small>
           </span>
         </a>
-        <nav class="header-actions" aria-label="페이지 안내">
-          <a class="nav-pill" href="/">회사 홈페이지</a>
-          <a class="nav-pill privacy-link" href="/public/privacy-policy.html" target="_blank" rel="noopener">개인정보처리방침</a>
-          <div id="language-badges" class="language-badges" aria-label="지원 언어"></div>
+        <nav id="header-navigation" class="header-actions" aria-label="페이지 안내">
+          <div class="header-links">
+            <a id="company-home-link" class="nav-pill" href="/">회사 홈페이지</a>
+            <a id="privacy-link" class="nav-pill privacy-link" href="/public/privacy-policy.html" target="_blank" rel="noopener">개인정보처리방침</a>
+          </div>
+          <div id="language-badges" class="language-character-selector" role="group" aria-label="화면 언어 선택"></div>
         </nav>
       </div>
     </header>
@@ -32,28 +34,36 @@
     <main class="app-shell">
       <section class="hero" aria-labelledby="page-title">
         <p class="service-label">VR MEDI TALK · AI MEDICAL COMMUNICATION</p>
-        <h1 id="page-title">한국과 베트남을 잇는<br />실시간 AI 음성 통역</h1>
-        <p class="hero-description">외국인 환자와 한국 의료진의 대화를<br class="mobile-break" /> 원문 자막·번역 자막·음성으로 지원합니다.</p>
-        <p class="hero-vi" lang="vi-VN">Phiên dịch giọng nói AI thời gian thực Hàn – Việt</p>
-        <ul class="trust-badges" aria-label="서비스 신뢰 안내">
-          <li><span aria-hidden="true">↔</span> 한·베 양방향 음성</li>
-          <li><span aria-hidden="true">✓</span> 대화내용 당사 서버 미저장</li>
-          <li><span aria-hidden="true">＋</span> 의료진의 판단을 대체하지 않음</li>
+        <h1 id="page-title">한국과 세계를 잇는<br />AI 음성 통역</h1>
+        <p id="hero-description" class="hero-description">외국인 환자와 한국 의료진의 대화를<br />확정 원문·검증된 번역·음성으로 지원합니다.</p>
+        <p id="hero-sub" class="hero-vi">한국어 기반 5개 언어 의료 의사소통 지원</p>
+        <ul id="trust-badges" class="trust-badges" aria-label="서비스 신뢰 안내">
+          <li><span aria-hidden="true">↔</span><span id="trust-voice">한국어 기준 양방향 음성</span></li>
+          <li><span aria-hidden="true">✓</span><span id="trust-privacy">대화내용 당사 서버 미저장</span></li>
+          <li><span aria-hidden="true">＋</span><span id="trust-medical">의료진의 판단을 대체하지 않음</span></li>
         </ul>
       </section>
 
       <section id="session-panel" class="session-panel" aria-labelledby="session-title">
         <div class="session-heading">
           <div>
-            <p class="section-label">AI 통역 세션</p>
+            <p id="section-label" class="section-label">AI 통역 세션</p>
             <h2 id="session-title">한국어 <span aria-hidden="true">↔</span> Tiếng Việt</h2>
-            <p class="session-guide">마이크를 연결한 뒤, 말할 언어의 버튼을 누른 채 말씀하세요.</p>
+            <p id="session-guide" class="session-guide">말할 언어의 버튼을 누른 채 문장 전체를 말씀하세요.</p>
           </div>
           <span id="connection-status" class="status" role="status" aria-live="polite">연결 대기</span>
         </div>
 
-        <button id="start-session" class="start-button" type="button"><span aria-hidden="true">●</span> AI 통역 연결 및 시작</button>
-        <p class="session-privacy"><span aria-hidden="true">▣</span> 음성은 통역 처리를 위해 일시적으로 전송되며, 당사 서버에 파일이나 대화내용으로 저장하지 않습니다.</p>
+        <div class="interpretation-selector">
+          <div>
+            <strong id="interpretation-selector-title">통역 상대 언어</strong>
+            <p id="interpretation-selector-guide">한국어와 통역할 언어를 선택하세요.</p>
+          </div>
+          <div id="interpretation-language-options" class="interpretation-options" role="group" aria-label="통역 상대 언어"></div>
+        </div>
+
+        <button id="start-session" class="start-button" type="button"><span aria-hidden="true">●</span><span id="start-session-label">AI 통역 시작</span></button>
+        <p class="session-privacy"><span aria-hidden="true">▣</span><span id="data-processing-notice">음성은 통역 처리를 위해 일시적으로 전송되며, 당사 서버에 파일이나 대화내용으로 저장하지 않습니다.</span></p>
 
         <div id="talk-controls" class="talk-controls" aria-label="말하기 언어 선택" hidden></div>
 
@@ -70,29 +80,29 @@
         </article>
 
         <div class="session-actions" aria-label="통역 보조 기능">
-          <button id="replay-button" class="secondary-button" type="button" disabled><span aria-hidden="true">↻</span> 다시 듣기</button>
-          <a class="secondary-button restart-link" href="#talk-controls"><span aria-hidden="true">●</span> 다시 말하기</a>
+          <button id="replay-button" class="secondary-button" type="button" disabled><span aria-hidden="true">↻</span><span id="replay-label">다시 듣기</span></button>
+          <a class="secondary-button restart-link" href="#talk-controls"><span aria-hidden="true">●</span><span id="speak-again-label">다시 말하기</span></a>
           <input id="large-captions" class="caption-toggle" type="checkbox" />
-          <label class="secondary-button" for="large-captions"><span aria-hidden="true">가+</span> 자막 크게 보기</label>
-          <button id="end-session" class="end-button danger-button" type="button" disabled><span aria-hidden="true">□</span> 대화 종료 및 삭제</button>
+          <label class="secondary-button" for="large-captions"><span aria-hidden="true">A+</span><span id="large-captions-label">자막 크게 보기</span></label>
+          <button id="end-session" class="end-button danger-button" type="button" disabled><span aria-hidden="true">□</span><span id="end-session-label">대화 종료 및 삭제</span></button>
         </div>
         <section class="connection-error" aria-labelledby="connection-error-title">
           <span class="error-icon" aria-hidden="true">!</span>
           <div>
-            <strong id="connection-error-title">AI 통역 연결에 실패했습니다.</strong>
+            <strong id="connection-error-title">AI 통역 처리에 실패했습니다.</strong>
             <p id="error-message" class="error-message" role="alert" hidden></p>
-            <p class="error-guide">네트워크 및 서비스 연결 상태를 확인해 주세요.</p>
+            <p id="error-guide" class="error-guide">네트워크와 서비스 상태를 확인한 뒤 다시 말씀해 주세요.</p>
           </div>
-          <button id="retry-session" class="retry-button" type="button">↻ 다시 연결</button>
+          <button id="retry-session" class="retry-button" type="button">↻ <span id="retry-label">다시 시도</span></button>
         </section>
       </section>
 
       <details class="safety-notice">
-        <summary><span aria-hidden="true">!</span> 약품명, 알레르기, 복용량, 시술 부위, 비용 및 일정은 의료진 또는 전문 통역사와 반드시 다시 확인하십시오. <strong>자세히 보기</strong></summary>
+        <summary><span aria-hidden="true">!</span><span id="safety-notice-text">약품명, 알레르기, 복용량, 시술 부위, 비용 및 일정은 의료진 또는 전문 통역사와 반드시 다시 확인하십시오.</span><strong id="safety-details-label">자세히 보기</strong></summary>
         <div class="safety-detail">
-          <p>본 서비스는 의사소통을 지원하는 AI 통역 도구입니다.</p>
-          <p>진단, 처방, 치료 결정 또는 계약 판단을 제공하지 않습니다.</p>
-          <p>중요 의료정보는 원문과 통역문을 대조하여 확인해 주세요.</p>
+          <p id="safety-detail-1">본 서비스는 의사소통을 지원하는 AI 통역 도구입니다.</p>
+          <p id="safety-detail-2">진단, 처방, 치료 결정 또는 계약 판단을 제공하지 않습니다.</p>
+          <p id="safety-detail-3">중요 의료정보는 원문과 통역문을 대조하여 확인해 주세요.</p>
         </div>
       </details>
     </main>
@@ -101,11 +111,11 @@
       <div class="footer-inner">
         <div>
           <strong>VR MEDI TOUR &amp; HOME Co., Ltd.</strong>
-          <p>외국인환자 의료관광 및 다국어 의사소통 지원</p>
+          <p id="footer-description">외국인환자 의료관광 및 다국어 의사소통 지원</p>
         </div>
-        <nav class="footer-links" aria-label="회사 링크">
-          <a href="/public/privacy-policy.html" target="_blank" rel="noopener">개인정보처리방침</a>
-          <a href="/">회사 홈페이지</a>
+        <nav id="footer-links" class="footer-links" aria-label="회사 링크">
+          <a id="footer-privacy-link" href="/public/privacy-policy.html" target="_blank" rel="noopener">개인정보처리방침</a>
+          <a id="footer-home-link" href="/">회사 홈페이지</a>
         </nav>
         <p class="copyright">© VR MEDI TOUR &amp; HOME. All rights reserved.</p>
       </div>

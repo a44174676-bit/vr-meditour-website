@@ -33,7 +33,7 @@ exports.handler = async function handler(event) {
   const extension = contentType.includes("ogg") ? "ogg" : contentType.includes("mp4") ? "mp4" : "webm";
   form.append("file", new Blob([audio], { type: contentType }), `utterance.${extension}`);
   form.append("model", "gpt-4o-transcribe");
-  form.append("language", language.code);
+  form.append("language", language.transcriptionLanguage);
   form.append("response_format", "json");
 
   try {

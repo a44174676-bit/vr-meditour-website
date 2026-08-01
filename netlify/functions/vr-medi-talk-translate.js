@@ -1,4 +1,4 @@
-const { json, guardRequest, getApiKey, getLanguage } = require("./_vr-medi-talk-common");
+const { json, guardRequest, getApiKey, getLanguage, isAllowedDirection, createSpeechToken } = require("./_vr-medi-talk-common");
 
 const MAX_SOURCE_LENGTH = 2000;
 const RESULT_SCHEMA = {
@@ -18,14 +18,33 @@ const RESULT_SCHEMA = {
 };
 
 const normalize = (value) => value.normalize("NFKC").replace(/\s+/g, " ").trim();
-const digitTokens = (value) => normalize(value).match(/\d+(?:[.,]\d+)*/g) || [];
+function digitTokens(value) {
+  const normalized = normalize(value);
+  const tokens = [];
+  const matches = normalized.matchAll(/\d+(?:[.,]\d+)*(?:만|万)?/gu);
+  for (const match of matches) {
+    let token = match[0];
+    const tenThousands = /(?:만|万)$/u.test(token);
+    token = token.replace(/(?:만|万)$/u, "");
+    if (/^\d{1,3}(?:[.,]\d{3})+$/u.test(token)) token = token.replace(/[.,]/g, "");
+    if (tenThousands) token = String(Number(token.replace(/,/g, "")) * 10000);
+    tokens.push(token);
+  }
+  return tokens;
+}
 const NEGATIONS = Object.freeze({
   ko: /(?:않|없|아니|금지|(?:^|[\s,])(안|못)(?=[\s,.!?]|$))/u,
+  en: /(?:\b(?:no|not|never|without|cannot|can't|don't|doesn't|didn't)\b)/iu,
   vi: /(?:không|chưa|chẳng|chả|đừng)/iu,
+  ja: /(?:ない|ありません|ません|なし|無し|無い)/u,
+  zh: /(?:没有|不是|不能|不会|不|无|未)/u,
 });
-const DIRECTIONS = Object.freeze({
-  ko: [{ source: /왼쪽/, target: /(?:trái|bên trái)/iu }, { source: /오른쪽/, target: /(?:phải|bên phải)/iu }],
-  vi: [{ source: /(?:trái|bên trái)/iu, target: /왼쪽/ }, { source: /(?:phải|bên phải)/iu, target: /오른쪽/ }],
+const DIRECTION_TERMS = Object.freeze({
+  ko: { left: /왼쪽/u, right: /오른쪽/u },
+  en: { left: /\bleft\b/iu, right: /\bright\b/iu },
+  vi: { left: /(?:trái|bên trái)/iu, right: /(?:phải|bên phải)/iu },
+  ja: { left: /(?:左|ひだり)/u, right: /(?:右|みぎ)/u },
+  zh: { left: /(?:左边|左侧|左)/u, right: /(?:右边|右侧|右)/u },
 });
 
 function extractOutputText(response) {
@@ -45,7 +64,9 @@ function validateResult(result, sourceText, sourceCode, targetCode) {
   const translatedDigits = digitTokens(result.translation);
   if (sourceDigits.some((token) => !translatedDigits.includes(token))) return false;
   if (NEGATIONS[sourceCode]?.test(sourceText) && !NEGATIONS[targetCode]?.test(result.translation)) return false;
-  if ((DIRECTIONS[sourceCode] || []).some(({ source, target }) => source.test(sourceText) && !target.test(result.translation))) return false;
+  for (const side of ["left", "right"]) {
+    if (DIRECTION_TERMS[sourceCode]?.[side].test(sourceText) && !DIRECTION_TERMS[targetCode]?.[side].test(result.translation)) return false;
+  }
   return result.safe_to_speak === true;
 }
 
@@ -73,7 +94,7 @@ exports.handler = async function handler(event) {
   const source = getLanguage(request.sourceLanguage);
   const target = getLanguage(request.targetLanguage);
   const sourceText = typeof request.sourceText === "string" ? request.sourceText.trim() : "";
-  if (!source || !target || source.code === target.code) return json(400, { error: "unsupported_language_pair" });
+  if (!source || !target || !isAllowedDirection(source.code, target.code)) return json(400, { error: "unsupported_direction" });
   if (!sourceText) return json(400, { error: "source_text_required" });
   if (sourceText.length > MAX_SOURCE_LENGTH) return json(413, { error: "source_text_too_long" });
 
@@ -114,7 +135,9 @@ exports.handler = async function handler(event) {
     if (result.translation !== proposed.translation) result.safe_to_speak = false;
     result.safe_to_speak = validateResult(result, sourceText, source.code, target.code);
     console.info(`[vr-medi-talk-translate] completed status=${verificationResponse.status} safe_to_speak=${result.safe_to_speak}`);
-    return json(200, result);
+    if (!result.safe_to_speak) return json(200, result);
+    const speechToken = createSpeechToken(apiKey, source.code, target.code, result.translation);
+    return json(200, result, { "X-VR-Medi-Talk-Speech-Token": speechToken });
   } catch {
     console.error("[vr-medi-talk-translate] network_failure");
     return json(502, { error: "translation_failed" });
