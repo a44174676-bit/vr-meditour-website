@@ -1,0 +1,20 @@
+{
+  "ko": {
+    "code": "ko",
+    "locale": "ko-KR",
+    "label": "Korean",
+    "nativeLabel": "한국어",
+    "translationMode": "direct-realtime",
+    "enabled": true,
+    "medicallyVerified": true
+  },
+  "vi": {
+    "code": "vi",
+    "locale": "vi-VN",
+    "label": "Vietnamese",
+    "nativeLabel": "Tiếng Việt",
+    "translationMode": "direct-realtime",
+    "enabled": true,
+    "medicallyVerified": true
+  }
+}
