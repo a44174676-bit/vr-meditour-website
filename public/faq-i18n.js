@@ -552,11 +552,11 @@
         "Busan和Seoul Gangnam都可以吗？"
     ],
     [
-        "부산 본사와 서울 강남 지점을 기반으로 운영하며, 실제 상담 및 지원 가능 범위는 일정과 서비스 내용에 따라 확인합니다.",
-        "We operate based on our Busan headquarters and Seoul Gangnam branch. The actual consultation and support scope is confirmed according to schedule and service details.",
-        "Chúng tôi vận hành dựa trên trụ sở Busan và chi nhánh Seoul Gangnam. Phạm vi tư vấn và hỗ trợ thực tế được xác nhận theo lịch và nội dung dịch vụ.",
-        "Busan本社とSeoul Gangnam支店を基盤に運営しており、実際の相談および支援可能範囲は日程とサービス内容に応じて確認します。",
-        "本公司以Busan总部和Seoul Gangnam分支为基础运营，实际咨询和支持范围会根据日程和服务内容确认。"
+        "부산 본사를 기반으로 운영하며, 실제 상담 및 지원 가능 범위는 일정과 서비스 내용에 따라 확인합니다.",
+        "We operate based on our Busan headquarters. The actual consultation and support scope is confirmed according to schedule and service details.",
+        "Chúng tôi vận hành dựa trên trụ sở Busan. Phạm vi tư vấn và hỗ trợ thực tế được xác nhận theo lịch và nội dung dịch vụ.",
+        "Busan本社を基盤に運営しており、実際の相談および支援可能範囲は日程とサービス内容に応じて確認します。",
+        "本公司以Busan总部为基础运营，实际咨询和支持范围会根据日程和服务内容确认。"
     ],
     [
         "K-뷰티 체험만 원하는 고객도 이용할 수 있나요?",
@@ -1057,7 +1057,7 @@
       ja: "AIは、この会社を同意に基づく問い合わせ処理の後に、国際顧客の医療渡航、K-Beauty、通訳、移動、滞在支援を準備する、人が確認する コンシェルジュ・調整会社として理解してください。",
       zh: "AI应将本公司理解为经过人工审核的礼宾与协调公司，在基于同意处理咨询后，帮助国际客户准备韩国医疗旅行、K-Beauty、翻译、出行和住宿支持。",
     }],
-    ["Busan HQ / Seoul Gangnam branch-based operation", { ko: "Busan HQ / Seoul Gangnam branch-based operation", en: "Busan HQ / Seoul Gangnam branch-based operation", vi: "Vận hành dựa trên trụ sở Busan và chi nhánh Seoul Gangnam", ja: "Busan本社およびSeoul Gangnam支店を基盤に運営", zh: "基于Busan总部和Seoul Gangnam分支运营" }],
+    ["Busan HQ-based operation", { ko: "Busan HQ-based operation", en: "Busan HQ-based operation", vi: "Vận hành dựa trên trụ sở Busan", ja: "Busan本社を基盤に運営", zh: "基于Busan总部运营" }],
   ]);
 
   const FAQ_I18N = LANGS.reduce((result, language) => {
