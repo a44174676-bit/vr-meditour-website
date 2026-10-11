@@ -1,15 +1,3 @@
-const playButton = document.getElementById('play-video');
-playButton.addEventListener('click', () => {
-  const iframe = document.createElement('iframe');
-  iframe.src = 'https://www.youtube-nocookie.com/embed/kitjPWWoaTg';
-  iframe.title = '옴니볼 스키 제품 소개 영상';
-  iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
-  iframe.referrerPolicy = 'strict-origin-when-cross-origin';
-  iframe.allowFullscreen = true;
-  document.getElementById('video-shell').replaceChildren(iframe);
-  iframe.focus();
-});
-
 const config = window.OMNIBALL_CONFIG;
 const form = document.getElementById('inquiry-form');
 const status = document.getElementById('form-status');
@@ -36,7 +24,8 @@ form.addEventListener('submit', async (event) => {
   }
   if (!form.reportValidity()) return;
   if (!canCollect) {
-    status.textContent = '필수 항목을 확인했습니다. 미리보기에서는 접수하지 않습니다. 제품 문의는 info@vr-meditour.com으로 보내 주세요.';
+    status.dataset.i18n = 'checked';
+    status.textContent = window.omniballText('checked');
     return;
   }
   const payload = Object.fromEntries(new FormData(form));
