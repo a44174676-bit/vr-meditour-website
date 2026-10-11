@@ -240,3 +240,15 @@ included_files = ["public/medical-mydata-ai/**"]
   to = "/public/assets/store/:splat"
   status = 200
   force = true
+
+# Retired introduction and every legacy child URL show the same noindex notice.
+[[redirects]]
+  from = "/malgyeol/*"
+  to = "/malgyeol/index.html"
+  status = 200
+  force = true
+
+[[headers]]
+  for = "/malgyeol/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, follow"
