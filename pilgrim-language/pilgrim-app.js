@@ -1,8 +1,15 @@
 (function () {
   "use strict";
 
-  var data = window.PILGRIM_DATA;
-  var scenes = window.PILGRIM_SCENES;
+  var baseData = window.PILGRIM_DATA;
+  var chapter02Data = window.PILGRIM_CHAPTER_02_DATA || { vocabulary: [], grammar: [], quests: [] };
+  var data = Object.assign({}, baseData, {
+    vocabulary: baseData.vocabulary.concat(chapter02Data.vocabulary || []),
+    grammar: baseData.grammar.concat(chapter02Data.grammar || [])
+  });
+  var chapters = window.PILGRIM_CHAPTERS || [];
+  var chapter01Scenes = window.PILGRIM_SCENES;
+  var allScenes = chapter01Scenes.concat(window.PILGRIM_CHAPTER_02_SCENES || []);
   var screen = document.getElementById("screen");
   var toast = document.getElementById("toast");
   var KEYS = {
@@ -12,7 +19,12 @@
     voiceAttempts: "pilgrimLanguage.voiceAttempts.v2",
     viewMode: "pilgrimLanguage.viewMode.v2",
     recordingAttempts: "pilgrimLanguage.recordingAttempts.v1",
-    recordingNoticeAccepted: "pilgrimLanguage.recordingNoticeAccepted.v1"
+    recordingNoticeAccepted: "pilgrimLanguage.recordingNoticeAccepted.v1",
+    activeChapter: "pilgrimLanguage.activeChapter.v3",
+    chapterProgress: "pilgrimLanguage.chapterProgress.v3",
+    chapter02ContentVersion: "pilgrimLanguage.chapter02ContentVersion",
+    relationshipHelp: "pilgrimLanguage.relationship.character_help.trust.v1",
+    grammarCompleted: "pilgrimLanguage.grammarCompleted.v1"
   };
   var storage = {
     load: function (key) { try { return localStorage.getItem(key); } catch (error) { return null; } },
@@ -22,10 +34,18 @@
     },
     remove: function (key) { try { localStorage.removeItem(key); return true; } catch (error) { return false; } }
   };
+  var devChapter2 = new URLSearchParams(window.location.search).get("devChapter") === "2";
+  var storedChapterProgress = readObject(KEYS.chapterProgress, {});
+  var initialChapterId = devChapter2 ? "chapter.slough_of_despond" : (storage.load(KEYS.activeChapter) || "chapter.city_of_destruction");
+  if (!chapters.some(function (chapter) { return chapter.id === initialChapterId; })) initialChapterId = "chapter.city_of_destruction";
+  var scenes = allScenes.filter(function (scene) { return scene.chapterId === initialChapterId; });
+  var initialChapterState = storedChapterProgress[initialChapterId] || {};
   var state = {
     route: "journey",
-    currentSceneId: storage.load(KEYS.currentScene) || scenes[0].id,
-    completedScenes: readArray(KEYS.completedScenes),
+    activeChapterId: initialChapterId,
+    chapterProgress: storedChapterProgress,
+    currentSceneId: initialChapterState.currentSceneId || (initialChapterId === "chapter.city_of_destruction" ? storage.load(KEYS.currentScene) : "") || scenes[0].id,
+    completedScenes: initialChapterState.completedSceneIds || (initialChapterId === "chapter.city_of_destruction" ? readArray(KEYS.completedScenes) : []),
     sceneResponses: readObject(KEYS.sceneResponses, {}),
     voiceAttempts: readObject(KEYS.voiceAttempts, {}),
     viewMode: storage.load(KEYS.viewMode) || "immersive",
@@ -38,6 +58,8 @@
     recognitionText: "",
     experience: readNumber(data.storageKeys.experience, 0),
     trust: readSignedNumber(data.storageKeys.trust, 0),
+    helpTrust: readSignedNumber(KEYS.relationshipHelp, 0),
+    grammarCompleted: readArray(KEYS.grammarCompleted),
     savedWords: readArray(data.storageKeys.savedWords),
     selectedAnswer: storage.load(data.storageKeys.selectedAnswer) || "",
     progress: readObject(data.storageKeys.progress, { completedChapters: [], lastLocation: "journey" }),
@@ -53,6 +75,7 @@
   var toastTimer = 0;
   var recordedAudio = null;
   var sentenceRecordings = new Map();
+  var dialoguePracticeOpenState = new Map();
   var mediaRecorder = null;
   var mediaStream = null;
   var recordingChunks = [];
@@ -71,7 +94,10 @@
   var diagnosticObjectUrl = "";
   var diagnosticTimer = 0;
   var diagnosticRequestToken = 0;
-  var diagnosticState = { status: "대기 중", lastErrorName: "", lastErrorMessage: "", durationMs: 0 };
+  var diagnosticTtsToken = 0;
+  var diagnosticState = { status: "대기 중", lastErrorName: "", lastErrorMessage: "", lastTtsErrorCode: "", durationMs: 0 };
+  var availableVoices = [];
+  var voiceInitializationStarted = false;
   var RECORDING_MIME_CANDIDATES = [
     "audio/webm;codecs=opus",
     "audio/webm",
@@ -111,12 +137,53 @@
   function currentScene() {
     return scenes.find(function (scene) { return scene.id === state.currentSceneId; }) || scenes[0];
   }
+  function currentChapter() {
+    return chapters.find(function (chapter) { return chapter.id === state.activeChapterId; }) || chapters[0];
+  }
+  function scenesForChapter(chapterId) {
+    return allScenes.filter(function (scene) { return scene.chapterId === chapterId; });
+  }
+  function chapterIsComplete(chapterId) {
+    var chapterState = state.chapterProgress[chapterId];
+    if (chapterState && chapterState.completed) return true;
+    return state.progress.completedChapters.indexOf(chapterId) !== -1;
+  }
+  function chapterIsUnlocked(chapter) {
+    if (!chapter || chapter.unlock.type === "always" || (devChapter2 && chapter.id === "chapter.slough_of_despond")) return true;
+    return chapter.unlock.type === "chapter_complete" && chapterIsComplete(chapter.unlock.chapterId);
+  }
+  function saveActiveChapterProgress(completed) {
+    state.chapterProgress[state.activeChapterId] = {
+      currentSceneId: state.currentSceneId,
+      completedSceneIds: state.completedScenes.slice(),
+      completed: completed === true || Boolean(state.chapterProgress[state.activeChapterId] && state.chapterProgress[state.activeChapterId].completed)
+    };
+    storage.save(KEYS.chapterProgress, JSON.stringify(state.chapterProgress));
+    storage.save(KEYS.activeChapter, state.activeChapterId);
+  }
+  function activateChapter(chapterId) {
+    var chapter = chapters.find(function (item) { return item.id === chapterId; });
+    if (!chapter || !chapterIsUnlocked(chapter)) return false;
+    saveActiveChapterProgress(false);
+    state.activeChapterId = chapterId;
+    scenes = scenesForChapter(chapterId);
+    var progress = state.chapterProgress[chapterId] || {};
+    state.currentSceneId = progress.currentSceneId || scenes[0].id;
+    state.completedScenes = Array.isArray(progress.completedSceneIds) ? progress.completedSceneIds.slice() : [];
+    state.activeNote = null;
+    state.translationLines = [];
+    storage.save(KEYS.activeChapter, chapterId);
+    return true;
+  }
   function sceneIndex(id) {
     return scenes.findIndex(function (scene) { return scene.id === id; });
   }
   function persistV2() {
-    storage.save(KEYS.currentScene, state.currentSceneId);
-    storage.save(KEYS.completedScenes, JSON.stringify(state.completedScenes));
+    saveActiveChapterProgress(false);
+    if (state.activeChapterId === "chapter.city_of_destruction") {
+      storage.save(KEYS.currentScene, state.currentSceneId);
+      storage.save(KEYS.completedScenes, JSON.stringify(state.completedScenes));
+    }
     storage.save(KEYS.sceneResponses, JSON.stringify(state.sceneResponses));
     storage.save(KEYS.voiceAttempts, JSON.stringify(state.voiceAttempts));
     storage.save(KEYS.viewMode, state.viewMode);
@@ -134,15 +201,15 @@
       state.selectedAnswer = legacyAnswerIds[state.selectedAnswer];
       storage.save(data.storageKeys.selectedAnswer, state.selectedAnswer);
     }
-    if (!storage.load(KEYS.currentScene)) {
+    if (state.activeChapterId === "chapter.city_of_destruction" && !storage.load(KEYS.currentScene)) {
       var completedChapter = state.progress.completedChapters.indexOf(data.chapter.id) !== -1;
       if (completedChapter) {
-        state.completedScenes = scenes.map(function (scene) { return scene.id; });
-        state.currentSceneId = scenes[scenes.length - 1].id;
+        state.completedScenes = chapter01Scenes.map(function (scene) { return scene.id; });
+        state.currentSceneId = chapter01Scenes[chapter01Scenes.length - 1].id;
       } else if (state.selectedAnswer) {
         var migratedAnswer = data.quest.answers.find(function (answer) { return answer.id === state.selectedAnswer; });
         state.currentSceneId = "scene.city.asking_direction";
-        state.completedScenes = scenes.slice(0, 4).map(function (scene) { return scene.id; });
+        state.completedScenes = chapter01Scenes.slice(0, 4).map(function (scene) { return scene.id; });
         if (migratedAnswer) {
           state.sceneResponses["scene.city.evangelist_appears"] = {
             transcript: migratedAnswer.text,
@@ -157,10 +224,69 @@
         }
       } else if (state.progress.lastLocation === "quest" || state.progress.lastLocation === "result") {
         state.currentSceneId = "scene.city.evangelist_appears";
-        state.completedScenes = scenes.slice(0, 3).map(function (scene) { return scene.id; });
+        state.completedScenes = chapter01Scenes.slice(0, 3).map(function (scene) { return scene.id; });
       }
       persistV2();
     }
+  }
+  function migrateChapterProgressV3() {
+    var chapter1Id = "chapter.city_of_destruction";
+    var chapter2Id = "chapter.slough_of_despond";
+    if (!state.chapterProgress[chapter1Id]) {
+      var legacyCompleted = readArray(KEYS.completedScenes);
+      state.chapterProgress[chapter1Id] = {
+        currentSceneId: storage.load(KEYS.currentScene) || chapter01Scenes[0].id,
+        completedSceneIds: legacyCompleted,
+        completed: state.progress.completedChapters.indexOf(chapter1Id) !== -1
+      };
+    }
+    if (!state.chapterProgress[chapter2Id]) {
+      state.chapterProgress[chapter2Id] = {
+        currentSceneId: "scene.slough.pursued_by_obstinate_and_pliable",
+        completedSceneIds: [],
+        completed: false
+      };
+    }
+    var activeChapter = chapters.find(function (chapter) { return chapter.id === state.activeChapterId; });
+    if (!chapterIsUnlocked(activeChapter)) state.activeChapterId = chapter1Id;
+    var activeProgress = state.chapterProgress[state.activeChapterId];
+    scenes = scenesForChapter(state.activeChapterId);
+    state.currentSceneId = activeProgress.currentSceneId || scenes[0].id;
+    state.completedScenes = activeProgress.completedSceneIds.slice();
+    storage.save(KEYS.chapterProgress, JSON.stringify(state.chapterProgress));
+  }
+  function migrateChapter02ContentV2() {
+    var targetVersion = String(chapter02Data.contentVersion || 2);
+    if (storage.load(KEYS.chapter02ContentVersion) === targetVersion) return;
+    var chapter2Id = "chapter.slough_of_despond";
+    state.chapterProgress[chapter2Id] = {
+      currentSceneId: "scene.slough.pursued_by_obstinate_and_pliable",
+      completedSceneIds: [],
+      completed: false
+    };
+    state.progress.completedChapters = state.progress.completedChapters.filter(function (id) { return id !== chapter2Id; });
+    Object.keys(state.sceneResponses).forEach(function (id) {
+      if (id.indexOf("scene.slough.") === 0) delete state.sceneResponses[id];
+    });
+    Object.keys(state.voiceAttempts).forEach(function (id) {
+      if (id.indexOf("scene.slough.") === 0) delete state.voiceAttempts[id];
+    });
+    state.grammarCompleted = state.grammarCompleted.filter(function (id) {
+      return id !== "grammar.daga_interruption" && id !== "grammar.reason_aseo_eoseo";
+    });
+    state.helpTrust = 0;
+    if (state.activeChapterId === chapter2Id) {
+      scenes = scenesForChapter(chapter2Id);
+      state.currentSceneId = scenes[0].id;
+      state.completedScenes = [];
+    }
+    storage.save(KEYS.chapterProgress, JSON.stringify(state.chapterProgress));
+    storage.save(data.storageKeys.progress, JSON.stringify(state.progress));
+    storage.save(KEYS.sceneResponses, JSON.stringify(state.sceneResponses));
+    storage.save(KEYS.voiceAttempts, JSON.stringify(state.voiceAttempts));
+    storage.save(KEYS.grammarCompleted, JSON.stringify(state.grammarCompleted));
+    storage.save(KEYS.relationshipHelp, "0");
+    storage.save(KEYS.chapter02ContentVersion, targetVersion);
   }
   function setRoute(route) {
     stopDiagnosticMedia(false);
@@ -197,20 +323,33 @@
   }
 
   function renderJourney() {
-    var completed = state.progress.completedChapters.indexOf(data.chapter.id) !== -1;
+    var chapter = currentChapter();
+    var completed = chapterIsComplete(chapter.id);
     var coverVisual = scenes[0].visual;
-    screen.innerHTML = '<section class="chapter-cover" aria-labelledby="chapter-title">' +
-      '<div class="cover-copy"><p class="eyebrow">Chapter 01</p><h1 id="chapter-title">멸망의 도시를 떠나다</h1><p class="cover-vi" lang="vi">Rời Khỏi Thành Hủy Diệt</p>' +
-      '<p class="cover-description">크리스천은 등에 무거운 짐을 지고<br>떠나야 할 길을 찾고 있습니다.</p><p class="cover-description vi" lang="vi">Christian đang mang một gánh nặng<br>và tìm kiếm con đường mình phải đi.</p>' +
-      '<button class="button cover-start" type="button" data-action="start-journey">' + (completed ? "첫 번째 여정 다시 보기" : "첫 번째 여정 시작") + '</button>' +
-      '<div class="cover-meta"><span>약 7분</span><span>핵심 표현 5개</span><span>대화 1회</span></div></div>' +
+    var started = state.completedScenes.length > 0;
+    screen.innerHTML = '<section class="chapter-list" aria-labelledby="journey-title"><div><p class="eyebrow">Your path</p><h1 id="journey-title">순례 여정</h1></div><div class="chapter-card-grid">' +
+      chapters.map(chapterCardMarkup).join("") + '</div></section><section class="chapter-cover chapter-theme-' + chapter.theme + '" aria-labelledby="chapter-title">' +
+      '<div class="cover-copy"><p class="eyebrow">Chapter ' + String(chapter.order).padStart(2, "0") + '</p><h1 id="chapter-title">' + escapeHtml(chapter.titleKo) + '</h1><p class="cover-vi" lang="vi">' + escapeHtml(chapter.titleVi) + '</p>' +
+      '<p class="cover-description">' + escapeHtml(chapter.descriptionKo) + '</p><p class="cover-description vi" lang="vi">' + escapeHtml(chapter.descriptionVi) + '</p>' +
+      '<button class="button cover-start" type="button" data-action="start-journey" data-chapter-id="' + chapter.id + '">' + (completed ? "이 여정 다시 보기" : started ? "현재 장면 이어가기" : chapter.order === 2 ? "두 번째 여정 시작" : "첫 번째 여정 시작") + '</button>' +
+      '<div class="cover-meta"><span>약 ' + chapter.minutes + '분</span><span>핵심 표현 ' + chapter.keyExpressionCount + '개</span><span>문법 ' + chapter.grammarCount + '개</span><span>대화 ' + chapter.dialogueCount + '회</span></div></div>' +
       '<div class="cover-scene" style="' + visualStyle(coverVisual) + '">' + pictureMarkup(coverVisual, true) + '</div></section>' +
-      '<section class="journey-overview"><div><p class="eyebrow">Your path</p><h2>제1장 순례길</h2><p>여섯 장면을 지나며 필요한 한국어를 이야기 속에서 사용합니다.</p></div>' +
+      '<section class="journey-overview"><div><p class="eyebrow">Chapter progress</p><h2>제' + chapter.order + '장 순례길</h2><p>여섯 장면을 지나며 필요한 한국어를 이야기 속에서 사용합니다.</p></div>' +
       sceneProgressMarkup(state.currentSceneId, true) + '<button class="button secondary" type="button" data-action="resume-journey">현재 장면 이어가기</button></section>';
   }
 
+  function chapterCardMarkup(chapter) {
+    var unlocked = chapterIsUnlocked(chapter);
+    var progress = state.chapterProgress[chapter.id] || { completedSceneIds: [], completed: false };
+    var status = !unlocked ? "잠김" : progress.completed ? "완료" : progress.completedSceneIds.length ? "진행 중" : "시작 가능";
+    return '<article class="chapter-card chapter-theme-' + chapter.theme + (unlocked ? "" : " locked") + '">' +
+      '<div><span class="chapter-number">Chapter ' + String(chapter.order).padStart(2, "0") + '</span><span class="chapter-status">' + (unlocked ? "" : "🔒 ") + status + '</span></div><h2>' + escapeHtml(chapter.titleKo) + '</h2><p lang="vi">' + escapeHtml(chapter.titleVi) + '</p>' +
+      (unlocked ? '<button class="button secondary" type="button" data-action="open-chapter" data-chapter-id="' + chapter.id + '">' + (progress.completed ? "다시 보기" : progress.completedSceneIds.length ? "이어하기" : "살펴보기") + '</button>' : '<p class="chapter-lock-message">' + escapeHtml(chapter.lockMessageKo) + '<br><span lang="vi">' + escapeHtml(chapter.lockMessageVi) + '</span></p><button class="button secondary" type="button" disabled>제1장 완료 후 시작할 수 있습니다</button>') +
+      '</article>';
+  }
+
   function sceneProgressMarkup(activeId, compact) {
-    return '<ol class="scene-progress ' + (compact ? "compact" : "") + '" aria-label="제1장 장면 진행">' + scenes.map(function (scene) {
+    return '<ol class="scene-progress ' + (compact ? "compact" : "") + '" aria-label="제' + currentChapter().order + '장 장면 진행">' + scenes.map(function (scene) {
       var completed = state.completedScenes.indexOf(scene.id) !== -1;
       var active = scene.id === activeId;
       return '<li class="' + (completed ? "completed " : "") + (active ? "active" : "") + '"><span aria-hidden="true">' + (completed ? "✓" : scene.order) + '</span><small>장면 ' + scene.order + '</small></li>';
@@ -244,9 +383,15 @@
   }
 
   function pictureMarkup(visual, eager) {
+    if (visual.imageAvailable === false) {
+      return '<div class="scene-image-fallback" role="img" aria-label="' + escapeHtml(visual.imageAltKo) + '"><strong>' + escapeHtml(visual.fallbackTitleKo || visual.fallbackKo || "장면 이미지 준비 중") + '</strong>' +
+        (visual.fallbackCharactersKo ? '<span>' + escapeHtml(visual.fallbackCharactersKo) + '</span>' : '') +
+        '<small>' + escapeHtml(visual.fallbackKo || "장면 이미지 준비 중") + '</small><span lang="vi">' + escapeHtml(visual.fallbackVi || "Hình ảnh đang được chuẩn bị") + '</span></div>';
+    }
     return '<picture class="scene-picture">' +
       (visual.mobileImage ? '<source media="(max-width: 719px)" srcset="' + escapeHtml(visual.mobileImage) + '">' : '') +
-      '<img class="scene-background" src="' + escapeHtml(visual.image) + '" alt="' + escapeHtml(visual.imageAltKo) + '" loading="' + (eager ? "eager" : "lazy") + '"' + (eager ? ' fetchpriority="high"' : '') + ' width="1672" height="941"></picture>';
+      '<img class="scene-background" src="' + escapeHtml(visual.image) + '" alt="' + escapeHtml(visual.imageAltKo) + '" loading="' + (eager ? "eager" : "lazy") + '"' + (eager ? ' fetchpriority="high"' : '') + ' width="1600" height="900"></picture>' +
+      '<div class="scene-image-fallback" role="img" aria-label="' + escapeHtml(visual.imageAltKo) + '" hidden><strong>' + escapeHtml(visual.fallbackKo || "장면 이미지를 불러올 수 없습니다") + '</strong><span lang="vi">' + escapeHtml(visual.fallbackVi || "Không thể tải hình ảnh cảnh") + '</span></div>';
   }
 
   function characterMarkup(character) {
@@ -256,7 +401,8 @@
 
   function lineMarkup(scene, line) {
     var translationVisible = state.viewMode === "compare" || state.translationLines.indexOf(line.id) !== -1;
-    var speaker = line.speakerId === "character.christian" ? "크리스천" : line.speakerId === "character.evangelist" ? "전도자" : "이야기";
+    var speakerNames = { "character.christian": "크리스천", "character.evangelist": "전도자", "character.obstinate": "고집쟁이", "character.pliable": "유순한 사람", "character.help": "도움", "character.narrator": "이야기" };
+    var speaker = speakerNames[line.speakerId] || "이야기";
     return '<article class="scene-line ' + (state.viewMode === "compare" ? "compare" : "") + '">' +
       '<div class="line-language ko-line" data-speech-key="' + line.id + '" data-speech-lang="ko"><span class="speaker-label">' + speaker + '</span><span class="playing-label">재생 중 · 한국어</span><p>' + markedLine(scene, line.ko) + '</p>' +
       '<div class="concept-links">' + scene.vocabularyIds.map(function (id) {
@@ -304,16 +450,38 @@
 
   function markedLine(scene, text) {
     var value = escapeHtml(text);
+    var wordStems = {
+      "word.leave": ["떠나야", "떠나"],
+      "word.head_toward": ["향해"],
+      "word.point": ["가리키며"],
+      "word.what_must_do": ["무엇을 해야 합니까"],
+      "word.slough": ["수렁"],
+      "word.fall_into": ["빠졌습니다"],
+      "word.burden": ["짐"],
+      "word.sink": ["가라앉았습니다"],
+      "word.help": ["도와주세요"],
+      "word.escape": ["빠져나올"],
+      "word.grab_hand": ["손을 잡으세요", "손을 잡겠습니다"],
+      "word.solid": ["단단한"],
+      "word.edge": ["가장자리"],
+      "word.despair": ["절망"]
+    };
     scene.vocabularyIds.forEach(function (id) {
       var word = data.vocabulary.find(function (item) { return item.id === id; });
       if (!word) return;
-      var stems = id === "word.leave" ? ["떠나야", "떠나"] : id === "word.head_toward" ? ["향해"] : id === "word.point" ? ["가리키며"] : ["무엇을 해야 합니까"];
+      var stems = wordStems[id] || [word.word];
       stems.forEach(function (stem) {
         value = value.replace(stem, '<button class="inline-term vocab-term" type="button" data-note-type="vocabulary" data-note-id="' + id + '">' + stem + '</button>');
       });
     });
+    var grammarTerms = {
+      "grammar.must_do": ["떠나야", "해야 합니까"],
+      "grammar.not_know_if": ["어디로 가야 할지"],
+      "grammar.daga_interruption": ["걷다가"],
+      "grammar.reason_aseo_eoseo": ["붙잡아서", "무거워서", "무서워서"]
+    };
     scene.grammarIds.forEach(function (id) {
-      var terms = id === "grammar.must_do" ? ["떠나야", "해야 합니까"] : ["어디로 가야 할지"];
+      var terms = grammarTerms[id] || [];
       terms.forEach(function (term) {
         if (value.indexOf(">" + term + "<") === -1) value = value.replace(term, '<button class="inline-term grammar-term" type="button" data-note-type="grammar" data-note-id="' + id + '">' + term + '</button>');
       });
@@ -324,7 +492,7 @@
   function sceneInteractionMarkup(scene) {
     if (scene.interaction.type === "grammar_check") {
       var grammar = data.grammar.find(function (item) { return item.id === scene.interaction.grammarId; });
-      return '<div class="scene-check" data-exercise="' + grammar.id + '"><h3>길 위의 한 문장</h3><p>크리스천은 이 도시를 ______ 합니다.</p><div class="scene-choices">' +
+      return '<div class="scene-check" data-exercise="' + grammar.id + '"><h3>길 위의 한 문장</h3><p>' + escapeHtml(grammar.exercise.prompt) + '</p><div class="scene-choices">' +
         grammar.exercise.options.map(function (option, index) { return '<button type="button" data-answer="' + option.id + '">' + (index + 1) + '. ' + escapeHtml(option.text) + '</button>'; }).join("") +
         '</div><p class="feedback" aria-live="polite"></p></div><button class="button scene-next" type="button" data-action="next-scene">다음 장면</button>';
     }
@@ -335,7 +503,7 @@
       return '<div class="repeat-prompt"><strong>직접 따라 말해 보세요</strong><p>“제가 무엇을 해야 합니까?”</p><button class="audio-button" type="button" data-line-audio="' + scene.interaction.lineId + '" data-lang="ko">다시 듣기</button></div><button class="button scene-next" type="button" data-action="next-scene">대답을 듣기</button>';
     }
     if (scene.interaction.type === "complete_chapter") {
-      return '<button class="button scene-next" type="button" data-action="complete-chapter">첫 여정 마치기</button>';
+      return '<button class="button scene-next" type="button" data-action="complete-chapter">제' + currentChapter().order + '장 여정 마치기</button>';
     }
     return '<button class="button scene-next" type="button" data-action="next-scene">다음 장면</button>';
   }
@@ -356,8 +524,9 @@
     }
     var grammar = data.grammar.find(function (item) { return item.id === state.activeNote.id; });
     if (!grammar) return "";
+    var forms = grammar.forms && grammar.forms.length ? grammar.forms : [grammar.id === "grammar.must_do" ? "떠나다 → 떠나야 하다" : "가다 → 가는지 모르다"];
     return '<aside class="learning-drawer grammar-drawer" role="dialog" aria-modal="true" aria-labelledby="grammar-note-title"><button class="drawer-close" type="button" data-action="close-note" aria-label="문법 노트 닫기">×</button><p class="eyebrow">Travel note · 문법</p><h2 id="grammar-note-title">' + escapeHtml(grammar.expression) + '</h2>' +
-      '<div class="form-change"><span>기본형</span><strong>떠나다</strong><b>→</b><span>형태 변화</span><strong>' + (grammar.id === "grammar.must_do" ? "떠나야 하다" : "가는지 모르다") + '</strong></div>' +
+      '<div class="form-change"><span>형태 변화</span><strong>' + forms.map(escapeHtml).join("<br>") + '</strong></div>' +
       '<p>' + escapeHtml(grammar.explanationKo) + '</p><p class="vi" lang="vi">' + escapeHtml(grammar.explanationVi) + '</p><div class="note-example"><p>' + escapeHtml(grammar.textExample) + '</p><p>' + escapeHtml(grammar.example) + '</p><p lang="vi">' + escapeHtml(grammar.translation) + '</p></div>' +
       '<div class="scene-check" data-exercise="' + grammar.id + '"><h3>한 문장 완성</h3><p>' + escapeHtml(grammar.exercise.prompt) + '</p><div class="scene-choices">' +
       grammar.exercise.options.map(function (option, index) { return '<button type="button" data-answer="' + option.id + '">' + (index + 1) + '. ' + escapeHtml(option.text) + '</button>'; }).join("") +
@@ -368,15 +537,50 @@
     var supported = recognitionSupported();
     var response = state.sceneResponses[scene.id];
     var showChoices = !supported || state.recognitionState === "help" || (state.voiceAttempts[scene.id] || 0) >= 2;
-    screen.innerHTML = '<section class="scene-shell dialogue-player theme-' + scene.visual.colorTheme + '" data-scene-id="' + scene.id + '"><header class="scene-topbar"><button class="text-button" type="button" data-route="journey">← 여정 지도</button><div><strong>장면 4 / 6</strong><span>전도자와 대화</span></div><button class="audio-button stop" type="button" data-action="stop-speech">듣기 중지</button></header>' +
+    var npcName = scene.interaction.npcNameKo || "전도자";
+    var practiceKey = dialoguePracticeStateKey(scene);
+    var practiceOpen = dialoguePracticeOpenState.get(practiceKey) === true;
+    screen.innerHTML = '<section class="scene-shell dialogue-player theme-' + scene.visual.colorTheme + '" data-scene-id="' + scene.id + '"><header class="scene-topbar"><button class="text-button" type="button" data-route="journey">← 여정 지도</button><div><strong>장면 ' + scene.order + ' / 6</strong><span>' + escapeHtml(scene.titleKo) + '</span></div><button class="audio-button stop" type="button" data-action="stop-speech">듣기 중지</button></header>' +
       sceneProgressMarkup(scene.id, false) + '<div class="cinematic-frame dialogue-frame placement-' + scene.visual.panelPlacement + ' tone-' + scene.visual.overlayTone + '" style="' + visualStyle(scene.visual) + '"><div class="scene-stage dialogue-stage">' + pictureMarkup(scene.visual, false) + '</div>' +
-      '<div class="dialogue-panel"><p class="npc-name">전도자</p><div class="npc-bubble"><p>“' + escapeHtml(scene.interaction.npcLineKo) + '”</p><span lang="vi">' + escapeHtml(scene.interaction.npcLineVi) + '</span></div>' +
+      '<div class="dialogue-panel"><p class="npc-name">' + escapeHtml(npcName) + '</p><div class="npc-bubble"><p>“' + escapeHtml(scene.interaction.npcLineKo) + '”</p><span lang="vi">' + escapeHtml(scene.interaction.npcLineVi) + '</span></div>' +
       (!response ? '<div class="speak-actions"><button class="button speak-primary" type="button" data-action="start-recognition">' + recognitionButtonText() + '</button><button class="button secondary" type="button" data-action="show-help">표현 도움받기</button></div>' : '') +
       '<p class="recognition-status" role="status" aria-live="polite">' + recognitionStatusMarkup(supported) + '</p>' +
-      '<details class="dialogue-line-practice"><summary>장면 문장 녹음 연습</summary><div><p>' + escapeHtml(scene.lines[0].ko) + '</p><button class="audio-button" type="button" data-line-audio="' + scene.lines[0].id + '" data-lang="ko">모범 음성 듣기</button>' + recordingControlsMarkup(scene.lines[0]) + '</div></details>' +
+      dialogueConceptLinksMarkup(scene) +
+      '<details class="dialogue-line-practice" data-practice-key="' + escapeHtml(practiceKey) + '"' + (practiceOpen ? " open" : "") + '><summary>장면 문장 듣기·녹음 (' + scene.lines.length + ')</summary><div>' + scene.lines.map(function (line) {
+        return '<section class="dialogue-practice-item"><p>' + escapeHtml(line.ko) + '</p><p lang="vi">' + escapeHtml(line.vi) + '</p><button class="audio-button" type="button" data-line-audio="' + line.id + '" data-lang="ko">모범 음성 듣기</button>' + recordingControlsMarkup(line) + '</section>';
+      }).join("") + '</div></details>' +
       (showChoices && !response ? fallbackChoicesMarkup() : '') +
-      (response ? dialogueResponseMarkup(response, scene) : '') + '</div></div></section>';
+      (response ? dialogueResponseMarkup(response, scene) : '') + '</div></div>' + activeNoteMarkup(scene) + '</section>';
     syncSceneContentOverflow();
+    if (state.activeNote) {
+      var closeButton = screen.querySelector(".drawer-close");
+      if (closeButton) closeButton.focus();
+    }
+  }
+
+  function dialogueConceptLinksMarkup(scene) {
+    return '<div class="concept-links" aria-label="이 장면의 어휘와 문법">' +
+      scene.vocabularyIds.map(function (id) {
+        var word = data.vocabulary.find(function (item) { return item.id === id; });
+        return '<button type="button" data-note-type="vocabulary" data-note-id="' + id + '">어휘 · ' + escapeHtml(word.word) + '</button>';
+      }).join("") +
+      scene.grammarIds.map(function (id) {
+        var grammar = data.grammar.find(function (item) { return item.id === id; });
+        return '<button type="button" data-note-type="grammar" data-note-id="' + id + '">문법 · ' + escapeHtml(grammar.expression) + '</button>';
+      }).join("") + '</div>';
+  }
+
+  function dialoguePracticeStateKey(scene) {
+    return scene.chapterId + ":" + scene.id + ":" + scene.lines.map(function (line) { return line.id; }).join(",");
+  }
+
+  function revealDialogueOptions() {
+    window.requestAnimationFrame(function () {
+      var options = document.querySelector(".dialogue-player .expression-help");
+      if (!options) return;
+      var reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      options.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth", block: "center" });
+    });
   }
 
   function syncSceneContentOverflow() {
@@ -433,17 +637,25 @@
     return "마이크를 누르고 한국어로 직접 답해 보세요.";
   }
   function fallbackChoicesMarkup() {
-    return '<div class="expression-help"><h3>이 표현으로 이어가기</h3>' + data.quest.answers.map(function (answer) {
+    var quest = questForScene(currentScene());
+    return '<div class="expression-help"><h3>이 표현으로 이어가기</h3>' + (quest ? quest.answers : []).map(function (answer) {
       return '<button type="button" data-quest-answer="' + answer.id + '">' + escapeHtml(answer.text) + '</button>';
     }).join("") + '</div>';
   }
+  function questForScene(scene) {
+    if (data.quest && data.quest.id === scene.interaction.questId) return data.quest;
+    return (chapter02Data.quests || []).find(function (quest) { return quest.id === scene.interaction.questId; }) || null;
+  }
   function dialogueResponseMarkup(response, scene) {
-    var good = response.meaningDelivery === "success" && response.grammarMatch === "intention";
-    var practiceLine = { id: "practice.evangelist_reason.response", ko: response.transcript || scene.interaction.supplementKo };
-    return '<div class="npc-response"><div class="user-response"><p class="npc-name">나</p><p>“' + escapeHtml(practiceLine.ko) + '”</p>' + recordingControlsMarkup(practiceLine) + '</div><p class="npc-name">전도자</p><div class="npc-bubble response"><p>“' + (good ? "좋습니다. 저 멀리 좁은 문이 보입니까? 그 문을 향해 가십시오." : "괜찮습니다. 이렇게 말해 보십시오. ‘저는 새로운 길을 찾으려고 합니다.’") + '”</p></div>' +
-      '<div class="dialogue-learning-result"><span>의미 전달 <strong>' + (response.meaningDelivery === "success" ? "완료" : "보완") + '</strong></span><span>이유 설명 <strong>' + (response.keywordMatches.length ? "완료" : "보완") + '</strong></span><span>목표 문법 <strong>' + (response.grammarMatch === "intention" ? "완료" : "보완") + '</strong></span><span>전도자 신뢰도 <strong>' + (response.trustChange > 0 ? "+" : "") + response.trustChange + '</strong></span></div>' +
+    var good = response.meaningDelivery === "success" && response.grammarMatch !== "needs_support";
+    var npcName = scene.interaction.npcNameKo || "전도자";
+    var practiceLine = { id: "practice." + scene.id + ".response", ko: response.transcript || scene.interaction.supplementKo };
+    var npcResponse = good ? (scene.interaction.successResponseKo || "좋습니다. 저 멀리 좁은 문이 보입니까? 그 문을 향해 가십시오.") : (scene.interaction.supportResponseKo || "괜찮습니다. 보충 표현으로 다시 말해 보세요.");
+    var trustLabel = scene.chapterId === "chapter.slough_of_despond" ? "도움과의 신뢰도" : "전도자 신뢰도";
+    return '<div class="npc-response"><div class="user-response"><p class="npc-name">나</p><p>“' + escapeHtml(practiceLine.ko) + '”</p>' + recordingControlsMarkup(practiceLine) + '</div><p class="npc-name">' + escapeHtml(npcName) + '</p><div class="npc-bubble response"><p>“' + escapeHtml(npcResponse) + '”</p></div>' +
+      '<div class="dialogue-learning-result"><span>의미 전달 <strong>' + (response.meaningDelivery === "success" ? "완료" : "보완") + '</strong></span><span>핵심 표현 <strong>' + (response.keywordMatches.length ? "완료" : "보완") + '</strong></span><span>목표 표현 <strong>' + (response.grammarMatch !== "needs_support" ? "완료" : "보완") + '</strong></span><span>' + trustLabel + ' <strong>' + (response.trustChange > 0 ? "+" : "") + response.trustChange + '</strong></span></div>' +
       (!good ? '<div class="supplement"><p>' + escapeHtml(scene.interaction.supplementKo) + '</p><p lang="vi">' + escapeHtml(scene.interaction.supplementVi) + '</p><button class="audio-button" type="button" data-supplement-audio="ko">보충 표현 듣기</button><button class="button secondary" type="button" data-action="retry-dialogue">다시 말하기</button></div>' : '') +
-      '<button class="button scene-next" type="button" data-action="next-scene">다음 장면</button></div>';
+      '<button class="button scene-next" type="button" data-action="' + (scene.nextSceneId ? "next-scene" : "complete-chapter") + '">' + (scene.nextSceneId ? "다음 장면" : "제" + currentChapter().order + "장 여정 마치기") + '</button></div>';
   }
 
   function startRecognition() {
@@ -485,7 +697,10 @@
   }
   function evaluateSpeechResponse(scene, transcript) {
     var matches = scene.interaction.keywords.filter(function (keyword) { return transcript.indexOf(keyword) !== -1; });
-    var grammarMatch = /찾으려고|찾고 싶/.test(transcript) ? "intention" : "needs_support";
+    var grammarMatch = matches.length >= Math.min(2, scene.interaction.keywords.length) ? scene.interaction.grammarTarget : "needs_support";
+    var quest = questForScene(scene);
+    var completeAnswer = quest && quest.answers[0];
+    var briefAnswer = quest && quest.answers[1];
     var response = {
       transcript: transcript,
       meaningDelivery: matches.length ? "success" : "partial",
@@ -493,22 +708,23 @@
       keywordMatches: matches,
       grammarMatch: grammarMatch,
       pronunciationScore: null,
-      trustChange: matches.length && grammarMatch === "intention" ? 2 : 0,
-      experience: matches.length && grammarMatch === "intention" ? 30 : 15
+      trustChange: completeAnswer && matches.length && grammarMatch !== "needs_support" ? completeAnswer.result.trustChange : 0,
+      experience: completeAnswer && matches.length && grammarMatch !== "needs_support" ? completeAnswer.result.experience : (briefAnswer ? briefAnswer.result.experience : 15)
     };
     state.voiceAttempts[scene.id] = (state.voiceAttempts[scene.id] || 0) + 1;
-    applyDialogueResult(scene, response, matches.length && grammarMatch === "intention" ? "answer.evangelist_reason.thoughtful" : "answer.evangelist_reason.brief");
+    applyDialogueResult(scene, response, matches.length && grammarMatch !== "needs_support" && completeAnswer ? completeAnswer.id : briefAnswer ? briefAnswer.id : "");
   }
   function chooseQuestAnswer(id) {
     var scene = currentScene();
-    var answer = data.quest.answers.find(function (item) { return item.id === id; });
+    var quest = questForScene(scene);
+    var answer = quest && quest.answers.find(function (item) { return item.id === id; });
     if (!answer) return;
     var response = {
       transcript: answer.text,
       meaningDelivery: answer.result.meaningDelivery,
       requiredIntent: scene.interaction.requiredIntent,
-      keywordMatches: id.indexOf("thoughtful") !== -1 ? ["새로운 길", "찾으려고"] : [],
-      grammarMatch: id.indexOf("thoughtful") !== -1 ? "intention" : "needs_support",
+      keywordMatches: answer.result.meaningDelivery === "success" ? scene.interaction.keywords.slice(0, 2) : [],
+      grammarMatch: answer.result.meaningDelivery === "success" ? scene.interaction.grammarTarget : "needs_support",
       pronunciationScore: null,
       trustChange: answer.result.trustChange,
       experience: answer.result.experience
@@ -516,19 +732,22 @@
     applyDialogueResult(scene, response, id);
   }
   function applyDialogueResult(scene, response, answerId) {
-    var previous = data.quest.answers.find(function (answer) { return answer.id === state.selectedAnswer; });
+    var previous = state.sceneResponses[scene.id];
     if (previous) {
-      state.experience = Math.max(0, state.experience - previous.result.experience);
-      state.trust -= previous.result.trustChange;
+      state.experience = Math.max(0, state.experience - (previous.experience || 0));
+      if (scene.chapterId === "chapter.slough_of_despond") state.helpTrust -= previous.trustChange || 0;
+      else state.trust -= previous.trustChange || 0;
     }
     state.selectedAnswer = answerId;
     state.experience = Math.min(data.rules.maxExperience, state.experience + response.experience);
-    state.trust += response.trustChange;
+    if (scene.chapterId === "chapter.slough_of_despond") state.helpTrust += response.trustChange;
+    else state.trust += response.trustChange;
     state.sceneResponses[scene.id] = response;
     state.recognitionState = "complete";
-    storage.save(data.storageKeys.selectedAnswer, answerId);
+    if (scene.chapterId === "chapter.city_of_destruction") storage.save(data.storageKeys.selectedAnswer, answerId);
     storage.save(data.storageKeys.experience, String(state.experience));
     storage.save(data.storageKeys.trust, String(state.trust));
+    storage.save(KEYS.relationshipHelp, String(state.helpTrust));
     persistV2();
     renderDialogueScene(scene);
     updateHeader();
@@ -538,7 +757,13 @@
     cleanupRecordingSession({ keepRecordedBlob: true });
     stopSpeech();
     var scene = currentScene();
-    if (state.completedScenes.indexOf(scene.id) === -1) state.completedScenes.push(scene.id);
+    if (state.completedScenes.indexOf(scene.id) === -1) {
+      state.completedScenes.push(scene.id);
+      if (scene.chapterId === "chapter.slough_of_despond") {
+        state.experience = Math.min(data.rules.maxExperience, state.experience + 10);
+        storage.save(data.storageKeys.experience, String(state.experience));
+      }
+    }
     if (scene.nextSceneId) {
       state.currentSceneId = scene.nextSceneId;
       state.translationLines = [];
@@ -554,8 +779,15 @@
     cleanupRecordingSession({ keepRecordedBlob: true });
     stopSpeech();
     var scene = currentScene();
+    var chapterId = state.activeChapterId;
+    var wasComplete = chapterIsComplete(chapterId);
     if (state.completedScenes.indexOf(scene.id) === -1) state.completedScenes.push(scene.id);
-    if (state.progress.completedChapters.indexOf(data.chapter.id) === -1) state.progress.completedChapters.push(data.chapter.id);
+    if (state.progress.completedChapters.indexOf(chapterId) === -1) state.progress.completedChapters.push(chapterId);
+    if (!wasComplete && chapterId === "chapter.slough_of_despond") {
+      state.experience = Math.min(data.rules.maxExperience, state.experience + 30);
+      storage.save(data.storageKeys.experience, String(state.experience));
+    }
+    saveActiveChapterProgress(true);
     state.progress.lastLocation = "result";
     storage.save(data.storageKeys.progress, JSON.stringify(state.progress));
     persistV2();
@@ -565,22 +797,28 @@
   }
 
   function renderReview() {
-    var words = data.vocabulary.filter(function (word) { return state.savedWords.indexOf(word.id) !== -1; });
-    screen.innerHTML = '<section class="standard-page"><p class="eyebrow">Travel notes</p><h1>여행 노트 복습</h1><p>이야기 속에서 만나 저장한 표현만 모았습니다.</p>' +
+    var chapter2 = state.activeChapterId === "chapter.slough_of_despond";
+    var words = data.vocabulary.filter(function (word) {
+      return chapter2 ? word.sceneId && word.sceneId.indexOf("scene.slough.") === 0 : state.savedWords.indexOf(word.id) !== -1;
+    });
+    screen.innerHTML = '<section class="standard-page"><p class="eyebrow">Travel notes</p><h1>여행 노트 복습</h1><p>' + (chapter2 ? "제2장의 어휘를 살펴보고 필요한 표현을 저장할 수 있습니다." : "이야기 속에서 만나 저장한 표현만 모았습니다.") + '</p>' +
       (words.length ? '<div class="review-grid">' + words.map(function (word) {
-        return '<article class="review-word"><h2>' + escapeHtml(word.word) + '</h2><p lang="vi">' + escapeHtml(word.vi) + '</p><p>' + escapeHtml(word.example || word.description) + '</p><button class="audio-button" type="button" data-free-audio="' + escapeHtml(word.example || word.word) + '" data-lang="ko">한국어 듣기</button><button class="button secondary" type="button" data-save-word="' + word.id + '">저장 해제</button></article>';
+        var saved = state.savedWords.indexOf(word.id) !== -1;
+        return '<article class="review-word"><h2>' + escapeHtml(word.word) + '</h2><p lang="vi">' + escapeHtml(word.vi) + '</p><p>' + escapeHtml(word.example || word.description) + '</p><button class="audio-button" type="button" data-free-audio="' + escapeHtml(word.example || word.word) + '" data-lang="ko">한국어 듣기</button><button class="button secondary" type="button" data-save-word="' + word.id + '">' + (saved ? "저장 해제" : "여행 노트에 저장") + '</button></article>';
       }).join("") + '</div>' : '<div class="empty-state"><h2>아직 저장한 표현이 없습니다</h2><p>장면 속 밑줄 표현을 눌러 여행 노트에 저장해 보세요.</p><button class="button" type="button" data-nav="journey">여정으로 돌아가기</button></div>') + '</section>';
   }
   function renderRecords() {
-    screen.innerHTML = '<section class="standard-page"><p class="eyebrow">Pilgrimage record</p><h1>나의 기록</h1><div class="record-dashboard"><article><span>완료한 장면</span><strong>' + state.completedScenes.length + ' / 6</strong></article><article><span>경험치</span><strong>' + state.experience + ' / 100</strong></article><article><span>저장한 표현</span><strong>' + state.savedWords.length + '개</strong></article><article><span>전도자 신뢰도</span><strong>' + state.trust + '</strong></article></div>' +
+    var relationshipLabel = state.activeChapterId === "chapter.slough_of_despond" ? "도움과의 신뢰도" : "전도자 신뢰도";
+    var relationshipValue = state.activeChapterId === "chapter.slough_of_despond" ? state.helpTrust : state.trust;
+    screen.innerHTML = '<section class="standard-page"><p class="eyebrow">Pilgrimage record</p><h1>나의 기록 · ' + escapeHtml(currentChapter().titleKo) + '</h1><div class="record-dashboard"><article><span>완료한 장면</span><strong>' + state.completedScenes.length + ' / 6</strong></article><article><span>경험치</span><strong>' + state.experience + ' / 100</strong></article><article><span>저장한 표현</span><strong>' + state.savedWords.length + '개</strong></article><article><span>' + relationshipLabel + '</span><strong>' + relationshipValue + '</strong></article></div>' +
       '<div class="record-path">' + sceneProgressMarkup(state.currentSceneId, true) + '</div>' +
-      (state.progress.completedChapters.indexOf(data.chapter.id) !== -1 ? '<button class="button" type="button" data-action="show-record">오늘의 순례 기록 보기</button>' : '<p>제1장의 마지막 장면을 마치면 오늘의 순례 기록이 완성됩니다.</p>') + '</section>';
+      (chapterIsComplete(state.activeChapterId) ? '<button class="button" type="button" data-action="show-record">오늘의 순례 기록 보기</button>' : '<p>현재 장의 마지막 장면을 마치면 오늘의 순례 기록이 완성됩니다.</p>') + '</section>';
   }
   function renderSettings() {
     screen.innerHTML = '<section class="standard-page settings-page"><p class="eyebrow">Settings</p><h1>설정</h1><div class="settings-card"><h2>음성 설정</h2>' + voiceSettingsMarkup() + '</div>' +
       diagnosticMarkup() +
       '<div class="settings-card"><h2>읽기 방식</h2><div class="view-switch"><button type="button" data-view-mode="immersive" aria-pressed="' + (state.viewMode === "immersive") + '">몰입 읽기</button><button type="button" data-view-mode="compare" aria-pressed="' + (state.viewMode === "compare") + '">한·베 비교</button></div></div>' +
-      '<div class="settings-card danger-zone"><h2>학습 데이터</h2><p>기존 v1 및 현재 v2 학습 기록을 이 기기에서 초기화합니다.</p><button class="button danger" type="button" data-action="reset">학습 데이터 초기화</button></div></section>';
+      '<div class="settings-card danger-zone"><h2>학습 데이터</h2><p>기존 v1·v2 및 챕터별 v3 학습 기록을 이 기기에서 초기화합니다.</p><button class="button danger" type="button" data-action="reset">학습 데이터 초기화</button></div></section>';
   }
 
   function diagnosticMarkup() {
@@ -588,8 +826,11 @@
     var getUserMedia = Boolean(mediaDevices && navigator.mediaDevices.getUserMedia);
     var mediaRecorderSupport = Boolean(window.MediaRecorder);
     var mimeType = selectedRecordingMimeType();
+    var totalVoiceCount = availableVoices.length;
     var koCount = getVoicesForLanguage("ko-KR").length;
     var viCount = getVoicesForLanguage("vi-VN").length;
+    var selectedKoVoice = selectedVoiceLabel("ko-KR");
+    var selectedViVoice = selectedVoiceLabel("vi-VN");
     var activeTracks = [diagnosticStream, mediaStream].reduce(function (count, stream) {
       return count + (stream ? stream.getAudioTracks().filter(function (track) { return track.readyState === "live"; }).length : 0);
     }, 0);
@@ -604,10 +845,14 @@
       item("녹음 형식", mimeType || (mediaRecorderSupport ? "브라우저 기본 형식" : "선택 불가"), mediaRecorderSupport ? "available" : "unsupported") +
       item("직접 말하기", recognitionSupported() ? "SpeechRecognition 감지" : "API 없음", recognitionSupported() ? "available" : "unsupported") +
       item("TTS", speechSupported() ? "speechSynthesis 감지" : "API 없음", speechSupported() ? "available" : "unsupported") +
+      item("전체 음성", totalVoiceCount + "개", totalVoiceCount ? "available" : "check") +
       item("한국어 음성", koCount + "개", koCount ? "available" : "check") +
       item("베트남어 음성", viCount + "개", viCount ? "available" : "check") +
+      item("선택된 한국어 음성", selectedKoVoice, getVoiceForLanguage("ko-KR") ? "available" : "check") +
+      item("선택된 베트남어 음성", selectedViVoice, getVoiceForLanguage("vi-VN") ? "available" : "check") +
       item("활성 마이크", activeTracks + "개 track", activeTracks ? "check" : "available") +
       item("마지막 녹음 오류", diagnosticState.lastErrorName ? diagnosticState.lastErrorName + ": " + diagnosticState.lastErrorMessage : "없음", diagnosticState.lastErrorName ? "check" : "available") +
+      item("마지막 TTS 오류", diagnosticState.lastTtsErrorCode || "없음", diagnosticState.lastTtsErrorCode ? "check" : "available") +
       '</dl><p class="diagnostic-status" role="status" aria-live="polite">' + escapeHtml(diagnosticState.status) + '</p><div class="diagnostic-actions">' +
       '<button class="button secondary" type="button" data-diagnostic="permission">마이크 권한 확인</button><button class="button secondary" type="button" data-diagnostic="record">3초 시험 녹음</button><button class="button secondary" type="button" data-diagnostic="play"' + (diagnosticObjectUrl ? "" : " disabled") + '>시험 녹음 듣기</button><button class="audio-button" type="button" data-diagnostic="tts-ko">한국어 TTS 시험</button><button class="audio-button" type="button" data-diagnostic="tts-vi">베트남어 TTS 시험</button><button class="button danger" type="button" data-diagnostic="stop">모든 음성·마이크 정지</button></div>' +
       '<details class="diagnostic-raw"><summary>개발자용 원시 정보</summary><pre>' + escapeHtml(JSON.stringify({
@@ -618,20 +863,27 @@
         selectedMimeType: mimeType || null,
         speechRecognition: recognitionSupported(),
         speechSynthesis: speechSupported(),
+        totalVoiceCount: totalVoiceCount,
         koKrVoiceCount: koCount,
         viVnVoiceCount: viCount,
+        selectedKoVoice: selectedKoVoice,
+        selectedViVoice: selectedViVoice,
         activeMicrophoneTracks: activeTracks,
         lastRecordingError: { name: diagnosticState.lastErrorName || null, message: diagnosticState.lastErrorMessage || null },
+        lastTtsErrorCode: diagnosticState.lastTtsErrorCode || null,
         userAgent: navigator.userAgent
       }, null, 2)) + '</pre></details></section>';
   }
   function renderPilgrimageRecord() {
-    var response = state.sceneResponses["scene.city.evangelist_appears"];
+    var chapter2 = state.activeChapterId === "chapter.slough_of_despond";
+    var response = state.sceneResponses[chapter2 ? "scene.slough.meaning_of_the_slough" : "scene.city.evangelist_appears"];
     var visual = scenes[5].visual;
-    screen.innerHTML = '<section class="record-visual" style="' + visualStyle(visual) + '">' + pictureMarkup(visual, false) + '<div class="record-visual-caption"><p class="eyebrow">Chapter complete</p><h1>오늘의 순례 기록</h1><p>도시를 떠날 첫 방향을 찾았습니다.</p></div></section><section class="pilgrimage-record"><dl>' +
-      '<div><dt>오늘 만난 인물</dt><dd>크리스천 · 전도자</dd></div><div><dt>오늘 배운 핵심 문장</dt><dd>“제가 무엇을 해야 합니까?”</dd></div><div><dt>사용한 문법</dt><dd>-아/어야 하다 · -는지 모르다</dd></div>' +
-      '<div><dt>저장한 단어</dt><dd>' + state.savedWords.length + '개</dd></div><div><dt>대화에서 잘한 점</dt><dd>' + (response && response.meaningDelivery === "success" ? "새로운 길을 찾으려는 뜻을 전했습니다." : "대화를 끝까지 이어 갔습니다.") + '</dd></div>' +
-      '<div><dt>다시 연습할 표현</dt><dd>아직 정확히 모르지만, 새로운 길을 찾고 싶습니다.</dd></div><div><dt>경험치</dt><dd>' + state.experience + ' / 100</dd></div><div><dt>전도자 신뢰도</dt><dd>' + state.trust + '</dd></div><div><dt>다음 장소</dt><dd>절망의 늪</dd></div></dl>' +
+    var chapterWordIds = data.vocabulary.filter(function (word) { return chapter2 ? word.sceneId && word.sceneId.indexOf("scene.slough.") === 0 : !word.sceneId; }).map(function (word) { return word.id; });
+    var savedChapterWords = state.savedWords.filter(function (id) { return chapterWordIds.indexOf(id) !== -1; }).length;
+    screen.innerHTML = '<section class="record-visual" style="' + visualStyle(visual) + '">' + pictureMarkup(visual, false) + '<div class="record-visual-caption"><p class="eyebrow">Chapter complete</p><h1>오늘의 순례 기록</h1><p>' + (chapter2 ? "절망의 수렁 바깥 단단한 땅에 섰습니다." : "도시를 떠날 첫 방향을 찾았습니다.") + '</p></div></section><section class="pilgrimage-record"><dl>' +
+      '<div><dt>오늘 만난 인물</dt><dd>' + (chapter2 ? "고집쟁이 · 유순한 사람 · 도움" : "크리스천 · 전도자") + '</dd></div><div><dt>오늘 배운 핵심 문장</dt><dd>' + (chapter2 ? "“다음에는 단단한 발판을 잘 살피겠습니다.”" : "“제가 무엇을 해야 합니까?”") + '</dd></div><div><dt>사용한 문법</dt><dd>' + (chapter2 ? "-다가 · -아/어서" : "-아/어야 하다 · -는지 모르다") + '</dd></div>' +
+      '<div><dt>저장한 단어</dt><dd>' + savedChapterWords + '개</dd></div><div><dt>주요 사건</dt><dd>' + (chapter2 ? "돌아가라는 요구를 거절하고 유순한 사람과 출발했습니다. 수렁에서 그의 이탈을 겪은 뒤, 발판을 놓친 이유를 설명하고 도움의 손을 잡았습니다." : response && response.meaningDelivery === "success" ? "새로운 길을 찾으려는 뜻을 전했습니다." : "대화를 끝까지 이어 갔습니다.") + '</dd></div>' +
+      '<div><dt>핵심 교훈</dt><dd>' + (chapter2 ? "첫 어려움은 동행하려는 마음을 드러냅니다. 두려움에 쫓기면 가까운 발판을 놓칠 수 있으며, 혼자 나오지 못할 때는 도움의 손을 받아들여야 합니다." : "모르는 길에서는 도움을 요청할 수 있습니다.") + '</dd></div><div><dt>경험치</dt><dd>' + state.experience + ' / 100</dd></div><div><dt>' + (chapter2 ? "도움과의 신뢰도" : "전도자 신뢰도") + '</dt><dd>' + (chapter2 ? state.helpTrust : state.trust) + '</dd></div><div><dt>다음 장소</dt><dd>' + (chapter2 ? "세속현자의 유혹 · The Worldly Wiseman’s Temptation · Sự cám dỗ của Nhà Thông Thái Thế Gian" : "절망의 수렁") + '</dd></div></dl>' +
       '<div class="record-actions"><button class="button" type="button" data-action="practice-again">다시 연습</button><button class="button secondary" type="button" data-route="journey">여정 지도로</button><button class="button secondary" type="button" data-action="preview-next">다음 장소 미리 보기</button></div></section>';
   }
 
@@ -641,10 +893,34 @@
   function speechSupported() {
     return "speechSynthesis" in window && typeof SpeechSynthesisUtterance !== "undefined";
   }
+  function refreshAvailableVoices() {
+    if (!speechSupported()) return [];
+    var voices = [];
+    try { voices = window.speechSynthesis.getVoices() || []; }
+    catch (error) { voices = []; }
+    var previousSignature = availableVoices.map(function (voice) { return voice.name + "|" + voice.lang; }).join(";");
+    var nextSignature = voices.map(function (voice) { return voice.name + "|" + voice.lang; }).join(";");
+    availableVoices = voices.slice();
+    if (previousSignature !== nextSignature && state.route === "settings") renderSettings();
+    return availableVoices;
+  }
+  function initializeSpeechVoices() {
+    if (!speechSupported() || voiceInitializationStarted) return;
+    voiceInitializationStarted = true;
+    refreshAvailableVoices();
+    if (typeof window.speechSynthesis.addEventListener === "function") {
+      window.speechSynthesis.addEventListener("voiceschanged", refreshAvailableVoices);
+    } else {
+      window.speechSynthesis.onvoiceschanged = refreshAvailableVoices;
+    }
+    [150, 500, 1500].forEach(function (delay) {
+      window.setTimeout(refreshAvailableVoices, delay);
+    });
+  }
   function getVoicesForLanguage(lang) {
     if (!speechSupported()) return [];
     var prefix = lang.split("-")[0].toLowerCase();
-    return window.speechSynthesis.getVoices().filter(function (voice) { return voice.lang.toLowerCase().split("-")[0] === prefix; });
+    return availableVoices.filter(function (voice) { return voice.lang.toLowerCase().split("-")[0] === prefix; });
   }
   function voiceOptionsMarkup(language) {
     var selected = language === "vi" ? state.selectedVoiceVi : state.selectedVoiceKo;
@@ -656,15 +932,52 @@
   function getVoiceForLanguage(lang) {
     var voices = getVoicesForLanguage(lang);
     var selected = lang.indexOf("vi") === 0 ? state.selectedVoiceVi : state.selectedVoiceKo;
-    return voices.find(function (voice) { return voice.name === selected; }) || voices.find(function (voice) { return voice.lang.toLowerCase() === lang.toLowerCase(); }) || voices[0] || null;
+    if (selected) return voices.find(function (voice) { return voice.name === selected; }) || null;
+    return voices.find(function (voice) { return voice.lang.toLowerCase() === lang.toLowerCase(); }) || voices[0] || null;
   }
   function speechNotice(lang) {
-    return lang.indexOf("vi") === 0 ? "이 기기에는 베트남어 음성이 설치되어 있지 않습니다. 기기의 음성 설정에서 베트남어 음성을 추가하거나 다른 브라우저에서 다시 시도해 주세요." : "이 기기에는 한국어 음성이 설치되어 있지 않습니다. 기기의 음성 설정에서 한국어 음성을 추가하거나 다른 브라우저에서 다시 시도해 주세요.";
+    return lang.indexOf("vi") === 0 ? "Không thể phát giọng đọc trên trình duyệt này. Hãy mở bằng Chrome hoặc kiểm tra cài đặt chuyển văn bản thành giọng nói." : "이 브라우저에서 음성을 재생하지 못했습니다. Chrome에서 열거나 휴대전화의 텍스트 음성 변환 설정을 확인해 주세요.";
+  }
+  function selectedVoiceLabel(lang) {
+    var voice = getVoiceForLanguage(lang);
+    return voice ? voice.name + " (" + voice.lang + ")" : "운영체제 기본 음성으로 재생 시도";
+  }
+  function resumeSpeechSynthesisIfPaused() {
+    if (speechSupported() && window.speechSynthesis.paused && typeof window.speechSynthesis.resume === "function") {
+      window.speechSynthesis.resume();
+    }
+  }
+  function configureUtterance(utterance, lang, rate, voice) {
+    utterance.lang = lang;
+    utterance.rate = rate || 1;
+    utterance.pitch = 1;
+    utterance.volume = 1;
+    if (voice) utterance.voice = voice;
+  }
+  function rememberTtsError(code) {
+    diagnosticState.lastTtsErrorCode = code || "unknown";
+  }
+  function startWatch(utterance, onFailure) {
+    var started = false;
+    var timer = window.setTimeout(function () {
+      if (!started) onFailure("start-timeout");
+    }, 2500);
+    return {
+      started: function () {
+        started = true;
+        window.clearTimeout(timer);
+      },
+      finished: function () {
+        window.clearTimeout(timer);
+      }
+    };
   }
   function findLine(lineId) {
-    if (lineId === "practice.evangelist_reason.response") {
-      var response = state.sceneResponses["scene.city.evangelist_appears"];
-      var dialogueScene = scenes.find(function (scene) { return scene.id === "scene.city.evangelist_appears"; });
+    if (lineId.indexOf("practice.") === 0 && lineId.slice(-9) === ".response") {
+      var sceneId = lineId.slice(9, -9);
+      var response = state.sceneResponses[sceneId];
+      var dialogueScene = allScenes.find(function (scene) { return scene.id === sceneId; });
+      if (!dialogueScene) return null;
       return {
         id: lineId,
         ko: response && response.transcript ? response.transcript : dialogueScene.interaction.supplementKo,
@@ -676,7 +989,7 @@
       };
     }
     var found = null;
-    scenes.some(function (scene) {
+    allScenes.some(function (scene) {
       found = scene.lines.find(function (line) { return line.id === lineId; });
       return Boolean(found);
     });
@@ -799,20 +1112,40 @@
       renderSettings();
       return;
     }
+    diagnosticTtsToken += 1;
+    var token = diagnosticTtsToken;
     window.speechSynthesis.cancel();
+    resumeSpeechSynthesisIfPaused();
     var lang = language === "vi" ? "vi-VN" : "ko-KR";
     var voice = getVoiceForLanguage(lang);
-    if (!voice) {
-      diagnosticState.status = language === "vi" ? "베트남어 음성을 찾지 못했습니다." : "한국어 음성을 찾지 못했습니다.";
-      renderSettings();
-      return;
-    }
     var utterance = new SpeechSynthesisUtterance(language === "vi" ? "Xin chào. Đây là bài kiểm tra giọng nói tiếng Việt." : "안녕하세요. 한국어 음성 환경 시험입니다.");
-    utterance.lang = lang;
-    utterance.voice = voice;
-    utterance.onstart = function () { diagnosticState.status = language === "vi" ? "베트남어 TTS를 재생하고 있습니다." : "한국어 TTS를 재생하고 있습니다."; renderSettings(); };
-    utterance.onend = function () { diagnosticState.status = "TTS 시험을 마쳤습니다."; renderSettings(); };
-    utterance.onerror = function (event) { setDiagnosticError({ name: event.error || "TtsError", message: "TTS 시험을 재생하지 못했습니다." }); };
+    configureUtterance(utterance, lang, 1, voice);
+    var watch = startWatch(utterance, function (code) {
+      if (token !== diagnosticTtsToken) return;
+      rememberTtsError(code);
+      diagnosticState.status = speechNotice(lang);
+      renderSettings();
+    });
+    utterance.onstart = function () {
+      if (token !== diagnosticTtsToken) return;
+      watch.started();
+      diagnosticState.lastTtsErrorCode = "";
+      diagnosticState.status = language === "vi" ? "베트남어 TTS를 재생하고 있습니다." : "한국어 TTS를 재생하고 있습니다.";
+      renderSettings();
+    };
+    utterance.onend = function () {
+      if (token !== diagnosticTtsToken) return;
+      watch.finished();
+      diagnosticState.status = "TTS 시험을 마쳤습니다.";
+      renderSettings();
+    };
+    utterance.onerror = function (event) {
+      if (token !== diagnosticTtsToken) return;
+      watch.finished();
+      rememberTtsError(event.error || "TtsError");
+      diagnosticState.status = speechNotice(lang);
+      renderSettings();
+    };
     window.speechSynthesis.speak(utterance);
   }
   function stopDiagnosticMedia(revokeRecording) {
@@ -838,6 +1171,7 @@
     }
   }
   function stopAllVoiceAndMicrophone() {
+    diagnosticTtsToken += 1;
     stopDiagnosticMedia(false);
     cleanupRecordingSession({ keepRecordedBlob: true, discardPending: true });
     stopSpeech();
@@ -1015,12 +1349,23 @@
   function playReferenceTts(line, token, resolve) {
     if (!speechSupported() || token !== comparisonToken) { resolve(); return; }
     var voice = getVoiceForLanguage("ko-KR");
-    if (!voice) { showSpeechNotice(speechNotice("ko-KR")); resolve(); return; }
     var utterance = new SpeechSynthesisUtterance(line.ko);
-    utterance.lang = "ko-KR";
-    utterance.voice = voice;
-    utterance.onend = resolve;
-    utterance.onerror = resolve;
+    configureUtterance(utterance, "ko-KR", 1, voice);
+    var settled = false;
+    function finish(errorCode) {
+      if (settled) return;
+      settled = true;
+      if (errorCode && token === comparisonToken) {
+        rememberTtsError(errorCode);
+        showSpeechNotice(speechNotice("ko-KR"));
+      }
+      resolve();
+    }
+    var watch = startWatch(utterance, function (code) { finish(code); });
+    utterance.onstart = watch.started;
+    utterance.onend = function () { watch.finished(); finish(); };
+    utterance.onerror = function (event) { watch.finished(); finish(event.error || "TtsError"); };
+    resumeSpeechSynthesisIfPaused();
     window.speechSynthesis.speak(utterance);
   }
   async function compareRecording(lineId) {
@@ -1079,6 +1424,7 @@
     cleanupRecordingSession({ keepRecordedBlob: true });
     var token = ++state.playbackToken;
     stopCurrentAudio(false);
+    resumeSpeechSynthesisIfPaused();
     var audioSource = options.rate <= 0.7 ? options.audioSlow : options.audioNormal;
     if (audioSource) {
       recordedAudio = new Audio(audioSource);
@@ -1093,14 +1439,26 @@
   function speakWithBrowserVoice(options, token) {
     if (!speechSupported()) { showSpeechNotice(speechNotice(options.lang)); return; }
     var voice = getVoiceForLanguage(options.lang);
-    if (!voice) { showSpeechNotice(speechNotice(options.lang)); return; }
     var utterance = new SpeechSynthesisUtterance(options.text);
-    utterance.lang = options.lang;
-    utterance.rate = options.rate || 1;
-    utterance.voice = voice;
-    utterance.onstart = function () { if (token === state.playbackToken) setActiveSpeech(options.speechKey, options.lang); };
-    utterance.onend = function () { if (token === state.playbackToken) clearActiveSpeech(); };
-    utterance.onerror = function () { if (token === state.playbackToken) { clearActiveSpeech(); showSpeechNotice(speechNotice(options.lang)); } };
+    configureUtterance(utterance, options.lang, options.rate, voice);
+    var failed = false;
+    function fail(code) {
+      if (failed || token !== state.playbackToken) return;
+      failed = true;
+      rememberTtsError(code);
+      clearActiveSpeech();
+      showSpeechNotice(speechNotice(options.lang));
+    }
+    var watch = startWatch(utterance, fail);
+    utterance.onstart = function () {
+      watch.started();
+      if (token === state.playbackToken) {
+        diagnosticState.lastTtsErrorCode = "";
+        setActiveSpeech(options.speechKey, options.lang);
+      }
+    };
+    utterance.onend = function () { watch.finished(); if (token === state.playbackToken) clearActiveSpeech(); };
+    utterance.onerror = function (event) { watch.finished(); fail(event.error || "TtsError"); };
     window.speechSynthesis.speak(utterance);
   }
   function speakScene(language, slow) {
@@ -1109,19 +1467,27 @@
     var index = 0;
     var token = ++state.playbackToken;
     stopCurrentAudio(false);
+    resumeSpeechSynthesisIfPaused();
     function next() {
       if (token !== state.playbackToken || index >= scene.lines.length) { clearActiveSpeech(); return; }
       var line = scene.lines[index++];
       var vi = language === "vi";
-      var voice = getVoiceForLanguage(vi ? "vi-VN" : "ko-KR");
-      if (!voice) { showSpeechNotice(speechNotice(vi ? "vi-VN" : "ko-KR")); return; }
+      var lang = vi ? "vi-VN" : "ko-KR";
+      var voice = getVoiceForLanguage(lang);
       var utterance = new SpeechSynthesisUtterance(vi ? line.vi : line.ko);
-      utterance.lang = vi ? "vi-VN" : "ko-KR";
-      utterance.rate = slow ? 0.7 : (vi ? 0.9 : 1);
-      utterance.voice = voice;
-      utterance.onstart = function () { setActiveSpeech(line.id, utterance.lang); };
-      utterance.onend = next;
-      utterance.onerror = function () { clearActiveSpeech(); showSpeechNotice(speechNotice(utterance.lang)); };
+      configureUtterance(utterance, lang, slow ? 0.7 : (vi ? 0.9 : 1), voice);
+      var failed = false;
+      function fail(code) {
+        if (failed || token !== state.playbackToken) return;
+        failed = true;
+        rememberTtsError(code);
+        clearActiveSpeech();
+        showSpeechNotice(speechNotice(lang));
+      }
+      var watch = startWatch(utterance, fail);
+      utterance.onstart = function () { watch.started(); if (token === state.playbackToken) { diagnosticState.lastTtsErrorCode = ""; setActiveSpeech(line.id, lang); } };
+      utterance.onend = function () { watch.finished(); if (!failed) next(); };
+      utterance.onerror = function (event) { watch.finished(); fail(event.error || "TtsError"); };
       window.speechSynthesis.speak(utterance);
     }
     next();
@@ -1132,20 +1498,27 @@
     var index = 0;
     var token = ++state.playbackToken;
     stopCurrentAudio(false);
+    resumeSpeechSynthesisIfPaused();
     function next() {
       if (token !== state.playbackToken || index >= lines.length) { clearActiveSpeech(); return; }
       var line = lines[index++];
       var vi = language === "vi";
       var lang = vi ? "vi-VN" : "ko-KR";
       var voice = getVoiceForLanguage(lang);
-      if (!voice) { showSpeechNotice(speechNotice(lang)); return; }
       var utterance = new SpeechSynthesisUtterance(vi ? line.vi : line.ko);
-      utterance.lang = lang;
-      utterance.rate = slow ? .7 : (vi ? .9 : 1);
-      utterance.voice = voice;
-      utterance.onstart = function () { setActiveSpeech(line.id, lang); };
-      utterance.onend = next;
-      utterance.onerror = function () { clearActiveSpeech(); showSpeechNotice(speechNotice(lang)); };
+      configureUtterance(utterance, lang, slow ? .7 : (vi ? .9 : 1), voice);
+      var failed = false;
+      function fail(code) {
+        if (failed || token !== state.playbackToken) return;
+        failed = true;
+        rememberTtsError(code);
+        clearActiveSpeech();
+        showSpeechNotice(speechNotice(lang));
+      }
+      var watch = startWatch(utterance, fail);
+      utterance.onstart = function () { watch.started(); if (token === state.playbackToken) { diagnosticState.lastTtsErrorCode = ""; setActiveSpeech(line.id, lang); } };
+      utterance.onend = function () { watch.finished(); if (!failed) next(); };
+      utterance.onerror = function (event) { watch.finished(); fail(event.error || "TtsError"); };
       window.speechSynthesis.speak(utterance);
     }
     next();
@@ -1202,6 +1575,15 @@
       if (choice.dataset.answer === grammar.exercise.answerId) choice.classList.add("correct");
     });
     if (!correct) button.classList.add("incorrect");
+    if (correct && state.grammarCompleted.indexOf(grammar.id) === -1) {
+      state.grammarCompleted.push(grammar.id);
+      storage.save(KEYS.grammarCompleted, JSON.stringify(state.grammarCompleted));
+      if (grammar.id.indexOf("grammar.daga_") === 0 || grammar.id.indexOf("grammar.reason_") === 0) {
+        state.experience = Math.min(data.rules.maxExperience, state.experience + 10);
+        storage.save(data.storageKeys.experience, String(state.experience));
+        updateHeader();
+      }
+    }
     wrapper.querySelector(".feedback").textContent = correct ? "정답입니다. 이 문장을 다음 장면에서도 사용해 보세요." : "조금 더 살펴보세요. 정답 표현을 표시했습니다.";
   }
   function resetData() {
@@ -1210,15 +1592,21 @@
     stopDiagnosticMedia(true);
     Object.keys(data.storageKeys).forEach(function (name) { storage.remove(data.storageKeys[name]); });
     Object.keys(KEYS).forEach(function (name) { storage.remove(KEYS[name]); });
+    state.activeChapterId = "chapter.city_of_destruction";
+    scenes = scenesForChapter(state.activeChapterId);
+    state.chapterProgress = {};
     state.currentSceneId = scenes[0].id;
     state.completedScenes = [];
     state.sceneResponses = {};
     state.voiceAttempts = {};
     state.experience = 0;
     state.trust = 0;
+    state.helpTrust = 0;
+    state.grammarCompleted = [];
     state.savedWords = [];
     state.selectedAnswer = "";
     state.progress = { completedChapters: [], lastLocation: "journey" };
+    dialoguePracticeOpenState.clear();
     state.route = "journey";
     render();
     showToast("학습 기록을 초기화했습니다.");
@@ -1235,8 +1623,15 @@
     else if (target.dataset.diagnostic === "tts-ko") testDiagnosticTts("ko");
     else if (target.dataset.diagnostic === "tts-vi") testDiagnosticTts("vi");
     else if (target.dataset.diagnostic === "stop") stopAllVoiceAndMicrophone();
+    else if (target.dataset.action === "open-chapter") {
+      if (activateChapter(target.dataset.chapterId)) renderJourney();
+    }
     else if (target.dataset.action === "start-journey") {
-      state.currentSceneId = scenes[0].id;
+      activateChapter(target.dataset.chapterId || state.activeChapterId);
+      if (chapterIsComplete(state.activeChapterId)) {
+        state.currentSceneId = scenes[0].id;
+        state.completedScenes = [];
+      }
       persistV2();
       setRoute("player");
     } else if (target.dataset.action === "resume-journey") setRoute("player");
@@ -1263,7 +1658,11 @@
     }
     else if (target.dataset.action === "close-note") { state.activeNote = null; renderScenePlayer(); }
     else if (target.dataset.action === "start-recognition") startRecognition();
-    else if (target.dataset.action === "show-help") { state.recognitionState = "help"; renderDialogueScene(currentScene()); }
+    else if (target.dataset.action === "show-help") {
+      state.recognitionState = "help";
+      renderDialogueScene(currentScene());
+      revealDialogueOptions();
+    }
     else if (target.dataset.action === "retry-dialogue") {
       delete state.sceneResponses[currentScene().id];
       state.recognitionState = "idle";
@@ -1272,10 +1671,11 @@
     } else if (target.dataset.action === "show-record") { state.route = "result"; render(); }
     else if (target.dataset.action === "practice-again") {
       state.currentSceneId = scenes[0].id;
+      state.completedScenes = [];
       state.route = "player";
       persistV2();
       render();
-    } else if (target.dataset.action === "preview-next") showToast("다음 장소 ‘절망의 늪’은 2차 콘텐츠에서 열립니다.");
+    } else if (target.dataset.action === "preview-next") showToast(state.activeChapterId === "chapter.slough_of_despond" ? "다음 장소 ‘세속현자의 유혹’은 Chapter 03에서 열립니다." : "제1장을 완료하면 ‘절망의 수렁’이 열립니다.");
     else if (target.dataset.action === "reset") resetData();
     else if (target.dataset.viewMode) {
       state.viewMode = target.dataset.viewMode;
@@ -1312,6 +1712,21 @@
     }
     showToast("음성 설정을 저장했습니다.");
   });
+
+  document.addEventListener("toggle", function (event) {
+    var details = event.target;
+    if (!details.classList || !details.classList.contains("dialogue-line-practice")) return;
+    dialoguePracticeOpenState.set(details.dataset.practiceKey, details.open);
+  }, true);
+
+  document.addEventListener("error", function (event) {
+    var image = event.target;
+    if (!image.classList || !image.classList.contains("scene-background")) return;
+    var picture = image.closest(".scene-picture");
+    var fallbackPanel = picture && picture.nextElementSibling;
+    if (picture) picture.hidden = true;
+    if (fallbackPanel && fallbackPanel.classList.contains("scene-image-fallback")) fallbackPanel.hidden = false;
+  }, true);
 
   document.addEventListener("click", function (event) {
     var summary = event.target.closest(".recording-more > summary");
@@ -1357,20 +1772,9 @@
     stopSpeech();
     stopRecognition();
   });
-  if (speechSupported()) {
-    window.speechSynthesis.getVoices();
-    window.speechSynthesis.onvoiceschanged = function () {
-      if (state.route === "settings") {
-        renderSettings();
-        return;
-      }
-      document.querySelectorAll("[data-voice-select]").forEach(function (select) {
-        var language = select.dataset.voiceSelect;
-        select.innerHTML = voiceOptionsMarkup(language);
-        select.value = language === "vi" ? state.selectedVoiceVi : state.selectedVoiceKo;
-      });
-    };
-  }
+  initializeSpeechVoices();
   migrateV1();
+  migrateChapter02ContentV2();
+  migrateChapterProgressV3();
   render();
 }());
