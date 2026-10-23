@@ -1,0 +1,58 @@
+/* v1.1 landing refresh – scoped to main page only.
+   Preserve the pre-existing styles and all original service destinations. */
+body.home-renewed{background:#071522;color:#edf5fa;font-family:Inter,"Noto Sans KR",system-ui,sans-serif}
+.home-renewed .page{--max:1260px;width:min(calc(100% - 32px),1260px);margin:12px auto 55px;gap:20px}
+.home-renewed .venture-landing{min-height:620px;padding:24px 35px 26px;background:linear-gradient(100deg,#061525ec 0%,#071a2de3 59%,#102f3da9 100%),url('/assets/hero-medical-travel.jpg') center/cover no-repeat;border-color:#577c8550;border-radius:19px;box-shadow:0 26px 70px #0005}
+.home-renewed .venture-landing::before{background:linear-gradient(90deg,#78c7d714 1px,transparent 1px),linear-gradient(0deg,#76bed30e 1px,transparent 1px);background-size:105px 105px}
+.home-renewed .venture-landing .topbar{margin-bottom:44px;padding:12px 16px;border:1px solid #9fd4dd25;border-radius:12px;background:#071728c9;align-items:center;gap:20px;flex-wrap:nowrap}
+.home-renewed .brand{gap:11px;white-space:nowrap}.home-renewed .brand-logo{width:43px;height:43px;object-fit:cover}.home-renewed .brand-text{display:flex;flex-direction:column;line-height:1.15}.home-renewed .brand-text strong{font-size:14px;letter-spacing:.02em}.home-renewed .brand-text span{font-size:11px;color:#a9c8cd}
+.home-renewed .venture-landing .top-nav-main{flex:1;display:flex;justify-content:center;align-items:center;gap:clamp(13px,1.6vw,28px);min-width:0}
+.home-renewed .top-nav-main a{white-space:nowrap;color:#c6d9e3;font-size:clamp(11px,.95vw,14px);font-weight:600;letter-spacing:-.02em}
+.home-renewed .top-nav-main a:hover,.home-renewed .top-nav-main a:focus-visible{color:#a8e4e8}
+.home-renewed .venture-landing .top-tools{flex:0 0 auto;justify-content:flex-end;gap:10px;flex-wrap:nowrap}
+.home-renewed .language-select{gap:7px;flex-wrap:nowrap}.home-renewed .language-select>span{font-size:10px;color:#a6b8c0}
+.home-renewed .venture-landing .language-buttons{display:flex;gap:5px;flex-wrap:nowrap}
+.home-renewed .venture-landing .language-buttons button,.home-renewed .venture-landing .lang-btn{min-width:34px;min-height:34px;width:34px;height:34px;padding:2px;box-shadow:none;border-color:#6299a05c}
+.home-renewed .venture-landing .language-buttons button img,.home-renewed .venture-landing .lang-btn img{width:28px;height:28px}
+.home-renewed .venture-landing .lang-btn[aria-pressed=true]{box-shadow:0 0 0 1px #a7dfe4;border-color:#96d8dd}
+.home-renewed .venture-hero-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(310px,.8fr);align-items:center;gap:36px}
+.home-renewed .venture-copy{max-width:710px;padding:32px 10px 25px}.home-renewed .venture-eyebrow{border:0;padding:0;background:none;font-size:12px;letter-spacing:.14em;color:#8dd4d9}
+.home-renewed .venture-title{font-size:clamp(33px,4.15vw,57px);line-height:1.22;letter-spacing:-.045em;max-width:680px;color:#f2f9fc;text-shadow:none;word-break:keep-all}
+.home-renewed .venture-desc{font-size:clamp(14px,1.25vw,17px);line-height:1.85;max-width:640px;color:#bcd0db;word-break:keep-all}
+.home-renewed .venture-landing .hero-actions{margin-top:30px;gap:12px}.home-renewed .venture-landing .btn{min-height:48px;padding:12px 20px;border-radius:9px;font-size:13px}
+.home-renewed .venture-landing .btn.primary{background:#a9dfe2;color:#09232e;box-shadow:0 15px 32px #0003}
+.home-renewed .venture-landing .btn.secondary{background:#ffffff08;border:1px solid #88abb38c;color:#e2f3f3}
+.home-hero-eyeline{display:flex;gap:9px;align-items:center;margin-top:26px;color:#9dbbc4;font-size:12px}.home-hero-eyeline::before{content:"";width:7px;height:7px;border-radius:50%;background:#7ecad0;flex:none}
+.home-renewed .home-connection-panel{position:relative;border:1px solid #9fd4df36;background:linear-gradient(151deg,#204a5b9f,#081e30c9 70%);border-radius:14px;min-height:340px;box-shadow:0 18px 45px #0005;display:flex;flex-direction:column;justify-content:space-between;padding:28px;overflow:hidden}
+.home-connection-panel::before,.home-connection-panel::after{content:"";position:absolute;border:1px solid #83cfdb3c;border-radius:50%;width:410px;height:410px;right:-195px;top:-110px;pointer-events:none}.home-connection-panel::after{width:260px;height:260px;right:-119px;top:-34px}
+.home-connection-brand{font-size:10px;letter-spacing:.15em;color:#a9d8e0;font-weight:700}
+.home-connection-cities{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:clamp(22px,2.45vw,32px);font-weight:800;color:#f1f9f9;letter-spacing:.05em;position:relative;z-index:2}
+.home-connection-cities span:nth-child(2){font-size:26px;color:#a4e0e4}
+.home-connection-route{height:1px;background:#97cbd28e;margin:14px 0}.home-connection-route::before,.home-connection-route::after{content:"";position:relative;display:block;width:8px;height:8px;border-radius:50%;background:#a1e1e3;top:-3px}.home-connection-route::after{float:right;top:-11px}
+.home-connection-services{font-size:11px;color:#aed1d8;letter-spacing:.15em}
+.home-renewed .trust-badge-row{margin:19px 0 0;gap:9px}
+.home-renewed .trust-badge-row span{font-size:11px;border:1px solid #a0c4cc36;color:#c0d2d8;background:#0b2a3a66;padding:7px 13px}
+.home-renewed .home-trust-details{margin-top:15px;border-top:1px solid #c7dbdf22;padding-top:10px}
+.home-renewed .home-trust-details summary{display:list-item;cursor:pointer;color:#a8cbd1;font-size:12px;margin:5px 0 10px}
+.home-renewed .home-trust-details .venture-proof-panel{margin:15px 0;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.home-renewed .home-trust-details .royal-roots-hero-cta{margin-top:16px}
+.home-section-intro{text-align:center;max-width:760px;margin:60px auto 38px}.home-section-intro .home-overline{font-size:11px;letter-spacing:.2em;font-weight:800;color:#85cbd0}
+.home-section-intro h2{font-size:clamp(27px,3vw,40px);letter-spacing:-.045em;line-height:1.25;margin:14px 0}.home-section-intro p{color:#afc5d0;font-size:15px;margin:0;line-height:1.8}
+.home-gateway-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:0 0 20px}
+.home-gateway-card{position:relative;min-height:390px;display:flex;flex-direction:column;overflow:hidden;border:1px solid #668e9d5c;border-radius:15px;background:#102534;box-shadow:0 20px 42px #0003}
+.home-gateway-card::before{content:"";height:174px;display:block;position:relative;background-size:cover;background-position:center}
+.home-gateway-card.medical::before{background-image:linear-gradient(#0c2d3790,#10304055),url('/assets/dermatology-consultation.webp')}
+.home-gateway-card.tour::before{background-image:linear-gradient(#0c2d3790,#10304055),url('/assets/hero-medical-travel.jpg')}
+.home-gateway-card.study::before{background-image:linear-gradient(#0c2d3790,#10304055),url('/assets/assets/company/vietnamese-women-education.png')}
+.home-gateway-body{padding:23px 23px 25px;display:flex;flex-direction:column;gap:10px;flex:1}
+.home-gateway-index{display:flex;align-items:center;justify-content:space-between;font-size:11px;letter-spacing:.17em;color:#87cdd3;font-weight:800}.home-gateway-body h3{font-size:23px;margin:5px 0 0;letter-spacing:-.04em}.home-gateway-body p{font-size:13px;color:#b4c6d0;line-height:1.85;margin:0;flex:1}
+.home-gateway-body a{display:inline-flex;align-items:center;justify-content:space-between;gap:10px;align-self:flex-start;font-size:13px;font-weight:800;color:#a1e1e4;border-bottom:1px solid #76bbc4;padding:2px 1px 6px}
+.home-rnd-preview{border:1px solid #5c8d9c59;border-radius:16px;padding:34px;background:linear-gradient(105deg,#112d3e,#081a29);margin:18px 0 20px}
+.home-rnd-top{display:flex;justify-content:space-between;align-items:flex-start;gap:22px}.home-rnd-top h2{font-size:25px;margin:10px 0}.home-rnd-top p{font-size:13px;color:#abc3ce;margin:0;max-width:680px}.home-rnd-tag{white-space:nowrap;color:#8dced2;font-size:11px;letter-spacing:.12em;border:1px solid #608d966b;border-radius:7px;padding:8px 11px}
+.home-rnd-links{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:25px}.home-rnd-links a{border:1px solid #799da64c;background:#ffffff06;border-radius:9px;padding:14px;display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:13px;color:#d7e9ec}.home-rnd-links a:hover{border-color:#9bdae0;background:#ffffff0e}.home-rnd-links a::after{content:"↗";color:#83c7d0}
+.home-legacy-detail,.home-ip-detail{border:1px solid #637f8957;border-radius:13px;background:#071723;padding:14px 18px;margin:8px 0}.home-legacy-detail>summary,.home-ip-detail>summary{cursor:pointer;color:#9fd7dc;padding:9px 7px;font-size:14px;font-weight:700}.home-legacy-detail>div{display:grid;gap:18px;margin-top:18px}
+.home-legacy-detail .section-card{margin:0}.home-ip-detail .ip-section{margin-top:15px}.home-renewed .consult-cta-section{border-color:#699fa47a}
+@media(max-width:1100px){.home-renewed .venture-landing .topbar{flex-wrap:wrap}.home-renewed .venture-landing .top-nav-main{order:3;flex:1 1 100%;justify-content:flex-start;flex-wrap:wrap}.home-renewed .venture-landing .top-tools{margin-left:auto}.home-renewed .venture-hero-grid{grid-template-columns:1fr .75fr}}
+@media(max-width:760px){.home-renewed .page{width:calc(100% - 20px)}.home-renewed .venture-landing{padding:16px;min-height:auto}.home-renewed .venture-landing .topbar{padding:12px;gap:12px;margin-bottom:25px}.home-renewed .venture-landing .top-nav-main{justify-content:center;gap:10px 16px}.home-renewed .top-nav-main a{font-size:12px}.home-renewed .venture-hero-grid{grid-template-columns:1fr;gap:15px}.home-renewed .venture-copy{padding:16px 4px 8px}.home-renewed .venture-title{font-size:clamp(31px,7vw,43px)}.home-renewed .venture-desc{font-size:14px}.home-renewed .home-connection-panel{min-height:240px}.home-renewed .home-trust-details .venture-proof-panel{grid-template-columns:1fr}.home-gateway-grid{grid-template-columns:1fr}.home-gateway-card{min-height:unset}.home-gateway-card::before{height:180px}.home-rnd-preview{padding:24px}.home-rnd-top{flex-direction:column}.home-rnd-links{grid-template-columns:1fr 1fr}.home-section-intro{margin:35px auto 26px}}
+@media(max-width:490px){.home-renewed .venture-landing .brand-logo{height:34px;width:34px}.home-renewed .venture-landing .brand-text strong{font-size:12px}.home-renewed .venture-landing .top-tools{width:100%;justify-content:flex-start}.home-renewed .venture-landing .language-buttons button,.home-renewed .venture-landing .lang-btn{width:32px;height:32px;min-width:32px;min-height:32px}.home-renewed .venture-landing .top-nav-main{justify-content:flex-start}.home-renewed .venture-landing .hero-actions .btn{width:100%;justify-content:center}.home-rnd-links{grid-template-columns:1fr}.home-gateway-card::before{height:160px}}
+@media(prefers-reduced-motion:reduce){.home-renewed *{scroll-behavior:auto!important}}
