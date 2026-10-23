@@ -10,7 +10,7 @@ with sync_playwright() as p:
     page.goto('http://127.0.0.1:8080/dev-tools/study-korea-admin/')
     assert page.locator('article').count()==4
     card=page.locator('article[data-id=DEMO-S01]')
-    card.locator('[name=status]').select_option('reviewing')
+    card.locator('[name=status]').select_option('CONTACT_ATTEMPTED')
     card.locator('[name=assignee]').select_option('student-admin-2')
     card.locator('button').click()
     assert '실제 저장은 하지 않았습니다' in page.locator('#feedback').inner_text()
@@ -24,19 +24,19 @@ with sync_playwright() as p:
     assert page.locator('article').count()==0
     assert page.locator('#audit li').count()==0
     page.locator('#actor').select_option('supervisor')
-    page.locator('#status-filter').select_option('reviewing')
-    assert page.locator('article').count()==2
+    page.locator('#status-filter').select_option('CONTACT_ATTEMPTED')
+    assert page.locator('article').count()==1
     page.locator('#status-filter').select_option('all')
     page.screenshot(path=str(root/'docs/study-korea-previews/admin-desktop.png'),full_page=True)
     for language in ['ko','vi']:
         if language=='vi': page.locator('#language').click()
-        for width in [360,390,768,1280]:
+        for width in [360,390,430,768,1280]:
             page.set_viewport_size({'width':width,'height':844})
             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth'),(language,width)
     page.set_viewport_size({'width':390,'height':844})
     page.screenshot(path=str(root/'docs/study-korea-previews/admin-mobile.png'),full_page=True)
     page.reload()
-    assert page.locator('article[data-id=DEMO-S01] [name=status]').input_value()=='new'
+    assert page.locator('article[data-id=DEMO-S01] [name=status]').input_value()=='NEW'
     assert page.locator('#audit li').count()==0
     assert not page.evaluate('Object.keys(localStorage).length')
     assert not errors, errors

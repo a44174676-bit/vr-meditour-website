@@ -1,4 +1,5 @@
 'use strict';
+const { validate } = require('../../study-korea/validation.js');
 // Disabled by default. No existing medical webhook is reused.
 // Receiver contract and approval checklist: docs/study-korea.md.
 const reply = (statusCode, body) => ({ statusCode, headers: {
@@ -7,7 +8,7 @@ const reply = (statusCode, body) => ({ statusCode, headers: {
 }, body: JSON.stringify(body) });
 function configuration() {
   const e = process.env;
-  if (e.STUDY_KOREA_ENABLED !== 'true' || e.STUDY_KOREA_RECEIVER_VERIFIED !== 'true' ||
+  if (e.STUDY_KOREA_INTAKE_SCOPE_APPROVED !== 'true' || e.STUDY_KOREA_ENABLED !== 'true' || e.STUDY_KOREA_RECEIVER_VERIFIED !== 'true' ||
       !e.STUDY_KOREA_RECEIVER_TOKEN || !e.STUDY_KOREA_POLICY_VERSION ||
       !e.STUDY_KOREA_POLICY_KO || !e.STUDY_KOREA_POLICY_VI) return null;
   try {
@@ -15,13 +16,14 @@ function configuration() {
     const origin = new URL(e.STUDY_KOREA_SITE_ORIGIN);
     if (url.protocol !== 'https:' || url.username || url.password || origin.protocol !== 'https:' || origin.origin !== e.STUDY_KOREA_SITE_ORIGIN) return null;
     return { url: url.href, origin: origin.origin, token: e.STUDY_KOREA_RECEIVER_TOKEN,
+      marketing: e.STUDY_KOREA_MARKETING_VERSION && e.STUDY_KOREA_MARKETING_KO && e.STUDY_KOREA_MARKETING_VI ? { version: e.STUDY_KOREA_MARKETING_VERSION, ko: e.STUDY_KOREA_MARKETING_KO, vi: e.STUDY_KOREA_MARKETING_VI } : null,
       version: e.STUDY_KOREA_POLICY_VERSION, policy: { ko: e.STUDY_KOREA_POLICY_KO, vi: e.STUDY_KOREA_POLICY_VI } };
   } catch { return null; }
 }
 exports.handler = async event => {
   if (!['GET', 'POST'].includes(event.httpMethod)) return reply(405, { accepted: false });
   const config = configuration();
-  if (event.httpMethod === 'GET') return reply(200, config ? { enabled: true, version: config.version, policy: config.policy } : { enabled: false });
+  if (event.httpMethod === 'GET') return reply(200, config ? { enabled: true, version: config.version, policy: config.policy, marketing: config.marketing } : { enabled: false });
   if (!config) return reply(503, { accepted: false });
   const headers = Object.fromEntries(Object.entries(event.headers || {}).map(([k,v]) => [k.toLowerCase(), v]));
   if (headers.origin !== config.origin) return reply(403, { accepted: false });
@@ -30,21 +32,16 @@ exports.handler = async event => {
   let data;
   try { data = JSON.parse(event.body || ''); } catch { return reply(400, { accepted: false }); }
   if (!data || typeof data !== 'object' || Array.isArray(data)) return reply(400, { accepted: false });
-  const fields = data.kind === 'student' ? { name: 80, contact: 80, country: 80, message: 3000 } :
-    data.kind === 'partner' ? { organization: 120, name: 80, email: 254, contact: 80, message: 3000 } : null;
-  if (!fields || data.website || data.consent !== true || data.policyVersion !== config.version ||
-      !['ko', 'vi'].includes(data.lang) || typeof data.submissionId !== 'string' ||
-      !/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(data.submissionId)) return reply(400, { accepted: false });
-  const interests = data.kind === 'student' ? ['language', 'undergraduate', 'graduate', 'undecided'] : ['agency', 'university', 'settlement', 'other'];
-  if (!interests.includes(data.interest)) return reply(400, { accepted: false });
-  const payload = {};
-  for (const [key, max] of Object.entries(fields)) {
-    if (typeof data[key] !== 'string' || !data[key].trim() || data[key].length > max || /[\u0000-\u0008\u000b\u000c\u000e-\u001f]/.test(data[key])) return reply(400, { accepted: false });
-    payload[key] = data[key].trim();
-  }
-  if (data.kind === 'partner' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email)) return reply(400, { accepted: false });
-  Object.assign(payload, { service: 'vr-student-korea', kind: data.kind, interest: data.interest, lang: data.lang,
-    submissionId: data.submissionId, consent: true, policyVersion: config.version, receivedAt: new Date().toISOString() });
+  if (data.policyVersion !== config.version || !['ko','vi'].includes(data.lang) ||
+      typeof data.submissionId !== 'string' || !/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(data.submissionId)) return reply(400,{accepted:false});
+  const { errors, payload } = validate(data);
+  if (Object.keys(errors).length) return reply(400,{accepted:false,errors});
+  if (payload.marketing_opt_in && (!config.marketing || data.marketingVersion !== config.marketing.version)) return reply(400,{accepted:false,errors:{marketing_opt_in:'invalid'}});
+  const now = new Date().toISOString();
+  Object.assign(payload, { service:'vr-student-korea', lang:data.lang, submissionId:data.submissionId,
+    status:'NEW', created_at:now,
+    consent_record:{ policy_version:config.version, required_ack:true, marketing_opt_in:payload.marketing_opt_in,
+      marketing_version:payload.marketing_opt_in ? config.marketing.version : null, timestamp:now } });
   try {
     const response = await fetch(config.url, { method: 'POST', redirect: 'error',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${config.token}`, 'Idempotency-Key': data.submissionId },
