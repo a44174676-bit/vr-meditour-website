@@ -27,7 +27,6 @@
   <meta name="twitter:url" content="https://vr-meditour.com/" />
   <link rel="icon" href="/assets/logo.jpg" />
   <link rel="stylesheet" href="styles.css" />
-<link rel="stylesheet" href="/public/home-renewal.css" />
   <link rel="stylesheet" href="/public/assets/css/language-icons.css" />
   <script type="application/ld+json">
 {
@@ -148,7 +147,7 @@
 }
   </script>
 </head>
-<body class="home-renewed">
+<body>
   <a class="skip-link" href="#consult-form">Skip to consultation form</a>
   <main class="page" id="top">
     <section class="hero venture-landing">
@@ -160,9 +159,56 @@
             <span>&amp; HOME</span>
           </div>
         </a>
-        <nav class="top-nav top-nav-main" aria-label="주요 메뉴"><a href="#medical" data-home-i18n="navMedical">의료관광</a><a href="/tours/" data-home-i18n="navTours">한국 여행</a><a href="/edu/" data-home-i18n="navStudy">한국 유학·정착</a><a href="/public/company-profile.html" data-home-i18n="navCompany">회사소개·제휴</a></nav>
+        <nav class="top-nav top-nav-main" aria-label="주요 메뉴">
+          <a href="/public/company-profile.html" data-i18n="navCompanyProfile">Company</a>
+          <a href="/tours/" data-i18n="navKoreaTours">Korea Tours</a>
+          <a href="/public/company-profile.html#agent-trust" data-i18n="navTrustCenter">Trust Center</a>
+          <a href="/public/faq.html" data-i18n="navFaq">FAQ</a>
+          <a href="/public/medi-hana/" data-i18n="navContact">Contact</a>
+        </nav>
         <div class="top-tools">
-          
+          <nav class="top-nav top-nav-cta" aria-label="AI quick links">
+            <a class="nav-ai-link" href="/public/ai-skin-analysis-kbeauty.html" aria-label="AI 피부 분석 체험하기">
+              <span aria-hidden="true">🧬</span>
+              <span data-i18n="navAiSkinMenu">AI 피부분석</span>
+            </a>
+            <a class="nav-ai-link" href="/medical-mydata-ai/" aria-label="Medical MyData AI">
+              <span aria-hidden="true">MD</span>
+              <span data-i18n="navMyDataAi">의료마이데이터 AI</span>
+            </a>
+            <a class="nav-ai-link" href="/public/medi-hana/" aria-label="AI 의료관광 상담 도우미에게 질문하기">
+              <span aria-hidden="true">🤖</span>
+              <span data-i18n="navAiConsult">AI 상담</span>
+            </a>
+            <a
+              class="nav-ai-link"
+              href="/ai-interpreter/"
+              aria-label="VR MEDI TALK AI 통역 열기"
+              data-i18n-aria="navAiInterpreterAria"
+            >
+              <span aria-hidden="true">🎙️</span>
+              <span data-i18n="navAiInterpreter">AI 통역</span>
+            </a>
+            <a class="nav-ai-link" href="/public/amis-travel-lounge/" aria-label="AMIS Travel Lounge로 이동">
+              <span aria-hidden="true">🧭</span>
+              <span data-i18n="navAmisTour">AMIS Travel Lounge</span>
+            </a>
+            <a class="nav-ai-link" href="/public/store/" aria-label="AMIS Goods Store">
+              <span aria-hidden="true">🎁</span>
+              <span data-i18n="navAmisStore">AMIS Goods Store</span>
+            </a>
+            <a class="nav-ai-link" href="/tours/" aria-label="Korea Tours">
+              <span aria-hidden="true">🌏</span>
+              <span data-i18n="navKoreaTours">Korea Tours</span>
+            </a>
+            <a class="nav-ai-link" href="/korean-practice/" aria-label="베트남어권 사용자를 위한 한국어 단어·의료관광 문장 학습" title="베트남어권 사용자를 위한 한국어 단어·의료관광 문장 학습" data-i18n-aria="serviceKoreanPracticeTitle" data-i18n-title="serviceKoreanPracticeTitle">
+              <span data-i18n="serviceKoreanPractice">🇰🇷 한국어 연습</span>
+            </a>
+            <a class="nav-ai-link" href="/omniball-ski/" aria-label="옴니볼 스키 제품 소개">
+              <span aria-hidden="true">↗</span>
+              <span data-i18n="navOmniball">옴니볼 스키</span>
+            </a>
+          </nav>
           <div class="language-select">
           <span data-i18n="languageLabel">언어</span>
           <div class="language-buttons language-character-group" id="languageButtons" aria-label="Language selector">
@@ -188,11 +234,18 @@
 
       <div class="hero-grid venture-hero-grid">
         <article class="hero-copy venture-copy">
-          <p class="eyebrow venture-eyebrow" data-home-i18n="eyebrow">KOREA · VIETNAM | MEDICAL · TRAVEL · EDUCATION</p>
-          <h1 class="hero-title venture-title" data-home-i18n="headline">한국에서의 새로운 시작, 믿을 수 있는 연결에서 출발합니다.</h1>
-          <p class="hero-desc venture-desc" data-home-i18n="description">의료관광, 한국 여행, 유학·정착 지원까지. VR MEDI TOUR &amp; HOME이 고객과 기관의 목적에 맞는 서비스를 안내합니다.</p>
-          <div class="hero-actions"><a class="btn primary" href="#home-services" data-home-i18n="viewServices">서비스 살펴보기 ↗</a><a class="btn secondary" href="/edu/#edu-b2b-form" data-home-i18n="partnerInquiry">기업·기관 제휴 문의 →</a></div>
-          <div class="home-hero-eyeline" data-home-i18n="eyeline">확인 가능한 법인 등록 · 투명한 상담 · 협력기관 중심 서비스</div>
+          <p class="eyebrow venture-eyebrow" data-i18n="heroEyebrow">AI·VR 의료관광 벤처기업</p>
+          <h1 class="hero-title venture-title" data-i18n="heroTitle">AI·VR 의료관광 벤처기업,<br />한국 의료관광의 길을 설계합니다</h1>
+          <p class="hero-desc venture-desc" data-i18n="heroDesc">VR MEDI TOUR &amp; HOME은 외국인 환자 유치, AI 상담 정리, AI 피부 분석, 여행 라운지, 의료관광 여정을 하나의 신뢰 기반 경험으로 연결합니다.</p>
+          <div class="hero-actions">
+            <a href="/public/medi-hana/" class="btn primary" data-i18n="heroCtaConsult" aria-label="Go to Medi Hana consultation">Request Consultation</a>
+            <a href="/medical-mydata-ai/" class="btn primary" data-i18n="heroCtaMyData" aria-label="Go to Medical MyData AI">의료마이데이터 AI</a>
+            <a href="/partners/hospital/" class="btn secondary" data-i18n="heroCtaPartner" aria-label="Go to hospital partnership inquiry">Hospital Partners</a>
+            <a href="/partners/travel-agency/" class="btn secondary" data-i18n="heroCtaTravelPartner" aria-label="Go to Vietnam travel agency partnership inquiry">여행사 파트너 문의</a>
+            <a href="#venture-certificate" class="btn secondary" data-i18n="heroCtaVenture" aria-label="View venture certificate">벤처기업 인증 보기</a>
+            <a href="/public/amis-travel-lounge/" class="btn secondary" data-i18n="heroCtaAmis" aria-label="Go to AMIS Travel Lounge">AI 관광 루트</a>
+            <a href="/tours/vietnam-royal-roots" class="btn secondary" data-i18n="heroCtaRoyalRoots" aria-label="Go to Vietnam Royal Roots tour">🌏 Royal Roots Tour</a>
+          </div>
           <div class="medical-law-notice" aria-label="의료법상 고지">
             <span data-i18n="legalNotice1">병원이 아닙니다.</span>
             <span data-i18n="legalNotice2">진단하지 않습니다.</span>
@@ -200,26 +253,56 @@
             <span data-i18n="legalNotice4">최종 의료 결정은 한국 면허 의료기관이 수행합니다.</span>
           </div>
         </article>
-        <aside class="home-connection-panel" aria-label="한국과 베트남 연결 서비스"><div class="home-connection-brand">VR MEDI TOUR & HOME · CONNECTING PEOPLE</div><div><div class="home-connection-cities"><span>VIETNAM</span><span aria-hidden="true">↗</span><span>KOREA</span></div><div class="home-connection-route"></div></div><div class="home-connection-services">MEDICAL TOURISM · KOREA TOURS · EDUCATION</div></aside>
+        <aside class="venture-proof-panel" aria-label="벤처기업 인증 및 소개 영상">
+          <div class="venture-certificate-card" id="venture-certificate">
+            <p class="certificate-kicker" data-i18n="ventureCertificateKicker">Venture Company Certificate</p>
+            <h2 data-i18n="ventureCertificateTitle">벤처기업 인증</h2>
+            <dl class="certificate-list">
+              <div>
+                <dt data-i18n="ventureCompanyLabel">기업명</dt>
+                <dd data-i18n="ventureCompanyName">주식회사 브이알메디투어앤홈</dd>
+              </div>
+              <div>
+                <dt data-i18n="ventureTypeLabel">확인유형</dt>
+                <dd data-i18n="ventureTypeValue">혁신성장유형</dd>
+              </div>
+              <div>
+                <dt data-i18n="ventureValidLabel">유효기간</dt>
+                <dd data-i18n="ventureValidValue">2026.06.09 ~ 2029.06.08</dd>
+              </div>
+              <div>
+                <dt data-i18n="ventureIssueLabel">발급번호</dt>
+                <dd data-i18n="ventureIssueValue">제20260609030039호</dd>
+              </div>
+            </dl>
+          </div>
+          <figure class="hero-image-wrap venture-video-card">
+            <iframe
+              class="hero-video"
+              src="https://www.youtube.com/embed/1WIQqf63koc?rel=0"
+              title="VR MEDI TOUR introduction video"
+              loading="lazy"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+            ></iframe>
+          </figure>
+        </aside>
       </div>
       <div class="trust-badge-row" aria-label="신뢰 등록 배지">
         <span data-i18n="trustBadgeForeign">외국인 환자 유치 등록</span>
         <span data-i18n="trustBadgeTour">관광 사업 등록</span>
         <span data-i18n="trustBadgeCommerce">통신 판매 등록</span>
-        
+        <span data-i18n="trustBadgePrivacy">개인정보보호 관리체계</span>
+      </div>
+      <div class="venture-certificate-card royal-roots-hero-cta">
+        <p class="certificate-kicker" data-i18n="tourBadge">베트남 여행사 대상 역사·문화 여행</p>
+        <h2 data-i18n="royalRootsCardTitle">Vietnamese Royal Roots in Korea</h2>
+        <p data-i18n="royalRootsCardDesc">A Korea heritage tour connecting Bonghwa, Gyeongbuk UNESCO, and K-wellness for the Vietnam market.</p>
+        <a class="btn primary" href="/tours/vietnam-royal-roots" data-i18n="royalRootsCardButton">View Tour Page</a>
       </div>
     </section>
 
-    <section id="home-services" aria-labelledby="home-services-title">
-      <div class="home-section-intro"><span class="home-overline">OUR SERVICES · CHOOSE YOUR PATH</span><h2 id="home-services-title" data-home-i18n="servicesTitle">무엇을 도와드릴까요?</h2><p data-home-i18n="servicesDesc">목적에 맞는 서비스를 선택하세요. 필요한 안내부터 다음 단계까지 연결합니다.</p></div>
-      <div class="home-gateway-grid">
-        <article class="home-gateway-card medical" id="medical"><div class="home-gateway-body"><div class="home-gateway-index">01 · MEDICAL ↗</div><h3 data-home-i18n="medicalTitle">의료관광</h3><p data-home-i18n="medicalDesc">협력 의료기관 중심으로 사전 문의 정리, 예약 연계, 통역 및 방한 일정 안내를 제공합니다. 진료 판단은 의료기관이 담당합니다.</p><a href="/public/medi-hana/" data-home-i18n="medicalCTA">의료관광 상담 안내 →</a></div></article>
-        <article class="home-gateway-card tour"><div class="home-gateway-body"><div class="home-gateway-index">02 · TRAVEL ↗</div><h3 data-home-i18n="tourTitle">한국 여행</h3><p data-home-i18n="tourDesc">베트남 방문객과 기관을 위한 한국 역사·문화·K-뷰티·웰니스 체험과 맞춤형 방한 일정 상담을 제공합니다.</p><a href="/tours/" data-home-i18n="tourCTA">한국 여행상품 보기 →</a></div></article>
-        <article class="home-gateway-card study"><div class="home-gateway-body"><div class="home-gateway-index">03 · EDUCATION ↗</div><h3 data-home-i18n="eduTitle">한국 유학·정착</h3><p data-home-i18n="eduDesc">한국 유학 사전 정보와 부산 초기 생활 안내, 베트남 현지 유학원·한국 교육기관 간 B2B 협력 문의를 연결합니다.</p><a href="/edu/" data-home-i18n="eduCTA">유학·정착 안내 보기 →</a></div></article>
-      </div>
-    </section>
-    <section class="home-rnd-preview" aria-labelledby="home-rnd-title"><div class="home-rnd-top"><div><span class="home-overline">TECH & R&D LAB</span><h2 id="home-rnd-title" data-home-i18n="rndTitle">기술·연구개발 및 체험</h2><p data-home-i18n="rndDesc">AI·VR 연구기능과 개발 중인 제품은 주력 서비스와 구분해 소개합니다. 아래 기능은 진단이나 법률적 판단을 대체하지 않습니다.</p></div><span class="home-rnd-tag">R&D · EXPERIENCE</span></div><div class="home-rnd-links"><a href="/ai-skin/" data-home-i18n="rndSkin">AI 피부 분석</a><a href="/medical-mydata-ai/" data-home-i18n="rndMydata">의료마이데이터 AI</a><a href="/ai-interpreter/" data-home-i18n="rndInterpret">AI 통역</a><a href="/korean-practice/" data-home-i18n="rndKorean">한국어 연습</a><a href="/omniball-ski/" data-home-i18n="rndOmni">옴니볼 스키</a><a href="/public/store/" data-home-i18n="rndStore">굿즈 스토어</a></div></section>
-    <details class="home-legacy-detail"><summary data-home-i18n="moreDetails">의료관광·기술·기존 상세 안내 펼쳐보기</summary><div>
     <section class="section-card verified-operator">
       <p class="eyebrow" data-i18n="verifiedEyebrow">Verified Venture Operator</p>
       <h2 data-i18n="verifiedTitle">AI·VR 의료관광 신뢰 운영 정보</h2>
@@ -367,7 +450,6 @@
 
 
 
-    </div></details>
     <span id="consultation" aria-hidden="true"></span>
     <section class="section-card consult-cta-section" id="consult-form">
       <div class="consult-cta-layout">
@@ -449,7 +531,6 @@
   </main>
 
   <script src="/public/medi-hana-consult.js" defer></script>
-  <script src="/public/home-renewal-i18n.js" defer></script>
   <script src="/public/site-language-data.js"></script>
   <script>
     const {baseEn, translations, languageMap, preferredLanguageLabels} = window.VRMT_LANGUAGE_DATA;
