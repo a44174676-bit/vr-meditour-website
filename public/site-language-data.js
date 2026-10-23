@@ -1580,5 +1580,8 @@ Object.assign(translations.en, {navFaq:"FAQ"});
 Object.assign(translations.vi, {navFaq:"Câu hỏi thường gặp"});
 Object.assign(translations.ja, {navFaq:"よくある質問"});
 Object.assign(translations.zh, {navFaq:"常见问题"});
+baseEn.navStudyKorea="Study in Korea";
+Object.assign(translations.ko, {navStudyKorea:"한국 유학"});
+Object.assign(translations.vi, {navStudyKorea:"Du học Hàn Quốc"});
 window.VRMT_LANGUAGE_DATA={baseEn,translations,languageMap,preferredLanguageLabels};
 })();
