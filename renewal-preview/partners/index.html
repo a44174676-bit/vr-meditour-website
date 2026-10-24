@@ -92,6 +92,13 @@
             <button id="email" class="btn btn-email" type="button" disabled data-l="email">이메일 앱으로 작성 ↗</button>
           </div>
           <p id="status" class="status" role="status" aria-live="polite" data-l="statusInitial">아직 생성된 요청서가 없습니다.</p>
+          <div class="preview-help" style="margin-top:12px;border:1px solid #456b77;padding:15px;border-radius:9px">
+            <strong>SERVER INTEGRATION CHECK · 테스트 전용</strong>
+            <p>가상 기관정보만 전송해 Netlify의 입력 검증과 응답을 확인합니다. 위 입력란에 작성한 내용은 전송하지 않습니다.</p>
+            <p lang="vi">Chỉ gửi dữ liệu giả định để kiểm tra máy chủ. Không gửi thông tin trong biểu mẫu bên trên.</p>
+            <button id="run-dryrun" class="btn btn-outline" type="button">가상 데이터로 서버 시험 / Test server ↗</button>
+            <p id="dryrun-result" role="status" aria-live="polite">미실행 / Chưa kiểm tra</p>
+          </div>
           <div class="preview-help"><strong data-l="important">중요 안내</strong><p data-l="disclaimer">‘이메일 앱으로 작성’을 눌러도 자동 발송되지 않습니다. 이메일 앱에서 직접 전송해야 하며, 회사의 수신·회신 여부는 이 화면에서 확인할 수 없습니다.</p></div>
         </aside>
       </div>
