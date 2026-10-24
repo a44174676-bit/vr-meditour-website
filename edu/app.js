@@ -67,7 +67,7 @@
   };
   // Preview guard: no personal information is submitted until privacy notice, storage,
   // data processors and form notifications have been verified by the site owner.
-  document.querySelectorAll('form[data-netlify="true"]').forEach(form => {
+  document.querySelectorAll('form[data-preview-only="true"]').forEach(form => {
     const submit=form.querySelector('button[type="submit"]');
     if(submit){submit.disabled=true;submit.setAttribute("aria-disabled","true");}
     form.addEventListener("submit", event => event.preventDefault());
