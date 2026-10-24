@@ -99,7 +99,7 @@
     <div class="edu-form-grid">
       <article class="edu-form-card" id="edu-b2b-form">
         <div class="edu-form-card-heading"><span class="edu-form-symbol">B2B</span><h3 data-i18n="b2bTitle">유학원·대학 제휴 문의</h3><p data-i18n="b2bDesc">베트남 현지 유학기관과 한국 대학·교육기관을 위한 협력 제안</p></div>
-        <form name="edu-partner-inquiry" method="POST" action="/edu/thank-you.html?type=partner" data-netlify="true" netlify-honeypot="bot-field">
+        <form name="edu-partner-inquiry" data-preview-only="true">
           <input type="hidden" name="form-name" value="edu-partner-inquiry">
           <p class="edu-honeypot"><label>Leave blank <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
           <label><span data-i18n="org">기관·기업명</span><input name="organization" maxlength="120" autocomplete="organization" required></label>
@@ -110,12 +110,12 @@
           <label><span data-i18n="message">문의 내용</span><textarea name="message" rows="3" maxlength="2000" required></textarea></label>
           <label class="edu-consent"><input type="checkbox" name="privacy_agreed" value="yes" required><span data-i18n="consent">상담 회신을 위한 개인정보 수집·이용 안내를 확인하고 동의합니다.</span></label>
           <a class="edu-policy-link" href="/public/privacy-policy.html" target="_blank" rel="noopener noreferrer" data-i18n="policy">개인정보처리방침(현재 검토용 초안) 보기 ↗</a>
-          <button class="edu-button edu-button-submit" type="submit" data-i18n="b2bSubmit">제휴 문의 보내기 →</button>
+          <button class="edu-button edu-button-submit" type="submit" disabled aria-disabled="true" data-i18n="b2bSubmit">제휴 문의 보내기 →</button>
         </form>
       </article>
       <article class="edu-form-card" id="edu-student-form">
         <div class="edu-form-card-heading"><span class="edu-form-symbol">STUDY</span><h3 data-i18n="studentTitle">학생·학부모 사전 문의</h3><p data-i18n="studentDesc">입학 정보·한국어 준비·부산 생활 안내를 위한 사전 문의</p></div>
-        <form name="edu-student-inquiry" method="POST" action="/edu/thank-you.html?type=student" data-netlify="true" netlify-honeypot="bot-field">
+        <form name="edu-student-inquiry" data-preview-only="true">
           <input type="hidden" name="form-name" value="edu-student-inquiry">
           <p class="edu-honeypot"><label>Leave blank <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
           <label><span data-i18n="studentName">학생 또는 학부모 성명</span><input name="contact_name" maxlength="80" autocomplete="name" required></label>
@@ -124,7 +124,7 @@
           <label><span data-i18n="message">문의 내용</span><textarea name="message" rows="3" maxlength="2000" required></textarea></label>
           <label class="edu-consent"><input type="checkbox" name="privacy_agreed" value="yes" required><span data-i18n="consent">상담 회신을 위한 개인정보 수집·이용 안내를 확인하고 동의합니다.</span></label>
           <a class="edu-policy-link" href="/public/privacy-policy.html" target="_blank" rel="noopener noreferrer" data-i18n="policy">개인정보처리방침(현재 검토용 초안) 보기 ↗</a>
-          <button class="edu-button edu-button-submit" type="submit" data-i18n="studentSubmit">사전 문의 보내기 →</button>
+          <button class="edu-button edu-button-submit" type="submit" disabled aria-disabled="true" data-i18n="studentSubmit">사전 문의 보내기 →</button>
         </form>
       </article>
     </div>
