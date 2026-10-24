@@ -146,6 +146,14 @@
     ]
 }
   </script>
+
+  <!-- PREVIEW ONLY: protect the non-production deployment; remove before production merge. -->
+  <meta name="robots" content="noindex,nofollow,noarchive" />
+  <style id="preview-guard-style">
+  .vrmt-preview-guard{position:sticky;top:0;z-index:99999;display:flex;justify-content:center;align-items:center;gap:12px;text-align:center;background:#452621;color:#fff2d5;padding:10px 18px;border-bottom:2px solid #f4b76a;font:600 13px/1.5 system-ui,sans-serif}
+  .vrmt-preview-guard a{color:#fff2d5;text-decoration:underline}
+  body[data-preview-mode] form button[type=submit],body[data-preview-mode] form input[type=submit]{opacity:.45;cursor:not-allowed;pointer-events:none}
+  </style>
 </head>
 <body>
   <a class="skip-link" href="#consult-form">Skip to consultation form</a>
@@ -695,6 +703,20 @@
     const querySiteLang = normalizeSiteLang(getQueryLang());
     const savedSiteLang = normalizeSiteLang(localStorage.getItem("vrMediTourLang"));
     applyLanguage(supportedSiteLangs.includes(querySiteLang) ? querySiteLang : (supportedSiteLangs.includes(savedSiteLang) ? savedSiteLang : "ko"));
+  </script>
+
+  <script id="vrmt-preview-guard">
+  (function(){
+    if(!/^deploy-preview-|^branch-/.test(location.hostname) && !location.hostname.endsWith('.netlify.app')) return;
+    document.body.setAttribute('data-preview-mode','true');
+    var bar=document.createElement('div');bar.className='vrmt-preview-guard';bar.setAttribute('role','status');
+    bar.textContent='TEST PREVIEW ONLY · 개발 시험 페이지입니다. 실제 개인정보를 입력하거나 제출하지 마세요. / Bản xem thử, không nhập dữ liệu cá nhân.';
+    document.body.insertBefore(bar,document.body.firstChild);
+    document.querySelectorAll('form').forEach(function(form){
+      form.querySelectorAll('button[type="submit"],input[type="submit"]').forEach(function(btn){btn.disabled=true;btn.setAttribute('aria-disabled','true')});
+    });
+    document.addEventListener('submit',function(ev){ev.preventDefault();ev.stopImmediatePropagation();},true);
+  })();
   </script>
 </body>
 </html>
