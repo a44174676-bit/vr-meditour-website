@@ -5,7 +5,7 @@ const path = require('node:path');
 const root = path.resolve(__dirname, '..');
 const output = path.join(root, 'dist');
 const manifest = JSON.parse(fs.readFileSync(path.join(__dirname, 'public-files.json'), 'utf8'));
-const denied = /(^|\/)(\.|docs(?:\/|$)|tests(?:\/|$)|scripts(?:\/|$)|dev-tools(?:\/|$)|netlify(?:\/|$)|backend(?:\/|$)|node_modules(?:\/|$))|\.(?:sql|py|md|toml|env|pem|key)$/i;
+const denied = /(^|\/)(\.|docs(?:\/|$)|tests(?:\/|$)|scripts(?:\/|$)|dev-tools(?:\/|$)|netlify(?:\/|$)|server(?:\/|$)|backend(?:\/|$)|node_modules(?:\/|$))|\.(?:sql|py|md|toml|env|pem|key)$/i;
 if (!Array.isArray(manifest) || !manifest.length || new Set(manifest).size !== manifest.length) throw new Error('Invalid public manifest');
 for (const file of manifest) {
   if (typeof file !== 'string' || file.includes('\\') || path.isAbsolute(file) || file.split('/').includes('..') || denied.test(file)) throw new Error(`Disallowed public path: ${file}`);

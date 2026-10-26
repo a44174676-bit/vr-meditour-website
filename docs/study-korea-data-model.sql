@@ -86,6 +86,7 @@ CREATE TABLE student_korea_private.admin_audit (
   id uuid PRIMARY KEY, actor_subject text NOT NULL, action text NOT NULL,
   lead_id uuid REFERENCES student_korea_private.leads(id) ON DELETE SET NULL,
   from_status text, to_status text,
+  from_assignee text, to_assignee text,
   occurred_at timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 CREATE TABLE student_korea_private.notification_outbox (

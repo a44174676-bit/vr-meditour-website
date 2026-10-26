@@ -20,7 +20,7 @@
 | FR-01 | P0 | 전 섹션·폼·오류·완료 한/베 전환 및 유지 | 완료(이전 필드 범위) | 구현 완료 | student.js, 양식·필드 오류·429/5xx·메타/OG·정책 전환. 초기 vi, 기존 언어 선택 유지. browser.py 검증. 원어민 승인 별도 |
 | FR-02 | P0 | 학생 리드 필수 동의 및 고유 ID 저장 | 부분 | 부분 구현 | 공유 검증·서버 동의시각/버전·UUID·접수 확인·기본 차단. DB 고유 ID 영구 저장/실데이터 검증 없음 |
 | FR-03 | P0 | 학생/파트너 데이터·알림·관리뷰 분리 | 부분 | 부분 구현 | STUDENT/PARTNER 허용필드 분리, 관리자 유형/배정 필터, 전용 schema/알림 audience 설계. 실제 DB/알림 분리 검증 없음 |
-| FR-04 | P0 | 비인가 URL 직접 접근 차단·권한별 열람 | 미구현 | 미구현 | 운영 관리자/API·Auth 없음. dev-tools는 가상 데이터 모의 UI이며 dist에서 제외. 실제 서버 인증으로 오인 금지 |
+| FR-04 | P0 | 비인가 URL 직접 접근 차단·권한별 열람 | 미구현 | 부분 구현 | 2026-10-26 서버 접근제어 서비스/미연결 503 래퍼 추가. 실제 Auth verifier/DB 어댑터·로그인 UI 없음. [API 준비 결과](study-korea-admin-api.md) 참조 |
 | FR-05 | P0 | 상태·담당자·변경시각 추적 | 부분 | 부분 구현 | PRD 6단계 상태, 4개 역할, 담당자/낙관적 동시수정 검사, actor/time 모의 이력. 실제 영속 로그·서버 권한·상담메모 UI 미구현 |
 | FR-06 | P0 | 360px 가로 넘침·가려진 CTA 없음 | 완료 | 구현 완료 | 360/390/430/768/1440px 양 언어 랜딩, 관리자 모바일 검증. 전체폭 CTA·label·키보드 FAQ·오류 연결. 실제 보조기기 검수 별도 |
 | FR-07 | P0 | 푸터 운영자·정책·별도 비용조건 접근 | 부분 | 부분 구현 | 정식 법인명·브랜드 구분·비용/환불 확정 전 판매 불가·처리 안내/법인 연락 링크 추가. 보유기간·개인정보 문의처·최종 정책 승인 필요 |
@@ -124,3 +124,7 @@
 ## 주요 변경 파일
 
 `study-korea/index.html`, `student.css`, `student.js`, 신규 `validation.js`, `content.js`, `universities.json`; `netlify/functions/study-korea-inquiry.js`; `public/site-language-data.js`; `scripts/public-files.json`; 관리자 `model.mjs`, `admin.mjs`, `index.html`; SQL/본 대조표/PRD 근거 문서; 서버·콘텐츠·브라우저·관리자 테스트와 6개 미리보기.
+
+## 2026-10-26 후속 작업
+
+[관리자 서버 API 준비 결과](study-korea-admin-api.md): 조회·상태·담당자·메모·감사 로직과 12개 서버 테스트를 추가했다. 기본 엔드포인트는 미연결 503이며 실제 인증/DB 저장은 아직 없다. 완료율은 변하지 않는다.
