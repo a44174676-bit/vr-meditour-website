@@ -7,6 +7,7 @@ const transitions = {
   CONTACTED: ['CONSULTING', 'CLOSED'], CONSULTING: ['QUALIFIED', 'CLOSED'],
   QUALIFIED: ['CLOSED'], CLOSED: []
 };
+const subjectPattern = /^[A-Za-z0-9_:.|@-]{1,128}$/;
 const idPattern = /^[A-Za-z0-9_-]{1,128}$/;
 const reply = (statusCode, body) => ({statusCode, headers: {
   'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store',
@@ -46,7 +47,7 @@ function createAdminHandler({verifySession, repository, origin, now = () => new 
       if ((headers.origin && headers.origin !== origin) || (method === 'PATCH' && headers.origin !== origin)) fail(403, 'ORIGIN_DENIED');
       let session;
       try { session = await verifySession(headers.authorization.slice(7)); } catch { fail(401, 'UNAUTHENTICATED'); }
-      if (!session || typeof session.subject !== 'string' || !idPattern.test(session.subject)) fail(401, 'UNAUTHENTICATED');
+      if (!session || typeof session.subject !== 'string' || !subjectPattern.test(session.subject)) fail(401, 'UNAUTHENTICATED');
       if (session.assurance !== 'aal2') fail(403, 'MFA_REQUIRED');
       const query = event.queryStringParameters || {};
       if (Object.keys(query).some(key => !['id', 'type', 'limit', 'cursor'].includes(key))) fail(400, 'INVALID_QUERY');
@@ -62,7 +63,7 @@ function createAdminHandler({verifySession, repository, origin, now = () => new 
         if (!change || typeof change !== 'object' || Array.isArray(change) || Object.keys(change).some(key => !['id', 'version', 'status', 'assignee_id', 'note'].includes(key))) fail(400, 'INVALID_CHANGE');
         if (typeof change.id !== 'string' || !idPattern.test(change.id) || !Number.isSafeInteger(change.version) || change.version < 1 ||
           (change.status !== undefined && !Object.hasOwn(transitions, change.status)) ||
-          (change.assignee_id !== undefined && (typeof change.assignee_id !== 'string' || !idPattern.test(change.assignee_id))) ||
+          (change.assignee_id !== undefined && (typeof change.assignee_id !== 'string' || !subjectPattern.test(change.assignee_id))) ||
           (change.note !== undefined && (typeof change.note !== 'string' || !change.note.trim() || [...change.note].length > 1000 || /[\u0000-\u0008\u000b\u000c\u000e-\u001f]/.test(change.note))) ||
           ['status', 'assignee_id', 'note'].every(key => change[key] === undefined)) fail(400, 'INVALID_CHANGE');
       }

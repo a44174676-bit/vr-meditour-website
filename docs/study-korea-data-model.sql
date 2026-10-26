@@ -1,4 +1,5 @@
--- PRD v1.0 §6, §8 reference design ONLY. Not executed; no DB/Auth connected.
+-- PRD v1.0 §6, §8 reference design. Validated only in a disposable local fixture DB.
+-- Never applied to a hosted/production DB; no external DB/Auth connected.
 -- Apply only after provider, region, retention, minor intake and security approval.
 CREATE SCHEMA student_korea_private;
 REVOKE ALL ON SCHEMA student_korea_private FROM PUBLIC;

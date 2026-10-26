@@ -1,0 +1,8 @@
+{
+  "name": "vr-student-korea-server",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Unwired server adapters; no production connection or migration commands",
+  "engines": { "node": ">=22" },
+  "dependencies": { "jose": "^6.1.0", "pg": "^8.16.0" }
+}
